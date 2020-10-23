@@ -73,7 +73,7 @@ string Printer::getPrinterStateString(string value)
         state = "Stopped";
         break;
     default:
-        state = "Unknown state: " + state;
+        state = "Unknown state: " + value;
         break;
     }
     return state;
