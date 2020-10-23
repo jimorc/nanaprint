@@ -34,6 +34,7 @@ namespace nanaprint
 
         private:
             std::string getPrinterStateString(std::string value);
+            std::string getPrinterTypeString(const std::string value) const;
             cups_dest_t* m_dest;
     };
 }
