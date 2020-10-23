@@ -24,7 +24,10 @@ int main()
     std::vector<std::shared_ptr<Printer>> pPrinters = printers.getPrinters();
     for(auto printer : pPrinters)
     {
-        cout << "Printer Dest = " << printer->getDest() << endl;
+        cout << "Printer: " << printer->getName() << '\n';
+        cout << "    Name = " << printer->getName() << '\n';
+
+        cout << endl;
     }
 
     return 0;

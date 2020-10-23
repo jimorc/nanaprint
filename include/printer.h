@@ -13,6 +13,7 @@
  */
 
 #include <memory>
+#include <string>
 #include <cups/cups.h>
 
 namespace nanaprint
@@ -20,10 +21,10 @@ namespace nanaprint
     class Printer
     {
         public:
-             virtual ~Printer() {}
-             static std::shared_ptr<Printer> create(cups_dest_t* dest);
+            virtual ~Printer() {}
+            static std::shared_ptr<Printer> create(cups_dest_t* dest);
 
-             cups_dest_t* getDest() { return m_dest; }
+            std::string getName() { return std::string(m_dest->name); }
 
         protected:
             Printer(cups_dest_t* dest);
