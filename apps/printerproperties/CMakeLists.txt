@@ -5,6 +5,14 @@ add_executable(printerproperties
     printerproperties.cpp
 )
 
+include_directories(
+    ../../include
+)
+
+target_link_libraries(printerproperties
+    cupsprint
+)
+
 target_compile_features(printerproperties
     PUBLIC
     cxx_std_20

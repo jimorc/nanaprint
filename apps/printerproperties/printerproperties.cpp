@@ -12,12 +12,14 @@
  */
 
 #include <iostream>
+#include "printers.h"
 
 using namespace std;
+using namespace nanaprint;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    Printers printers;
 
     return 0;
 }
