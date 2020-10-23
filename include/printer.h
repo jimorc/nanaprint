@@ -25,6 +25,7 @@ namespace nanaprint
             static std::shared_ptr<Printer> create(cups_dest_t* dest);
 
             std::string getName() { return std::string(m_dest->name); }
+            bool isDefault() { return m_dest->is_default; }
 
         protected:
             Printer(cups_dest_t* dest);

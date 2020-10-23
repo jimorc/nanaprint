@@ -26,6 +26,8 @@ int main()
     {
         cout << "Printer: " << printer->getName() << '\n';
         cout << "    Name = " << printer->getName() << '\n';
+        cout << "    Is " << (printer->isDefault() ? "" : "not ") <<
+            "default printer" << '\n';
 
         cout << endl;
     }
