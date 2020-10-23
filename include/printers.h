@@ -1,6 +1,5 @@
 /**
- *  \file printers.h
- *  \brief This file provides printers class and data structures required by nanaprint
+ *  \brief A Printers class
  *
  *	This header file is used in both Unix and Win32 implementations
  *	nanaprint C++ Library(http://www.github.com/jimorc/nanaprint)
@@ -10,16 +9,37 @@
  *	(See accompanying file LICENSE or copy at
  *	http://www.boost.org/LICENSE_1_0.txt)
  *
+ *  @file unix/printers/
  */
 
+#include <vector>
+#include <memory>
 #include <cups/cups.h>
+#include "printer.h"
+
 
 namespace nanaprint
 {
-    class Printers
+    typedef struct
+    {
+        int num_dests;
+        cups_dest_t *dests;
+    } user_data_t;
+
+   class Printers
     {
         public:
             Printers();
             virtual ~Printers();
+            std::vector<std::shared_ptr<Printer>> getPrinters() { return m_printers; }
+
+        private:
+            void enumeratePrinters();
+
+            std::vector<std::shared_ptr<Printer>> m_printers;
     };
 }
+
+extern "C" int enumPrintersCallBack(nanaprint::user_data_t* userData, unsigned flags,
+    cups_dest_t *dest);
+
