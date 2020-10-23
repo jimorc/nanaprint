@@ -38,8 +38,37 @@ std::map<std::string, std::string> Printer::getOptions()
     map<string, string> opts;
     for(int i = 0; i < m_dest->num_options; ++i)
     {
-        opts[string(m_dest->options[i].name)] =  string(m_dest->options[i].value);
+        string option = string(m_dest->options[i].name);
+        if(option == "printer-state")
+        {
+            opts[option] = getPrinterStateString(m_dest->options[i].value);
+        }
+        else
+        {
+           opts[string(m_dest->options[i].name)] =  string(m_dest->options[i].value);
+        }
     }
     return opts;
-   
+}
+
+string Printer::getPrinterStateString(string value)
+{
+    int intState = atoi(value.c_str());
+    string state;
+    switch(intState)
+    {
+        case 3:
+            state = "Idle";
+            break;
+        case 4:
+            state = "Printing";
+            break;
+        case 5:
+            state = "Stopped";
+            break;
+        default:
+            state = "Unknown state: " + state;
+            break;
+    }
+    return state;
 }
