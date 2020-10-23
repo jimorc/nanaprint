@@ -26,12 +26,33 @@ int main()
     {
         cout << "Printer: " << printer->getName() << '\n';
         cout << "    Name = " << printer->getName() << '\n';
-        cout << "    Is " << (printer->isDefault() ? "" : "not ") <<
-            "default printer" << '\n';
+        cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {
-            cout << "        " << option.first <<  ":  " << option.second << '\n';
+            if(option.first == string("printer-state"))
+            {
+                int state = atoi(option.second.c_str());
+                cout << "        " << "printer-state: ";
+                switch(state)
+                {
+                    case 3:
+                        cout << "Idle\n";
+                        break;
+                    case 4:
+                        cout << "Printing\n";
+                        break;
+                    case 5:
+                        cout << "Stopped\n";
+                        break;
+                    default:
+                        cout << "Unknown state: " << option.second << '\n';
+                }
+            }
+            else
+            {
+                cout << "        " << option.first <<  ":  " << option.second << '\n';
+            }
         }
 
         cout << endl;
