@@ -13,6 +13,7 @@
 
 #include "printer.h"
 
+using namespace std;
 using namespace nanaprint;
 
 constexpr size_t RESOURCE_SIZE = 200;      // sets size of resources returned by cupsConnectDest
@@ -32,4 +33,13 @@ std::shared_ptr<Printer> Printer::create(cups_dest_t* dest)
     return std::make_shared<Printer>(Printer(dest));
 }
 
-
+std::map<std::string, std::string> Printer::getOptions()
+{
+    map<string, string> opts;
+    for(int i = 0; i < m_dest->num_options; ++i)
+    {
+        opts[string(m_dest->options[i].name)] =  string(m_dest->options[i].value);
+    }
+    return opts;
+   
+}

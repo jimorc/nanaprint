@@ -28,6 +28,11 @@ int main()
         cout << "    Name = " << printer->getName() << '\n';
         cout << "    Is " << (printer->isDefault() ? "" : "not ") <<
             "default printer" << '\n';
+        cout << "    Options: " << '\n';
+        for (auto option : printer->getOptions())
+        {
+            cout << "        " << option.first <<  ":  " << option.second << '\n';
+        }
 
         cout << endl;
     }
