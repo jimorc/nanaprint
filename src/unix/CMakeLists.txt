@@ -6,6 +6,8 @@ include(FindCups)
 add_library(cupsprint
     printers.cpp
     printer.cpp
+    mediasizes.cpp
+    mediasize.cpp
 )
 
 link_directories(

@@ -16,6 +16,7 @@
 #include <string>
 #include <map>
 #include <cups/cups.h>
+#include "mediasizes.h"
 
 namespace nanaprint
 {
@@ -28,6 +29,7 @@ namespace nanaprint
             std::string getName() { return std::string(m_dest->name); }
             bool isDefault() { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
+            std::vector<std::string> getMediaSizeNames();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -35,7 +37,10 @@ namespace nanaprint
         private:
             std::string getPrinterStateString(std::string value);
             std::string getPrinterTypeString(const std::string value) const;
+            void populateMediaSizes();
+
             cups_dest_t* m_dest;
+            MediaSizes m_mediaSizes;
     };
 }
 

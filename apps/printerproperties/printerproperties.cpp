@@ -32,6 +32,11 @@ int main()
         {
             cout << "        " << option.first <<  ":  " << option.second << '\n';
         }
+        cout << "    Media Sizes:\n";
+        for (auto name : printer->getMediaSizeNames())
+        {
+            cout << "        " << name << '\n';
+        }
 
         cout << endl;
     }
