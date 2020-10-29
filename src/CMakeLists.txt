@@ -2,3 +2,7 @@
 cmake_minimum_required(VERSION 3.12-3.18 FATAL_ERROR)
 
 add_subdirectory(unix)
+
+if(PROJECT_NAME STREQUAL nanaprint)
+    add_subdirectory(tests)
+endif() #PROJECT_NAME STREQUAL nanaprint
