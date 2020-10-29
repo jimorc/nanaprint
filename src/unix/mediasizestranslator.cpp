@@ -46,7 +46,14 @@ namespace nanaprint
 
     const std::string MediaSizesTranslator::getTranslatedSize(const std::string& mediaName)
     {
-        auto translatedSize = m_mediaMap[mediaName];
-        return translatedSize;
+        auto iter = m_mediaMap.find(mediaName);
+        if(iter == m_mediaMap.end())
+        {
+            return mediaName;
+        }
+        else
+        {
+            return iter->second;
+        }
     }
 }

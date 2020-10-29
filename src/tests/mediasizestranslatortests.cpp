@@ -16,3 +16,9 @@ TEST(MediaSizesUnixTests, testMediaSizesTranslator4x6) {
     string translatedSize = translator.getTranslatedSize("na_index_4x6in");
     ASSERT_STREQ("4x6in", translatedSize.c_str());
 }
+
+TEST(MediaSizesUnixTests, testMediaSizesTranslatorNoMatch) {
+    MediaSizesTranslator translator;
+    string translatedSize = translator.getTranslatedSize("invalid_size_name");
+    ASSERT_STREQ("invalid_size_name", translatedSize.c_str());
+}
