@@ -3,6 +3,10 @@
 namespace nanaprint
 {
     MediaSizesTranslator::MediaSizesTranslator()
+        : m_mediaMap {
+            { "oe_photo-l_3.5x5in", "3.5x5in" },
+            { "na_index_4x6in", "4x6in" }
+        }
     {
 
     }
@@ -12,9 +16,9 @@ namespace nanaprint
 
     }
 
-    const std::string MediaSizesTranslator::getTranslatedSize(const std::string& mediaName) const
+    const std::string MediaSizesTranslator::getTranslatedSize(const std::string& mediaName)
     {
-        std::string translatedSize("3.5x5in");
+        auto translatedSize = m_mediaMap[mediaName];
         return translatedSize;
     }
 }
