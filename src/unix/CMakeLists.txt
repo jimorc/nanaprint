@@ -8,6 +8,7 @@ add_library(cupsprint
     printer.cpp
     mediasizes.cpp
     mediasize.cpp
+    mediasizestranslator.cpp
 )
 
 link_directories(
@@ -23,4 +24,3 @@ include_directories(
 target_link_libraries(cupsprint
     ${CUPS_LIBRARIES}
 )
-
