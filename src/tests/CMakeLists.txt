@@ -45,7 +45,7 @@ include_directories(
     ../../include
 )
 
-package_add_test_with_libraries(NanaprintUnixTests
+package_add_test_with_libraries(MediaSizesUnixTests
     mediasizestranslatortests.cpp 
     cupsprint 
     "${PROJECT_DIR}"
