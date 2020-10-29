@@ -45,9 +45,8 @@ include_directories(
     ../../include
 )
 
-package_add_test_with_libraries(MediaSizesUnixTests
-    mediasizestranslatortests.cpp 
+package_add_test_with_libraries(MediaSizesTranslatorUnixTests
+    mediasizestranslatorunixtests.cpp 
     cupsprint 
     "${PROJECT_DIR}"
 )
-
