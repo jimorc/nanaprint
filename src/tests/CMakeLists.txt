@@ -50,3 +50,9 @@ package_add_test_with_libraries(MediaSizesTranslatorUnixTests
     cupsprint 
     "${PROJECT_DIR}"
 )
+
+package_add_test_with_libraries(MediaSizeTests
+    mediasizetests.cpp 
+    cupsprint 
+    "${PROJECT_DIR}"
+)

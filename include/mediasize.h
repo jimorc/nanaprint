@@ -15,6 +15,7 @@
 
 #include <string>
 #include <cups/cups.h>
+#include "mediasizestranslator.h"
 
 namespace nanaprint
 {
@@ -26,6 +27,7 @@ namespace nanaprint
             virtual ~MediaSize();
 
             std::string getMediaName() const { return m_mediaName; }
+            std::string getTranslatedName();
             int getWidth() const { return m_width; }
             int getHeight() const { return m_height; }
             int getBottom() const { return m_bottom; }
@@ -34,7 +36,9 @@ namespace nanaprint
             int getTop() const { return m_top; }
 
         private:
+            static MediaSizesTranslator m_translator;
             std::string m_mediaName;
+            std::string m_translatedName;
             int m_width;
             int m_height;
             int m_bottom;
