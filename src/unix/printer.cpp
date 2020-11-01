@@ -177,7 +177,7 @@ namespace nanaprint
             {
                 int result = cupsGetDestMediaByIndex(http, m_dest, info, i, 0, &size);
                 m_mediaSizes.addSize(make_shared<MediaSize>(MediaSize(
-                    size.media, size.width, size.length, size.bottom, size.length,
+                    size.media, size.width, size.length, size.bottom, size.left,
                     size.right, size.top)));
             }
         }
