@@ -31,6 +31,7 @@ namespace nanaprint
             int getSize() const { return m_mediaSizes.size(); }
             void addSize(std::shared_ptr<MediaSize> mediaSize);
             std::vector<std::string> getMediaSizeNames();
+            std::vector<std::shared_ptr<MediaSize>> getMediaSizes() { return m_mediaSizes; }
 
         private:
             std::vector<std::shared_ptr<MediaSize>> m_mediaSizes;

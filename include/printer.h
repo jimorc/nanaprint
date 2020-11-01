@@ -33,6 +33,7 @@ namespace nanaprint
             bool isDefault() { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
             std::vector<std::string> getMediaSizeNames();
+            std::vector<std::shared_ptr<MediaSize>> getMediaSizes();
 
         protected:
             Printer(cups_dest_t* dest);

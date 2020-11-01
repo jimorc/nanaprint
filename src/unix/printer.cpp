@@ -23,9 +23,11 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 
 namespace nanaprint
 {
-    Printer::Printer(cups_dest_t *dest)
-    : m_dest(dest)
+
+    Printer::Printer(cups_dest_t* dest)
+        : m_dest(dest)
     {
+
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -186,6 +188,11 @@ namespace nanaprint
         populateMediaSizes();
         vector<string> mediaNames = m_mediaSizes.getMediaSizeNames();
         return mediaNames;
+    }
 
+    vector<shared_ptr<MediaSize>> Printer::getMediaSizes()
+    {
+        populateMediaSizes();
+        return m_mediaSizes.getMediaSizes();
     }
 }
