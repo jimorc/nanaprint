@@ -1,4 +1,6 @@
-#pragma(once)
+#ifndef MEDIASIZE_H
+#define MEDIASIZE_H
+
 /**
  *  \brief A MediaSize class
  *
@@ -49,3 +51,4 @@ namespace nanaprint
     };
 }
 
+#endif      // MEDIASIZE_H

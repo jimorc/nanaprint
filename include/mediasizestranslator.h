@@ -1,4 +1,6 @@
-#pragma(once)
+#ifndef MEDIASIZETRANSLATOR_H
+#define MEDIASIZETRANSLATOR_H
+
 /**
  *  \brief A MediaSizesTranslator class
  *
@@ -29,3 +31,5 @@ namespace nanaprint
             std::map<std::string, std::string> m_mediaMap;
    };
 }
+
+#endif      // MEDIASIZETRANSLATOR_H

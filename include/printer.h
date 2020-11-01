@@ -1,3 +1,6 @@
+#ifndef PRINTER_H
+#define PRINTER_H
+
 /**
  *  \file printer.h
  *  \brief This file provides printer class and data structures required by nanaprint
@@ -44,3 +47,4 @@ namespace nanaprint
     };
 }
 
+#endif      // PRINTER_H

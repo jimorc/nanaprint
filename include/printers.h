@@ -1,3 +1,6 @@
+#ifndef PRINTERS_H
+#define PRINTERS_H
+
 /**
  *  \brief A Printers class
  *
@@ -43,3 +46,4 @@ namespace nanaprint
 extern "C" int enumPrintersCallBack(nanaprint::user_data_t* userData, unsigned flags,
     cups_dest_t *dest);
 
+#endif      // PRINTERS_H
