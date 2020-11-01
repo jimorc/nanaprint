@@ -35,7 +35,8 @@ int main()
         cout << "    Media Sizes:\n";
         for (auto size : printer->getMediaSizes())
         {
-            cout << "        " << size->getTranslatedName() << '\n';
+            cout << "        " << size->getTranslatedName();
+            cout << "    " << (size->isBorderless() ? "Borderless" : "") << '\n';
             cout << "            width = " << size->getWidth() << ", height = " << size->getHeight();
             cout << "\n            top = " << size->getTop() << ", bottom = " << size->getBottom();
             cout << "\n            left = " << size->getLeft() << ", right = " << size->getRight() << '\n';

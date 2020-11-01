@@ -36,6 +36,7 @@ namespace nanaprint
             int getLeft() const { return m_left; }
             int getRight() const { return m_right; }
             int getTop() const { return m_top; }
+            bool isBorderless() const;
 
         private:
             static MediaSizesTranslator m_translator;
