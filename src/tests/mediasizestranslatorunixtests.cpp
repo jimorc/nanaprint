@@ -16,7 +16,7 @@ TEST(MediaSizesTranslatorUnixTests, testMediaSizesTranslator3_5x5)
 // Test getTranslatedSize for na_index_4x6in
 TEST(MediaSizesTranslatorUnixTests, testMediaSizesTranslator4x6) {
     MediaSizesTranslator translator;
-    string translatedSize = translator.getTranslatedSize("na_index_4x6in");
+    string translatedSize = translator.getTranslatedSize("na_index-4x6_4x6in");
     ASSERT_STREQ("4x6in", translatedSize.c_str());
 }
 

@@ -8,7 +8,7 @@ using namespace std;
 // Test getTranslatedName for na_letter_x.5x11in
 TEST(MediaSizeTests, testMediaSizeTranslatedName)
 {
-    MediaSize size("na_letter_x.5x11in", 21590, 27940,
+    MediaSize size("na_letter_8.5x11in", 21590, 27940,
                 508, 610, 915, 1016);
     string translatedName = size.getTranslatedName();
     ASSERT_STREQ("Letter", translatedName.c_str());
