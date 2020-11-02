@@ -26,7 +26,7 @@ namespace nanaprint
 {
 
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false),
+        : m_dest(dest), m_gotFinishings(false), m_canBind(false),
             m_canStaple(false)
     {
 
@@ -210,6 +210,12 @@ namespace nanaprint
             info, CUPS_COPIES, NULL);
     }
 
+    bool Printer::canBind()
+    {
+        populateFinishings();
+        return m_canBind;
+    }
+
     bool Printer::canStaple()
     {
         populateFinishings();
@@ -244,7 +250,11 @@ namespace nanaprint
     {
         char fin[10];       // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
-        if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
+        if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
+        {
+            m_canBind = true;
+        }
+        else if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
         {
             m_canStaple = true;
         }
