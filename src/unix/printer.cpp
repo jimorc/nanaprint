@@ -276,6 +276,10 @@ namespace nanaprint
         {
             m_canCoverOutput = true;
         }
+        else if (strncmp(CUPS_FINISHINGS_FOLD, fin, strlen(CUPS_FINISHINGS_FOLD))== 0)
+        {
+            m_canFold = true;
+        }
         else if (strncmp(CUPS_FINISHINGS_PUNCH, fin, strlen(CUPS_FINISHINGS_PUNCH)) == 0)
         {
             m_canPunch = true;
