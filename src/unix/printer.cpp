@@ -26,7 +26,7 @@ namespace nanaprint
 {
 
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false), m_canBind(false),
+        : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
             m_canStaple(false)
     {
 
@@ -222,6 +222,12 @@ namespace nanaprint
         return m_canStaple;
     }
 
+    bool Printer::canCoverOutput()
+    {
+        populateFinishings();
+        return m_canCoverOutput;
+    }
+
     void Printer::populateFinishings()
     {
         if (!m_gotFinishings)
@@ -253,6 +259,10 @@ namespace nanaprint
         if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
         {
             m_canBind = true;
+        }
+        else if (strncmp(CUPS_FINISHINGS_COVER, fin, strlen(CUPS_FINISHINGS_COVER))== 0)
+        {
+            m_canCoverOutput = true;
         }
         else if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
         {

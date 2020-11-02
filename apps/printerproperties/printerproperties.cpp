@@ -35,6 +35,10 @@ int main()
         {
             cout << "    Can bind copies\n";
         }
+        if (printer->canCoverOutput())
+        {
+            cout << "    Can cover output\n";
+        }
         if (printer->canStaple())
         {
             cout << "    Can staple copies\n";

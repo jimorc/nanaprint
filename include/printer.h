@@ -36,6 +36,7 @@ namespace nanaprint
             std::vector<std::shared_ptr<MediaSize>> getMediaSizes();
             bool canPrintMultipleCopies() const;
             bool canBind();
+            bool canCoverOutput();
             bool canStaple();
 
         protected:
@@ -52,6 +53,7 @@ namespace nanaprint
             MediaSizes m_mediaSizes;
             bool m_gotFinishings;
             bool m_canBind;
+            bool m_canCoverOutput;
             bool m_canStaple;
     };
 }
