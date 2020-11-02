@@ -38,6 +38,7 @@ namespace nanaprint
             bool canBind();
             bool canCoverOutput();
             bool canStaple();
+            bool canFold();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -54,6 +55,7 @@ namespace nanaprint
             bool m_gotFinishings;
             bool m_canBind;
             bool m_canCoverOutput;
+            bool m_canFold;
             bool m_canStaple;
     };
 }

@@ -27,7 +27,7 @@ namespace nanaprint
 
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
-            m_canStaple(false)
+            m_canFold(false), m_canStaple(false)
     {
 
     }
@@ -228,6 +228,12 @@ namespace nanaprint
         return m_canCoverOutput;
     }
 
+    bool Printer::canFold()
+    {
+        populateFinishings();
+        return m_canFold;
+    }
+
     void Printer::populateFinishings()
     {
         if (!m_gotFinishings)
@@ -268,5 +274,6 @@ namespace nanaprint
         {
             m_canStaple = true;
         }
+
     }
 }

@@ -39,6 +39,10 @@ int main()
         {
             cout << "    Can cover output\n";
         }
+        if (printer->canFold())
+        {
+            cout << "    Can fold output\n";
+        }
         if (printer->canStaple())
         {
             cout << "    Can staple copies\n";
