@@ -29,6 +29,8 @@ int main()
         cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';
         cout << "    Can " << (printer->canPrintMultipleCopies() ? "" : "not ");
         cout << "print multiple copies\n";
+        cout << "    Can " << (printer->canStaple() ? "" : "not ");
+        cout << "staple copies\n";
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {

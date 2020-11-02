@@ -26,7 +26,8 @@ namespace nanaprint
 {
 
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest)
+        : m_dest(dest), m_gotFinishings(false),
+            m_canStaple(false)
     {
 
     }
@@ -207,5 +208,45 @@ namespace nanaprint
         cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
         return cupsCheckDestSupported(http, m_dest,
             info, CUPS_COPIES, NULL);
+    }
+
+    bool Printer::canStaple()
+    {
+        populateFinishings();
+        return m_canStaple;
+    }
+
+    void Printer::populateFinishings()
+    {
+        if (!m_gotFinishings)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            if (cupsCheckDestSupported(http, m_dest, info, CUPS_FINISHINGS, NULL))
+            {
+                ipp_attribute_t *finishings = cupsFindDestSupported(http, m_dest,
+                    info, CUPS_FINISHINGS);
+                int count = ippGetCount(finishings);
+                for (int i = 0; i < count; ++i)
+                {
+                    int finish = ippGetInteger(finishings, i);
+                    setFinishing(finish);
+                }
+            }
+            m_gotFinishings = true;
+        }
+    }
+
+    void Printer::setFinishing(int finish)
+    {
+        char fin[10];       // should only need to be 2 or 3 characters long
+        sprintf(fin, "%d", finish);
+        if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
+        {
+            m_canStaple = true;
+        }
     }
 }

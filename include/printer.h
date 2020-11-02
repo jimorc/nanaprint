@@ -35,6 +35,7 @@ namespace nanaprint
             std::vector<std::string> getMediaSizeNames();
             std::vector<std::shared_ptr<MediaSize>> getMediaSizes();
             bool canPrintMultipleCopies() const;
+            bool canStaple();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -43,9 +44,14 @@ namespace nanaprint
             std::string getPrinterStateString(std::string value);
             std::string getPrinterTypeString(const std::string value) const;
             void populateMediaSizes();
+            void populateFinishings();
+            void setFinishing(int finishing);
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
+            bool m_gotFinishings;
+ 
+            bool m_canStaple;
     };
 }
 
