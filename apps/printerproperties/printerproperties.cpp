@@ -27,12 +27,18 @@ int main()
         cout << "Printer: " << printer->getName() << '\n';
         cout << "    Name = " << printer->getName() << '\n';
         cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';
-        cout << "    Can " << (printer->canPrintMultipleCopies() ? "" : "not ");
-        cout << "print multiple copies\n";
-        cout << "    Can " << (printer->canBind() ? "" : "not ");
-        cout << "bind copies\n";
-        cout << "    Can " << (printer->canStaple() ? "" : "not ");
-        cout << "staple copies\n";
+        if (printer->canPrintMultipleCopies())
+        {
+            cout << "    Can print multiple copies\n";
+        }
+        if (printer->canBind())
+        {
+            cout << "    Can bind copies\n";
+        }
+        if (printer->canStaple())
+        {
+            cout << "    Can staple copies\n";
+        }
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {
