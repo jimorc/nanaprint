@@ -43,6 +43,10 @@ int main()
         {
             cout << "    Can fold output\n";
         }
+        if (printer->canPunch())
+        {
+            cout << "    Can punch output\n";
+        }
         if (printer->canStaple())
         {
             cout << "    Can staple copies\n";
