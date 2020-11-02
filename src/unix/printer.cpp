@@ -11,6 +11,7 @@
  *  @file unix/printer.cpp
  */
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include "printer.h"
@@ -194,5 +195,17 @@ namespace nanaprint
     {
         populateMediaSizes();
         return m_mediaSizes.getMediaSizes();
+    }
+
+    bool Printer::canPrintMultipleCopies() const
+    {
+        char resource[RESOURCE_SIZE];
+
+        
+        http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+            NULL, resource, RESOURCE_SIZE, NULL, NULL);
+        cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+        return cupsCheckDestSupported(http, m_dest,
+            info, CUPS_COPIES, NULL);
     }
 }

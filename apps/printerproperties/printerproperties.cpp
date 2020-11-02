@@ -27,6 +27,8 @@ int main()
         cout << "Printer: " << printer->getName() << '\n';
         cout << "    Name = " << printer->getName() << '\n';
         cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';
+        cout << "    Can " << (printer->canPrintMultipleCopies() ? "" : "not ");
+        cout << "print multiple copies\n";
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {
