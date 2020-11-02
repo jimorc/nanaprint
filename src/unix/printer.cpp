@@ -27,7 +27,7 @@ namespace nanaprint
 
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
-            m_canFold(false), m_canPunch(false), m_canStaple(false)
+            m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false)
     {
 
     }
@@ -240,6 +240,12 @@ namespace nanaprint
         return m_canPunch;
     }
 
+    bool Printer::canTrim()
+    {
+        populateFinishings();
+        return m_canTrim;
+    }
+
     void Printer::populateFinishings()
     {
         if (!m_gotFinishings)
@@ -287,6 +293,10 @@ namespace nanaprint
         else if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
         {
             m_canStaple = true;
+        }
+        else if (strncmp(CUPS_FINISHINGS_TRIM, fin, strlen(CUPS_FINISHINGS_TRIM)) == 0)
+        {
+            m_canTrim = true;
         }
 
     }

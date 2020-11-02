@@ -51,6 +51,10 @@ int main()
         {
             cout << "    Can staple copies\n";
         }
+        if (printer->canTrim())
+        {
+            cout << "    Can trim output\n";
+        }
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {

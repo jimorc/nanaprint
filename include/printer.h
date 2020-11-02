@@ -40,6 +40,7 @@ namespace nanaprint
             bool canStaple();
             bool canFold();
             bool canPunch();
+            bool canTrim();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -59,6 +60,7 @@ namespace nanaprint
             bool m_canFold;
             bool m_canPunch;
             bool m_canStaple;
+            bool m_canTrim;
     };
 }
 
