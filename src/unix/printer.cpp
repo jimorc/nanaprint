@@ -31,7 +31,8 @@ namespace nanaprint
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
-            m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false)
+            m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
+            m_gotMediaTypes(false)
     {
         populateDefaultFinishings();
     }
@@ -496,6 +497,34 @@ namespace nanaprint
         return m_defaultMediaSource;
     }
 
+    void Printer::populateMediaTypes()
+    {
+        if (!m_gotMediaTypes)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            if (cupsCheckDestSupported(http, m_dest, info, CUPS_MEDIA_TYPE, NULL))
+            {
+                ipp_attribute_t *type = cupsFindDestSupported(http, m_dest,
+                    info, CUPS_MEDIA_TYPE);
+                int count = ippGetCount(type);
+                for (int i = 0; i < count; ++i)
+                {
+                    const char *mediaType = ippGetString(type, i, NULL);
+                    m_mediaTypes.push_back(mediaType);
+                }
+            }
+            m_gotMediaTypes = true;
+        }   
+    }
 
+    std::vector<std::string>& Printer::getMediaTypes()
+    {
+        populateMediaTypes();
+        return m_mediaTypes;
+    }
 
 }       

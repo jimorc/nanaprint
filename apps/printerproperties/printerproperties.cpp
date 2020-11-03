@@ -120,7 +120,22 @@ int main()
         else
         {
             cout << "        " << defaultMediaSource << '\n';
-        }        
+        }   
+
+        cout << "    Supported Media Types:\n";
+        auto mediaTypes = printer->getMediaTypes();
+        if(mediaTypes.size() == 0)
+        {
+            cout << "        None specified\n";
+        }     
+        else
+        {
+            for (auto type: mediaTypes)
+            {
+                cout << "        " << type << '\n';
+            }
+        }
+        
 
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
