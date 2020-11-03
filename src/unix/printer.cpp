@@ -390,6 +390,10 @@ namespace nanaprint
         {
             m_noDefaultFinishings = true;
         }
+        else if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
+        {
+            m_defaultBind = true;
+        }
         else if (strncmp(CUPS_FINISHINGS_COVER, fin, strlen(CUPS_FINISHINGS_COVER)) == 0)
         {
             m_defaultCoverOutput = true;
