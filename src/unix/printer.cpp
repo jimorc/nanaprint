@@ -30,7 +30,8 @@ namespace nanaprint
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
-            m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false)
+            m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
+            m_defaultTrim(false)
     {
         populateDefaultFinishings();
     }
@@ -350,6 +351,12 @@ namespace nanaprint
         return m_defaultStaple;
     }
 
+    bool Printer::defaultTrim()
+    {
+        populateDefaultFinishings();
+        return m_defaultTrim;
+    }
+
     void Printer::populateDefaultFinishings()
     {
         if (!m_gotDefaultFinishings)
@@ -421,6 +428,10 @@ namespace nanaprint
         else if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
         {
             m_defaultStaple = true;
+        }
+        else if (strncmp(CUPS_FINISHINGS_TRIM, fin, strlen(CUPS_FINISHINGS_TRIM)) == 0)
+        {
+            m_defaultTrim = true;
         }
     }
 }       

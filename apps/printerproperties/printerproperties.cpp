@@ -92,6 +92,10 @@ int main()
             {
                 cout << "        Staple output\n";
             }
+            if (printer->defaultTrim())
+            {
+                cout << "        Trim output\n";
+            }
         }
         
 
