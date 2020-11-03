@@ -31,33 +31,38 @@ int main()
         {
             cout << "    Can print multiple copies\n";
         }
+        
+        cout << "    Supported finishings:\n";
         if (printer->noFinishings())
         {
-            cout << "    No finishings\n";
+            cout << "        None\n";
         }
-        if (printer->canBind())
+        else
         {
-            cout << "    Can bind copies\n";
-        }
-        if (printer->canCoverOutput())
-        {
-            cout << "    Can cover output\n";
-        }
-        if (printer->canFold())
-        {
-            cout << "    Can fold output\n";
-        }
-        if (printer->canPunch())
-        {
-            cout << "    Can punch output\n";
-        }
-        if (printer->canStaple())
-        {
-            cout << "    Can staple copies\n";
-        }
-        if (printer->canTrim())
-        {
-            cout << "    Can trim output\n";
+            if (printer->canBind())
+            {
+                cout << "    Can bind copies\n";
+            }
+            if (printer->canCoverOutput())
+            {
+                cout << "    Can cover output\n";
+            }
+            if (printer->canFold())
+            {
+                cout << "    Can fold output\n";
+            }
+            if (printer->canPunch())
+            {
+                cout << "    Can punch output\n";
+            }
+            if (printer->canStaple())
+            {
+                cout << "    Can staple copies\n";
+            }
+            if (printer->canTrim())
+            {
+                cout << "    Can trim output\n";
+            }
         }
 
         cout << "    Default finishings:\n";
