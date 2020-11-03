@@ -97,6 +97,20 @@ int main()
                 cout << "        Trim output\n";
             }
         }
+
+        cout << "    Media Sources: \n";
+        auto mediaSources = printer->getMediaSources();
+        if(mediaSources.size() == 0)
+        {
+            cout << "        None\n";
+        }
+        else
+        {
+            for (auto source: mediaSources)
+            {
+                cout << "        " << source << '\n';
+            }
+        }
         
 
         cout << "    Options: " << '\n';

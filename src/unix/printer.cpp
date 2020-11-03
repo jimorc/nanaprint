@@ -31,7 +31,7 @@ namespace nanaprint
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
-            m_defaultTrim(false)
+            m_defaultTrim(false), m_gotMediaSources(false)
     {
         populateDefaultFinishings();
     }
@@ -313,6 +313,37 @@ namespace nanaprint
             m_canTrim = true;
         }
 
+    }
+
+    void Printer::populateMediaSources()
+    {
+        if (!m_gotMediaSources)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            if (cupsCheckDestSupported(http, m_dest, info, CUPS_FINISHINGS, NULL))
+            {
+                ipp_attribute_t *source = cupsFindDestSupported(http, m_dest,
+                    info, CUPS_MEDIA_SOURCE);
+                int count = ippGetCount(source);
+                cout << "Sources: " << endl;
+                for (int i = 0; i < count; ++i)
+                {
+                    const char *src = ippGetString(source, i, NULL);
+                    m_mediaSources.push_back(src);
+                }
+            }
+            m_gotMediaSources = true;
+        }   
+    }
+
+    vector<string>& Printer::getMediaSources()
+    {
+        populateMediaSources();
+        return m_mediaSources;
     }
 
     bool Printer::noDefaultFinishings()
