@@ -31,6 +31,10 @@ int main()
         {
             cout << "    Can print multiple copies\n";
         }
+        if (printer->noFinishings())
+        {
+            cout << "    No finishings\n";
+        }
         if (printer->canBind())
         {
             cout << "    Can bind copies\n";

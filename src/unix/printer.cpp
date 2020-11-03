@@ -212,6 +212,12 @@ namespace nanaprint
             info, CUPS_COPIES, NULL);
     }
 
+    bool Printer::noFinishings()
+    {
+        populateFinishings();
+        return m_noFinishings;
+    }
+
     bool Printer::canBind()
     {
         populateFinishings();
@@ -276,7 +282,11 @@ namespace nanaprint
     {
         char fin[10];       // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
-        if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
+        if (strncmp(CUPS_FINISHINGS_NONE, fin, strlen(CUPS_FINISHINGS_NONE)) == 0)
+        {
+            m_noFinishings = true;
+        }
+        else if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
         {
             m_canBind = true;
         }

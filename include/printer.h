@@ -35,6 +35,7 @@ namespace nanaprint
             std::vector<std::string> getMediaSizeNames();
             std::vector<std::shared_ptr<MediaSize>> getMediaSizes();
             bool canPrintMultipleCopies() const;
+            bool noFinishings();
             bool canBind();
             bool canCoverOutput();
             bool canStaple();
@@ -58,6 +59,7 @@ namespace nanaprint
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
             bool m_gotFinishings;
+            bool m_noFinishings;
             bool m_canBind;
             bool m_canCoverOutput;
             bool m_canFold;
