@@ -52,6 +52,7 @@ namespace nanaprint
             std::vector<std::string>& getMediaSources();
             std::string& getDefaultMediaSource();
             std::vector<std::string>& getMediaTypes();
+            std::string& getDefaultMediaType();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -67,6 +68,7 @@ namespace nanaprint
             void populateMediaSources();
             void populateDefaultMediaSource();
             void populateMediaTypes();
+            void populateDefaultMediaType();
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
@@ -86,6 +88,8 @@ namespace nanaprint
 
             bool m_gotDefaultMediaSource;
             std::string m_defaultMediaSource;
+            bool m_gotDefaultMediaType;
+            std::string m_defaultMediaType;
             bool m_gotDefaultFinishings;
             bool m_noDefaultFinishings;
             bool m_defaultBind;

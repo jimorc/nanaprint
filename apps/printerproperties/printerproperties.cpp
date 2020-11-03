@@ -135,6 +135,16 @@ int main()
                 cout << "        " << type << '\n';
             }
         }
+        cout << "    Default Media Type:\n";
+        auto defaultMediaType = printer->getDefaultMediaType();
+        if (defaultMediaType.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            cout << "        " << defaultMediaType << '\n';
+        }
         
 
         cout << "    Options: " << '\n';
