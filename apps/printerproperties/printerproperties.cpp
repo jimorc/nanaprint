@@ -31,7 +31,7 @@ int main()
         {
             cout << "    Can print multiple copies\n";
         }
-        
+
         cout << "    Supported finishings:\n";
         if (printer->noFinishings())
         {
@@ -70,6 +70,15 @@ int main()
         {
             cout << "        None\n";
         }
+        else
+        {
+            if (printer->defaultCanBind())
+            {
+                cout << "        Can bind copies\n";
+            }
+        }
+        
+
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {
