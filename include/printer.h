@@ -50,6 +50,7 @@ namespace nanaprint
             bool defaultStaple();
             bool defaultTrim();
             std::vector<std::string>& getMediaSources();
+            std::string& getDefaultMediaSource();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -63,6 +64,7 @@ namespace nanaprint
             void populateDefaultFinishings();
             void setDefaultFinishing(int finishing);
             void populateMediaSources();
+            void populateDefaultMediaSource();
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
@@ -78,6 +80,8 @@ namespace nanaprint
             bool m_canStaple;
             bool m_canTrim;
 
+            bool m_gotDefaultMediaSource;
+            std::string m_defaultMediaSource;
             bool m_gotDefaultFinishings;
             bool m_noDefaultFinishings;
             bool m_defaultBind;

@@ -31,7 +31,7 @@ namespace nanaprint
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
-            m_defaultTrim(false), m_gotMediaSources(false)
+            m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false)
     {
         populateDefaultFinishings();
     }
@@ -465,4 +465,37 @@ namespace nanaprint
             m_defaultTrim = true;
         }
     }
+
+    void Printer::populateDefaultMediaSource()
+    {
+        if (!m_gotDefaultMediaSource)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            const char *defaultSource =
+                cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
+
+            ipp_attribute_t *source = cupsFindDestDefault(http, m_dest,
+                info, CUPS_MEDIA_SOURCE);
+            int count = ippGetCount(source);
+            if (count != 0)
+            {
+                const char *src = ippGetString(source, 0, NULL);
+                m_defaultMediaSource = *src;
+            }
+            m_gotDefaultMediaSource = true;
+        }   
+    }
+
+    string& Printer::getDefaultMediaSource()
+    {
+        populateDefaultMediaSource();
+        return m_defaultMediaSource;
+    }
+
+
+
 }       

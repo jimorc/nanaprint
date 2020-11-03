@@ -111,7 +111,16 @@ int main()
                 cout << "        " << source << '\n';
             }
         }
-        
+        cout << "    Default Media Source:\n";
+        auto defaultMediaSource = printer->getDefaultMediaSource();
+        if (defaultMediaSource.size() == 0)
+        {
+            cout << "        None\n";
+        }
+        else
+        {
+            cout << "        " << defaultMediaSource << '\n';
+        }        
 
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
