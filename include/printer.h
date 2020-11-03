@@ -47,6 +47,7 @@ namespace nanaprint
             bool defaultCoverOutput();
             bool defaultFold();
             bool defaultPunch();
+            bool defaultStaple();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -77,6 +78,7 @@ namespace nanaprint
             bool m_defaultCoverOutput;
             bool m_defaultFold;
             bool m_defaultPunch;
+            bool m_defaultStaple;
     };
 }
 

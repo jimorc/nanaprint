@@ -88,6 +88,10 @@ int main()
             {
                 cout << "        Punch output\n";
             }
+            if (printer->defaultStaple())
+            {
+                cout << "        Staple output\n";
+            }
         }
         
 
