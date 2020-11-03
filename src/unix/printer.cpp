@@ -14,6 +14,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <regex>
 #include "printer.h"
 
 using namespace std;
@@ -27,9 +28,10 @@ namespace nanaprint
 
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
-            m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false)
+            m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
+            m_noDefaultFinishings(false)
     {
-
+        populateDefaultFinishings();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -300,4 +302,63 @@ namespace nanaprint
         }
 
     }
-}
+
+    bool Printer::noDefaultFinishings()
+    {
+        populateDefaultFinishings();
+        return m_noDefaultFinishings;
+    }
+
+    void Printer::populateDefaultFinishings()
+    {
+        if (!m_gotDefaultFinishings)
+        {
+            char resource[RESOURCE_SIZE];
+
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+
+            const char *defaultFinishings =
+                cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
+                    m_dest->options);
+            ipp_attribute_t *defaultFinishings2 =
+                cupsFindDestDefault(http, m_dest, info, CUPS_FINISHINGS);
+            
+            if(defaultFinishings != NULL)
+            {
+                regex rgx("[0-9]*");
+                smatch match;
+
+                string finishings = defaultFinishings;
+                if( regex_search(finishings, match, rgx))
+                {
+                    for (auto m: match)
+                    {
+                        int finish = stoi(m.str());
+                        setDefaultFinishing(finish);
+                    }
+                }
+            }
+            else
+            {
+                int count = ippGetCount(defaultFinishings2);
+                for (int i = 0; i < count; ++i)
+                {
+                    int finish = ippGetInteger(defaultFinishings2, i);
+                    setDefaultFinishing(finish);
+                }
+            }
+        }
+    }
+
+    void Printer::setDefaultFinishing(int finish)
+    {
+        char fin[10];       // should only need to be 2 or 3 characters long
+        sprintf(fin, "%d", finish);
+        if (strncmp(CUPS_FINISHINGS_NONE, fin, strlen(CUPS_FINISHINGS_NONE)) == 0)
+        {
+            m_noDefaultFinishings = true;
+        }
+    }
+}       

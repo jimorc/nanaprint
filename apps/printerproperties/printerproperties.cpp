@@ -55,6 +55,12 @@ int main()
         {
             cout << "    Can trim output\n";
         }
+
+        cout << "    Default finishings:\n";
+        if (printer->noDefaultFinishings())
+        {
+            cout << "        None\n";
+        }
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {

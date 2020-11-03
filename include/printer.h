@@ -41,6 +41,7 @@ namespace nanaprint
             bool canFold();
             bool canPunch();
             bool canTrim();
+            bool noDefaultFinishings();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -51,6 +52,8 @@ namespace nanaprint
             void populateMediaSizes();
             void populateFinishings();
             void setFinishing(int finishing);
+            void populateDefaultFinishings();
+            void setDefaultFinishing(int finishing);
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
@@ -61,6 +64,9 @@ namespace nanaprint
             bool m_canPunch;
             bool m_canStaple;
             bool m_canTrim;
+
+            bool m_gotDefaultFinishings;
+            bool m_noDefaultFinishings;
     };
 }
 
