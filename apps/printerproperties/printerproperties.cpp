@@ -80,6 +80,10 @@ int main()
             {
                 cout << "        Cover output\n";
             }
+            if (printer->defaultFold())
+            {
+                cout << "        Fold output\n";
+            }
         }
         
 
