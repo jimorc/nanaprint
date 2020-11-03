@@ -41,7 +41,7 @@ int main()
         {
             if (printer->canBind())
             {
-                cout << "    Can bind copies\n";
+                cout << "    Bind copies\n";
             }
             if (printer->canCoverOutput())
             {
@@ -72,7 +72,7 @@ int main()
         }
         else
         {
-            if (printer->defaultCanBind())
+            if (printer->defaultBind())
             {
                 cout << "        Can bind copies\n";
             }

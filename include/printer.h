@@ -43,7 +43,7 @@ namespace nanaprint
             bool canPunch();
             bool canTrim();
             bool noDefaultFinishings();
-            bool defaultCanBind();
+            bool defaultBind();
             bool defaultCoverOutput();
 
         protected:
@@ -71,7 +71,7 @@ namespace nanaprint
 
             bool m_gotDefaultFinishings;
             bool m_noDefaultFinishings;
-            bool m_defaultCanBind;
+            bool m_defaultBind;
             bool m_defaultCoverOutput;
     };
 }
