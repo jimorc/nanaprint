@@ -360,6 +360,7 @@ namespace nanaprint
                 }
             }
         }
+        m_gotDefaultFinishings = true;
     }
 
     void Printer::setDefaultFinishing(int finish)
