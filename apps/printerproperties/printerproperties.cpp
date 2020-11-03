@@ -76,6 +76,10 @@ int main()
             {
                 cout << "        Can bind copies\n";
             }
+            if (printer->defaultCoverOutput())
+            {
+                cout << "        Cover output\n";
+            }
         }
         
 

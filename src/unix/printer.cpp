@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
-            m_noDefaultFinishings(false), m_defaultCanBind(false)
+            m_noDefaultFinishings(false), m_defaultCanBind(false), m_defaultCoverOutput(false)
     {
         populateDefaultFinishings();
     }
@@ -325,6 +325,12 @@ namespace nanaprint
         return m_defaultCanBind;
     }
 
+    bool Printer::defaultCoverOutput()
+    {
+        populateDefaultFinishings();
+        return m_defaultCoverOutput;
+    }
+
     void Printer::populateDefaultFinishings()
     {
         if (!m_gotDefaultFinishings)
@@ -376,6 +382,10 @@ namespace nanaprint
         if (strncmp(CUPS_FINISHINGS_NONE, fin, strlen(CUPS_FINISHINGS_NONE)) == 0)
         {
             m_noDefaultFinishings = true;
+        }
+        else if (strncmp(CUPS_FINISHINGS_COVER, fin, strlen(CUPS_FINISHINGS_COVER)) == 0)
+        {
+            m_defaultCoverOutput = true;
         }
     }
 }       
