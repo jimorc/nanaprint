@@ -84,6 +84,10 @@ int main()
             {
                 cout << "        Fold output\n";
             }
+            if (printer->defaultPunch())
+            {
+                cout << "        Punch output\n";
+            }
         }
         
 
