@@ -74,7 +74,7 @@ int main()
         {
             if (printer->defaultBind())
             {
-                cout << "        Can bind copies\n";
+                cout << "        Bind copies\n";
             }
             if (printer->defaultCoverOutput())
             {
