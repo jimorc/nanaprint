@@ -482,14 +482,20 @@ namespace nanaprint
             cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
             const char *defaultSource =
                 cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
-
-            ipp_attribute_t *source = cupsFindDestDefault(http, m_dest,
-                info, CUPS_MEDIA_SOURCE);
-            int count = ippGetCount(source);
-            if (count != 0)
+            if (defaultSource != nullptr)
             {
-                const char *src = ippGetString(source, 0, NULL);
-                m_defaultMediaSource = *src;
+                m_defaultMediaSource = *defaultSource;
+            }
+            else
+            {
+                ipp_attribute_t *source = cupsFindDestDefault(http, m_dest,
+                    info, CUPS_MEDIA_SOURCE);
+                int count = ippGetCount(source);
+                if (count != 0)
+                {
+                    const char *src = ippGetString(source, 0, NULL);
+                    m_defaultMediaSource = *src;
+                }
             }
             m_gotDefaultMediaSource = true;
         }   
