@@ -36,7 +36,8 @@ namespace nanaprint
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
-            m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false)
+            m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
+            m_gotDefaultOrientation(false)
     {
         populateDefaultFinishings();
     }
@@ -587,6 +588,42 @@ namespace nanaprint
     {
         populateOrientations();
         return m_orientations;
+    }
+
+    void Printer::populateDefaultOrientation()
+    {
+        if (!m_gotDefaultOrientation)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            const char *defaultOrientation =
+                cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
+            if (defaultOrientation != nullptr)
+            {
+                int orientation = stoi(defaultOrientation);
+                m_defaultOrientation = m_orientationMap[orientation];
+            }
+            else
+            {
+                ipp_attribute_t *defOrientation = cupsFindDestDefault(http, m_dest,
+                    info, CUPS_ORIENTATION);
+                int count = ippGetCount(defOrientation);
+                if (count != 0)
+                {
+                    int defaultOr = ippGetInteger(defOrientation, 0);
+                    m_defaultOrientation = m_orientationMap[defaultOr];
+                }
+            }
+            m_gotDefaultMediaType = true;
+        }   
+    }
+    std::string& Printer::getDefaultOrientation()
+    {
+        populateDefaultOrientation();
+        return m_defaultOrientation;
     }
 
 }       
