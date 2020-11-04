@@ -195,6 +195,21 @@ int main()
         {
             cout << "        " << defaultColorMode << '\n';
         }
+
+        cout << "    Print Qualities:\n";
+        auto printQualities = printer->getPrintQualities();
+        if (printQualities.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            for (auto quality: printQualities)
+            {
+                cout << "        " << quality << '\n';
+            }
+        }
+        
         
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())

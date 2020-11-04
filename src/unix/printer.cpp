@@ -28,6 +28,9 @@ namespace nanaprint
 
     map<int, string> Printer::m_orientationMap {{3, "Portrait"}, {4, "Landscape"},
                 {5, "Reverse Landscape"}, {6, "Reverse Portrait"}};
+
+    map<int, string> Printer::m_qualityMap {{2, "Plain Normal"}, {3, "Fast"},
+                {4, "Normal"}, {5, "High"}, {6, "Photo"}};
  
 
     Printer::Printer(cups_dest_t* dest)
@@ -37,7 +40,8 @@ namespace nanaprint
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
-            m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false)
+            m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
+            m_gotPrintQualities(false)
     {
         populateDefaultFinishings();
     }
@@ -700,5 +704,34 @@ namespace nanaprint
     {
         populateDefaultColorMode();
         return m_defaultColorMode;
+    }
+
+    void Printer::populatePrintQualities()
+    {
+        if (!m_gotPrintQualities)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            if (cupsCheckDestSupported(http, m_dest, info, CUPS_PRINT_QUALITY, NULL))
+            {
+                ipp_attribute_t *qualities = cupsFindDestSupported(http, m_dest,
+                    info, CUPS_PRINT_QUALITY);
+                int count = ippGetCount(qualities);
+                for (int i = 0; i < count; ++i)
+                {
+                    int quality = ippGetInteger(qualities, i);
+                    m_printQualities.push_back(m_qualityMap[quality]);
+                }
+            }
+            m_gotPrintQualities = true;
+        }   
+    }
+    std::vector<std::string>& Printer::getPrintQualities()
+    {
+        populatePrintQualities();
+        return m_printQualities;
     }
 }       
