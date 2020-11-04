@@ -334,7 +334,6 @@ namespace nanaprint
                 ipp_attribute_t *source = cupsFindDestSupported(http, m_dest,
                     info, CUPS_MEDIA_SOURCE);
                 int count = ippGetCount(source);
-                cout << "Sources: " << endl;
                 for (int i = 0; i < count; ++i)
                 {
                     const char *src = ippGetString(source, i, NULL);
