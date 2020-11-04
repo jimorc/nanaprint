@@ -56,6 +56,8 @@ namespace nanaprint
             std::vector<std::string>& getOrientations();
             std::string& getDefaultOrientation();
             std::vector<std::string>& getColorModes();
+            std::string& getDefaultColorMode();
+            std::vector<std::string>& getPrintQualities();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -75,6 +77,7 @@ namespace nanaprint
             void populateOrientations();
             void populateDefaultOrientation();
             void populateColorModes();
+            void populateDefaultColorMode();
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
@@ -102,6 +105,8 @@ namespace nanaprint
             std::string m_defaultMediaType;
             bool m_gotDefaultOrientation;
             std::string m_defaultOrientation;
+            bool m_gotDefaultColorMode;
+            std::string m_defaultColorMode;
             bool m_gotDefaultFinishings;
             bool m_noDefaultFinishings;
             bool m_defaultBind;

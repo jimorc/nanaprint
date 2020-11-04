@@ -185,8 +185,17 @@ int main()
             }
         }
         
+        cout << "    DefaultColorMode:\n";
+        auto defaultColorMode = printer->getDefaultColorMode();
+        if(defaultColorMode.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            cout << "        " << defaultColorMode << '\n';
+        }
         
-
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {
