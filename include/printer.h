@@ -53,6 +53,7 @@ namespace nanaprint
             std::string& getDefaultMediaSource();
             std::vector<std::string>& getMediaTypes();
             std::string& getDefaultMediaType();
+            std::vector<std::string>& getOrientations();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -69,6 +70,7 @@ namespace nanaprint
             void populateDefaultMediaSource();
             void populateMediaTypes();
             void populateDefaultMediaType();
+            void populateOrientations();
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
@@ -77,6 +79,8 @@ namespace nanaprint
             std::vector<std::string> m_mediaSources;
             bool m_gotMediaTypes;
             std::vector<std::string> m_mediaTypes;
+            bool m_gotOrientations;
+            std::vector<std::string> m_orientations;
             bool m_gotFinishings;
             bool m_noFinishings;
             bool m_canBind;
@@ -98,6 +102,8 @@ namespace nanaprint
             bool m_defaultPunch;
             bool m_defaultStaple;
             bool m_defaultTrim;
+
+            static std::map<int, std::string> m_orientationMap;
     };
 }
 

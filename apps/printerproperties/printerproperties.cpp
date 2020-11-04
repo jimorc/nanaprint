@@ -145,6 +145,21 @@ int main()
         {
             cout << "        " << defaultMediaType << '\n';
         }
+
+        cout << "    Orientations:\n";
+        auto orientations = printer->getOrientations();
+        if(orientations.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            for (auto orientation: orientations)
+            {
+                cout << "        " << orientation << '\n';
+            }
+        }
+        
         
 
         cout << "    Options: " << '\n';

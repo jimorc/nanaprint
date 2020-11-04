@@ -26,13 +26,17 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
 
+    map<int, string> Printer::m_orientationMap {{3, "Portrait"}, {4, "Landscape"},
+                {5, "Reverse Landscape"}, {6, "Reverse Portrait"}};
+ 
+
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
-            m_gotMediaTypes(false), m_gotDefaultMediaType(false)
+            m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false)
     {
         populateDefaultFinishings();
     }
@@ -556,4 +560,34 @@ namespace nanaprint
         populateDefaultMediaType();
         return m_defaultMediaType;
     }
+
+    void Printer::populateOrientations()
+    {
+        if (!m_gotOrientations)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            if (cupsCheckDestSupported(http, m_dest, info, CUPS_ORIENTATION, NULL))
+            {
+                ipp_attribute_t *orientations = cupsFindDestSupported(http, m_dest,
+                    info, CUPS_ORIENTATION);
+                int count = ippGetCount(orientations);
+                for (int i = 0; i < count; ++i)
+                {
+                    int orientation = ippGetInteger(orientations, i);
+                    m_orientations.push_back(m_orientationMap[orientation]);
+                }
+            }
+            m_gotOrientations = true;
+        }   
+    }
+    std::vector<std::string>& Printer::getOrientations()
+    {
+        populateOrientations();
+        return m_orientations;
+    }
+
 }       
