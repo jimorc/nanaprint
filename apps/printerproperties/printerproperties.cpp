@@ -209,6 +209,17 @@ int main()
                 cout << "        " << quality << '\n';
             }
         }
+
+        cout << "    Default Print Quality:\n";
+        auto printQuality = printer->getDefaultPrintQuality();
+        if(printQuality.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            cout << "        " << printQuality << '\n';
+        }
         
         
         cout << "    Options: " << '\n';

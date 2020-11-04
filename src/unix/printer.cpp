@@ -41,7 +41,7 @@ namespace nanaprint
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
-            m_gotPrintQualities(false)
+            m_gotPrintQualities(false), m_gotDefaultPrintQuality(false)
     {
         populateDefaultFinishings();
     }
@@ -733,5 +733,41 @@ namespace nanaprint
     {
         populatePrintQualities();
         return m_printQualities;
+    }
+
+    void Printer::populateDefaultPrintQuality()
+    {
+        if (!m_gotDefaultPrintQuality)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            const char *defaultQuality =
+                cupsGetOption(CUPS_PRINT_QUALITY, m_dest->num_options, m_dest->options);
+            if (defaultQuality != nullptr)
+            {
+                int quality = stoi(defaultQuality);
+                m_defaultOrientation = m_qualityMap[quality];
+            }
+            else
+            {
+                ipp_attribute_t *defQuality = cupsFindDestDefault(http, m_dest,
+                    info, CUPS_PRINT_QUALITY);
+                int count = ippGetCount(defQuality);
+                if (count != 0)
+                {
+                    int defaultQuality = ippGetInteger(defQuality, 0);
+                    m_defaultPrintQuality = m_qualityMap[defaultQuality];
+                }
+            }
+            m_gotDefaultPrintQuality = true;
+        }   
+    }
+    std::string& Printer::getDefaultPrintQuality()
+    {
+        populateDefaultPrintQuality();
+        return m_defaultPrintQuality;
     }
 }       
