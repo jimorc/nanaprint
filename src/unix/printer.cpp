@@ -540,16 +540,22 @@ namespace nanaprint
             http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
                 NULL, resource, RESOURCE_SIZE, NULL, NULL);
             cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            const char *defaultSource =
+            const char *defaultType =
                 cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
-
-            ipp_attribute_t *type = cupsFindDestDefault(http, m_dest,
-                info, CUPS_MEDIA_TYPE);
-            int count = ippGetCount(type);
-            if (count != 0)
+            if(defaultType != nullptr)
             {
-                const char *defaultType = ippGetString(type, 0, NULL);
                 m_defaultMediaType = *defaultType;
+            }
+            else
+            {
+                ipp_attribute_t *type = cupsFindDestDefault(http, m_dest,
+                    info, CUPS_MEDIA_TYPE);
+                int count = ippGetCount(type);
+                if (count != 0)
+                {
+                    const char *defaultType = ippGetString(type, 0, NULL);
+                    m_defaultMediaType = *defaultType;
+                }
             }
             m_gotDefaultMediaType = true;
         }   
