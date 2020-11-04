@@ -170,6 +170,21 @@ int main()
         {
             cout << "        " << orientation << '\n';
         }
+
+        cout << "    Color Modes:\n";
+        auto colorModes = printer->getColorModes();
+        if (colorModes.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            for (auto colorMode: colorModes)
+            {
+                cout << "        " << colorMode << '\n';
+            }
+        }
+        
         
 
         cout << "    Options: " << '\n';

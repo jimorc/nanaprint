@@ -37,7 +37,7 @@ namespace nanaprint
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
-            m_gotDefaultOrientation(false)
+            m_gotDefaultOrientation(false), m_gotColorModes(false)
     {
         populateDefaultFinishings();
     }
@@ -637,5 +637,35 @@ namespace nanaprint
         populateDefaultOrientation();
         return m_defaultOrientation;
     }
+
+    void Printer::populateColorModes()
+    {
+        if (!m_gotColorModes)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            if (cupsCheckDestSupported(http, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
+            {
+                ipp_attribute_t *colorModes = cupsFindDestSupported(http, m_dest,
+                    info, CUPS_PRINT_COLOR_MODE);
+                int count = ippGetCount(colorModes);
+                for (int i = 0; i < count; ++i)
+                {
+                    const char *colorMode = ippGetString(colorModes, i, NULL);
+                    m_colorModes.push_back(colorMode);
+                }
+            }
+            m_gotColorModes = true;
+        }   
+    }
+    std::vector<std::string>& Printer::getColorModes()
+    {
+        populateColorModes();
+        return m_colorModes;
+    }
+
 
 }       
