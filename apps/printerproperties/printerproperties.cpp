@@ -220,6 +220,21 @@ int main()
         {
             cout << "        " << printQuality << '\n';
         }
+
+        cout << "    Sides:\n";
+        auto sides = printer->getSides();
+        if(sides.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            for (auto side: sides)
+            {
+                cout << "        " << side << '\n';
+            }
+        }
+        
         
         
         cout << "    Options: " << '\n';
