@@ -41,7 +41,8 @@ namespace nanaprint
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
-            m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false)
+            m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
+            m_gotDefaultSide(false)
     {
         populateDefaultFinishings();
     }
@@ -798,5 +799,40 @@ namespace nanaprint
     {
         populateSides();
         return m_sides;
+    }
+
+    void Printer::populateDefaultSide()
+    {
+        if (!m_gotDefaultSide)
+        {
+            char resource[RESOURCE_SIZE];
+            
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            const char *defaultSide =
+                cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
+            if (defaultSide != nullptr)
+            {
+                m_defaultSide = defaultSide;
+            }
+            else
+            {
+                ipp_attribute_t *defSide = cupsFindDestDefault(http, m_dest,
+                    info, CUPS_SIDES);
+                int count = ippGetCount(defSide);
+                if (count != 0)
+                {
+                    const char *defaultSide = ippGetString(defSide, 0, NULL);
+                     m_defaultSide = defaultSide;
+                }
+            }
+            m_gotDefaultSide = true;
+        }   
+    }
+    std::string& Printer::getDefaultSide()
+    {
+        populateDefaultSide();
+        return m_defaultSide;
     }
 }       

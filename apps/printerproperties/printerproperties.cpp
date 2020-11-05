@@ -234,6 +234,18 @@ int main()
                 cout << "        " << side << '\n';
             }
         }
+
+        cout << "    Default Side\n";
+        auto side = printer->getDefaultSide();
+        if(side.size() == 0)
+        {
+            cout << "        None specified\n";
+        }
+        else
+        {
+            cout << "        " << side << '\n';
+        }
+        
         
         
         

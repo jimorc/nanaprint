@@ -60,6 +60,7 @@ namespace nanaprint
             std::vector<std::string>& getPrintQualities();
             std::string& getDefaultPrintQuality();
             std::vector<std::string>& getSides();
+            std::string& getDefaultSide();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -83,6 +84,7 @@ namespace nanaprint
             void populatePrintQualities();
             void populateDefaultPrintQuality();
             void populateSides();
+            void populateDefaultSide();
 
             cups_dest_t* m_dest;
             MediaSizes m_mediaSizes;
@@ -118,6 +120,8 @@ namespace nanaprint
             std::string m_defaultColorMode;
             bool m_gotDefaultPrintQuality;
             std::string m_defaultPrintQuality;
+            bool m_gotDefaultSide;
+            std::string m_defaultSide;
             bool m_gotDefaultFinishings;
             bool m_noDefaultFinishings;
             bool m_defaultBind;
