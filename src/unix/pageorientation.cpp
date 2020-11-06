@@ -11,6 +11,7 @@
  *  @file unix/pageorientation.cpp
  */
 
+#include <stdexcept>
 #include "pageorientation.h"
 
 using namespace std;
@@ -34,6 +35,8 @@ namespace nanaprint
             case REVERSE_PORTRAIT:
                 pageOrientation = std::make_shared<ReversePortraitOrientation>(ReversePortraitOrientation());
                 break;
+            default:
+                throw invalid_argument("Invalid argument value to PageOrientation::create");
         }
 
         return pageOrientation;
