@@ -56,3 +56,15 @@ package_add_test_with_libraries(MediaSizeTests
     cupsprint 
     "${PROJECT_DIR}"
 )
+
+package_add_test_with_libraries(PageOrientationTests
+    pageorientationtests.cpp 
+    cupsprint 
+    "${PROJECT_DIR}"
+)
+
+
+target_compile_features(printerproperties
+    PUBLIC
+    cxx_std_17
+)

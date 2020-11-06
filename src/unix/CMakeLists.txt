@@ -9,6 +9,7 @@ add_library(cupsprint
     mediasizes.cpp
     mediasize.cpp
     mediasizestranslator.cpp
+    pageorientation.cpp
 )
 
 link_directories(
@@ -23,4 +24,9 @@ include_directories(
 
 target_link_libraries(cupsprint
     ${CUPS_LIBRARIES}
+)
+
+target_compile_features(printerproperties
+    PUBLIC
+    cxx_std_17
 )
