@@ -31,6 +31,9 @@ namespace nanaprint
             case REVERSE_LANDSCAPE:
                 pageOrientation = std::make_shared<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
                 break;
+            case REVERSE_PORTRAIT:
+                pageOrientation = std::make_shared<ReversePortraitOrientation>(ReversePortraitOrientation());
+                break;
         }
 
         return pageOrientation;

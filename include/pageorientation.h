@@ -62,4 +62,14 @@ namespace nanaprint
             }
     };
 
+    class ReversePortraitOrientation : public PageOrientation
+    {
+        public:
+            virtual ~ReversePortraitOrientation() {}
+            virtual const std::string getOrientation() const override
+            {
+                return u8"Reverse Portrait";
+            }
+    };
+
 }
