@@ -51,4 +51,15 @@ namespace nanaprint
                 return u8"Landscape";
             }
     };
+
+    class ReverseLandscapeOrientation : public PageOrientation
+    {
+        public:
+            virtual ~ReverseLandscapeOrientation() {}
+            virtual const std::string getOrientation() const override
+            {
+                return u8"Reverse Landscape";
+            }
+    };
+
 }
