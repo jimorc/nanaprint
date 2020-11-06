@@ -41,4 +41,14 @@ namespace nanaprint
                 return u8"Portrait";
             }
     };
+
+    class LandscapeOrientation : public PageOrientation
+    {
+        public:
+            virtual ~LandscapeOrientation() {}
+            virtual const std::string getOrientation() const override
+            {
+                return u8"Landscape";
+            }
+    };
 }

@@ -25,6 +25,9 @@ namespace nanaprint
             case PORTRAIT:
                 pageOrientation = std::make_shared<PortraitOrientation>(PortraitOrientation());
                 break;
+            case LANDSCAPE:
+                pageOrientation = std::make_shared<LandscapeOrientation>(LandscapeOrientation());
+                break;
         }
 
         return pageOrientation;
