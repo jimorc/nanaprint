@@ -12,8 +12,10 @@ TEST(PrintQualityTests, testCreate)
     auto plainNormal = PrintQuality::create(PLAIN_NORMAL);
     auto fast = PrintQuality::create(FAST);
     auto normal = PrintQuality::create(NORMAL);
+    auto high = PrintQuality::create(HIGH);
 
     ASSERT_STREQ(u8"Plain Normal", plainNormal->getPrintQuality().c_str());
     ASSERT_STREQ(u8"Fast", fast->getPrintQuality().c_str());
     ASSERT_STREQ(u8"Normal", normal->getPrintQuality().c_str());
+    ASSERT_STREQ(u8"High", high->getPrintQuality().c_str());
 }

@@ -67,4 +67,15 @@ namespace nanaprint
         protected:
             NormalQuality() {}
     };
+
+    class HighQuality : public PrintQuality
+    {
+        public:
+            static std::shared_ptr<HighQuality> create();
+            std::string getPrintQuality() override;
+            virtual ~HighQuality() {}
+
+        protected:
+            HighQuality() {}
+    };
 }

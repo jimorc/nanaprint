@@ -30,6 +30,10 @@ namespace nanaprint
                 break;
             case NORMAL:
                 printQuality = NormalQuality::create();
+                break;
+            case HIGH:
+                printQuality = HighQuality::create();
+                break;
         }
 
         return printQuality;
@@ -50,6 +54,11 @@ namespace nanaprint
         return std::make_shared<NormalQuality>(NormalQuality());
     }
     
+    std::shared_ptr<HighQuality> HighQuality::create()
+    {
+        return std::make_shared<HighQuality>(HighQuality());
+    }
+    
     std::string PlainNormalQuality::getPrintQuality()
     {
         return "Plain Normal";
@@ -63,5 +72,10 @@ namespace nanaprint
     std::string NormalQuality::getPrintQuality()
     {
         return "Normal";
+    }
+
+    std::string HighQuality::getPrintQuality()
+    {
+        return "High";
     }
 }
