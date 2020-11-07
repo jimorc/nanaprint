@@ -37,6 +37,8 @@ namespace nanaprint
             case PHOTO:
                 printQuality = PhotoQuality::create();
                 break;
+            default:
+                throw invalid_argument("Invalid argument value input to PrintQuality::create");
         }
 
         return printQuality;
