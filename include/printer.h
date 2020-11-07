@@ -20,6 +20,7 @@
 #include <map>
 #include <cups/cups.h>
 #include "mediasizes.h"
+#include "pageorientation.h"
 
 namespace nanaprint
 {
@@ -53,8 +54,8 @@ namespace nanaprint
             std::string& getDefaultMediaSource();
             std::vector<std::string>& getMediaTypes();
             std::string& getDefaultMediaType();
-            std::vector<std::string>& getOrientations();
-            std::string& getDefaultOrientation();
+            PageOrientations& getOrientations();
+            const std::string getDefaultOrientation();
             std::vector<std::string>& getColorModes();
             std::string& getDefaultColorMode();
             std::vector<std::string>& getPrintQualities();
@@ -94,7 +95,7 @@ namespace nanaprint
             bool m_gotMediaTypes;
             std::vector<std::string> m_mediaTypes;
             bool m_gotOrientations;
-            std::vector<std::string> m_orientations;
+            PageOrientations m_orientations;
             bool m_gotColorModes;
             std::vector<std::string> m_colorModes;
             bool m_gotPrintQualities;
@@ -131,7 +132,7 @@ namespace nanaprint
             bool m_defaultStaple;
             bool m_defaultTrim;
 
-            static std::map<int, std::string> m_orientationMap;
+//            static std::map<int, std::string> m_orientationMap;
             static std::map<int, std::string> m_qualityMap;
     };
 }

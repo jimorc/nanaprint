@@ -48,7 +48,7 @@ namespace nanaprint
             static std::shared_ptr<PortraitOrientation> create();
             virtual const std::string getOrientation() const override
             {
-                return u8"Portrait";
+                return "Portrait";
             }
         protected:
             PortraitOrientation() {}
@@ -61,7 +61,7 @@ namespace nanaprint
             static std::shared_ptr<LandscapeOrientation> create();
             virtual const std::string getOrientation() const override
             {
-                return u8"Landscape";
+                return "Landscape";
             }
         protected:
             LandscapeOrientation() {}
@@ -74,7 +74,7 @@ namespace nanaprint
             static std::shared_ptr<ReverseLandscapeOrientation> create();
             virtual const std::string getOrientation() const override
             {
-                return u8"Reverse Landscape";
+                return "Reverse Landscape";
             }
         protected:
             ReverseLandscapeOrientation() {}
@@ -87,7 +87,7 @@ namespace nanaprint
             static std::shared_ptr<ReversePortraitOrientation> create();
             virtual const std::string getOrientation() const override
             {
-                return u8"Reverse Portrait";
+                return "Reverse Portrait";
             }
         protected:
             ReversePortraitOrientation() {}

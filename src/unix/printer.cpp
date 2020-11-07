@@ -15,6 +15,7 @@
 #include <vector>
 #include <string>
 #include <regex>
+#include <memory>
 #include "printer.h"
 
 using namespace std;
@@ -25,9 +26,6 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 
 namespace nanaprint
 {
-
-    map<int, string> Printer::m_orientationMap {{3, "Portrait"}, {4, "Landscape"},
-                {5, "Reverse Landscape"}, {6, "Reverse Portrait"}};
 
     map<int, string> Printer::m_qualityMap {{2, "Plain Normal"}, {3, "Fast"},
                 {4, "Normal"}, {5, "High"}, {6, "Photo"}};
@@ -595,13 +593,13 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     int orientation = ippGetInteger(orientations, i);
-                    m_orientations.push_back(m_orientationMap[orientation]);
+                    m_orientations.addOrientation(orientation);
                 }
             }
             m_gotOrientations = true;
         }   
     }
-    std::vector<std::string>& Printer::getOrientations()
+    PageOrientations& Printer::getOrientations()
     {
         populateOrientations();
         return m_orientations;
@@ -621,7 +619,8 @@ namespace nanaprint
             if (defaultOrientation != nullptr)
             {
                 int orientation = stoi(defaultOrientation);
-                m_defaultOrientation = m_orientationMap[orientation];
+                auto orient = PageOrientation::create(orientation);
+                m_defaultOrientation = orient->getOrientation();
             }
             else
             {
@@ -631,15 +630,23 @@ namespace nanaprint
                 if (count != 0)
                 {
                     int defaultOr = ippGetInteger(defOrientation, 0);
-                    m_defaultOrientation = m_orientationMap[defaultOr];
+                    if(defaultOr != 0)
+                    {
+                        auto orient = PageOrientation::create(defaultOr);
+                        m_defaultOrientation = orient->getOrientation();
+                    }
                 }
             }
             m_gotDefaultMediaType = true;
         }   
     }
-    std::string& Printer::getDefaultOrientation()
+    const std::string Printer::getDefaultOrientation()
     {
         populateDefaultOrientation();
+        if (m_defaultOrientation.size() == 0)
+        {
+            return "None";
+        }
         return m_defaultOrientation;
     }
 
@@ -750,7 +757,7 @@ namespace nanaprint
             if (defaultQuality != nullptr)
             {
                 int quality = stoi(defaultQuality);
-                m_defaultOrientation = m_qualityMap[quality];
+                m_defaultPrintQuality = m_qualityMap[quality];
             }
             else
             {
