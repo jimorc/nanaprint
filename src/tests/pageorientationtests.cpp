@@ -36,3 +36,21 @@ TEST(PageOrientaitionTests, testCreateInvalidOrientation)
         FAIL() << "Unexpected Excetion thrown: " << std::current_exception << endl;
     }
 }
+
+// Test the insertion operator
+TEST(PageOrientationTests, testInsertionOperator)
+{
+    unique_ptr<PageOrientation> pPortOr = PageOrientation::create(3);
+    unique_ptr<PageOrientation> pLandOr = PageOrientation::create(4);
+    unique_ptr<PageOrientation> pRevLandOr = PageOrientation::create(5);
+    unique_ptr<PageOrientation> pRevPortOr = PageOrientation::create(6);
+    stringstream ssPort, ssLand, ssRevLand, ssRevPort;
+    ssPort << *pPortOr;
+    ssLand << *pLandOr;
+    ssRevLand << *pRevLandOr;
+    ssRevPort << *pRevPortOr;
+    ASSERT_STREQ(u8"Portrait", ssPort.str().c_str());
+    ASSERT_STREQ(u8"Landscape", ssLand.str().c_str());
+    ASSERT_STREQ(u8"Reverse Landscape", ssRevLand.str().c_str());
+    ASSERT_STREQ(u8"Reverse Portrait", ssRevPort.str().c_str());
+}

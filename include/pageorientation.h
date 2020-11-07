@@ -16,6 +16,7 @@
 
 #include <string>
 #include <memory>
+#include <iostream>
 #include <cups/cups.h>
 
 namespace nanaprint
@@ -30,9 +31,13 @@ namespace nanaprint
         public:
             static std::unique_ptr<PageOrientation> create(const int orientation);
             virtual const std::string getOrientation() const = 0;
+
+            friend std::ostream& operator<<(std::ostream& os, const PageOrientation& orientation);
         protected:
             PageOrientation() {}
     };
+
+    std::ostream& operator<<(std::ostream& os, const PageOrientation& orientation);
 
     class PortraitOrientation : public PageOrientation
     {

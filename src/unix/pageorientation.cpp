@@ -61,4 +61,11 @@ namespace nanaprint
     {
         return make_unique<ReversePortraitOrientation>(ReversePortraitOrientation());
     }
+
+    ostream& operator<<(ostream& os, const PageOrientation& orientation)
+    {
+        os << orientation.getOrientation();
+        return os;
+    }
+
 }
