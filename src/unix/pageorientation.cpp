@@ -44,22 +44,23 @@ namespace nanaprint
 
     std::shared_ptr<PortraitOrientation> PortraitOrientation::create()
     {
-        return make_unique<PortraitOrientation>(PortraitOrientation());
+        auto ptr = make_shared<PortraitOrientation>(PortraitOrientation());
+        return ptr;
     }
 
     std::shared_ptr<LandscapeOrientation> LandscapeOrientation::create()
     {
-        return make_unique<LandscapeOrientation>(LandscapeOrientation());
+        return make_shared<LandscapeOrientation>(LandscapeOrientation());
     }
 
     std::shared_ptr<ReverseLandscapeOrientation> ReverseLandscapeOrientation::create()
     {
-        return make_unique<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
+        return make_shared<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
     }
 
     std::shared_ptr<ReversePortraitOrientation> ReversePortraitOrientation::create()
     {
-        return make_unique<ReversePortraitOrientation>(ReversePortraitOrientation());
+        return make_shared<ReversePortraitOrientation>(ReversePortraitOrientation());
     }
 
     ostream& operator<<(ostream& os, const PageOrientation& orientation)
