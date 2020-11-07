@@ -56,4 +56,15 @@ namespace nanaprint
         protected:
             FastQuality() {}
     };
+
+    class NormalQuality : public PrintQuality
+    {
+        public:
+            static std::shared_ptr<NormalQuality> create();
+            std::string getPrintQuality() override;
+            virtual ~NormalQuality() {}
+
+        protected:
+            NormalQuality() {}
+    };
 }
