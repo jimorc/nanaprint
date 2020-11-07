@@ -69,28 +69,34 @@ namespace nanaprint
         return std::make_shared<PhotoQuality>(PhotoQuality());
     }
      
-    std::string PlainNormalQuality::getPrintQuality()
+    std::string PlainNormalQuality::getPrintQuality() const
     {
         return "Plain Normal";
     }
 
-    std::string FastQuality::getPrintQuality()
+    std::string FastQuality::getPrintQuality() const
     {
         return "Fast";
     }
 
-    std::string NormalQuality::getPrintQuality()
+    std::string NormalQuality::getPrintQuality() const
     {
         return "Normal";
     }
 
-    std::string HighQuality::getPrintQuality()
+    std::string HighQuality::getPrintQuality() const
     {
         return "High";
     }
 
-    std::string PhotoQuality::getPrintQuality()
+    std::string PhotoQuality::getPrintQuality() const
     {
         return "Photo";
+    }
+
+    std::ostream& operator<<(std::ostream& os, const PrintQuality& quality)
+    {
+        os << quality.getPrintQuality();
+        return os;
     }
 }

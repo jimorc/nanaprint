@@ -39,3 +39,28 @@ TEST(PrintQualityTests, testCreateInvalidOrientation)
         FAIL() << "Unexpected Exception thrown: " << std::current_exception << endl;
     }
 }
+
+// Test the insertion operator
+TEST(PrintQualityTests, testInsertionOperator)
+{
+    auto pPlainQual = PrintQuality::create(PLAIN_NORMAL);
+    auto pFastQual = PrintQuality::create(FAST);
+    auto pNormalQual = PrintQuality::create(NORMAL);
+    auto pHighQual = PrintQuality::create(HIGH);
+    auto pPhotoQual = PrintQuality::create(PHOTO);
+    
+    stringstream ssPlQual, ssFast, ssNormal, ssHigh, ssPhoto;
+    ssPlQual << *pPlainQual;
+    ssFast << *pFastQual;
+    ssNormal << *pNormalQual;
+    ssHigh << *pHighQual;
+    ssPhoto << *pPhotoQual;
+
+    ASSERT_STREQ(u8"Plain Normal", ssPlQual.str().c_str());
+    ASSERT_STREQ(u8"Fast", ssFast.str().c_str());
+    ASSERT_STREQ(u8"Normal", ssNormal.str().c_str());
+    ASSERT_STREQ(u8"High", ssHigh.str().c_str());
+    ASSERT_STREQ(u8"Photo", ssPhoto.str().c_str());
+}
+
+
