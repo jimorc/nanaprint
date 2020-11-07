@@ -65,3 +65,22 @@ TEST(PageOrientationTests, testaddOrientation)
     ASSERT_TRUE(orientations.containsOrientation(u8"Landscape"));
     ASSERT_FALSE(orientations.containsOrientation(u8"ReverseLandscape"));
 }
+
+// Test PageOrientations insertion operator
+TEST(PageOrientationTests, testPageOrientationsInserterOperator)
+{
+    PageOrientations orientations;
+    orientations.addOrientation(LANDSCAPE);
+    orientations.addOrientation(PORTRAIT);
+    stringstream ss, ss2;
+    ss << orientations;
+    ASSERT_STREQ(u8"Page Orientations:\n    Portrait\n    Landscape\n", ss.str().c_str());
+
+    orientations.addOrientation(REVERSE_LANDSCAPE);
+    orientations.addOrientation(REVERSE_PORTRAIT);
+
+    ss2 << orientations;
+    ASSERT_STREQ(u8"Page Orientations:\n    Portrait\n    Landscape\n"
+        "    Reverse Landscape\n    Reverse Portrait\n", ss2.str().c_str());
+
+}

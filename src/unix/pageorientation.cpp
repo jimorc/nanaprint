@@ -84,7 +84,7 @@ namespace nanaprint
         return orientations;
     }
 
-    bool PageOrientations::containsOrientation(const std::string& orientation)
+    bool PageOrientations::containsOrientation(const std::string& orientation) const
     {
         for (auto iter = m_orientations.begin(); iter != m_orientations.end(); ++iter)
         {
@@ -92,5 +92,28 @@ namespace nanaprint
                 return true;
         }
         return false;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const PageOrientations& orientations)
+    {
+        os << u8"Page Orientations:\n";
+        if (orientations.containsOrientation(u8"Portrait"))
+        {
+            os << u8"    Portrait\n"; 
+        }
+        if (orientations.containsOrientation(u8"Landscape"))
+        {
+            os << u8"    Landscape\n";
+        }
+        if (orientations.containsOrientation(u8"Reverse Landscape"))
+        {
+            os << u8"    Reverse Landscape\n";
+        }
+        if (orientations.containsOrientation(u8"Reverse Portrait"))
+        {
+            os << u8"    Reverse Portrait\n";
+        }
+
+        return os;
     }
 }
