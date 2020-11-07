@@ -7,7 +7,7 @@ using namespace nanaprint;
 using namespace std;
 
 // Test create
-TEST(PageOrientaitionTests, testCreate)
+TEST(PageOrientationTests, testCreate)
 {
     auto portrait = PageOrientation::create(PORTRAIT);
     auto landscape = PageOrientation::create(LANDSCAPE);
@@ -20,7 +20,7 @@ TEST(PageOrientaitionTests, testCreate)
 }
 
 // Test create with invalid orientation argument
-TEST(PageOrientaitionTests, testCreateInvalidOrientation)
+TEST(PageOrientationTests, testCreateInvalidOrientation)
 {
     try
     {
@@ -40,10 +40,10 @@ TEST(PageOrientaitionTests, testCreateInvalidOrientation)
 // Test the insertion operator
 TEST(PageOrientationTests, testInsertionOperator)
 {
-    unique_ptr<PageOrientation> pPortOr = PageOrientation::create(PORTRAIT);
-    unique_ptr<PageOrientation> pLandOr = PageOrientation::create(LANDSCAPE);
-    unique_ptr<PageOrientation> pRevLandOr = PageOrientation::create(REVERSE_LANDSCAPE);
-    unique_ptr<PageOrientation> pRevPortOr = PageOrientation::create(REVERSE_PORTRAIT);
+    shared_ptr<PageOrientation> pPortOr = PageOrientation::create(PORTRAIT);
+    shared_ptr<PageOrientation> pLandOr = PageOrientation::create(LANDSCAPE);
+    shared_ptr<PageOrientation> pRevLandOr = PageOrientation::create(REVERSE_LANDSCAPE);
+    shared_ptr<PageOrientation> pRevPortOr = PageOrientation::create(REVERSE_PORTRAIT);
     stringstream ssPort, ssLand, ssRevLand, ssRevPort;
     ssPort << *pPortOr;
     ssLand << *pLandOr;
@@ -53,4 +53,15 @@ TEST(PageOrientationTests, testInsertionOperator)
     ASSERT_STREQ(u8"Landscape", ssLand.str().c_str());
     ASSERT_STREQ(u8"Reverse Landscape", ssRevLand.str().c_str());
     ASSERT_STREQ(u8"Reverse Portrait", ssRevPort.str().c_str());
+}
+
+// Test PageOrientations::addOrientation
+TEST(PageOrientationTests, testaddOrientation)
+{
+    PageOrientations orientations;
+    orientations.addOrientation(LANDSCAPE);
+    orientations.addOrientation(PORTRAIT);
+    ASSERT_TRUE(orientations.containsOrientation(u8"Portrait"));
+    ASSERT_TRUE(orientations.containsOrientation(u8"Landscape"));
+    ASSERT_FALSE(orientations.containsOrientation(u8"ReverseLandscape"));
 }

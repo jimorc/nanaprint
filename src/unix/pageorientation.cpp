@@ -18,9 +18,9 @@ using namespace std;
 
 namespace nanaprint
 {
-    std::unique_ptr<PageOrientation> PageOrientation::create(const int orientation)
+    std::shared_ptr<PageOrientation> PageOrientation::create(const int orientation)
     {
-        std::unique_ptr<PageOrientation> pageOrientation;
+        std::shared_ptr<PageOrientation> pageOrientation;
         switch (orientation)
         {
             case PORTRAIT:
@@ -42,22 +42,22 @@ namespace nanaprint
         return pageOrientation;
     }
 
-    std::unique_ptr<PortraitOrientation> PortraitOrientation::create()
+    std::shared_ptr<PortraitOrientation> PortraitOrientation::create()
     {
         return make_unique<PortraitOrientation>(PortraitOrientation());
     }
 
-    std::unique_ptr<LandscapeOrientation> LandscapeOrientation::create()
+    std::shared_ptr<LandscapeOrientation> LandscapeOrientation::create()
     {
         return make_unique<LandscapeOrientation>(LandscapeOrientation());
     }
 
-    std::unique_ptr<ReverseLandscapeOrientation> ReverseLandscapeOrientation::create()
+    std::shared_ptr<ReverseLandscapeOrientation> ReverseLandscapeOrientation::create()
     {
         return make_unique<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
     }
 
-    std::unique_ptr<ReversePortraitOrientation> ReversePortraitOrientation::create()
+    std::shared_ptr<ReversePortraitOrientation> ReversePortraitOrientation::create()
     {
         return make_unique<ReversePortraitOrientation>(ReversePortraitOrientation());
     }
@@ -68,4 +68,29 @@ namespace nanaprint
         return os;
     }
 
+
+    void PageOrientations::addOrientation(int orientation)
+    {
+        m_orientations.insert(PageOrientation::create(orientation));
+    }
+
+    std::vector<std::string> PageOrientations::getOrientations()
+    {
+        std::vector<std::string> orientations;
+        for (auto orientation : m_orientations)
+        {
+            orientations.push_back(orientation->getOrientation());
+        }
+        return orientations;
+    }
+
+    bool PageOrientations::containsOrientation(const std::string& orientation)
+    {
+        for (auto iter = m_orientations.begin(); iter != m_orientations.end(); ++iter)
+        {
+            if ((*iter)->getOrientation() == orientation)
+                return true;
+        }
+        return false;
+    }
 }
