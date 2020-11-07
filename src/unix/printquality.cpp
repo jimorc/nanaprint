@@ -25,6 +25,9 @@ namespace nanaprint
             case PLAIN_NORMAL:
                 printQuality = PlainNormalQuality::create();
                 break;
+            case FAST:
+                printQuality = FastQuality::create();
+                break;
         }
 
         return printQuality;
@@ -35,8 +38,18 @@ namespace nanaprint
         return std::make_shared<PlainNormalQuality>(PlainNormalQuality());
     }
 
+    std::shared_ptr<FastQuality> FastQuality::create()
+    {
+        return std::make_shared<FastQuality>(FastQuality());
+    }
+
     std::string PlainNormalQuality::getPrintQuality()
     {
         return "Plain Normal";
+    }
+
+    std::string FastQuality::getPrintQuality()
+    {
+        return "Fast";
     }
 }
