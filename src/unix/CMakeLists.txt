@@ -10,6 +10,7 @@ add_library(cupsprint
     mediasize.cpp
     mediasizestranslator.cpp
     pageorientation.cpp
+    printquality.cpp
 )
 
 link_directories(

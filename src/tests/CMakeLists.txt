@@ -63,6 +63,12 @@ package_add_test_with_libraries(PageOrientationTests
     "${PROJECT_DIR}"
 )
 
+package_add_test_with_libraries(PrintQualityTests
+    printqualitytests.cpp 
+    cupsprint 
+    "${PROJECT_DIR}"
+)
+
 
 target_compile_features(printerproperties
     PUBLIC
