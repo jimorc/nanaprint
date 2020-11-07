@@ -28,48 +28,62 @@ namespace nanaprint
     class PageOrientation
     {
         public:
-            static std::shared_ptr<PageOrientation> create(const int orientation);
+            static std::unique_ptr<PageOrientation> create(const int orientation);
             virtual const std::string getOrientation() const = 0;
+        protected:
+            PageOrientation() {}
     };
 
     class PortraitOrientation : public PageOrientation
     {
         public:
             virtual ~PortraitOrientation() {}
+            static std::unique_ptr<PortraitOrientation> create();
             virtual const std::string getOrientation() const override
             {
                 return u8"Portrait";
             }
+        protected:
+            PortraitOrientation() {}
     };
 
     class LandscapeOrientation : public PageOrientation
     {
         public:
             virtual ~LandscapeOrientation() {}
+            static std::unique_ptr<LandscapeOrientation> create();
             virtual const std::string getOrientation() const override
             {
                 return u8"Landscape";
             }
+        protected:
+            LandscapeOrientation() {}
     };
 
     class ReverseLandscapeOrientation : public PageOrientation
     {
         public:
             virtual ~ReverseLandscapeOrientation() {}
+            static std::unique_ptr<ReverseLandscapeOrientation> create();
             virtual const std::string getOrientation() const override
             {
                 return u8"Reverse Landscape";
             }
+        protected:
+            ReverseLandscapeOrientation() {}
     };
 
     class ReversePortraitOrientation : public PageOrientation
     {
         public:
             virtual ~ReversePortraitOrientation() {}
+            static std::unique_ptr<ReversePortraitOrientation> create();
             virtual const std::string getOrientation() const override
             {
                 return u8"Reverse Portrait";
             }
+        protected:
+            ReversePortraitOrientation() {}
     };
 
 }

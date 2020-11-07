@@ -18,27 +18,47 @@ using namespace std;
 
 namespace nanaprint
 {
-    std::shared_ptr<PageOrientation> PageOrientation::create(const int orientation)
+    std::unique_ptr<PageOrientation> PageOrientation::create(const int orientation)
     {
-        std::shared_ptr<PageOrientation> pageOrientation;
+        std::unique_ptr<PageOrientation> pageOrientation;
         switch (orientation)
         {
             case PORTRAIT:
-                pageOrientation = std::make_shared<PortraitOrientation>(PortraitOrientation());
+                pageOrientation = PortraitOrientation::create();
                 break;
             case LANDSCAPE:
-                pageOrientation = std::make_shared<LandscapeOrientation>(LandscapeOrientation());
+                pageOrientation = LandscapeOrientation::create();
                 break;
             case REVERSE_LANDSCAPE:
-                pageOrientation = std::make_shared<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
+                pageOrientation = ReverseLandscapeOrientation::create();
                 break;
             case REVERSE_PORTRAIT:
-                pageOrientation = std::make_shared<ReversePortraitOrientation>(ReversePortraitOrientation());
+                pageOrientation = ReversePortraitOrientation::create();
                 break;
             default:
                 throw invalid_argument("Invalid argument value to PageOrientation::create");
         }
 
         return pageOrientation;
+    }
+
+    std::unique_ptr<PortraitOrientation> PortraitOrientation::create()
+    {
+        return make_unique<PortraitOrientation>(PortraitOrientation());
+    }
+
+    std::unique_ptr<LandscapeOrientation> LandscapeOrientation::create()
+    {
+        return make_unique<LandscapeOrientation>(LandscapeOrientation());
+    }
+
+    std::unique_ptr<ReverseLandscapeOrientation> ReverseLandscapeOrientation::create()
+    {
+        return make_unique<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
+    }
+
+    std::unique_ptr<ReversePortraitOrientation> ReversePortraitOrientation::create()
+    {
+        return make_unique<ReversePortraitOrientation>(ReversePortraitOrientation());
     }
 }
