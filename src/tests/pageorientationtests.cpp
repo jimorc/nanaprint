@@ -40,10 +40,10 @@ TEST(PageOrientaitionTests, testCreateInvalidOrientation)
 // Test the insertion operator
 TEST(PageOrientationTests, testInsertionOperator)
 {
-    unique_ptr<PageOrientation> pPortOr = PageOrientation::create(3);
-    unique_ptr<PageOrientation> pLandOr = PageOrientation::create(4);
-    unique_ptr<PageOrientation> pRevLandOr = PageOrientation::create(5);
-    unique_ptr<PageOrientation> pRevPortOr = PageOrientation::create(6);
+    unique_ptr<PageOrientation> pPortOr = PageOrientation::create(PORTRAIT);
+    unique_ptr<PageOrientation> pLandOr = PageOrientation::create(LANDSCAPE);
+    unique_ptr<PageOrientation> pRevLandOr = PageOrientation::create(REVERSE_LANDSCAPE);
+    unique_ptr<PageOrientation> pRevPortOr = PageOrientation::create(REVERSE_PORTRAIT);
     stringstream ssPort, ssLand, ssRevLand, ssRevPort;
     ssPort << *pPortOr;
     ssLand << *pLandOr;
