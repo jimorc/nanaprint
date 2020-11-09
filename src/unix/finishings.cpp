@@ -18,7 +18,7 @@ using namespace std;
 
 namespace nanaprint
 {
-    Finishings::Finishings() : m_none(true)
+    Finishings::Finishings() : m_none(true), m_bind(false)
     {
 
     }
@@ -27,12 +27,23 @@ namespace nanaprint
     {
         if (finish == CUPS_FINISHINGS_NONE)
         {
-                setNone();
+            setNone();
+        }
+        else if (finish == CUPS_FINISHINGS_BIND)
+        {
+            setBind();
         }
     }
 
     void Finishings::setNone()
     {
         m_none = true;
+        m_bind = false;
+    }
+
+    void Finishings::setBind()
+    {
+        m_bind = true;
+        m_none = false;
     }
 }

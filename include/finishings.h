@@ -25,8 +25,11 @@ namespace nanaprint
             ~Finishings() {}
             void setFinishing(const std::string& finish);
             bool getNone() const { return m_none; }
+            bool getBind() const { return m_bind; }
             void setNone();
+            void setBind();
         private:
             bool m_none;
+            bool m_bind;
     };
 }
