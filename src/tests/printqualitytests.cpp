@@ -63,4 +63,19 @@ TEST(PrintQualityTests, testInsertionOperator)
     ASSERT_STREQ(u8"Photo", ssPhoto.str().c_str());
 }
 
+// Test PrintQualities::addPrintQuality
+TEST(PrintQualitiesTests, testAddPrintQuality)
+{
+    PrintQualities qualities;
+    qualities.addPrintQuality(FAST);
+    qualities.addPrintQuality(NORMAL);
 
+    ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
+    ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
+
+    qualities.addPrintQuality(HIGH);
+
+    ASSERT_TRUE(qualities.containsPrintQuality(u8"High"));
+    ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
+    ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
+}

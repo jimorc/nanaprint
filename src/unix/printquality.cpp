@@ -99,4 +99,21 @@ namespace nanaprint
         os << quality.getPrintQuality();
         return os;
     }
+
+    void PrintQualities::addPrintQuality(int quality)
+    {
+        m_qualities.insert(PrintQuality::create(quality));
+    }
+
+    bool PrintQualities::containsPrintQuality(const std::string& quality) const
+    {
+        for (auto iter = m_qualities.begin(); iter != m_qualities.end(); ++iter)
+        {
+            if ((*iter)->getPrintQuality() == quality)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

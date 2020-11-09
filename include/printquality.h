@@ -16,6 +16,7 @@
 
 #include <memory>
 #include <iostream>
+#include <set>
 
 namespace nanaprint
 {
@@ -92,5 +93,17 @@ namespace nanaprint
 
         protected:
             PhotoQuality() {}
+    };
+
+    class PrintQualities
+    {
+        public:
+            PrintQualities() {}
+            ~PrintQualities() {}
+            void addPrintQuality(int quality);
+            bool containsPrintQuality(const std::string& quality) const;
+
+        private:
+            std::set<std::shared_ptr<PrintQuality>> m_qualities;
     };
 }
