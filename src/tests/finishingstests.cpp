@@ -14,6 +14,7 @@ TEST(FinishingsTests, testNone)
     finishingsNone2.setFinishing(CUPS_FINISHINGS_BIND);
     finishingsNone2.setFinishing(CUPS_FINISHINGS_COVER);
     finishingsNone2.setFinishing(CUPS_FINISHINGS_FOLD);
+    finishingsNone2.setFinishing(CUPS_FINISHINGS_PUNCH);
     finishingsNone2.setFinishing(CUPS_FINISHINGS_NONE);
 
     ASSERT_TRUE(finishingsNone.getNone());
@@ -21,6 +22,7 @@ TEST(FinishingsTests, testNone)
     ASSERT_FALSE(finishingsNone2.getBind());
     ASSERT_FALSE(finishingsNone2.getPrintCover());
     ASSERT_FALSE(finishingsNone2.getFold());
+    ASSERT_FALSE(finishingsNone2.getPunch());
 } 
 
 // Test Bind
@@ -51,4 +53,24 @@ TEST(FinishingsTests, testFold)
 
     ASSERT_TRUE(finishingsFold.getFold());
     ASSERT_FALSE(finishingsFold.getNone());
+}
+
+// Test punch
+TEST(FinishingsTests, testPunch)
+{
+    Finishings finishings;
+    finishings.setFinishing(CUPS_FINISHINGS_PUNCH);
+
+    ASSERT_TRUE(finishings.getPunch());
+    ASSERT_FALSE(finishings.getNone());
+}
+
+// Test staple
+TEST(FinishingsTests, testStaple)
+{
+    Finishings finishings;
+    finishings.setFinishing(CUPS_FINISHINGS_STAPLE);
+
+    ASSERT_TRUE(finishings.getStaple());
+    ASSERT_FALSE(finishings.getNone());
 }
