@@ -19,7 +19,7 @@ using namespace std;
 namespace nanaprint
 {
     Finishings::Finishings() : m_none(true), m_bind(false), m_printCover(false),
-        m_fold(false), m_punch(false), m_staple(false)
+        m_fold(false), m_punch(false), m_staple(false), m_trim(false)
     {
 
     }
@@ -50,6 +50,10 @@ namespace nanaprint
         {
             setStaple();
         }
+        else if (finish == CUPS_FINISHINGS_TRIM)
+        {
+            setTrim();
+        }
     }
 
     void Finishings::setNone()
@@ -60,6 +64,7 @@ namespace nanaprint
         m_fold = false;
         m_punch = false;
         m_staple = false;
+        m_trim = false;
     }
 
     void Finishings::setBind()
@@ -89,6 +94,12 @@ namespace nanaprint
     void Finishings::setStaple()
     {
         m_staple = true;
+        m_none = false;
+    }
+
+    void Finishings::setTrim()
+    {
+        m_trim = true;
         m_none = false;
     }
 }

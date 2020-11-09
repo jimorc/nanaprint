@@ -30,12 +30,15 @@ namespace nanaprint
             bool getFold() const { return m_fold; }
             bool getPunch() const { return m_punch; }
             bool getStaple() const { return m_staple; }
+            bool getTrim() const { return m_trim; }
+            
             void setNone();
             void setBind();
             void setPrintCover();
             void setFold();
             void setPunch();
             void setStaple();
+            void setTrim();
         private:
             bool m_none;
             bool m_bind;
@@ -43,5 +46,6 @@ namespace nanaprint
             bool m_fold;
             bool m_punch;
             bool m_staple;
+            bool m_trim;
     };
 }
