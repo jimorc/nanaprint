@@ -11,6 +11,7 @@ add_library(cupsprint
     mediasizestranslator.cpp
     pageorientation.cpp
     printquality.cpp
+    finishings.cpp
 )
 
 link_directories(
