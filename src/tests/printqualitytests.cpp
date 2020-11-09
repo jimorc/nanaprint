@@ -79,3 +79,19 @@ TEST(PrintQualitiesTests, testAddPrintQuality)
     ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
     ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
 }
+
+// Test the insertion operator
+TEST(PrintQualitiesTests, testInsertionOperator)
+{
+    PrintQualities qualities;
+    qualities.addPrintQuality(FAST);
+    qualities.addPrintQuality(NORMAL);
+    qualities.addPrintQuality(PLAIN_NORMAL);
+    qualities.addPrintQuality(PHOTO);
+    qualities.addPrintQuality(HIGH);
+    
+    stringstream ss;
+    ss << qualities;
+    ASSERT_STREQ(u8"Print Qualities:\n    Plain Normal\n    Fast\n    Normal\n"
+        "    High\n    Photo\n", ss.str().c_str());
+}

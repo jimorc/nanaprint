@@ -116,4 +116,32 @@ namespace nanaprint
         }
         return false;
     }
+
+    std::ostream& operator<<(std::ostream& os, const PrintQualities& qualities)
+    {
+        os << "Print Qualities:\n";
+        if (qualities.containsPrintQuality(u8"Plain Normal"))
+        {
+            os << u8"    Plain Normal\n"; 
+        }
+        if (qualities.containsPrintQuality(u8"Fast"))
+        {
+            os << u8"    Fast\n";
+        }
+        if (qualities.containsPrintQuality(u8"Normal"))
+        {
+            os << u8"    Normal\n";
+        }
+        if (qualities.containsPrintQuality(u8"High"))
+        {
+            os << u8"    High\n";
+        }
+        if (qualities.containsPrintQuality(u8"Photo"))
+        {
+            os << u8"    Photo\n";
+        }
+
+        return os;
+
+    }
 }

@@ -33,8 +33,7 @@ namespace nanaprint
             static std::shared_ptr<PrintQuality> create(const int quality);
             virtual std::string getPrintQuality() const = 0;
             
-//            friend std::ostream& operator<<(std::ostream& os, const PrintQuality& quality);
-        protected:
+       protected:
             PrintQuality() {}
     };
 
@@ -106,4 +105,7 @@ namespace nanaprint
         private:
             std::set<std::shared_ptr<PrintQuality>> m_qualities;
     };
+
+
+    std::ostream& operator<<(std::ostream& os, const PrintQualities& qualities);
 }
