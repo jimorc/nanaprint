@@ -185,30 +185,21 @@ int main()
             cout << "        " << defaultColorMode << '\n';
         }
 
-        cout << "    Print Qualities:\n";
         auto printQualities = printer->getPrintQualities();
-        if (printQualities.size() == 0)
-        {
-            cout << "        None specified\n";
-        }
-        else
-        {
-            for (auto quality: printQualities)
-            {
-                cout << "        " << quality << '\n';
-            }
-        }
+        cout << printQualities;
 
-        cout << "    Default Print Quality:\n";
+        cout << "Default Print Quality:\n";
         auto printQuality = printer->getDefaultPrintQuality();
-        if(printQuality.size() == 0)
+        if(printQuality)
         {
-            cout << "        None specified\n";
+            cout << "    " << *printQuality << '\n';
         }
         else
         {
-            cout << "        " << printQuality << '\n';
+            cout << "None Specified\n";
         }
+        
+
 
         cout << "    Sides:\n";
         auto sides = printer->getSides();

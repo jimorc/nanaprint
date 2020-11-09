@@ -26,11 +26,6 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 
 namespace nanaprint
 {
-
-    map<int, string> Printer::m_qualityMap {{2, "Plain Normal"}, {3, "Fast"},
-                {4, "Normal"}, {5, "High"}, {6, "Photo"}};
- 
-
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
             m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
@@ -731,13 +726,13 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     int quality = ippGetInteger(qualities, i);
-                    m_printQualities.push_back(m_qualityMap[quality]);
+                    m_printQualities.addPrintQuality(quality);
                 }
             }
             m_gotPrintQualities = true;
         }   
     }
-    std::vector<std::string>& Printer::getPrintQualities()
+    PrintQualities& Printer::getPrintQualities()
     {
         populatePrintQualities();
         return m_printQualities;
@@ -757,7 +752,7 @@ namespace nanaprint
             if (defaultQuality != nullptr)
             {
                 int quality = stoi(defaultQuality);
-                m_defaultPrintQuality = m_qualityMap[quality];
+                m_defaultPrintQuality = PrintQuality::create(quality);
             }
             else
             {
@@ -767,13 +762,13 @@ namespace nanaprint
                 if (count != 0)
                 {
                     int defaultQuality = ippGetInteger(defQuality, 0);
-                    m_defaultPrintQuality = m_qualityMap[defaultQuality];
+                    m_defaultPrintQuality = PrintQuality::create(defaultQuality);
                 }
             }
             m_gotDefaultPrintQuality = true;
         }   
     }
-    std::string& Printer::getDefaultPrintQuality()
+    std::shared_ptr<PrintQuality> Printer::getDefaultPrintQuality()
     {
         populateDefaultPrintQuality();
         return m_defaultPrintQuality;

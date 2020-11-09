@@ -21,6 +21,7 @@
 #include <cups/cups.h>
 #include "mediasizes.h"
 #include "pageorientation.h"
+#include "printquality.h"
 
 namespace nanaprint
 {
@@ -58,8 +59,8 @@ namespace nanaprint
             const std::string getDefaultOrientation();
             std::vector<std::string>& getColorModes();
             std::string& getDefaultColorMode();
-            std::vector<std::string>& getPrintQualities();
-            std::string& getDefaultPrintQuality();
+            PrintQualities& getPrintQualities();
+            std::shared_ptr<PrintQuality> getDefaultPrintQuality();
             std::vector<std::string>& getSides();
             std::string& getDefaultSide();
 
@@ -99,7 +100,7 @@ namespace nanaprint
             bool m_gotColorModes;
             std::vector<std::string> m_colorModes;
             bool m_gotPrintQualities;
-            std::vector<std::string> m_printQualities;
+            PrintQualities m_printQualities;
             bool m_gotSides;
             std::vector<std::string> m_sides;
             bool m_gotFinishings;
@@ -120,7 +121,7 @@ namespace nanaprint
             bool m_gotDefaultColorMode;
             std::string m_defaultColorMode;
             bool m_gotDefaultPrintQuality;
-            std::string m_defaultPrintQuality;
+            std::shared_ptr<PrintQuality> m_defaultPrintQuality;
             bool m_gotDefaultSide;
             std::string m_defaultSide;
             bool m_gotDefaultFinishings;
