@@ -26,10 +26,13 @@ namespace nanaprint
             void setFinishing(const std::string& finish);
             bool getNone() const { return m_none; }
             bool getBind() const { return m_bind; }
+            bool getPrintCover() const { return m_printCover; }
             void setNone();
             void setBind();
+            void setPrintCover();
         private:
             bool m_none;
             bool m_bind;
+            bool m_printCover;
     };
 }
