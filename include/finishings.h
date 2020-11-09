@@ -27,12 +27,15 @@ namespace nanaprint
             bool getNone() const { return m_none; }
             bool getBind() const { return m_bind; }
             bool getPrintCover() const { return m_printCover; }
+            bool getFold() const { return m_fold; }
             void setNone();
             void setBind();
             void setPrintCover();
+            void setFold();
         private:
             bool m_none;
             bool m_bind;
             bool m_printCover;
+            bool m_fold;
     };
 }
