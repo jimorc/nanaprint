@@ -132,9 +132,6 @@ namespace nanaprint
             bool m_defaultPunch;
             bool m_defaultStaple;
             bool m_defaultTrim;
-
-//            static std::map<int, std::string> m_orientationMap;
-            static std::map<int, std::string> m_qualityMap;
     };
 }
 
