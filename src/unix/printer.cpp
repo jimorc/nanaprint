@@ -27,16 +27,13 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false), 
-            m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
-            m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
-            m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
+        : m_dest(dest), m_gotFinishings(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false)
     {
-        populateDefaultFinishings();
+
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -211,6 +208,12 @@ namespace nanaprint
         return m_finishings;
     }
 
+    const Finishings& Printer::getDefaultFinishings()
+    {
+        populateDefaultFinishings();
+        return m_defaultFinishings;        
+    }
+
     bool Printer::canPrintMultipleCopies() const
     {
         char resource[RESOURCE_SIZE];
@@ -284,48 +287,6 @@ namespace nanaprint
         return m_mediaSources;
     }
 
-    bool Printer::noDefaultFinishings()
-    {
-        populateDefaultFinishings();
-        return m_noDefaultFinishings;
-    }
-
-    bool Printer::defaultBind()
-    {
-        populateDefaultFinishings();
-        return m_defaultBind;
-    }
-
-    bool Printer::defaultCoverOutput()
-    {
-        populateDefaultFinishings();
-        return m_defaultCoverOutput;
-    }
-
-    bool Printer::defaultFold()
-    {
-        populateDefaultFinishings();
-        return m_defaultFold;
-    }
-
-    bool Printer::defaultPunch()
-    {
-        populateDefaultFinishings();
-        return m_defaultPunch;
-    }
-
-    bool Printer::defaultStaple()
-    {
-        populateDefaultFinishings();
-        return m_defaultStaple;
-    }
-
-    bool Printer::defaultTrim()
-    {
-        populateDefaultFinishings();
-        return m_defaultTrim;
-    }
-
     void Printer::populateDefaultFinishings()
     {
         if (!m_gotDefaultFinishings)
@@ -352,8 +313,7 @@ namespace nanaprint
                 {
                     for (auto m: match)
                     {
-                        int finish = stoi(m.str());
-                        setDefaultFinishing(finish);
+                        m_defaultFinishings.setFinishing(m);
                     }
                 }
             }
@@ -363,45 +323,13 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     int finish = ippGetInteger(defaultFinishings2, i);
-                    setDefaultFinishing(finish);
+                    char fin[10];       // 2 or 3 would be enough
+                    sprintf(fin, "%d", finish);
+                    m_defaultFinishings.setFinishing(fin);
                 }
             }
         }
         m_gotDefaultFinishings = true;
-    }
-
-    void Printer::setDefaultFinishing(int finish)
-    {
-        char fin[10];       // should only need to be 2 or 3 characters long
-        sprintf(fin, "%d", finish);
-        if (strncmp(CUPS_FINISHINGS_NONE, fin, strlen(CUPS_FINISHINGS_NONE)) == 0)
-        {
-            m_noDefaultFinishings = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
-        {
-            m_defaultBind = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_COVER, fin, strlen(CUPS_FINISHINGS_COVER)) == 0)
-        {
-            m_defaultCoverOutput = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_FOLD, fin, strlen(CUPS_FINISHINGS_FOLD)) == 0)
-        {
-            m_defaultFold = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_PUNCH, fin, strlen(CUPS_FINISHINGS_PUNCH)) == 0)
-        {
-            m_defaultPunch = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
-        {
-            m_defaultStaple = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_TRIM, fin, strlen(CUPS_FINISHINGS_TRIM)) == 0)
-        {
-            m_defaultTrim = true;
-        }
     }
 
     void Printer::populateDefaultMediaSource()

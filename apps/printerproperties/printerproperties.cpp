@@ -36,38 +36,9 @@ int main()
         const Finishings& finishings = printer->getFinishings();
         cout << finishings;
 
-        cout << "    Default finishings:\n";
-        if (printer->noDefaultFinishings())
-        {
-            cout << "        None\n";
-        }
-        else
-        {
-            if (printer->defaultBind())
-            {
-                cout << "        Bind copies\n";
-            }
-            if (printer->defaultCoverOutput())
-            {
-                cout << "        Cover output\n";
-            }
-            if (printer->defaultFold())
-            {
-                cout << "        Fold output\n";
-            }
-            if (printer->defaultPunch())
-            {
-                cout << "        Punch output\n";
-            }
-            if (printer->defaultStaple())
-            {
-                cout << "        Staple output\n";
-            }
-            if (printer->defaultTrim())
-            {
-                cout << "        Trim output\n";
-            }
-        }
+        cout << "Default ";
+        Finishings defaultFinishings = printer->getDefaultFinishings();
+        cout << defaultFinishings;
 
         cout << "    Media Sources: \n";
         auto mediaSources = printer->getMediaSources();

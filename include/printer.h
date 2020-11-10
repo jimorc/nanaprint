@@ -38,14 +38,8 @@ namespace nanaprint
             std::vector<std::string> getMediaSizeNames();
             std::vector<std::shared_ptr<MediaSize>> getMediaSizes();
             bool canPrintMultipleCopies() const;
-            bool noDefaultFinishings();
-            bool defaultBind();
-            bool defaultCoverOutput();
-            bool defaultFold();
-            bool defaultPunch();
-            bool defaultStaple();
-            bool defaultTrim();
             const Finishings& getFinishings();
+            const Finishings& getDefaultFinishings();
             std::vector<std::string>& getMediaSources();
             std::string& getDefaultMediaSource();
             std::vector<std::string>& getMediaTypes();
@@ -69,7 +63,6 @@ namespace nanaprint
             void populateFinishings();
             void setFinishing(int finishing);
             void populateDefaultFinishings();
-            void setDefaultFinishing(int finishing);
             void populateMediaSources();
             void populateDefaultMediaSource();
             void populateMediaTypes();
@@ -114,13 +107,7 @@ namespace nanaprint
             bool m_gotDefaultSide;
             std::string m_defaultSide;
             bool m_gotDefaultFinishings;
-            bool m_noDefaultFinishings;
-            bool m_defaultBind;
-            bool m_defaultCoverOutput;
-            bool m_defaultFold;
-            bool m_defaultPunch;
-            bool m_defaultStaple;
-            bool m_defaultTrim;
+            Finishings m_defaultFinishings;
     };
 }
 
