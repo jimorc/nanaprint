@@ -22,6 +22,7 @@
 #include "mediasizes.h"
 #include "pageorientation.h"
 #include "printquality.h"
+#include "finishings.h"
 
 namespace nanaprint
 {
@@ -37,13 +38,6 @@ namespace nanaprint
             std::vector<std::string> getMediaSizeNames();
             std::vector<std::shared_ptr<MediaSize>> getMediaSizes();
             bool canPrintMultipleCopies() const;
-            bool noFinishings();
-            bool canBind();
-            bool canCoverOutput();
-            bool canStaple();
-            bool canFold();
-            bool canPunch();
-            bool canTrim();
             bool noDefaultFinishings();
             bool defaultBind();
             bool defaultCoverOutput();
@@ -51,6 +45,7 @@ namespace nanaprint
             bool defaultPunch();
             bool defaultStaple();
             bool defaultTrim();
+            const Finishings& getFinishings();
             std::vector<std::string>& getMediaSources();
             std::string& getDefaultMediaSource();
             std::vector<std::string>& getMediaTypes();
@@ -104,13 +99,7 @@ namespace nanaprint
             bool m_gotSides;
             std::vector<std::string> m_sides;
             bool m_gotFinishings;
-            bool m_noFinishings;
-            bool m_canBind;
-            bool m_canCoverOutput;
-            bool m_canFold;
-            bool m_canPunch;
-            bool m_canStaple;
-            bool m_canTrim;
+            Finishings m_finishings;
 
             bool m_gotDefaultMediaSource;
             std::string m_defaultMediaSource;

@@ -27,8 +27,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false), m_canBind(false), m_canCoverOutput(false),
-            m_canFold(false), m_canPunch(false), m_canStaple(false), m_canTrim(false),
+        : m_dest(dest), m_gotFinishings(false), 
             m_noDefaultFinishings(false), m_defaultBind(false), m_defaultCoverOutput(false),
             m_defaultFold(false), m_defaultPunch(false), m_defaultStaple(false),
             m_defaultTrim(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
@@ -206,6 +205,12 @@ namespace nanaprint
         return m_mediaSizes.getMediaSizes();
     }
 
+    const Finishings& Printer::getFinishings()
+    {
+        populateFinishings();
+        return m_finishings;
+    }
+
     bool Printer::canPrintMultipleCopies() const
     {
         char resource[RESOURCE_SIZE];
@@ -216,48 +221,6 @@ namespace nanaprint
         cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
         return cupsCheckDestSupported(http, m_dest,
             info, CUPS_COPIES, NULL);
-    }
-
-    bool Printer::noFinishings()
-    {
-        populateFinishings();
-        return m_noFinishings;
-    }
-
-    bool Printer::canBind()
-    {
-        populateFinishings();
-        return m_canBind;
-    }
-
-    bool Printer::canStaple()
-    {
-        populateFinishings();
-        return m_canStaple;
-    }
-
-    bool Printer::canCoverOutput()
-    {
-        populateFinishings();
-        return m_canCoverOutput;
-    }
-
-    bool Printer::canFold()
-    {
-        populateFinishings();
-        return m_canFold;
-    }
-
-    bool Printer::canPunch()
-    {
-        populateFinishings();
-        return m_canPunch;
-    }
-
-    bool Printer::canTrim()
-    {
-        populateFinishings();
-        return m_canTrim;
     }
 
     void Printer::populateFinishings()
@@ -288,35 +251,7 @@ namespace nanaprint
     {
         char fin[10];       // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
-        if (strncmp(CUPS_FINISHINGS_NONE, fin, strlen(CUPS_FINISHINGS_NONE)) == 0)
-        {
-            m_noFinishings = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_BIND, fin, strlen(CUPS_FINISHINGS_BIND)) == 0)
-        {
-            m_canBind = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_COVER, fin, strlen(CUPS_FINISHINGS_COVER))== 0)
-        {
-            m_canCoverOutput = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_FOLD, fin, strlen(CUPS_FINISHINGS_FOLD))== 0)
-        {
-            m_canFold = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_PUNCH, fin, strlen(CUPS_FINISHINGS_PUNCH)) == 0)
-        {
-            m_canPunch = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_STAPLE, fin, strlen(CUPS_FINISHINGS_STAPLE)) == 0)
-        {
-            m_canStaple = true;
-        }
-        else if (strncmp(CUPS_FINISHINGS_TRIM, fin, strlen(CUPS_FINISHINGS_TRIM)) == 0)
-        {
-            m_canTrim = true;
-        }
-
+        m_finishings.setFinishing(fin);
     }
 
     void Printer::populateMediaSources()
