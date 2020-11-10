@@ -75,6 +75,12 @@ package_add_test_with_libraries(PrintFinishingsTests
     "${PROJECT_DIR}"
 )
 
+package_add_test_with_libraries(MediaSourceTests
+    mediasourcetests.cpp 
+    cupsprint 
+    "${PROJECT_DIR}"
+)
+
 target_compile_features(printerproperties
     PUBLIC
     cxx_std_17

@@ -12,6 +12,7 @@ add_library(cupsprint
     pageorientation.cpp
     printquality.cpp
     finishings.cpp
+    mediasource.cpp
 )
 
 link_directories(
