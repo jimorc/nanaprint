@@ -25,6 +25,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaSource& source)
     {
         os << "    " << source.getSource() << '\n';
+        return os;
     }
 
     void MediaSources::addSource(const std::string& source)
@@ -40,5 +41,15 @@ namespace nanaprint
             sources.push_back(source);
         }
         return sources;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const MediaSources& sources)
+    {
+        os << "Media Sources:\n";
+        for (auto source: sources.getSources())
+        {
+            os << "    " << source->getSource() << '\n';
+        }
+        return os;
     }
 }

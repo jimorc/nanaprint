@@ -45,4 +45,6 @@ namespace nanaprint
         private:
             std::set<std::shared_ptr<MediaSource>> m_sources;
     };
+
+    std::ostream& operator<<(std::ostream& os, const MediaSources& sources);
 }
