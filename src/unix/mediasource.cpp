@@ -22,6 +22,11 @@ namespace nanaprint
         m_source = source;
     }
 
+    std::ostream& operator<<(std::ostream& os, const MediaSource& source)
+    {
+        os << "    " << source.getSource() << '\n';
+    }
+
     void MediaSources::addSource(const std::string& source)
     {
         m_sources.insert(make_shared<MediaSource>(source));

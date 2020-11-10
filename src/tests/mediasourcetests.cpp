@@ -15,6 +15,15 @@ TEST(MediaSourceTests, testConstructor)
     ASSERT_STREQ(u8"Tray 1", source.getSource().c_str());
 } 
 
+// Test MediaSource insertion operator
+TEST(MediaSourceTests, testInsertionOperator)
+{
+    MediaSource source(u8"Tray 1");
+    stringstream ss1;
+    ss1 << source;
+
+    ASSERT_STREQ(u8"    Tray 1\n", ss1.str().c_str());
+} 
 // Test MediaSources::addSource
 TEST(MediaSourcesTests, testAddSource)
 {
@@ -30,3 +39,4 @@ TEST(MediaSourcesTests, testAddSource)
     ASSERT_STREQ(u8"Tray 2", srcs[1]->getSource().c_str());
     ASSERT_STREQ(u8"Manual Feed Tray", srcs[2]->getSource().c_str());
 } 
+

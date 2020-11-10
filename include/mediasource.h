@@ -18,6 +18,7 @@
 #include <set>
 #include <string>
 #include <memory>
+#include <iostream>
 
 namespace nanaprint
 {
@@ -26,11 +27,13 @@ namespace nanaprint
         public:
             MediaSource(const std::string& source);
             virtual ~MediaSource() {}
-            std::string& getSource() { return m_source; }
+            const std::string& getSource() const { return m_source; }
 
         private:
             std::string m_source;
     };
+
+    std::ostream& operator<<(std::ostream& os, const MediaSource& source);
 
     class MediaSources
     {
