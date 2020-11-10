@@ -31,7 +31,7 @@ namespace nanaprint
             bool getPunch() const { return m_punch; }
             bool getStaple() const { return m_staple; }
             bool getTrim() const { return m_trim; }
-            
+
             void setNone();
             void setBind();
             void setPrintCover();
@@ -48,4 +48,7 @@ namespace nanaprint
             bool m_staple;
             bool m_trim;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Finishings& finishing);
+
 }

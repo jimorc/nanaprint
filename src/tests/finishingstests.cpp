@@ -1,3 +1,5 @@
+
+#include <sstream>
 #include <cups/cups.h>
 #include "gtest/gtest.h"
 #include "finishings.h"
@@ -87,4 +89,28 @@ TEST(FinishingsTests, testTrim)
 
     ASSERT_TRUE(finishings.getTrim());
     ASSERT_FALSE(finishings.getNone());
+}
+
+// Test insertion operator
+TEST(FinishingsTests, testInsertionOperator)
+{
+    Finishings trimFinishings, noFinishings, allFinishings;
+    trimFinishings.setFinishing(CUPS_FINISHINGS_TRIM);
+    noFinishings.setFinishing(CUPS_FINISHINGS_NONE);
+    allFinishings.setFinishing(CUPS_FINISHINGS_BIND);
+    allFinishings.setFinishing(CUPS_FINISHINGS_COVER);
+    allFinishings.setFinishing(CUPS_FINISHINGS_FOLD);
+    allFinishings.setFinishing(CUPS_FINISHINGS_PUNCH);
+    allFinishings.setFinishing(CUPS_FINISHINGS_STAPLE);
+    allFinishings.setFinishing(CUPS_FINISHINGS_TRIM);
+
+    stringstream ssTrim, ssNone, ssAll;
+    ssTrim << trimFinishings;
+    ssNone << noFinishings;
+    ssAll << allFinishings;
+
+    ASSERT_STREQ("Finishings:\n    Trim\n", ssTrim.str().c_str());
+    ASSERT_STREQ("Finishings:\n    None\n", ssNone.str().c_str());
+    ASSERT_STREQ("Finishings:\n    Bind\n    Cover\n    Fold\n    Punch\n"
+        "    Staple\n    Trim\n", ssAll.str().c_str());
 }

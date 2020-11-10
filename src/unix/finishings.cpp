@@ -11,6 +11,7 @@
  *  @file unix/finishings.cpp
  */
 
+#include <iostream>
 #include <cups/cups.h>
 #include "finishings.h"
 
@@ -101,5 +102,19 @@ namespace nanaprint
     {
         m_trim = true;
         m_none = false;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Finishings& finishing)
+    {
+        os << u8"Finishings:\n";
+        os << (finishing.getNone() ? u8"    None\n" : "");
+        os << (finishing.getBind() ? u8"    Bind\n" : "");
+        os << (finishing.getPrintCover() ? u8"    Cover\n" : "");
+        os << (finishing.getFold() ? u8"    Fold\n" : "");
+        os << (finishing.getPunch() ? u8"    Punch\n" : "");
+        os << (finishing.getStaple() ? u8"    Staple\n" : "");
+        os << (finishing.getTrim() ? u8"    Trim\n" : "");
+
+        return os;
     }
 }
