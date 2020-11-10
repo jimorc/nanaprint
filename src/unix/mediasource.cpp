@@ -21,4 +21,19 @@ namespace nanaprint
     {
         m_source = source;
     }
+
+    void MediaSources::addSource(const std::string& source)
+    {
+        m_sources.insert(make_shared<MediaSource>(source));
+    }
+
+    const std::vector<std::shared_ptr<MediaSource>> MediaSources::getSources() const
+    {
+        std::vector<shared_ptr<MediaSource>> sources;
+        for (auto source: m_sources)
+        {
+            sources.push_back(source);
+        }
+        return sources;
+    }
 }

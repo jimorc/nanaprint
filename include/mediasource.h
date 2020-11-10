@@ -15,8 +15,9 @@
  */
 
 #include <vector>
-#include <map>
+#include <set>
 #include <string>
+#include <memory>
 
 namespace nanaprint
 {
@@ -29,5 +30,16 @@ namespace nanaprint
 
         private:
             std::string m_source;
+    };
+
+    class MediaSources
+    {
+        public:
+            virtual ~MediaSources() {}
+            void addSource(const std::string& source);
+            const std::vector<std::shared_ptr<MediaSource>> getSources() const;
+        
+        private:
+            std::set<std::shared_ptr<MediaSource>> m_sources;
     };
 }
