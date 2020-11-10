@@ -27,34 +27,13 @@ namespace nanaprint
 
     void Finishings::setFinishing(const string& finish)
     {
-        if (finish == CUPS_FINISHINGS_NONE)
-        {
-            setNone();
-        }
-        else if (finish == CUPS_FINISHINGS_BIND)
-        {
-            setBind();
-        }
-        else if (finish == CUPS_FINISHINGS_COVER)
-        {
-            setPrintCover();
-        }
-        else if (finish == CUPS_FINISHINGS_FOLD)
-        {
-            setFold();
-        }
-        else if (finish == CUPS_FINISHINGS_PUNCH)
-        {
-            setPunch();
-        }
-        else if (finish == CUPS_FINISHINGS_STAPLE)
-        {
-            setStaple();
-        }
-        else if (finish == CUPS_FINISHINGS_TRIM)
-        {
-            setTrim();
-        }
+        if (finish == CUPS_FINISHINGS_NONE) setNone();
+        else if (finish == CUPS_FINISHINGS_BIND) setBind();
+        else if (finish == CUPS_FINISHINGS_COVER) setPrintCover();
+        else if (finish == CUPS_FINISHINGS_FOLD) setFold();
+        else if (finish == CUPS_FINISHINGS_PUNCH) setPunch();
+        else if (finish == CUPS_FINISHINGS_STAPLE) setStaple();
+        else if (finish == CUPS_FINISHINGS_TRIM) setTrim();
     }
 
     void Finishings::setNone()
