@@ -44,15 +44,15 @@ int main()
         auto mediaSources = printer->getMediaSources();
         cout << mediaSources;
 
-        cout << "    Default Media Source:\n";
+        cout << "Default Media Source:\n";
         auto defaultMediaSource = printer->getDefaultMediaSource();
         if (defaultMediaSource.size() == 0)
         {
-            cout << "        None\n";
+            cout << "    None\n";
         }
         else
         {
-            cout << "        " << defaultMediaSource << '\n';
+            cout << "    " << defaultMediaSource << '\n';
         }   
 
         cout << "    Supported Media Types:\n";
