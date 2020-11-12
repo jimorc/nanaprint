@@ -23,6 +23,7 @@
 #include "pageorientation.h"
 #include "printquality.h"
 #include "finishings.h"
+#include "mediasource.h"
 
 namespace nanaprint
 {
@@ -40,7 +41,7 @@ namespace nanaprint
             bool canPrintMultipleCopies() const;
             const Finishings& getFinishings();
             const Finishings& getDefaultFinishings();
-            std::vector<std::string>& getMediaSources();
+            const MediaSources getMediaSources();
             std::string& getDefaultMediaSource();
             std::vector<std::string>& getMediaTypes();
             std::string& getDefaultMediaType();
@@ -80,7 +81,7 @@ namespace nanaprint
             MediaSizes m_mediaSizes;
 
             bool m_gotMediaSources;
-            std::vector<std::string> m_mediaSources;
+            MediaSources m_mediaSources;
             bool m_gotMediaTypes;
             std::vector<std::string> m_mediaTypes;
             bool m_gotOrientations;

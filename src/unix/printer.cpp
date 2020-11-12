@@ -274,14 +274,14 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *src = ippGetString(source, i, NULL);
-                    m_mediaSources.push_back(src);
+                    m_mediaSources.addSource(src);
                 }
             }
             m_gotMediaSources = true;
         }   
     }
 
-    vector<string>& Printer::getMediaSources()
+    const MediaSources Printer::getMediaSources()
     {
         populateMediaSources();
         return m_mediaSources;

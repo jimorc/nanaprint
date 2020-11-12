@@ -40,19 +40,10 @@ int main()
         Finishings defaultFinishings = printer->getDefaultFinishings();
         cout << defaultFinishings;
 
-        cout << "    Media Sources: \n";
+        cout << "Supported ";
         auto mediaSources = printer->getMediaSources();
-        if(mediaSources.size() == 0)
-        {
-            cout << "        None\n";
-        }
-        else
-        {
-            for (auto source: mediaSources)
-            {
-                cout << "        " << source << '\n';
-            }
-        }
+        cout << mediaSources;
+
         cout << "    Default Media Source:\n";
         auto defaultMediaSource = printer->getDefaultMediaSource();
         if (defaultMediaSource.size() == 0)
