@@ -46,9 +46,17 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaSources& sources)
     {
         os << "Media Sources:\n";
-        for (auto source: sources.getSources())
+        auto srcs = sources.getSources();
+        if(srcs.size() == 0)
         {
-            os << "    " << source->getSource() << '\n';
+            os << "    None\n";
+        }
+        else
+        {
+            for (auto source: srcs)
+            {
+                os << "    " << source->getSource() << '\n';
+            }
         }
         return os;
     }

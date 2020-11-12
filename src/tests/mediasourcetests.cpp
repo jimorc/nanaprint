@@ -44,14 +44,16 @@ TEST(MediaSourcesTests, testAddSource)
 // Test MediaSources insertion operator
 TEST(MediaSourcesTests, testInsertionOperator)
 {
-    MediaSources sources;
+    MediaSources sources, sources2;
     sources.addSource(u8"Tray 1");
     sources.addSource(u8"Tray 2");
     sources.addSource(u8"Manual Feed Tray");
 
-    stringstream ss;
+    stringstream ss, ss2;
     ss << sources;
+    ss2 << sources2;
 
     ASSERT_STREQ(u8"Media Sources:\n    Tray 1\n    Tray 2\n    Manual Feed Tray\n",
         ss.str().c_str());
+    ASSERT_STREQ(u8"Media Sources:\n    None\n", ss2.str().c_str());
 } 
