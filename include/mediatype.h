@@ -15,6 +15,9 @@
  */
 
 #include <string>
+#include <set>
+#include <vector>
+#include <memory>
 
 namespace nanaprint
 {
@@ -27,5 +30,15 @@ namespace nanaprint
 
         private:
             std::string m_type;
+    };
+
+    class MediaTypes
+    {
+        public:
+            virtual ~MediaTypes() {}
+            void addMediaType(const std::string& mediaType);
+            std::vector<std::shared_ptr<MediaType>> getMediaTypes() const;
+        public:
+            std::set<std::shared_ptr<MediaType>> m_types;
     };
 }
