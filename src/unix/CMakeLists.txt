@@ -13,6 +13,7 @@ add_library(cupsprint
     printquality.cpp
     finishings.cpp
     mediasource.cpp
+    mediatype.cpp
 )
 
 link_directories(
