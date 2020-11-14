@@ -23,6 +23,12 @@ namespace nanaprint
 
     }
 
+    std::ostream& operator<<(std::ostream& os, const MediaType& mType)
+    {
+        os << "    " << mType.getType() << '\n';
+        return os;
+    }
+
     void MediaTypes::addMediaType(const std::string& mediaType)
     {
         m_types.insert(make_shared<MediaType>(MediaType(mediaType)));

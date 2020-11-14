@@ -18,6 +18,7 @@
 #include <set>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 namespace nanaprint
 {
@@ -26,11 +27,13 @@ namespace nanaprint
         public:
             MediaType(const std::string& mediaType);
             virtual ~MediaType() {}
-            std::string& getType() { return m_type; }
+            const std::string& getType() const { return m_type; }
 
         private:
             std::string m_type;
     };
+
+    std::ostream& operator<<(std::ostream& os, const MediaType& mType);
 
     class MediaTypes
     {
