@@ -31,7 +31,8 @@ namespace nanaprint
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
-            m_gotDefaultSide(false), m_defaultMediaType(MediaType("None"))
+            m_gotDefaultSide(false), m_defaultMediaType(MediaType("None")),
+            m_defaultMediaSource(MediaSource("None"))
     {
 
     }
@@ -345,7 +346,7 @@ namespace nanaprint
                 cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
             if (defaultSource != nullptr)
             {
-                m_defaultMediaSource = *defaultSource;
+                m_defaultMediaSource = MediaSource(defaultSource);
             }
             else
             {
@@ -355,14 +356,14 @@ namespace nanaprint
                 if (count != 0)
                 {
                     const char *src = ippGetString(source, 0, NULL);
-                    m_defaultMediaSource = *src;
+                    m_defaultMediaSource = MediaSource(src);
                 }
             }
             m_gotDefaultMediaSource = true;
         }   
     }
 
-    string& Printer::getDefaultMediaSource()
+    MediaSource& Printer::getDefaultMediaSource()
     {
         populateDefaultMediaSource();
         return m_defaultMediaSource;
