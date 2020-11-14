@@ -41,3 +41,18 @@ TEST(MediaTypesTests, testAddMediaType)
     ASSERT_STREQ(CUPS_MEDIA_TYPE_PLAIN, types[1]->getType().c_str());
     ASSERT_STREQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2]->getType().c_str());
 }
+
+// Test MediaTypes insertion operator
+TEST(MediaTypesTests, testInsertionOperator)
+{
+    stringstream ss;
+    MediaTypes mediaTypes;
+    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
+    string let = "Media Types:\n    " + string(CUPS_MEDIA_TYPE_LETTERHEAD) + '\n' +
+        "    " + string(CUPS_MEDIA_TYPE_PHOTO) + '\n';
+
+    ss << mediaTypes;
+
+    ASSERT_STREQ(let.c_str(), ss.str().c_str());
+} 

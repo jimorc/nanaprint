@@ -43,4 +43,16 @@ namespace nanaprint
         }
         return mediaTypes;
     }
+
+    std::ostream& operator<<(std::ostream& os, const MediaTypes& mType)
+    {
+        os << "Media Types:\n";
+        auto types = mType.getMediaTypes();
+        for (const auto& typ: types)
+        {
+            os << *typ;
+        }
+        return os;
+
+    }
 }

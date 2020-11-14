@@ -44,4 +44,6 @@ namespace nanaprint
         public:
             std::set<std::shared_ptr<MediaType>> m_types;
     };
+
+    std::ostream& operator<<(std::ostream& os, const MediaTypes& mType);
 }
