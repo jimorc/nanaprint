@@ -385,14 +385,14 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *mediaType = ippGetString(type, i, NULL);
-                    m_mediaTypes.push_back(mediaType);
+                    m_mediaTypes.addMediaType(mediaType);
                 }
             }
             m_gotMediaTypes = true;
         }   
     }
 
-    std::vector<std::string>& Printer::getMediaTypes()
+    MediaTypes& Printer::getMediaTypes()
     {
         populateMediaTypes();
         return m_mediaTypes;

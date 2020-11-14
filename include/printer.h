@@ -24,6 +24,7 @@
 #include "printquality.h"
 #include "finishings.h"
 #include "mediasource.h"
+#include "mediatype.h"
 
 namespace nanaprint
 {
@@ -43,7 +44,7 @@ namespace nanaprint
             const Finishings& getDefaultFinishings();
             const MediaSources getMediaSources();
             std::string& getDefaultMediaSource();
-            std::vector<std::string>& getMediaTypes();
+            MediaTypes& getMediaTypes();
             std::string& getDefaultMediaType();
             PageOrientations& getOrientations();
             const std::string getDefaultOrientation();
@@ -83,7 +84,7 @@ namespace nanaprint
             bool m_gotMediaSources;
             MediaSources m_mediaSources;
             bool m_gotMediaTypes;
-            std::vector<std::string> m_mediaTypes;
+            MediaTypes m_mediaTypes;
             bool m_gotOrientations;
             PageOrientations m_orientations;
             bool m_gotColorModes;
