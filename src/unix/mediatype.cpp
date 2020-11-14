@@ -48,9 +48,16 @@ namespace nanaprint
     {
         os << "Media Types:\n";
         auto types = mType.getMediaTypes();
-        for (const auto& typ: types)
+        if(types.size() == 0)
         {
-            os << *typ;
+            os << "    None\n";
+        }
+        else
+        {
+            for (const auto& typ: types)
+            {
+                os << *typ;
+            }
         }
         return os;
 

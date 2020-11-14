@@ -45,8 +45,11 @@ TEST(MediaTypesTests, testAddMediaType)
 // Test MediaTypes insertion operator
 TEST(MediaTypesTests, testInsertionOperator)
 {
-    stringstream ss;
+    stringstream ss, ss2;
     MediaTypes mediaTypes;
+
+    ss2 << mediaTypes;
+
     mediaTypes.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
     mediaTypes.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
     string let = "Media Types:\n    " + string(CUPS_MEDIA_TYPE_LETTERHEAD) + '\n' +
@@ -54,5 +57,6 @@ TEST(MediaTypesTests, testInsertionOperator)
 
     ss << mediaTypes;
 
+    ASSERT_STREQ("Media Types:\n    None\n", ss2.str().c_str());
     ASSERT_STREQ(let.c_str(), ss.str().c_str());
 } 
