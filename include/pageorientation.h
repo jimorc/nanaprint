@@ -31,67 +31,16 @@ namespace nanaprint
     class PageOrientation
     {
         public:
-            static std::shared_ptr<PageOrientation> create(const int orientation);
-            virtual const std::string getOrientation() const = 0;
+            PageOrientation();
+            PageOrientation(int orientation);
+            virtual ~PageOrientation() {}
+            const std::string& getOrientation() const;
 
-            friend std::ostream& operator<<(std::ostream& os, const PageOrientation& orientation);
-        protected:
-            PageOrientation() {}
+        private:
+            std::string m_orientation;
     };
 
     std::ostream& operator<<(std::ostream& os, const PageOrientation& orientation);
-
-    class PortraitOrientation : public PageOrientation
-    {
-        public:
-            virtual ~PortraitOrientation() {}
-            static std::shared_ptr<PortraitOrientation> create();
-            virtual const std::string getOrientation() const override
-            {
-                return "Portrait";
-            }
-        protected:
-            PortraitOrientation() {}
-    };
-
-    class LandscapeOrientation : public PageOrientation
-    {
-        public:
-            virtual ~LandscapeOrientation() {}
-            static std::shared_ptr<LandscapeOrientation> create();
-            virtual const std::string getOrientation() const override
-            {
-                return "Landscape";
-            }
-        protected:
-            LandscapeOrientation() {}
-    };
-
-    class ReverseLandscapeOrientation : public PageOrientation
-    {
-        public:
-            virtual ~ReverseLandscapeOrientation() {}
-            static std::shared_ptr<ReverseLandscapeOrientation> create();
-            virtual const std::string getOrientation() const override
-            {
-                return "Reverse Landscape";
-            }
-        protected:
-            ReverseLandscapeOrientation() {}
-    };
-
-    class ReversePortraitOrientation : public PageOrientation
-    {
-        public:
-            virtual ~ReversePortraitOrientation() {}
-            static std::shared_ptr<ReversePortraitOrientation> create();
-            virtual const std::string getOrientation() const override
-            {
-                return "Reverse Portrait";
-            }
-        protected:
-            ReversePortraitOrientation() {}
-    };
 
     class PageOrientations
     {
@@ -99,9 +48,8 @@ namespace nanaprint
             PageOrientations() {}
             virtual ~PageOrientations() {}
             void addOrientation(int orientation);
-            std::vector<std::string> getOrientations();
+            std::vector<std::shared_ptr<PageOrientation>> getOrientations() const;
             bool containsOrientation(const std::string& orientation) const;
-            friend std::ostream& operator<<(std::ostream& os, const PageOrientations& orientations);
         private:
             std::set<std::shared_ptr<PageOrientation>> m_orientations;
     };

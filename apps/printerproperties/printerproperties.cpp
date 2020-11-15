@@ -47,7 +47,7 @@ int main()
         cout << "Default Media Source:\n";
         auto defaultMediaSource = printer->getDefaultMediaSource();
         cout << defaultMediaSource;
-        
+
         cout << "Supported ";
         auto mediaTypes = printer->getMediaTypes();
         cout << mediaTypes;
@@ -59,17 +59,9 @@ int main()
         auto orientations = printer->getOrientations();
         cout << orientations;
                  
-        cout << "    Default Orientation:\n";
-        auto orientation = printer->getDefaultOrientation();
-        if(orientation.size() == 0)
-        {
-            cout << "        None specified\n";
-        }
-        else
-        {
-            cout << "        " << orientation << '\n';
-        }
-
+        cout << "Default Orientation:\n";
+        cout << printer->getDefaultOrientation();
+        
         cout << "    Color Modes:\n";
         auto colorModes = printer->getColorModes();
         if (colorModes.size() == 0)

@@ -18,69 +18,55 @@ using namespace std;
 
 namespace nanaprint
 {
-    std::shared_ptr<PageOrientation> PageOrientation::create(const int orientation)
+    PageOrientation::PageOrientation() : m_orientation(u8"None")
     {
-        std::shared_ptr<PageOrientation> pageOrientation;
+
+    }
+
+    PageOrientation::PageOrientation(const int orientation)
+    {
         switch (orientation)
         {
             case PORTRAIT:
-                pageOrientation = PortraitOrientation::create();
+                m_orientation = u8"Portrait";
                 break;
             case LANDSCAPE:
-                pageOrientation = LandscapeOrientation::create();
+                m_orientation = u8"Landscape";
                 break;
             case REVERSE_LANDSCAPE:
-                pageOrientation = ReverseLandscapeOrientation::create();
+                m_orientation = u8"Reverse Landscape";
                 break;
             case REVERSE_PORTRAIT:
-                pageOrientation = ReversePortraitOrientation::create();
+                m_orientation = u8"Reverse Portrait";
                 break;
             default:
-                throw invalid_argument("Invalid argument value to PageOrientation::create");
+                throw invalid_argument("Invalid argument value to PageOrientation constructor");
         }
-
-        return pageOrientation;
     }
 
-    std::shared_ptr<PortraitOrientation> PortraitOrientation::create()
+    const std::string& PageOrientation::getOrientation() const
     {
-        auto ptr = make_shared<PortraitOrientation>(PortraitOrientation());
-        return ptr;
+        return m_orientation;
     }
-
-    std::shared_ptr<LandscapeOrientation> LandscapeOrientation::create()
-    {
-        return make_shared<LandscapeOrientation>(LandscapeOrientation());
-    }
-
-    std::shared_ptr<ReverseLandscapeOrientation> ReverseLandscapeOrientation::create()
-    {
-        return make_shared<ReverseLandscapeOrientation>(ReverseLandscapeOrientation());
-    }
-
-    std::shared_ptr<ReversePortraitOrientation> ReversePortraitOrientation::create()
-    {
-        return make_shared<ReversePortraitOrientation>(ReversePortraitOrientation());
-    }
-
+    
     ostream& operator<<(ostream& os, const PageOrientation& orientation)
     {
-        os << orientation.getOrientation();
+        os << "    " << orientation.getOrientation() << '\n';
         return os;
     }
 
 
     void PageOrientations::addOrientation(int orientation)
     {
-        m_orientations.insert(PageOrientation::create(orientation));
+        m_orientations.insert(make_shared<PageOrientation>(PageOrientation(orientation)));
     }
 
-    std::vector<std::string> PageOrientations::getOrientations()
+    std::vector<std::shared_ptr<PageOrientation>> PageOrientations::getOrientations() const
     {
-        std::vector<std::string> orientations;
+        std::vector<std::shared_ptr<PageOrientation>> orientations;
         for (auto orientation : m_orientations)
         {
-            orientations.push_back(orientation->getOrientation());
+            orientations.push_back(orientation);
         }
         return orientations;
     }
@@ -98,23 +84,10 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const PageOrientations& orientations)
     {
         os << u8"Page Orientations:\n";
-        if (orientations.containsOrientation(u8"Portrait"))
+        for (const auto& orientation: orientations.getOrientations())
         {
-            os << u8"    Portrait\n"; 
+            os << *orientation;
         }
-        if (orientations.containsOrientation(u8"Landscape"))
-        {
-            os << u8"    Landscape\n";
-        }
-        if (orientations.containsOrientation(u8"Reverse Landscape"))
-        {
-            os << u8"    Reverse Landscape\n";
-        }
-        if (orientations.containsOrientation(u8"Reverse Portrait"))
-        {
-            os << u8"    Reverse Portrait\n";
-        }
-
         return os;
     }
 }
