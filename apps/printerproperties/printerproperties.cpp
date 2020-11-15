@@ -62,20 +62,10 @@ int main()
         cout << "Default Orientation:\n";
         cout << printer->getDefaultOrientation();
         
-        cout << "    Color Modes:\n";
+        cout << "Supported ";
         auto colorModes = printer->getColorModes();
-        if (colorModes.size() == 0)
-        {
-            cout << "        None specified\n";
-        }
-        else
-        {
-            for (auto colorMode: colorModes)
-            {
-                cout << "        " << colorMode << '\n';
-            }
-        }
-        
+        cout << colorModes;
+       
         cout << "    DefaultColorMode:\n";
         auto defaultColorMode = printer->getDefaultColorMode();
         if(defaultColorMode.size() == 0)

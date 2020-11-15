@@ -520,13 +520,13 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *colorMode = ippGetString(colorModes, i, NULL);
-                    m_colorModes.push_back(colorMode);
+                    m_colorModes.addColorMode(colorMode);
                 }
             }
             m_gotColorModes = true;
         }   
     }
-    std::vector<std::string>& Printer::getColorModes()
+    ColorModes& Printer::getColorModes()
     {
         populateColorModes();
         return m_colorModes;

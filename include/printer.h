@@ -25,6 +25,7 @@
 #include "finishings.h"
 #include "mediasource.h"
 #include "mediatype.h"
+#include "colormode.h"
 
 namespace nanaprint
 {
@@ -48,7 +49,7 @@ namespace nanaprint
             MediaType& getDefaultMediaType();
             PageOrientations& getOrientations();
             const PageOrientation& getDefaultOrientation();
-            std::vector<std::string>& getColorModes();
+            ColorModes& getColorModes();
             std::string& getDefaultColorMode();
             PrintQualities& getPrintQualities();
             std::shared_ptr<PrintQuality> getDefaultPrintQuality();
@@ -88,7 +89,7 @@ namespace nanaprint
             bool m_gotOrientations;
             PageOrientations m_orientations;
             bool m_gotColorModes;
-            std::vector<std::string> m_colorModes;
+            ColorModes m_colorModes;
             bool m_gotPrintQualities;
             PrintQualities m_printQualities;
             bool m_gotSides;
