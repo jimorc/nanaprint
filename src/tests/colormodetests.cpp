@@ -49,3 +49,18 @@ TEST(ColorModesTests, testConstructor)
     }
 } 
 
+// Test insertion operator
+TEST(ColorModesTests, testInsertionOperator)
+{
+    ColorModes modes;
+    modes.addColorMode("monochrome");
+    modes.addColorMode("color");
+
+    stringstream ss;
+
+    ss << modes;
+    bool modesOk = (ss.str() == u8"Color Modes:\n    monochrome\n    color\n") ||
+        (ss.str() == u8"Color Modes:\n    color\n    monochrome\n");
+
+    ASSERT_TRUE(modesOk);
+} 
