@@ -1,10 +1,11 @@
+#include <sstream>
 #include "gtest/gtest.h"
 #include "colormode.h"
 
 using namespace nanaprint;
 using namespace std;
 
-// Test None
+// Test constructors
 TEST(ColorModeTests, testConstructor)
 {
     ColorMode mode;
@@ -13,4 +14,19 @@ TEST(ColorModeTests, testConstructor)
 
     ColorMode bw("Monochrome");
     ASSERT_STREQ(u8"Monochrome", bw.getColorMode().c_str());
+} 
+
+// Test insertion operator
+TEST(ColorModeTests, testInsertionOperator)
+{
+    ColorMode mode, mode2("color");
+
+
+    stringstream ss, ss2;
+
+    ss << mode;
+    ss2 << mode2;
+
+    ASSERT_STREQ(u8"    None\n", ss.str().c_str());
+    ASSERT_STREQ(u8"    color\n", ss2.str().c_str());
 } 

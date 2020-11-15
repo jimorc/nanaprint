@@ -11,6 +11,7 @@
  *  @file unix/colormode.cpp
  */
 
+#include <iostream>
 #include "colormode.h"
 
 using namespace nanaprint;
@@ -26,6 +27,12 @@ namespace nanaprint
     ColorMode::ColorMode(const string& cmode) : m_colorMode(cmode)
     {
 
+    }
+
+    std::ostream& operator<<(std::ostream& os, const ColorMode& cmode)
+    {
+        os << "    " << cmode.getColorMode() << '\n';
+        return os;
     }
 }
 

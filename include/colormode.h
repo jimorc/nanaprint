@@ -27,4 +27,6 @@ namespace nanaprint
         private:
             std::string m_colorMode;
     };
+
+    std::ostream& operator<<(std::ostream& os, const ColorMode& cmode);
 }
