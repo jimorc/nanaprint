@@ -14,6 +14,7 @@ add_library(cupsprint
     finishings.cpp
     mediasource.cpp
     mediatype.cpp
+    colormode.cpp
 )
 
 link_directories(
