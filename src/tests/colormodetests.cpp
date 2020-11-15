@@ -30,3 +30,22 @@ TEST(ColorModeTests, testInsertionOperator)
     ASSERT_STREQ(u8"    None\n", ss.str().c_str());
     ASSERT_STREQ(u8"    color\n", ss2.str().c_str());
 } 
+
+// Test constructors
+TEST(ColorModesTests, testConstructor)
+{
+    ColorModes modes;
+    modes.addColorMode("monochrome");
+    modes.addColorMode("color");
+
+    auto cmodes = modes.getColorModes();
+
+    ASSERT_EQ(2, cmodes.size());
+    for (auto& mode: cmodes)
+    {
+        bool md = (mode->getColorMode() == u8"monochrome") ||
+            (mode->getColorMode() == u8"color");
+        ASSERT_TRUE(md);
+    }
+} 
+

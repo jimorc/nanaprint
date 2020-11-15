@@ -14,6 +14,9 @@
  */
 
 #include <string>
+#include <vector>
+#include <set>
+#include <memory>
 
 namespace nanaprint
 {
@@ -29,4 +32,15 @@ namespace nanaprint
     };
 
     std::ostream& operator<<(std::ostream& os, const ColorMode& cmode);
+
+    class ColorModes
+    {
+        public:
+            ColorModes() {}
+            virtual ~ColorModes() {}
+            void addColorMode(const std::string& cmode);
+            std::vector<std::shared_ptr<ColorMode>> getColorModes();
+        private:
+            std::set<std::shared_ptr<ColorMode>> m_colorModes;
+    };
 }
