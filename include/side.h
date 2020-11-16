@@ -22,8 +22,10 @@ namespace nanaprint
         public:
             Side(const std::string& side);
             virtual ~Side() {}
-            const std::string& getSide() { return m_side; }
+            const std::string& getSide() const { return m_side; }
         private:
             std::string m_side;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Side& side);
 }

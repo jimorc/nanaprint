@@ -23,5 +23,9 @@ namespace nanaprint
 
     }
 
-    
+    std::ostream& operator<<(std::ostream& os, const Side& side)
+    {
+        os << side.getSide();
+        return os;
+    }
 }
