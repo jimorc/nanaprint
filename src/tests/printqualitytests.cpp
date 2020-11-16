@@ -6,33 +6,36 @@
 using namespace nanaprint;
 using namespace std;
 
-// Test create
-TEST(PrintQualityTests, testCreate)
+// Test constructor
+TEST(PrintQualityTests, testCtor)
 {
-    auto plainNormal = PrintQuality::create(PLAIN_NORMAL);
-    auto fast = PrintQuality::create(FAST);
-    auto normal = PrintQuality::create(NORMAL);
-    auto high = PrintQuality::create(HIGH);
-    auto photo = PrintQuality::create(PHOTO);
+    PrintQuality none;
 
-    ASSERT_STREQ(u8"Plain Normal", plainNormal->getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Fast", fast->getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Normal", normal->getPrintQuality().c_str());
-    ASSERT_STREQ(u8"High", high->getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Photo", photo->getPrintQuality().c_str());
+    PrintQuality plainNormal(PLAIN_NORMAL);
+    PrintQuality fast(FAST);
+    PrintQuality normal(NORMAL);
+    PrintQuality high(HIGH);
+    PrintQuality photo(PHOTO);
+
+    ASSERT_STREQ(u8"None", none.getPrintQuality().c_str());
+    ASSERT_STREQ(u8"Plain Normal", plainNormal.getPrintQuality().c_str());
+    ASSERT_STREQ(u8"Fast", fast.getPrintQuality().c_str());
+    ASSERT_STREQ(u8"Normal", normal.getPrintQuality().c_str());
+    ASSERT_STREQ(u8"High", high.getPrintQuality().c_str());
+    ASSERT_STREQ(u8"Photo", photo.getPrintQuality().c_str());
 }
 
 // Test create with invalid orientation argument
-TEST(PrintQualityTests, testCreateInvalidOrientation)
+TEST(PrintQualityTests, testCreateInvalidQuality)
 {
     try
     {
-        auto quality = PrintQuality::create(1);
-        FAIL() << "Should have thrown exception because of bad input value to PrintQuality::create\n";
+        PrintQuality quality(1);
+        FAIL() << "Should have thrown exception because of bad value input to PrintQuality constructor\n";
     }
     catch (invalid_argument& ex)
     {
-        ASSERT_STREQ(ex.what(), "Invalid argument value input to PrintQuality::create");
+        ASSERT_STREQ(ex.what(), "Invalid argument value input to PrintQuality constructor");
     }
     catch(...)
     {
@@ -43,18 +46,18 @@ TEST(PrintQualityTests, testCreateInvalidOrientation)
 // Test the insertion operator
 TEST(PrintQualityTests, testInsertionOperator)
 {
-    auto pPlainQual = PrintQuality::create(PLAIN_NORMAL);
-    auto pFastQual = PrintQuality::create(FAST);
-    auto pNormalQual = PrintQuality::create(NORMAL);
-    auto pHighQual = PrintQuality::create(HIGH);
-    auto pPhotoQual = PrintQuality::create(PHOTO);
+    PrintQuality plainQual(PLAIN_NORMAL);
+    PrintQuality fastQual(FAST);
+    PrintQuality normalQual(NORMAL);
+    PrintQuality highQual(HIGH);
+    PrintQuality photoQual(PHOTO);
     
     stringstream ssPlQual, ssFast, ssNormal, ssHigh, ssPhoto;
-    ssPlQual << *pPlainQual;
-    ssFast << *pFastQual;
-    ssNormal << *pNormalQual;
-    ssHigh << *pHighQual;
-    ssPhoto << *pPhotoQual;
+    ssPlQual << plainQual;
+    ssFast << fastQual;
+    ssNormal << normalQual;
+    ssHigh << highQual;
+    ssPhoto << photoQual;
 
     ASSERT_STREQ(u8"Plain Normal", ssPlQual.str().c_str());
     ASSERT_STREQ(u8"Fast", ssFast.str().c_str());

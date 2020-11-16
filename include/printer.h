@@ -52,7 +52,7 @@ namespace nanaprint
             ColorModes& getColorModes();
             ColorMode& getDefaultColorMode();
             PrintQualities& getPrintQualities();
-            std::shared_ptr<PrintQuality> getDefaultPrintQuality();
+            PrintQuality& getDefaultPrintQuality();
             std::vector<std::string>& getSides();
             std::string& getDefaultSide();
 
@@ -106,7 +106,7 @@ namespace nanaprint
             bool m_gotDefaultColorMode;
             ColorMode m_defaultColorMode;
             bool m_gotDefaultPrintQuality;
-            std::shared_ptr<PrintQuality> m_defaultPrintQuality;
+            PrintQuality m_defaultPrintQuality;
             bool m_gotDefaultSide;
             std::string m_defaultSide;
             bool m_gotDefaultFinishings;

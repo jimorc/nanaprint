@@ -17,81 +17,39 @@ using namespace std;
 
 namespace nanaprint
 {
-    std::shared_ptr<PrintQuality> PrintQuality::create(int quality)
+    PrintQuality::PrintQuality() : m_quality(u8"None")
     {
-        std::shared_ptr<PrintQuality> printQuality;
+
+    }
+
+    PrintQuality::PrintQuality(const int quality)
+    {
         switch (quality)
         {
             case PLAIN_NORMAL:
-                printQuality = PlainNormalQuality::create();
+                m_quality = u8"Plain Normal";
                 break;
             case FAST:
-                printQuality = FastQuality::create();
+                m_quality = u8"Fast";
                 break;
             case NORMAL:
-                printQuality = NormalQuality::create();
+                m_quality = u8"Normal";
                 break;
             case HIGH:
-                printQuality = HighQuality::create();
+                m_quality = u8"High";
                 break;
             case PHOTO:
-                printQuality = PhotoQuality::create();
+                m_quality = u8"Photo";
                 break;
             default:
-                throw invalid_argument("Invalid argument value input to PrintQuality::create");
+                throw invalid_argument("Invalid argument value input to PrintQuality constructor");
         }
-
-        return printQuality;
+        
     }
 
-    std::shared_ptr<PlainNormalQuality> PlainNormalQuality::create()
+    std::string PrintQuality::getPrintQuality() const
     {
-        return std::make_shared<PlainNormalQuality>(PlainNormalQuality());
-    }
-
-    std::shared_ptr<FastQuality> FastQuality::create()
-    {
-        return std::make_shared<FastQuality>(FastQuality());
-    }
-
-    std::shared_ptr<NormalQuality> NormalQuality::create()
-    {
-        return std::make_shared<NormalQuality>(NormalQuality());
-    }
-    
-    std::shared_ptr<HighQuality> HighQuality::create()
-    {
-        return std::make_shared<HighQuality>(HighQuality());
-    }
-    
-    std::shared_ptr<PhotoQuality> PhotoQuality::create()
-    {
-        return std::make_shared<PhotoQuality>(PhotoQuality());
-    }
-     
-    std::string PlainNormalQuality::getPrintQuality() const
-    {
-        return "Plain Normal";
-    }
-
-    std::string FastQuality::getPrintQuality() const
-    {
-        return "Fast";
-    }
-
-    std::string NormalQuality::getPrintQuality() const
-    {
-        return "Normal";
-    }
-
-    std::string HighQuality::getPrintQuality() const
-    {
-        return "High";
-    }
-
-    std::string PhotoQuality::getPrintQuality() const
-    {
-        return "Photo";
+        return m_quality;
     }
 
     std::ostream& operator<<(std::ostream& os, const PrintQuality& quality)
@@ -102,7 +60,7 @@ namespace nanaprint
 
     void PrintQualities::addPrintQuality(int quality)
     {
-        m_qualities.insert(PrintQuality::create(quality));
+        m_qualities.insert(make_shared<PrintQuality>(quality));
     }
 
     bool PrintQualities::containsPrintQuality(const std::string& quality) const

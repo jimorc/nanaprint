@@ -29,71 +29,17 @@ namespace nanaprint
     class PrintQuality
     {
         public:
-            ~PrintQuality() {}
-            static std::shared_ptr<PrintQuality> create(const int quality);
-            virtual std::string getPrintQuality() const = 0;
+            PrintQuality();
+            PrintQuality(const int quality);
+            virtual ~PrintQuality() {}
+            virtual std::string getPrintQuality() const;
             
-       protected:
-            PrintQuality() {}
+        private:
+            std::string m_quality;
     };
 
     std::ostream& operator<<(std::ostream& os, const PrintQuality& quality);
-
-    class PlainNormalQuality : public PrintQuality
-    {
-        public:
-            virtual ~PlainNormalQuality() {}
-            static std::shared_ptr<PlainNormalQuality> create();
-            virtual std::string getPrintQuality() const override;
-
-        protected:
-            PlainNormalQuality() {}
-    };
-
-    class FastQuality : public PrintQuality
-    {
-        public:
-            static std::shared_ptr<FastQuality> create();
-            std::string getPrintQuality() const;
-            virtual ~FastQuality() {}
-
-        protected:
-            FastQuality() {}
-    };
-
-    class NormalQuality : public PrintQuality
-    {
-        public:
-            static std::shared_ptr<NormalQuality> create();
-            std::string getPrintQuality() const;
-            virtual ~NormalQuality() {}
-
-        protected:
-            NormalQuality() {}
-    };
-
-    class HighQuality : public PrintQuality
-    {
-        public:
-            static std::shared_ptr<HighQuality> create();
-            std::string getPrintQuality() const;
-            virtual ~HighQuality() {}
-
-        protected:
-            HighQuality() {}
-    };
-
-    class PhotoQuality : public PrintQuality
-    {
-        public:
-            static std::shared_ptr<PhotoQuality> create();
-            std::string getPrintQuality() const;
-            virtual ~PhotoQuality() {}
-
-        protected:
-            PhotoQuality() {}
-    };
-
+    
     class PrintQualities
     {
         public:
