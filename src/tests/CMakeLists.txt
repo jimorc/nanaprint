@@ -93,6 +93,12 @@ package_add_test_with_libraries(ColorModeTests
     "${PROJECT_DIR}"
 )
 
+package_add_test_with_libraries(SideTests
+    sidetests.cpp 
+    cupsprint 
+    "${PROJECT_DIR}"
+)
+
 target_compile_features(printerproperties
     PUBLIC
     cxx_std_17

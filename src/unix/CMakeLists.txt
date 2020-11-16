@@ -15,6 +15,7 @@ add_library(cupsprint
     mediasource.cpp
     mediatype.cpp
     colormode.cpp
+    side.cpp
 )
 
 link_directories(
