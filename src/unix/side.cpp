@@ -28,4 +28,19 @@ namespace nanaprint
         os << side.getSide();
         return os;
     }
+
+    void Sides::addSide(const std::string& side)
+    {
+        m_sides.insert(make_shared<Side>(Side(side)));
+    }
+
+    const std::vector<std::shared_ptr<Side>> Sides::getSides() const
+    {
+        vector<shared_ptr<Side>> sides;
+        for (auto& side: m_sides)
+        {
+            sides.push_back(side);
+        }
+        return sides;
+    }
 }

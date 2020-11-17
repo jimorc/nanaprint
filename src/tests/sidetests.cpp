@@ -31,3 +31,17 @@ TEST(SideTests, testInsertionOperator)
     ASSERT_STREQ(u8"one-sided", ss1.str().c_str());
     ASSERT_STREQ(u8"two-sided-long-edge", ss2.str().c_str());
 }
+
+// Test addSide
+TEST(SidesTests, testAddSide)
+{
+    Sides sides;
+    sides.addSide(CUPS_SIDES_ONE_SIDED);
+    sides.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
+    sides.addSide(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
+
+    auto mySides = sides.getSides();
+    ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, mySides[0]->getSide().c_str());
+    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1]->getSide().c_str());
+    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2]->getSide().c_str());
+}
