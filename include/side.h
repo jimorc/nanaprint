@@ -17,6 +17,7 @@
 #include <set>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 namespace nanaprint
 {
@@ -42,4 +43,6 @@ namespace nanaprint
         private:
             std::set<std::shared_ptr<Side>> m_sides;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Sides& side);
 }

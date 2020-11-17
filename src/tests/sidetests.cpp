@@ -45,3 +45,18 @@ TEST(SidesTests, testAddSide)
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1]->getSide().c_str());
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2]->getSide().c_str());
 }
+
+// Test insertion operator
+TEST(SidesTests, testInsertionOperator)
+{
+    Sides sides, sides2;
+    sides2.addSide(CUPS_SIDES_ONE_SIDED);
+    sides2.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
+
+    stringstream ss1, ss2;
+    ss1 << sides;
+    ss2 << sides2;
+
+    ASSERT_STREQ("Sides:\n    None\n", ss1.str().c_str());
+    ASSERT_STREQ("Sides:\n    one-sided\n    two-sided-long-edge\n", ss2.str().c_str());
+}

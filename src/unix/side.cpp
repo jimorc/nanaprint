@@ -43,4 +43,22 @@ namespace nanaprint
         }
         return sides;
     }
+
+    std::ostream& operator<<(std::ostream& os, const Sides& sides)
+    {
+        os << "Sides:\n";
+        auto sids = sides.getSides();
+        if(sids.empty())
+        {
+            os << "    None\n";
+        }
+        else
+        {
+            for (auto& side: sids)
+            {
+                os << "    " << *side << '\n';
+            }
+        }
+        return os;
+    }
 }
