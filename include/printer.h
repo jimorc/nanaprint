@@ -26,6 +26,7 @@
 #include "mediasource.h"
 #include "mediatype.h"
 #include "colormode.h"
+#include "side.h"
 
 namespace nanaprint
 {
@@ -53,7 +54,7 @@ namespace nanaprint
             ColorMode& getDefaultColorMode();
             PrintQualities& getPrintQualities();
             PrintQuality& getDefaultPrintQuality();
-            std::vector<std::string>& getSides();
+            Sides& getSides();
             std::string& getDefaultSide();
 
         protected:
@@ -93,7 +94,7 @@ namespace nanaprint
             bool m_gotPrintQualities;
             PrintQualities m_printQualities;
             bool m_gotSides;
-            std::vector<std::string> m_sides;
+            Sides m_sides;
             bool m_gotFinishings;
             Finishings m_finishings;
 

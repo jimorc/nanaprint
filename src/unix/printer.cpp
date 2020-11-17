@@ -650,13 +650,13 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *side = ippGetString(sides, i, NULL);
-                    m_sides.push_back(side);
+                    m_sides.addSide(side);
                 }
             }
             m_gotSides = true;
         }   
     }
-    std::vector<std::string>& Printer::getSides()
+    Sides& Printer::getSides()
     {
         populateSides();
         return m_sides;
