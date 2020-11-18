@@ -1,7 +1,9 @@
 #include <string>
 #include <sstream>
+#include <memory>
 #include "gtest/gtest.h"
 #include "mediasize.h"
+#include "mediasizes.h"
 
 using namespace nanaprint;
 using namespace std;
@@ -47,5 +49,36 @@ TEST(MediaSizeTests, testInsertionOperatorBorderless)
 
     ASSERT_STREQ("Letter    Borderless\n    width = 21590, height = 27940,\n"
         "    top = 0, bottom = 0,\n    left = 0, right = 0\n",
+        ss.str().c_str());
+}
+
+// Test insertion operator
+TEST(MediaSizesTests, testInsertionOperator)
+{
+    stringstream ss;
+    MediaSizes sizes;
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 21590, 27940,
+            508, 610, 915, 1016)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in_borderless", 21590, 27940,
+            0, 0, 0, 0)));
+
+    ss << sizes;
+
+    ASSERT_STREQ("Media Sizes:\nLetter\n    width = 21590, height = 27940,\n"
+        "    top = 1016, bottom = 508,\n    left = 610, right = 915\n"
+        "Letter    Borderless\n    width = 21590, height = 27940,\n"
+        "    top = 0, bottom = 0,\n    left = 0, right = 0\n",
+        ss.str().c_str());
+}
+
+// Test insertion operator, no sizes
+TEST(MediaSizesTests, testInsertionOperatorNoSizes)
+{
+    stringstream ss;
+    MediaSizes sizes;
+
+    ss << sizes;
+
+    ASSERT_STREQ("Media Sizes:\nNone\n",
         ss.str().c_str());
 }

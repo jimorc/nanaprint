@@ -41,4 +41,22 @@ namespace nanaprint
         }
         return mediaNames;
     }
+
+    std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
+    {
+        os << "Media Sizes:\n";
+        auto mediaSizes = sizes.getMediaSizes();
+        if (mediaSizes.empty())
+        {
+            os << "None\n";
+        }
+        else
+        {
+            for (auto& size: mediaSizes)
+            {
+                os << *size;
+            }
+        }
+        return os;
+    }
 }
