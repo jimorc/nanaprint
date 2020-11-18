@@ -45,8 +45,12 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const MediaSize& size)
     {
-        os << size.getTranslatedName() << "\n";
-        os << "    width = " << size.getWidth() << ", height = " << size.getHeight() << ",\n";
+        os << size.getTranslatedName();
+        if (size.isBorderless())
+        {
+            os << "    Borderless";
+        }
+        os << "\n    width = " << size.getWidth() << ", height = " << size.getHeight() << ",\n";
         os << "    top = " << size. getTop() << ", bottom = " << size.getBottom() << ",\n";
         os << "    left = " << size.getLeft() <<", right = " << size.getRight() <<  '\n';
         return os;

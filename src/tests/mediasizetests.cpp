@@ -36,3 +36,16 @@ TEST(MediaSizeTests, testInsertionOperator)
         "    top = 1016, bottom = 508,\n    left = 610, right = 915\n",
         ss.str().c_str());
 }
+
+// Test insertion operator for borderless media
+TEST(MediaSizeTests, testInsertionOperatorBorderless)
+{
+    MediaSize letter("na_letter_8.5x11in_borderless", 21590, 27940,
+            0, 0, 0, 0);
+    stringstream ss;
+    ss << letter;
+
+    ASSERT_STREQ("Letter    Borderless\n    width = 21590, height = 27940,\n"
+        "    top = 0, bottom = 0,\n    left = 0, right = 0\n",
+        ss.str().c_str());
+}
