@@ -55,7 +55,7 @@ namespace nanaprint
             PrintQualities& getPrintQualities();
             PrintQuality& getDefaultPrintQuality();
             Sides& getSides();
-            std::string& getDefaultSide();
+            Side& getDefaultSide();
 
         protected:
             Printer(cups_dest_t* dest);
@@ -109,7 +109,7 @@ namespace nanaprint
             bool m_gotDefaultPrintQuality;
             PrintQuality m_defaultPrintQuality;
             bool m_gotDefaultSide;
-            std::string m_defaultSide;
+            Side m_defaultSide;
             bool m_gotDefaultFinishings;
             Finishings m_defaultFinishings;
     };

@@ -81,20 +81,10 @@ int main()
         auto sides = printer->getSides();
         cout << sides;
 
-        cout << "    Default Side\n";
+        cout << "Default Side\n";
         auto side = printer->getDefaultSide();
-        if(side.size() == 0)
-        {
-            cout << "        None specified\n";
-        }
-        else
-        {
-            cout << "        " << side << '\n';
-        }
-        
-        
-        
-        
+        cout << "    " << side << '\n';
+
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())
         {

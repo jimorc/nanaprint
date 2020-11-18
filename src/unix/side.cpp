@@ -18,6 +18,11 @@ using namespace std;
 
 namespace nanaprint
 {
+    Side::Side() : m_side(u8"None")
+    {
+
+    }
+    
     Side::Side(const std::string& side) : m_side(side)
     {
 

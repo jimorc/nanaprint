@@ -656,7 +656,7 @@ namespace nanaprint
             m_gotSides = true;
         }   
     }
-    Sides& Printer::getSides()
+     Sides& Printer::getSides()
     {
         populateSides();
         return m_sides;
@@ -675,7 +675,7 @@ namespace nanaprint
                 cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
             if (defaultSide != nullptr)
             {
-                m_defaultSide = defaultSide;
+                m_defaultSide = Side(defaultSide);
             }
             else
             {
@@ -685,13 +685,13 @@ namespace nanaprint
                 if (count != 0)
                 {
                     const char *defaultSide = ippGetString(defSide, 0, NULL);
-                     m_defaultSide = defaultSide;
+                     m_defaultSide = Side(defaultSide);
                 }
             }
             m_gotDefaultSide = true;
         }   
     }
-    std::string& Printer::getDefaultSide()
+    Side& Printer::getDefaultSide()
     {
         populateDefaultSide();
         return m_defaultSide;

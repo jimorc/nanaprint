@@ -24,6 +24,7 @@ namespace nanaprint
     class Side
     {
         public:
+            Side();
             Side(const std::string& side);
             virtual ~Side() {}
             const std::string& getSide() const { return m_side; }
