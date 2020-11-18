@@ -1,6 +1,4 @@
-#ifndef MEDIASIZES_H
-#define MEDIASIZES_H
-
+#pragma(once)
 /**
  *  \brief A MediaSizes class
  *
@@ -36,6 +34,6 @@ namespace nanaprint
         private:
             std::vector<std::shared_ptr<MediaSize>> m_mediaSizes;
     };
-}
 
-#endif      // MEDIASIZES_H
+
+}

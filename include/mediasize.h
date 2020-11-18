@@ -15,8 +15,8 @@
  *  @file unix/mediasize.h
  */
 
+#include <iostream>
 #include <string>
-#include <cups/cups.h>
 #include "mediasizestranslator.h"
 
 namespace nanaprint
@@ -29,7 +29,7 @@ namespace nanaprint
             virtual ~MediaSize();
 
             std::string getMediaName() const { return m_mediaName; }
-            std::string getTranslatedName();
+            std::string getTranslatedName() const;
             int getWidth() const { return m_width; }
             int getHeight() const { return m_height; }
             int getBottom() const { return m_bottom; }
@@ -48,8 +48,9 @@ namespace nanaprint
             int m_left;
             int m_right;
             int m_top;
-
     };
+
+    std::ostream& operator<<(std::ostream& os, const MediaSize& size);
 }
 
 #endif      // MEDIASIZE_H
