@@ -39,6 +39,7 @@ namespace nanaprint
         m_mediaMap["jpn_you4_105x235mm"] = "Yougata 4";
         m_mediaMap["jpn_chou3_120x235mm"] = "Nagagata 3";
         m_mediaMap["jpn_oufuku_148x200mm"] = "Oufuku";
+        m_mediaMap["jis_b5_182x257mm"] = "JIS B5";
     }
 
     MediaSizesTranslator::~MediaSizesTranslator()
