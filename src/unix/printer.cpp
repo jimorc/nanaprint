@@ -190,17 +190,10 @@ namespace nanaprint
         }
     }
 
-    std::vector<std::string> Printer::getMediaSizeNames()
+    MediaSizes& Printer::getMediaSizes()
     {
         populateMediaSizes();
-        vector<string> mediaNames = m_mediaSizes.getMediaSizeNames();
-        return mediaNames;
-    }
-
-    vector<shared_ptr<MediaSize>> Printer::getMediaSizes()
-    {
-        populateMediaSizes();
-        return m_mediaSizes.getMediaSizes();
+        return m_mediaSizes;
     }
 
     const Finishings& Printer::getFinishings()
