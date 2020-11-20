@@ -58,6 +58,7 @@ namespace nanaprint
         set_color_mode(m_printers[m_printer]->getDefaultColorMode());
         set_print_quality(m_printers[m_printer]->getDefaultPrintQuality());
         set_side(m_printers[m_printer]->getDefaultSide());
+        m_canPrintMultipleCopies = m_printers[m_printer]->canPrintMultipleCopies();
     }
 
     void PrintSettings::set_media_size(const MediaSize& mediaSize)

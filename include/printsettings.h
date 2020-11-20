@@ -46,6 +46,7 @@ namespace nanaprint
             const PrintQuality& get_print_quality() const { return m_printQuality; }
             void set_side(const Side& side);
             const Side& get_side() const { return m_side; }
+            bool can_print_multiple_copies() { return m_canPrintMultipleCopies; }
         protected:
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
@@ -59,5 +60,6 @@ namespace nanaprint
             ColorMode m_colorMode;
             PrintQuality m_printQuality;
             Side m_side;
+            bool m_canPrintMultipleCopies;
     };
 }
