@@ -1,6 +1,4 @@
-#ifndef PRINTER_H
-#define PRINTER_H
-
+#pragma(once)
 /**
  *  \file printer.h
  *  \brief This file provides printer class and data structures required by nanaprint
@@ -117,5 +115,3 @@ namespace nanaprint
             Finishings m_defaultFinishings;
     };
 }
-
-#endif      // PRINTER_H

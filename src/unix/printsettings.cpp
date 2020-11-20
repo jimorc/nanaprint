@@ -50,10 +50,16 @@ namespace nanaprint
     {
         m_printer = printerNum;
         set_media_size(m_printers[m_printer]->getDefaultMediaSize());
+        set_finishings(m_printers[m_printer]->getDefaultFinishings());
     }
 
     void PrintSettings::set_media_size(const MediaSize& mediaSize)
     {
         m_mediaSize = mediaSize;
+    }
+
+    void PrintSettings::set_finishings(const Finishings& finishings)
+    {
+        m_finishings = finishings;
     }
 }
