@@ -92,6 +92,9 @@ int main()
         }
 
         cout << printer->getMediaSizes();
+
+        cout << "Default Media Size:\n";
+        cout << printer->getDefaultMediaSize(); 
  
         cout << endl;
     }

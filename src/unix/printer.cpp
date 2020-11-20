@@ -27,7 +27,9 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false), m_gotMediaSources(false), m_gotDefaultMediaSource(false),
+        : m_dest(dest), m_gotFinishings(false), m_gotDefaultMediaSize(false),
+            m_defaultMediaSize("None", 0, 0, 0, 0, 0, 0),
+            m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
@@ -195,6 +197,28 @@ namespace nanaprint
         populateMediaSizes();
         return m_mediaSizes;
     }
+
+    void Printer::populateDefaultMediaSize()
+    {
+            char resource[RESOURCE_SIZE];
+            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+            NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_size_t size;
+            int result = cupsGetDestMediaDefault(http, m_dest, info, 0, &size);
+            if(result)
+            {
+                m_defaultMediaSize = MediaSize(size.media, size.width, size.length,
+                    size.bottom, size.left, size.right, size.top);
+                m_gotDefaultMediaSize = true;
+            }
+    }
+
+    MediaSize& Printer::getDefaultMediaSize()
+        {
+            populateDefaultMediaSize();
+            return m_defaultMediaSize;
+        }
 
     const Finishings& Printer::getFinishings()
     {
