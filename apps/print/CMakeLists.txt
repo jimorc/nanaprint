@@ -32,6 +32,7 @@ include_directories(
 )
 
 target_link_libraries(print
+    cupsprint
     nana
 )
 

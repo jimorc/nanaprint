@@ -14,14 +14,17 @@
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/menubar.hpp>
 #include <nana/gui/widgets/menu.hpp>
+#include "pagesetup.h"
 
 using namespace nana;
+using namespace nanaprint;
 using namespace std;
 
 
 int main()
 {
     form mainForm;
+    mainForm.caption(u8"Print Test Program");
     menubar mainMenu(mainForm);
 
     mainMenu.events().mouse_up([](const arg_mouse& arg) {
@@ -31,10 +34,10 @@ int main()
 
     mainMenu.push_back("&File");
     auto& fileMenu = mainMenu.at(0);
-    fileMenu.append("Page Setup...", [](menu::item_proxy& ip) {
-        msgbox msg("Page Setup clicked");
-        msg << ip.text();
-        msg.show();
+    fileMenu.append("Page Setup...", [&](menu::item_proxy& ip) {
+        PageSetup setup(mainForm);
+        setup.show();
+        exec();
     });
 
     fileMenu.append("Print...", [](menu::item_proxy& ip) {

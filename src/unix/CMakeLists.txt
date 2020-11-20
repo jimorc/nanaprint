@@ -3,6 +3,28 @@ cmake_minimum_required(VERSION 3.12-3.18 FATAL_ERROR)
 
 include(FindCups)
 
+include(FetchContent)
+
+if(MSVC)
+  FetchContent_Declare(
+    nana
+    GIT_REPOSITORY https://github.com/cnjinhao/nana.git
+    GIT_TAG        develop-1.8
+  )
+else()
+  FetchContent_Declare(
+    nana
+    GIT_REPOSITORY https://github.com/cnjinhao/nana.git
+    GIT_TAG        master
+  )
+endif()
+
+FetchContent_GetProperties(nana)
+if(NOT nana_POPULATED)
+  FetchContent_Populate(nana)
+  add_subdirectory(${nana_SOURCE_DIR} ${nana_BINARY_DIR})
+endif()
+
 add_library(cupsprint
     printers.cpp
     printer.cpp
@@ -16,6 +38,7 @@ add_library(cupsprint
     mediatype.cpp
     colormode.cpp
     side.cpp
+    pagesetup.cpp
 )
 
 link_directories(
@@ -30,6 +53,7 @@ include_directories(
 
 target_link_libraries(cupsprint
     ${CUPS_LIBRARIES}
+    nana
 )
 
 target_compile_features(cupsprint
