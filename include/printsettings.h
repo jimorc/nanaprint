@@ -40,6 +40,8 @@ namespace nanaprint
             const MediaType& get_media_type() { return m_mediaType; }
             void set_page_orientation(const PageOrientation& orientation);
             const PageOrientation& get_page_orientation() const { return m_orientation; }
+            void set_color_mode(const ColorMode& colorMode);
+            const ColorMode& get_color_mode() const { return m_colorMode; }
         protected:
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
@@ -50,5 +52,6 @@ namespace nanaprint
             MediaSource m_mediaSource;
             MediaType m_mediaType;
             PageOrientation m_orientation;
+            ColorMode m_colorMode;
     };
 }
