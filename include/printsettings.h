@@ -44,6 +44,8 @@ namespace nanaprint
             const ColorMode& get_color_mode() const { return m_colorMode; }
             void set_print_quality(const PrintQuality& quality);
             const PrintQuality& get_print_quality() const { return m_printQuality; }
+            void set_side(const Side& side);
+            const Side& get_side() const { return m_side; }
         protected:
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
@@ -56,5 +58,6 @@ namespace nanaprint
             PageOrientation m_orientation;
             ColorMode m_colorMode;
             PrintQuality m_printQuality;
+            Side m_side;
     };
 }
