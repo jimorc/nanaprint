@@ -56,6 +56,7 @@ namespace nanaprint
         set_media_type(m_printers[m_printer]->getDefaultMediaType());
         set_page_orientation(m_printers[m_printer]->getDefaultOrientation());
         set_color_mode(m_printers[m_printer]->getDefaultColorMode());
+        set_print_quality(m_printers[m_printer]->getDefaultPrintQuality());
     }
 
     void PrintSettings::set_media_size(const MediaSize& mediaSize)
@@ -86,5 +87,10 @@ namespace nanaprint
     void PrintSettings::set_color_mode(const ColorMode& colorMode)
     {
         m_colorMode = colorMode;
+    }
+
+    void PrintSettings::set_print_quality(const PrintQuality& quality)
+    {
+        m_printQuality = quality;
     }
 }
