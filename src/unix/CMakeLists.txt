@@ -32,7 +32,7 @@ target_link_libraries(cupsprint
     ${CUPS_LIBRARIES}
 )
 
-target_compile_features(printerproperties
+target_compile_features(cupsprint
     PUBLIC
     cxx_std_17
 )
