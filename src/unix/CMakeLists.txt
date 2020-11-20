@@ -39,6 +39,7 @@ add_library(cupsprint
     colormode.cpp
     side.cpp
     pagesetup.cpp
+    printsettings.cpp
 )
 
 link_directories(
