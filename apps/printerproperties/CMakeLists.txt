@@ -15,5 +15,5 @@ target_link_libraries(printerproperties
 
 target_compile_features(printerproperties
     PUBLIC
-    cxx_std_20
+    cxx_std_17
 )
