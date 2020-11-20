@@ -25,7 +25,10 @@ namespace nanaprint
             // PrintSettings set up for default printer (or first printer if no default)
             PrintSettings(const Printers& printers);
             virtual ~PrintSettings();
+            const std::vector<std::shared_ptr<Printer>>& getPrinters() const
+                { return m_printers; }
             void set_printer(int printer);
+            int get_printer() const { return m_printer; }
         protected:
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
