@@ -34,6 +34,8 @@ namespace nanaprint
             const MediaSize& get_media_size() const { return m_mediaSize; }
             void set_finishings(const Finishings& finishings);
             const Finishings& get_finishings() const { return m_finishings; }
+            void set_media_source(const MediaSource& source);
+            const MediaSource& get_media_source() { return m_mediaSource; }
         protected:
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
@@ -41,5 +43,6 @@ namespace nanaprint
             int m_printer;
             MediaSize m_mediaSize;
             Finishings m_finishings;
+            MediaSource m_mediaSource;
     };
 }
