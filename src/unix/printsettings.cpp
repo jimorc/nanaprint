@@ -11,23 +11,23 @@
  *  @file unix/printsettings.cpp
  */
 
+#include <climits>
 #include "printsettings.h"
 
 namespace nanaprint
 {
     PrintSettings::PrintSettings(const Printers& printers)
-        : m_printers(printers.getPrinters())
+        : m_printers(printers.getPrinters()), m_printer(INT_MAX)
     {
         int printerNum = get_default_printer_number();
-        set_printer(printerNum);
+        set_default_settings(printerNum);
     }
 
     void PrintSettings::set_printer(int printer)
     {
         if(printer == m_printer)
             return;
-        m_printer = printer;
-        // set settings to the defaults for the printer
+        set_default_settings(printer);
     }
 
     // get the index of the default printer, or return 0 if there is no default
@@ -42,5 +42,11 @@ namespace nanaprint
             }
         }
         return printerNum;
+    }
+
+    // fill the print settings with the printer's defaults
+    void PrintSettings::set_default_settings(int printerNum)
+    {
+        m_printer = printerNum;
     }
 }

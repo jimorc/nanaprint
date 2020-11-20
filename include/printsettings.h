@@ -28,6 +28,7 @@ namespace nanaprint
             void set_printer(int printer);
         protected:
             int get_default_printer_number() const;
+            void set_default_settings(int printerNum);
             std::vector<std::shared_ptr<Printer>> m_printers;
             int m_printer; 
     };
