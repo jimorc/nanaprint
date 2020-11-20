@@ -16,6 +16,7 @@
 #include <vector>
 #include <memory>
 #include "printers.h"
+#include "mediasize.h"
 
 namespace nanaprint
 {
@@ -29,10 +30,13 @@ namespace nanaprint
                 { return m_printers; }
             void set_printer(int printer);
             int get_printer() const { return m_printer; }
+            void set_media_size(const MediaSize& mediaSize);
+            MediaSize get_media_size() const { return m_mediaSize; }
         protected:
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
             std::vector<std::shared_ptr<Printer>> m_printers;
-            int m_printer; 
+            int m_printer;
+            MediaSize m_mediaSize;
     };
 }

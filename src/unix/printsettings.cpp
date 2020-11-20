@@ -17,7 +17,8 @@
 namespace nanaprint
 {
     PrintSettings::PrintSettings(const Printers& printers)
-        : m_printers(printers.getPrinters()), m_printer(INT_MAX)
+        : m_printers(printers.getPrinters()), m_printer(INT_MAX),
+            m_mediaSize({"None", 0, 0, 0, 0, 0, 0})
     {
         int printerNum = get_default_printer_number();
         set_default_settings(printerNum);
@@ -48,5 +49,11 @@ namespace nanaprint
     void PrintSettings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
+        set_media_size(m_printers[m_printer]->getDefaultMediaSize());
+    }
+
+    void PrintSettings::set_media_size(const MediaSize& mediaSize)
+    {
+        m_mediaSize = mediaSize;
     }
 }
