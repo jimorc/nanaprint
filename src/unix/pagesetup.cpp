@@ -41,21 +41,12 @@ namespace nanaprint
         );
 
         label formatFor(*this);
-        formatFor.size(nana::size{ 130, 40} );
-        formatFor.text_align(align::right, align_v::center);
-        formatFor.caption(u8"Format for:   ");
-        formatFor.fgcolor(colors::dark_border);
-        combox printerListBox(*this);
-        printerListBox.size(nana::size{ 250, 25});
-        printerListBox.editable(false);
-
-        auto prs = m_printers.getPrinters();
-        size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
-        printerListBox.push_back(u8"Sample Printer\nDescriptive Text");
-        printerListBox.option(defaultPrinter);
-
+        setupFormatForLabel(formatFor);
         layout["formatfor"] << formatFor;
-        layout["printer"] << printerListBox;
+
+        combox printerCombox(*this);
+        setupPrinterComBox(printerCombox);
+        layout["printer"] << printerCombox;
 
         label paperSize(*this);
         paperSize.caption(u8"Paper size:   ");
@@ -66,7 +57,27 @@ namespace nanaprint
 
         layout.collocate();
         modality();
+    }
 
+    void PageSetup::setupFormatForLabel(nana::label& formatLabel) const
+    {
+        formatLabel.size(nana::size{ 130, 40} );
+        formatLabel.text_align(align::right, align_v::center);
+        formatLabel.caption(u8"Format for:   ");
+        formatLabel.fgcolor(colors::dark_border);
+    }
 
+    void PageSetup::setupPrinterComBox(nana::combox& box) const
+    {
+        box.size(nana::size{ 250, 25});
+        box.editable(false);
+
+        auto prs = m_printers.getPrinters();
+        for(auto& printer: prs)
+        {
+            box.push_back(printer->getName());
+        }
+        size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
+        box.option(defaultPrinter);
     }
 }
