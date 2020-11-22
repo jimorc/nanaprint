@@ -14,6 +14,7 @@
  */
 
 #include <nana/gui.hpp>
+#include "printers.h"
 
 
 namespace nanaprint
@@ -21,9 +22,10 @@ namespace nanaprint
     class PageSetup : public nana::form
     {
         public:
-            PageSetup(nana::form& parent);
+            PageSetup(nana::form& parent, Printers& printers);
             virtual ~PageSetup() {}
         private:
+            Printers& m_printers;
     };
 }
 

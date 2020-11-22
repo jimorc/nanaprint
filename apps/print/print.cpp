@@ -14,12 +14,14 @@
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/menubar.hpp>
 #include <nana/gui/widgets/menu.hpp>
+#include "printers.h"
 #include "pagesetup.h"
 
 using namespace nana;
 using namespace nanaprint;
 using namespace std;
 
+Printers printers;
 
 int main()
 {
@@ -35,9 +37,7 @@ int main()
     mainMenu.push_back("&File");
     auto& fileMenu = mainMenu.at(0);
     fileMenu.append("Page Setup...", [&](menu::item_proxy& ip) {
-        PageSetup setup(mainForm);
-        setup.show();
-        exec();
+        PageSetup setup(mainForm, printers);
     });
 
     fileMenu.append("Print...", [](menu::item_proxy& ip) {
