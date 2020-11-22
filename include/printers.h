@@ -35,6 +35,7 @@ namespace nanaprint
             Printers();
             virtual ~Printers();
             std::vector<std::shared_ptr<Printer>> getPrinters() const { return m_printers; }
+            size_t getDefaultPrinterNumber() const;
 
         private:
             void enumeratePrinters();

@@ -47,13 +47,12 @@ namespace nanaprint
         formatFor.fgcolor(colors::dark_border);
         combox printerListBox(*this);
         printerListBox.size(nana::size{ 250, 25});
+        printerListBox.editable(false);
 
         auto prs = m_printers.getPrinters();
-        for (auto printer: prs)
-        {
-            printerListBox.push_back(printer->getName());
-        }
+        size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
         printerListBox.push_back(u8"Sample Printer\nDescriptive Text");
+        printerListBox.option(defaultPrinter);
 
         layout["formatfor"] << formatFor;
         layout["printer"] << printerListBox;
