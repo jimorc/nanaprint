@@ -22,6 +22,7 @@ using namespace nanaprint;
 using namespace std;
 
 Printers printers;
+PrintSettings settings(printers);
 
 int main()
 {
@@ -37,7 +38,7 @@ int main()
     mainMenu.push_back("&File");
     auto& fileMenu = mainMenu.at(0);
     fileMenu.append("Page Setup...", [&](menu::item_proxy& ip) {
-        PageSetup setup(mainForm, printers);
+        PageSetup setup(mainForm, settings);
     });
 
     fileMenu.append("Print...", [](menu::item_proxy& ip) {

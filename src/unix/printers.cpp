@@ -83,4 +83,15 @@ namespace nanaprint
         }
         return printerNum;
     }
+
+    size_t Printers::get_printer_number(const std::string& printerName) const
+    {
+        size_t printerNum = 0;
+        for( size_t i = 0; i < m_printers.size(); ++i)
+        {
+            if (m_printers[i]->getName() == printerName)
+                printerNum = i;
+        }
+        return printerNum;
+    }
 }

@@ -16,6 +16,7 @@
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/widgets/combox.hpp>
+#include "printsettings.h"
 #include "printers.h"
 
 
@@ -24,13 +25,16 @@ namespace nanaprint
     class PageSetup : public nana::form
     {
         public:
-            PageSetup(nana::form& parent, Printers& printers);
+            PageSetup(nana::form& parent, PrintSettings& settings);
             virtual ~PageSetup() {}
         private:
             void setupFormatForLabel(nana::label& formatLabel) const;
-            void setupPrinterComBox(nana::combox& box) const;
+            void setupPrinterComBox(nana::combox& box);
+            void setupPaperSizeLabel(nana::label& paperSizeLabel) const;
+            void printer_selected(const nana::arg_combox &ar_cbx);
 
-            Printers& m_printers;
+            Printers m_printers;
+            PrintSettings& m_settings;
     };
 }
 

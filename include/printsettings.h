@@ -1,4 +1,6 @@
-#pragma(once)
+#ifndef NANAPRINT_PRINTSETTINGS_H
+#define NANAPRINT_PRINTSETTINGS_H
+
 /**
  *  \file printsettings.h
  *  \brief This file provides a PrintSettings class required by nanaprint
@@ -25,7 +27,7 @@ namespace nanaprint
         public:
             // PrintSettings set up for default printer (or first printer if no default)
             PrintSettings(const Printers& printers);
-            virtual ~PrintSettings();
+            virtual ~PrintSettings() {}
             const std::vector<std::shared_ptr<Printer>>& getPrinters() const
                 { return m_printers; }
             void set_printer(int printer);
@@ -63,3 +65,5 @@ namespace nanaprint
             bool m_canPrintMultipleCopies;
     };
 }
+
+#endif       // NANAPRINT_PRINTSETTINGS_H
