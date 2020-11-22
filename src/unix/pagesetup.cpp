@@ -26,14 +26,25 @@ namespace nanaprint
     {
         caption(u8"Page Setup");
         place layout(*this);
-        layout.div(string("vert <<formatfor weight=30%><printer weight=60%><> weight=20%><<papersize weight=30%>") +
-            "<papersizes> weight=20%><weight=20%><weight=20%><weight=20%>");
+        layout.div(string("vert ") +
+            "<weight=5%>" +
+            "<<weight=5%><formatfor weight=30%><printer weight=60%><weight=5%> weight=15%>" +
+            "<weight=5%>"
+            "<<weight=5%><papersize weight=30%><papersizes><weight=5%> weight=15%>" + 
+            "<weight=5%>" +
+            "<weight=10%>" +
+            "<weight=5%>" +
+            "<weight=15%>" +
+            "<weight=5%>" +
+            "<weight=15%>" +
+            "<weight=5%>"
+        );
 
         label formatFor(*this);
         formatFor.size(nana::size{ 130, 40} );
         formatFor.text_align(align::right, align_v::center);
         formatFor.caption(u8"Format for:   ");
-        formatFor.fgcolor(colors::grey);
+        formatFor.fgcolor(colors::dark_border);
         combox printerListBox(*this);
         printerListBox.size(nana::size{ 250, 25});
 
@@ -42,6 +53,7 @@ namespace nanaprint
         {
             printerListBox.push_back(printer->getName());
         }
+        printerListBox.push_back(u8"Sample Printer\nDescriptive Text");
 
         layout["formatfor"] << formatFor;
         layout["printer"] << printerListBox;
