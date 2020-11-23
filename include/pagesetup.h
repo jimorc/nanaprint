@@ -26,7 +26,7 @@ namespace nanaprint
     class PageSetup : public nana::form
     {
         public:
-            PageSetup(nana::form& parent, PrintSettings& settings);
+            PageSetup(nana::form& parent, PrintSettings settings);
             virtual ~PageSetup() {}
             nanaprint::DialogStatus run();
         private:

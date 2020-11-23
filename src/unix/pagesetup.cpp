@@ -23,7 +23,7 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-    PageSetup::PageSetup(nana::form& parent, PrintSettings& settings) 
+    PageSetup::PageSetup(nana::form& parent, PrintSettings settings) 
         : form(parent, {500, 250}), m_settings(settings), m_formatForLabel(*this),
             m_printerCombox(*this), m_paperSizeLabel(*this)
     {
