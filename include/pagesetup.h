@@ -38,8 +38,6 @@ namespace nanaprint
 
             Printers m_printers;
             PrintSettings& m_settings;
-            std::string m_layoutString;
-            nana::place m_layout;
             nana::label m_formatForLabel;
             nana::combox m_printerCombox;
             nana::label m_paperSizeLabel;

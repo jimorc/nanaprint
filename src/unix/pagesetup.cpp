@@ -11,7 +11,6 @@
  *  @file unix/pagesetup.cpp
  */
 
-#include <iostream>
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/widgets/combox.hpp>
@@ -28,7 +27,8 @@ namespace nanaprint
             m_printerCombox(*this), m_paperSizeLabel(*this), m_paperSizeCombox(*this)
     {
         caption(u8"Page Setup");
-        m_layoutString = string("vert ") +
+        place layout(*this);
+        layout.div(string("vert ") +
             "<weight=5%>" +
             "<<weight=5%><formatfor weight=30%><printer weight=60%><weight=5%> weight=15%>" +
             "<weight=5%>" +
@@ -38,23 +38,21 @@ namespace nanaprint
             "<weight=5%>" +
             "<weight=15%>" +
             "<weight=5%>" +
-            "<weight=15%>";
-        m_layout.bind(*this);
-        m_layout.div(m_layoutString);
+            "<weight=15%>");
         
         setupFormatForLabel();
-        m_layout["formatfor"] << m_formatForLabel;
+        layout["formatfor"] << m_formatForLabel;
 
         setupPrinterComBox();
-        m_layout["printer"] << m_printerCombox;
+        layout["printer"] << m_printerCombox;
 
         setupPaperSizeLabel();       
-        m_layout["papersize"] << m_paperSizeLabel;
+        layout["papersize"] << m_paperSizeLabel;
 
         setupPaperSizeComBox();
-        m_layout["papersizes"] << m_paperSizeCombox;
+        layout["papersizes"] << m_paperSizeCombox;
 
-        m_layout.collocate();
+        layout.collocate();
     }
 
     void PageSetup::setupFormatForLabel()
