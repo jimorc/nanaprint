@@ -18,7 +18,6 @@
 #include <memory>
 #include <nana/gui.hpp>
 #include "nanaprint.h"
-#include "pagesetup.h"
 #include "printers.h"
 #include "printsettings.h"
 
@@ -35,7 +34,6 @@ namespace nanaprint
             nana::form& m_parentForm;
             Printers m_printers;
             PrintSettings m_printSettings;
-            PageSetup m_pageSetup;
     };
 }
 #endif      // NANAPRINT_PRINTOPERATION_H

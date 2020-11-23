@@ -12,6 +12,7 @@
  */
 
 #include "printoperation.h"
+#include "pagesetup.h"
 
 using namespace nanaprint;
 using namespace std;
@@ -19,15 +20,15 @@ using namespace std;
 namespace nanaprint
 {
     PrintOperation::PrintOperation(nana::form& parentForm)
-        : m_parentForm(parentForm), m_printSettings(m_printers),
-            m_pageSetup(m_parentForm, m_printSettings)
+        : m_parentForm(parentForm), m_printSettings(m_printers)
     {
 
     }
 
     DialogStatus PrintOperation::run_page_setup()
     {
-        m_pageSetup.run();
-       return DialogStatus::apply;
+        PageSetup pageSetup(m_parentForm, m_printSettings);
+        pageSetup.run();
+        return DialogStatus::apply;
     }
 }
