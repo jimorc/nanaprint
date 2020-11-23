@@ -40,6 +40,7 @@ add_library(cupsprint
     side.cpp
     pagesetup.cpp
     printsettings.cpp
+    printoperation.cpp
 )
 
 link_directories(

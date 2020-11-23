@@ -24,73 +24,69 @@ using namespace nanaprint;
 namespace nanaprint
 {
     PageSetup::PageSetup(nana::form& parent, PrintSettings& settings) 
-        : form(parent, {500, 250}), m_settings(settings)
+        : form(parent, {500, 250}), m_settings(settings), m_formatForLabel(*this),
+            m_printerCombox(*this), m_paperSizeLabel(*this)
     {
         caption(u8"Page Setup");
-        place layout(*this);
-        layout.div(string("vert ") +
+        m_layoutString = string("vert ") +
             "<weight=5%>" +
             "<<weight=5%><formatfor weight=30%><printer weight=60%><weight=5%> weight=15%>" +
-            "<weight=5%>"
+            "<weight=5%>" +
             "<<weight=5%><papersize weight=30%><papersizes><weight=5%> weight=15%>" + 
             "<weight=5%>" +
             "<weight=10%>" +
             "<weight=5%>" +
             "<weight=15%>" +
             "<weight=5%>" +
-            "<weight=15%>" +
-            "<weight=5%>"
-        );
+            "<weight=15%>";
+        m_layout.bind(*this);
+        m_layout.div(m_layoutString);
+        
+        setupFormatForLabel();
+        m_layout["formatfor"] << m_formatForLabel;
 
-        label formatFor(*this);
-        setupFormatForLabel(formatFor);
-        layout["formatfor"] << formatFor;
+        setupPrinterComBox();
+        m_layout["printer"] << m_printerCombox;
 
-        combox printerCombox(*this);
-        setupPrinterComBox(printerCombox);
-        layout["printer"] << printerCombox;
+        setupPaperSizeLabel();       
+        m_layout["papersize"] << m_paperSizeLabel;
 
-        label paperSize(*this);
-        setupPaperSizeLabel(paperSize);       
-        layout["papersize"] << paperSize;
-
-        layout.collocate();
-        modality();
+        m_layout.collocate();
     }
 
-    void PageSetup::setupFormatForLabel(nana::label& formatLabel) const
+    void PageSetup::setupFormatForLabel()
     {
-        formatLabel.size(nana::size{ 130, 40} );
-        formatLabel.text_align(align::right, align_v::center);
-        formatLabel.caption(u8"Format for:   ");
-        formatLabel.fgcolor(colors::dark_border);
+        m_formatForLabel.size(nana::size{ 130, 40} );
+        m_formatForLabel.text_align(align::right, align_v::center);
+        m_formatForLabel.caption(u8"Format for:   ");
+        m_formatForLabel.fgcolor(colors::dark_border);
     }
 
-    void PageSetup::setupPrinterComBox(nana::combox& box)
+    void PageSetup::setupPrinterComBox()
     {
-        box.size(nana::size{ 250, 25});
-        box.editable(false);
+        m_printerCombox.size(nana::size{ 250, 25});
+        m_printerCombox.editable(false);
 
         auto prs = m_printers.getPrinters();
         for(auto& printer: prs)
         {
-            box.push_back(printer->getName());
+            m_printerCombox.push_back(printer->getName());
         }
 
-        box.events().selected( [this](const arg_combox &ar_cbx) {
+        m_printerCombox.events().selected( [this](const arg_combox &ar_cbx) {
             this->printer_selected(ar_cbx);
         });
 
         size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
-        box.option(defaultPrinter);
+        m_printerCombox.option(defaultPrinter);
    }
 
-    void PageSetup::setupPaperSizeLabel(nana::label& paperSizeLabel) const
+    void PageSetup::setupPaperSizeLabel()
     {
-        paperSizeLabel.size(nana::size{ 130, 40} );
-        paperSizeLabel.caption(u8"Paper size:   ");
-        paperSizeLabel.text_align(align::right, align_v::center);
-        paperSizeLabel.fgcolor(colors::dark_border);
+        m_paperSizeLabel.size(nana::size{ 130, 40} );
+        m_paperSizeLabel.caption(u8"Paper size:   ");
+        m_paperSizeLabel.text_align(align::right, align_v::center);
+        m_paperSizeLabel.fgcolor(colors::dark_border);
     }
 
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
@@ -98,5 +94,11 @@ namespace nanaprint
         size_t printer = m_printers.get_printer_number(ar_cbx.widget.caption());
         cout << printer << endl;
         m_settings.set_printer(printer);
+    }
+
+    DialogStatus PageSetup::run()
+    {
+        modality();
+        return DialogStatus::apply;
     }
 }

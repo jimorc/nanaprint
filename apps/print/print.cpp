@@ -14,19 +14,16 @@
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/menubar.hpp>
 #include <nana/gui/widgets/menu.hpp>
-#include "printers.h"
-#include "pagesetup.h"
+#include "printoperation.h"
 
 using namespace nana;
 using namespace nanaprint;
 using namespace std;
 
-Printers printers;
-PrintSettings settings(printers);
-
 int main()
 {
     form mainForm;
+    PrintOperation printOper(mainForm);
     mainForm.caption(u8"Print Test Program");
     menubar mainMenu(mainForm);
 
@@ -38,7 +35,7 @@ int main()
     mainMenu.push_back("&File");
     auto& fileMenu = mainMenu.at(0);
     fileMenu.append("Page Setup...", [&](menu::item_proxy& ip) {
-        PageSetup setup(mainForm, settings);
+        DialogStatus status = printOper.run_page_setup();
     });
 
     fileMenu.append("Print...", [](menu::item_proxy& ip) {
