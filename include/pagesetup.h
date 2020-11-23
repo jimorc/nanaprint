@@ -33,6 +33,7 @@ namespace nanaprint
             void setupFormatForLabel();
             void setupPrinterComBox();
             void setupPaperSizeLabel();
+            void setupPaperSizeComBox();
             void printer_selected(const nana::arg_combox &ar_cbx);
 
             Printers m_printers;
@@ -42,6 +43,7 @@ namespace nanaprint
             nana::label m_formatForLabel;
             nana::combox m_printerCombox;
             nana::label m_paperSizeLabel;
+            nana::combox m_paperSizeCombox;
     };
 }
 

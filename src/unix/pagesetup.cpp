@@ -25,14 +25,14 @@ namespace nanaprint
 {
     PageSetup::PageSetup(nana::form& parent, PrintSettings settings) 
         : form(parent, {500, 250}), m_settings(settings), m_formatForLabel(*this),
-            m_printerCombox(*this), m_paperSizeLabel(*this)
+            m_printerCombox(*this), m_paperSizeLabel(*this), m_paperSizeCombox(*this)
     {
         caption(u8"Page Setup");
         m_layoutString = string("vert ") +
             "<weight=5%>" +
             "<<weight=5%><formatfor weight=30%><printer weight=60%><weight=5%> weight=15%>" +
             "<weight=5%>" +
-            "<<weight=5%><papersize weight=30%><papersizes><weight=5%> weight=15%>" + 
+            "<<weight=5%><papersize weight=30%><papersizes weight=60%><weight=5%> weight=15%>" + 
             "<weight=5%>" +
             "<weight=10%>" +
             "<weight=5%>" +
@@ -50,6 +50,9 @@ namespace nanaprint
 
         setupPaperSizeLabel();       
         m_layout["papersize"] << m_paperSizeLabel;
+
+        setupPaperSizeComBox();
+        m_layout["papersizes"] << m_paperSizeCombox;
 
         m_layout.collocate();
     }
@@ -89,11 +92,27 @@ namespace nanaprint
         m_paperSizeLabel.fgcolor(colors::dark_border);
     }
 
+    void PageSetup::setupPaperSizeComBox()
+    {
+        m_paperSizeCombox.size(nana::size{ 250, 25});
+        m_paperSizeCombox.editable(false);
+    }
+
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
     {
         size_t printer = m_printers.get_printer_number(ar_cbx.widget.caption());
         cout << printer << endl;
         m_settings.set_printer(printer);
+
+        auto ptr = m_printers.getPrinters()[printer];
+        auto paperSizes = ptr->getMediaSizes();
+        m_paperSizeCombox.clear();
+        for (size_t i = 0; i < paperSizes.getSize(); ++i)
+        {
+            m_paperSizeCombox.push_back(paperSizes.getMediaSizes()[i]->getTranslatedName());
+        }
+        auto defaultPaperSize = paperSizes.getMediaSizeNumber(m_settings.get_media_size());
+        m_paperSizeCombox.option(defaultPaperSize);
     }
 
     DialogStatus PageSetup::run()

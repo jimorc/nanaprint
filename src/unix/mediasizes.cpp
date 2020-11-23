@@ -32,7 +32,7 @@ namespace nanaprint
         m_mediaSizes.push_back(mediaSize);
     }
 
-    vector<string> MediaSizes::getMediaSizeNames()
+    vector<string> MediaSizes::getMediaSizeNames() const
     {
         vector<string> mediaNames;
         for (auto mediaSize: m_mediaSizes)
@@ -40,6 +40,21 @@ namespace nanaprint
             mediaNames.push_back(mediaSize->getMediaName());
         }
         return mediaNames;
+    }
+
+    size_t MediaSizes::getMediaSizeNumber(const MediaSize& mediaSize) const
+    {
+        size_t mediaSizeNum = 0;
+        const auto sizeNames = getMediaSizeNames();
+        for (size_t i = 0; i < getSize(); ++i)
+        {
+            if (mediaSize.getMediaName() == sizeNames[i])
+            {
+                mediaSizeNum = i;
+                break;
+            }
+        }
+        return mediaSizeNum;
     }
 
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
