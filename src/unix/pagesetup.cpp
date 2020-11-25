@@ -14,6 +14,7 @@
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/widgets/combox.hpp>
+#include <nana/gui/widgets/group.hpp>
 #include "pagesetup.h"
 
 using namespace std;
@@ -23,42 +24,48 @@ using namespace nanaprint;
 namespace nanaprint
 {
     PageSetup::PageSetup(nana::form& parent, PrintSettings settings) 
-        : form(parent, {500, 250}), m_settings(settings), m_formatForLabel(*this),
-            m_printerCombox(*this), m_paperSizeLabel(*this), m_paperSizeCombox(*this)
+        : form(parent, {500, 500}), m_settings(settings), m_layout(*this),
+            m_printerGroup(*this), m_printerNameLabel(m_printerGroup), m_printerCombox(m_printerGroup),
+            m_printerStatusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
+            m_printerTypeLabel(m_printerGroup), m_printerType(m_printerGroup),
+            m_printerWhereLabel(m_printerGroup), m_printerWhere(m_printerGroup),
+            m_printerCommentLabel(m_printerGroup), m_printerComment(m_printerGroup)
+
     {
         caption(u8"Page Setup");
-        place layout(*this);
-        layout.div(string("vert ") +
-            "<weight=5%>" +
-            "<<weight=5%><formatfor weight=30%><printer weight=60%><weight=5%> weight=15%>" +
-            "<weight=5%>" +
-            "<<weight=5%><papersize weight=30%><papersizes weight=60%><weight=5%> weight=15%>" + 
-            "<weight=5%>" +
-            "<weight=10%>" +
-            "<weight=5%>" +
-            "<weight=15%>" +
-            "<weight=5%>" +
-            "<weight=15%>");
-        
-        setupFormatForLabel();
-        layout["formatfor"] << m_formatForLabel;
+        m_layout.div(string("vert gap=10 margin=5") +
+            "<printer weight=50%>");
 
-        setupPrinterComBox();
-        layout["printer"] << m_printerCombox;
+        buildPrinterGroup();
+        m_layout["printer"] << m_printerGroup;
+        m_layout.collocate();
+     }
 
-        setupPaperSizeLabel();       
-        layout["papersize"] << m_paperSizeLabel;
+    void PageSetup::buildPrinterGroup()
+    {
+        m_printerGroup.caption("Printer");
+        string groupDiv = string("vert gap=10 margin=5 ") +
+            "<<name weight=20%><printerCombox> weight=20>" +
+            "<<status weight=20%><printerStatus>>" +
+            "<<type weight=20%><printerType>>" +
+            "<<where weight=20%><printerWhere>>" +
+            "<<comment weight=20%><printerComment>>";        
+        m_printerGroup.div(groupDiv.c_str());
 
-        setupPaperSizeComBox();
-        layout["papersizes"] << m_paperSizeCombox;
-
-        layout.collocate();
+        buildPrinterNameLabel();
+        m_printerGroup["name"] << m_printerNameLabel;
     }
 
-    void PageSetup::setupFormatForLabel()
+    void PageSetup::buildPrinterNameLabel()
+    {
+        m_printerNameLabel.caption("Name");
+        m_printerNameLabel.size({100, 15});
+    }
+
+/*    void PageSetup::setupFormatForLabel()
     {
         m_formatForLabel.size(nana::size{ 130, 40} );
-        m_formatForLabel.text_align(align::right, align_v::center);
+//        m_formatForLabel.text_align(align::right, align_v::center);
         m_formatForLabel.caption(u8"Format for:   ");
         m_formatForLabel.fgcolor(colors::dark_border);
     }
@@ -86,7 +93,7 @@ namespace nanaprint
     {
         m_paperSizeLabel.size(nana::size{ 130, 40} );
         m_paperSizeLabel.caption(u8"Paper size:   ");
-        m_paperSizeLabel.text_align(align::right, align_v::center);
+//        m_paperSizeLabel.text_align(align::right, align_v::center);
         m_paperSizeLabel.fgcolor(colors::dark_border);
     }
 
@@ -112,10 +119,10 @@ namespace nanaprint
         auto defaultPaperSize = paperSizes.getMediaSizeNumber(m_settings.get_media_size());
         m_paperSizeCombox.option(defaultPaperSize);
     }
-
+*/
     DialogStatus PageSetup::run()
     {
-        modality();
+         modality();
         return DialogStatus::apply;
     }
 }
