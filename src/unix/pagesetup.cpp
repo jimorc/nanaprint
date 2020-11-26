@@ -59,7 +59,6 @@ namespace nanaprint
     void PageSetup::buildPrinterNameLabel()
     {
         m_printerNameLabel.caption("Name");
-        m_printerNameLabel.size({100, 15});
     }
 
 /*    void PageSetup::setupFormatForLabel()
