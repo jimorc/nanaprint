@@ -28,12 +28,13 @@ namespace nanaprint
     class PageSetup : public nana::form
     {
         public:
-            PageSetup(nana::form& parent, PrintSettings settings);
+            PageSetup(nana::form& parent, PrintSettings& settings);
             virtual ~PageSetup() {}
             nanaprint::DialogStatus run();
         private:
             void buildPrinterGroup();
             void buildPrinterNameLabel();
+            void buildPrinterCombox();
             void printer_selected(const nana::arg_combox &ar_cbx);
 
             Printers m_printers;
