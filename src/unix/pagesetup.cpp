@@ -101,7 +101,6 @@ namespace nanaprint
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
     {
         size_t printer = m_printerCombox.option();
-        cout << printer << endl;
         m_settings.set_printer(printer);
 
 /*        auto ptr = m_printers.getPrinters()[printer];
