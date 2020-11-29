@@ -35,6 +35,8 @@ namespace nanaprint
             void buildPrinterGroup();
             void buildPrinterNameLabel();
             void buildPrinterCombox();
+            void buildPrinterStatusLabel();
+            void buildPrinterStatus(size_t printer);
             void printer_selected(const nana::arg_combox &ar_cbx);
 
             Printers m_printers;

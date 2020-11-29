@@ -24,6 +24,7 @@ int main()
     std::vector<std::shared_ptr<Printer>> pPrinters = printers.getPrinters();
     for(auto printer : pPrinters)
     {
+        string s = printer->get_printer_state();
         cout << "Printer: " << printer->getName() << '\n';
         cout << "    Name = " << printer->getName() << '\n';
         cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';

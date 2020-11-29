@@ -36,7 +36,7 @@ namespace nanaprint
             m_gotDefaultSide(false), m_defaultMediaType(MediaType("None")),
             m_defaultMediaSource(MediaSource("None"))
     {
-        
+
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -720,5 +720,76 @@ namespace nanaprint
     {
         populateDefaultSide();
         return m_defaultSide;
+    }
+
+    std::string Printer::get_printer_state() const
+    {
+        string printerState;
+        const char* printerUri = cupsGetOption("device-uri", m_dest->num_options, m_dest->options);
+        regex hostRegex("^[a-zA-Z]+://([0-9a-zA-Z]+(\\.[0-9a-zA-Z]+)*)");
+        string uri(printerUri);
+        smatch match;
+        if (regex_search(uri, match, hostRegex) && match.size() > 1)
+        {
+            string host = match.str(1);
+            ipp_t *request, *response;
+            static const char * const requested_attributes[] =
+            {
+                "printer-state",
+                "printer-state-reasons",
+                "printer-is-accepting-jobs",
+                "printer-is-shared"
+            };
+
+            http_t *http = httpConnect2(host.c_str(), 631, NULL, AF_UNSPEC, HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL);
+
+            request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
+            ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, uri.c_str());
+            ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(requested_attributes) / sizeof(requested_attributes[0])), NULL, requested_attributes);
+
+            response = cupsDoRequest(http, request, "/ipp/print");
+
+            ipp_attribute_t *attr;
+            const char *name;
+            char val[2048];
+            map<string, string> optMap;
+
+            for (attr = ippFirstAttribute(response); attr; attr = ippNextAttribute(response))
+            {
+                string name = ippGetName(attr);
+
+                if (!name.empty())
+                {
+                    ippAttributeString(attr, val, sizeof(val));
+                    optMap[name] = string(val);
+                }
+            }
+            printerState = optMap["printer-state"];
+            string reasons = optMap["printer-state-reasons"];
+            if (!reasons.empty() && reasons != "none")
+            {
+                printerState += ", " + reasons;
+            }
+            string accepting = optMap["printer-is-accepting-jobs"];
+            if (!accepting.empty() && accepting == "true")
+            {
+                printerState += ", accepting jobs";
+            }
+            else
+            {
+                printerState += ", not accepting jobs";
+            }
+            string shared = optMap["printer-is-shared"];
+            if (!shared.empty() && shared == "true")
+            {
+                printerState += ", shared";
+            }
+            else
+            {
+                printerState += ", not shared";
+            }
+        }
+        
+        return printerState;
     }
 }       

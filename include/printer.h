@@ -55,6 +55,8 @@ namespace nanaprint
             Sides& getSides();
             Side& getDefaultSide();
 
+            std::string get_printer_state() const;
+
         protected:
             Printer(cups_dest_t* dest);
 
