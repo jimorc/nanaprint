@@ -27,11 +27,6 @@ int main()
     mainForm.caption(u8"Print Test Program");
     menubar mainMenu(mainForm);
 
-    mainMenu.events().mouse_up([](const arg_mouse& arg) {
-        if(mouse::left_button != arg.button)
-        return;
-    });
-
     mainMenu.push_back("&File");
     auto& fileMenu = mainMenu.at(0);
     fileMenu.append("Page Setup...", [&](menu::item_proxy& ip) {
