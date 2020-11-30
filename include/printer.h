@@ -58,6 +58,7 @@ namespace nanaprint
             std::string get_printer_state() const;
             std::string get_printer_make_and_model();
             std::string get_printer_location();
+            std::string get_printer_info();
 
         protected:
             Printer(cups_dest_t* dest);

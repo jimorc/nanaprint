@@ -802,4 +802,9 @@ namespace nanaprint
     {
         return getOptions()["printer-location"];
     }
+
+    std::string Printer::get_printer_info()
+    {
+        return getOptions()["printer-type"];
+    }
 }       
