@@ -792,4 +792,9 @@ namespace nanaprint
         
         return printerState;
     }
+
+    std::string Printer::get_printer_make_and_model()
+    {
+        return getOptions()["printer-make-and-model"];
+    }
 }       
