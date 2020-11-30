@@ -65,7 +65,8 @@ namespace nanaprint
 
     void PageSetup::buildPrinterNameLabel()
     {
-        m_printerNameLabel.caption("Name");
+        m_printerNameLabel.caption("Name:");
+        m_printerNameLabel.text_align(align::left, align_v::center);
     }
 
     void PageSetup::buildPrinterCombox()
