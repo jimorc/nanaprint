@@ -49,7 +49,7 @@ namespace nanaprint
             "<<weight=10><name weight=20%><printerCombox><weight=10> weight=30>" +
             "<<weight=10><status weight=20%><printerStatus><weight=10> weight=30>" +
             "<<weight=10><type weight=20%><printerType><weight=10> weight=20>" +
-            "<<where weight=20%><printerWhere>>" +
+            "<<weight=10><where weight=20%><printerWhere><weight=10> weight=20>" +
             "<<comment weight=20%><printerComment>>";        
         m_printerGroup.div(groupDiv.c_str());
 
@@ -64,6 +64,9 @@ namespace nanaprint
 
         buildPrinterTypeLabel();
         m_printerGroup["type"] << m_printerTypeLabel;
+
+        buildPrinterWhereLabel();
+        m_printerGroup["where"] << m_printerWhereLabel;
     }
 
     void PageSetup::buildPrinterNameLabel()
@@ -113,6 +116,18 @@ namespace nanaprint
         m_printerType.text_align(align::left, align_v::center);
     }
 
+    void PageSetup::buildPrinterWhereLabel()
+    {
+        m_printerWhereLabel.caption("Location:");
+        m_printerWhereLabel.text_align(align::left, align_v::center);
+    }
+
+    void PageSetup::buildPrinterWhere(size_t printer)
+    {
+        m_printerWhere.caption(m_printers.getPrinters()[printer]->get_printer_location());
+        m_printerWhere.text_align(align::left, align_v::center);
+    }
+
 /*
     void PageSetup::setupPaperSizeLabel()
     {
@@ -137,6 +152,8 @@ namespace nanaprint
         m_printerGroup["printerStatus"] << m_printerStatus;
         buildPrinterType(printer);
         m_printerGroup["printerType"] << m_printerType;
+        buildPrinterWhere(printer);
+        m_printerGroup["printerWhere"] << m_printerWhere;
 
 /*        auto ptr = m_printers.getPrinters()[printer];
         auto paperSizes = ptr->getMediaSizes();

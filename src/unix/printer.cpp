@@ -797,4 +797,9 @@ namespace nanaprint
     {
         return getOptions()["printer-make-and-model"];
     }
+
+    std::string Printer::get_printer_location()
+    {
+        return getOptions()["printer-location"];
+    }
 }       
