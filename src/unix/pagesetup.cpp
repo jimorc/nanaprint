@@ -48,8 +48,8 @@ namespace nanaprint
         string groupDiv = string("vert gap=5 margin=0 ") +
             "<<weight=10><name weight=20%><printerCombox><weight=10> weight=30>" +
             "<<weight=10><status weight=20%><printerStatus><weight=10> weight=30>" +
-            "<<weight=10><type weight=20%><printerType><weight=10> weight=20>" +
-            "<<weight=10><where weight=20%><printerWhere><weight=10> weight=20>" +
+            "<<weight=10><type weight=20%><printerType><weight=10> weight=30>" +
+            "<<weight=10><where weight=20%><printerWhere><weight=10> weight=30>" +
             "<<weight=10><comment weight=20%><printerComment><weight=10> weight=40>";        
         m_printerGroup.div(groupDiv.c_str());
 
