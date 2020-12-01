@@ -43,6 +43,9 @@ namespace nanaprint
             void buildPrinterWhere(size_t printer);
             void buildPrinterCommentLabel();
             void buildPrinterComment(size_t printer);
+
+            void buildPaperGroup();
+            void buildPaperSizeLabel();
             void printer_selected(const nana::arg_combox &ar_cbx);
 
             Printers m_printers;
@@ -59,6 +62,13 @@ namespace nanaprint
             nana::label m_printerWhere;
             nana::label m_printerCommentLabel;
             nana::label m_printerComment;
+
+            nana::group m_paperGroup;
+            nana::label m_paperSizeLabel;
+            nana::combox m_paperSizeCombox;
+            nana::label m_paperSize;
+            nana::label m_paperSourceLabel;
+            nana::label m_paperSourceCombox;
     };
 }
 

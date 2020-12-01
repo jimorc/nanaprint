@@ -29,15 +29,21 @@ namespace nanaprint
             m_printerStatusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
             m_printerTypeLabel(m_printerGroup), m_printerType(m_printerGroup),
             m_printerWhereLabel(m_printerGroup), m_printerWhere(m_printerGroup),
-            m_printerCommentLabel(m_printerGroup), m_printerComment(m_printerGroup)
+            m_printerCommentLabel(m_printerGroup), m_printerComment(m_printerGroup),
+            m_paperGroup(*this), m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
+            m_paperSize(m_paperGroup), m_paperSourceLabel(m_paperGroup),
+            m_paperSourceCombox(m_paperGroup)
 
     {
         caption(u8"Page Setup");
         m_layout.div(string("vert gap=10 margin=5") +
-            "<printer weight=50%>");
+            "<printer weight=50%>" +
+            "<paper weight = 25%>");
 
         buildPrinterGroup();
         m_layout["printer"] << m_printerGroup;
+        buildPaperGroup();
+        m_layout["paper"] << m_paperGroup;
         
         m_layout.collocate();
      }
@@ -70,7 +76,7 @@ namespace nanaprint
 
         buildPrinterCommentLabel();
         m_printerGroup["comment"] << m_printerCommentLabel;
-    }
+}
 
     void PageSetup::buildPrinterNameLabel()
     {
@@ -143,15 +149,26 @@ namespace nanaprint
         m_printerComment.text_align(align::left, align_v::center);
     }
 
-/*
-    void PageSetup::setupPaperSizeLabel()
+
+    void PageSetup::buildPaperGroup()
     {
-        m_paperSizeLabel.size(nana::size{ 130, 40} );
-        m_paperSizeLabel.caption(u8"Paper size:   ");
-//        m_paperSizeLabel.text_align(align::right, align_v::center);
-        m_paperSizeLabel.fgcolor(colors::dark_border);
+        m_paperGroup.caption("Paper");
+        string groupDiv = string("vert gap=5 margin=0 ") +
+            "<<weight=10><sizeLabel weight=20%><sizeCombox><weight=10> weight=30>" +
+            "<<weight=10><weight=20%><size><weight=10> weight=15>" +
+            "<<weight=10><sourceLabel weight=20%><source><weight=10> weight=30>";
+        m_paperGroup.div(groupDiv.c_str());
+
+        buildPaperSizeLabel();
+        m_paperGroup["sizeLabel"] << m_paperSizeLabel;
     }
 
+    void PageSetup::buildPaperSizeLabel()
+    {
+        m_paperSizeLabel.caption("Size:");
+        m_paperSizeLabel.text_align(align::left, align_v::center);
+    }
+/*
     void PageSetup::setupPaperSizeComBox()
     {
         m_paperSizeCombox.size(nana::size{ 250, 25});
