@@ -19,7 +19,7 @@ namespace nanaprint
     PrintSettings::PrintSettings(const Printers& printers)
         : m_printers(printers.getPrinters()), m_printer(INT_MAX),
             m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
-            m_mediaType("None")
+            m_mediaType("None"), m_borderless(false)
     {
 
     }
@@ -49,15 +49,21 @@ namespace nanaprint
     void PrintSettings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
+        set_borderless(false);
         set_media_size(m_printers[m_printer]->getDefaultMediaSize());
         set_finishings(m_printers[m_printer]->getDefaultFinishings());
         set_media_source(m_printers[m_printer]->getDefaultMediaSource());
-        set_media_type(m_printers[m_printer]->getDefaultMediaType());
+        set_media_type(m_printers[m_printer]->getDefaultMediaType()),
         set_page_orientation(m_printers[m_printer]->getDefaultOrientation());
         set_color_mode(m_printers[m_printer]->getDefaultColorMode());
         set_print_quality(m_printers[m_printer]->getDefaultPrintQuality());
         set_side(m_printers[m_printer]->getDefaultSide());
         m_canPrintMultipleCopies = m_printers[m_printer]->canPrintMultipleCopies();
+    }
+
+    void PrintSettings::set_borderless(bool borderless)
+    {
+        m_borderless = borderless;
     }
 
     void PrintSettings::set_media_size(const MediaSize& mediaSize)

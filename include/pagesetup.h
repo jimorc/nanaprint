@@ -45,8 +45,12 @@ namespace nanaprint
             void buildPrinterComment(size_t printer);
 
             void buildPaperGroup();
+            void buildBorderlessCheckbox();
             void buildPaperSizeLabel();
             void printer_selected(const nana::arg_combox &ar_cbx);
+            void updatePaperGroup(size_t printer);
+
+            void on_borderlessChecked(const nana::arg_checkbox& arg);
 
             Printers m_printers;
             PrintSettings& m_settings;
@@ -64,6 +68,7 @@ namespace nanaprint
             nana::label m_printerComment;
 
             nana::group m_paperGroup;
+            nana::checkbox m_borderlessCheckbox;
             nana::label m_paperSizeLabel;
             nana::combox m_paperSizeCombox;
             nana::label m_paperSize;

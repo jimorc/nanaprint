@@ -30,7 +30,8 @@ namespace nanaprint
             m_printerTypeLabel(m_printerGroup), m_printerType(m_printerGroup),
             m_printerWhereLabel(m_printerGroup), m_printerWhere(m_printerGroup),
             m_printerCommentLabel(m_printerGroup), m_printerComment(m_printerGroup),
-            m_paperGroup(*this), m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
+            m_paperGroup(*this), m_borderlessCheckbox(m_paperGroup), 
+            m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
             m_paperSize(m_paperGroup), m_paperSourceLabel(m_paperGroup),
             m_paperSourceCombox(m_paperGroup)
 
@@ -154,13 +155,25 @@ namespace nanaprint
     {
         m_paperGroup.caption("Paper");
         string groupDiv = string("vert gap=5 margin=0 ") +
+            "<<weight=10><borderless><weight=10> weight=20>" +
             "<<weight=10><sizeLabel weight=20%><sizeCombox><weight=10> weight=30>" +
             "<<weight=10><weight=20%><size><weight=10> weight=15>" +
             "<<weight=10><sourceLabel weight=20%><source><weight=10> weight=30>";
         m_paperGroup.div(groupDiv.c_str());
 
+        buildBorderlessCheckbox();
+        m_paperGroup["borderless"] << m_borderlessCheckbox;
+
         buildPaperSizeLabel();
         m_paperGroup["sizeLabel"] << m_paperSizeLabel;
+    }
+
+    void PageSetup::buildBorderlessCheckbox()
+    {
+        m_borderlessCheckbox.caption("Borderless papers");
+        m_borderlessCheckbox.events().checked([this](const arg_checkbox& arg){
+            on_borderlessChecked(arg);
+        });
     }
 
     void PageSetup::buildPaperSizeLabel()
@@ -189,6 +202,8 @@ namespace nanaprint
         buildPrinterComment(printer);
         m_printerGroup["printerComment"] << m_printerComment;
 
+        updatePaperGroup(printer);
+
 /*        auto ptr = m_printers.getPrinters()[printer];
         auto paperSizes = ptr->getMediaSizes();
         m_paperSizeCombox.clear();
@@ -198,6 +213,26 @@ namespace nanaprint
         }
         auto defaultPaperSize = paperSizes.getMediaSizeNumber(m_settings.get_media_size());
         m_paperSizeCombox.option(defaultPaperSize); */
+    }
+
+    void PageSetup::updatePaperGroup(size_t printer)
+    {
+        auto mediaSizes = m_printers.getPrinters()[printer]->getMediaSizes();
+        m_borderlessCheckbox.enabled(mediaSizes.contains_borderless_paper());
+        if (printer == m_settings.get_printer())
+        {
+            m_borderlessCheckbox.check(m_settings.get_borderless());
+        }
+        else
+        {
+            m_borderlessCheckbox.check(false);
+        }
+        
+    }
+
+    void PageSetup::on_borderlessChecked(const arg_checkbox& arg)
+    {
+        
     }
 
     DialogStatus PageSetup::run()

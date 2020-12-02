@@ -32,6 +32,8 @@ namespace nanaprint
                 { return m_printers; }
             void set_printer(int printer);
             int get_printer() const { return m_printer; }
+            void set_borderless(bool borderless);
+            const bool get_borderless() const { return m_borderless; }
             void set_media_size(const MediaSize& mediaSize);
             const MediaSize& get_media_size() const { return m_mediaSize; }
             void set_finishings(const Finishings& finishings);
@@ -54,6 +56,7 @@ namespace nanaprint
             void set_default_settings(int printerNum);
             std::vector<std::shared_ptr<Printer>> m_printers;
             int m_printer;
+            bool m_borderless;
             MediaSize m_mediaSize;
             Finishings m_finishings;
             MediaSource m_mediaSource;

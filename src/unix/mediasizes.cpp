@@ -57,6 +57,16 @@ namespace nanaprint
         return mediaSizeNum;
     }
 
+    bool MediaSizes::contains_borderless_paper() const
+    {
+        for (auto& mediaSize: m_mediaSizes)
+        {
+            if (mediaSize->isBorderless())
+                return true;
+        }
+        return false;
+    }
+
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
     {
         os << "Media Sizes:\n";
