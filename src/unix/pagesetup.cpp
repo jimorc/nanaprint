@@ -166,6 +166,9 @@ namespace nanaprint
 
         buildPaperSizeLabel();
         m_paperGroup["sizeLabel"] << m_paperSizeLabel;
+
+        buildPaperSizeCombox();
+        m_paperGroup["sizeCombox"] << m_paperSizeCombox;
     }
 
     void PageSetup::buildBorderlessCheckbox()
@@ -181,14 +184,36 @@ namespace nanaprint
         m_paperSizeLabel.caption("Size:");
         m_paperSizeLabel.text_align(align::left, align_v::center);
     }
-/*
-    void PageSetup::setupPaperSizeComBox()
+
+    void PageSetup::buildPaperSizeCombox()
     {
-        m_paperSizeCombox.size(nana::size{ 250, 25});
         m_paperSizeCombox.editable(false);
     }
 
-*/
+    void PageSetup::populatePaperSizeCombox(size_t printer)
+    {
+        auto ptr = m_printers.getPrinters()[printer];
+        auto paperSizes = ptr->getMediaSizes();
+        m_paperSizeCombox.clear();
+        bool borderless = m_borderlessCheckbox.checked();
+        for (size_t i = 0; i < paperSizes.getSize(); ++i)
+        {
+            auto mediaSize = paperSizes.getMediaSizes()[i];
+            if (mediaSize->isBorderless() == borderless)
+            {
+                m_paperSizeCombox.push_back(mediaSize->getTranslatedName());
+            }
+        }
+        auto mediaSize = m_settings.get_media_size().getTranslatedName();
+        size_t option = 0;
+        for (option = 0; m_paperSizeCombox.the_number_of_options(); ++option)
+        {
+            if (m_paperSizeCombox.text(option) == mediaSize)
+                break;
+        }
+        m_paperSizeCombox.option(option);
+    }
+
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
     {
         size_t printer = m_printerCombox.option();
@@ -203,16 +228,6 @@ namespace nanaprint
         m_printerGroup["printerComment"] << m_printerComment;
 
         updatePaperGroup(printer);
-
-/*        auto ptr = m_printers.getPrinters()[printer];
-        auto paperSizes = ptr->getMediaSizes();
-        m_paperSizeCombox.clear();
-        for (size_t i = 0; i < paperSizes.getSize(); ++i)
-        {
-            m_paperSizeCombox.push_back(paperSizes.getMediaSizes()[i]->getTranslatedName());
-        }
-        auto defaultPaperSize = paperSizes.getMediaSizeNumber(m_settings.get_media_size());
-        m_paperSizeCombox.option(defaultPaperSize); */
     }
 
     void PageSetup::updatePaperGroup(size_t printer)
@@ -227,12 +242,14 @@ namespace nanaprint
         {
             m_borderlessCheckbox.check(false);
         }
-        
+        populatePaperSizeCombox(printer);
+
     }
 
     void PageSetup::on_borderlessChecked(const arg_checkbox& arg)
     {
-        
+        m_settings.set_borderless(arg.widget->checked());
+        populatePaperSizeCombox(m_settings.get_printer());
     }
 
     DialogStatus PageSetup::run()

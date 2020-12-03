@@ -47,6 +47,8 @@ namespace nanaprint
             void buildPaperGroup();
             void buildBorderlessCheckbox();
             void buildPaperSizeLabel();
+            void buildPaperSizeCombox();
+            void populatePaperSizeCombox(size_t printer);
             void printer_selected(const nana::arg_combox &ar_cbx);
             void updatePaperGroup(size_t printer);
 
