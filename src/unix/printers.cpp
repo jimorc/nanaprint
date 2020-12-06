@@ -51,14 +51,9 @@ namespace nanaprint
         cups_dest_t* dests;
         int destinations = cupsGetDests(&dests);
         user_data_t user_data = { 0, NULL };
-        if(!cupsEnumDests(CUPS_DEST_FLAGS_NONE, MAX_ENUM_TIME, NULL, 
+        cupsEnumDests(CUPS_DEST_FLAGS_NONE, MAX_ENUM_TIME, NULL, 
             0, 0,
-            (cups_dest_cb_t)&enumPrintersCallBack, &user_data))
-        {
-            // an error occurred, so free all destinations and return
-            m_printers.clear();
-            return;
-        }
+            (cups_dest_cb_t)&enumPrintersCallBack, &user_data);
 
         // return printers array
         m_printers.clear();
