@@ -67,6 +67,20 @@ namespace nanaprint
         return false;
     }
 
+    std::optional<MediaSize> MediaSizes::getMediaSizeByTranslatedNameAndBorder(
+        const std::string& translatedName, bool isBorderless) const
+        {
+            for (auto size: m_mediaSizes)
+            {
+                if (size->getTranslatedName() == translatedName &&
+                    size->isBorderless() == isBorderless)
+                {
+                    return optional<MediaSize>(*size);
+                }
+            }
+            return nullopt;
+        }
+
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
     {
         os << "Media Sizes:\n";

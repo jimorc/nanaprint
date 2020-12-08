@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include <memory>
+#include <optional>
 #include "gtest/gtest.h"
 #include "mediasize.h"
 #include "mediasizes.h"
@@ -81,4 +82,34 @@ TEST(MediaSizesTests, testInsertionOperatorNoSizes)
 
     ASSERT_STREQ("Media Sizes:\nNone\n",
         ss.str().c_str());
+}
+
+// Test find matching MediaSize
+TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
+{
+    MediaSizes sizes;
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0)));
+
+    auto letterBordered =
+        sizes.getMediaSizeByTranslatedNameAndBorder("Letter", false);
+    auto a4Borderless =
+        sizes.getMediaSizeByTranslatedNameAndBorder("A4", true);
+    auto invalidSizeBordered =
+        sizes.getMediaSizeByTranslatedNameAndBorder("Legal", false);
+    auto invalidSizeBorderless =
+        sizes.getMediaSizeByTranslatedNameAndBorder("Legal", true);
+
+    ASSERT_EQ("Letter", letterBordered.value().getTranslatedName());
+    ASSERT_FALSE(letterBordered.value().isBorderless());
+    ASSERT_EQ("A4", a4Borderless.value().getTranslatedName());
+    ASSERT_TRUE(a4Borderless.value().isBorderless());
+    ASSERT_EQ(nullopt, invalidSizeBordered);
+    ASSERT_EQ(nullopt, invalidSizeBorderless);
 }

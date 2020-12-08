@@ -15,6 +15,7 @@
 
 #include <memory>
 #include <vector>
+#include <optional>
 #include <cups/cups.h>
 #include "mediasize.h"
 
@@ -32,6 +33,8 @@ namespace nanaprint
             const std::vector<std::shared_ptr<MediaSize>>& getMediaSizes() const { return m_mediaSizes; }
             size_t getMediaSizeNumber(const MediaSize& mediaSize) const;
             bool contains_borderless_paper() const;
+            std::optional<MediaSize> getMediaSizeByTranslatedNameAndBorder(
+                const std::string& tranlatedName, bool isBorderless) const;
         private:
             std::vector<std::shared_ptr<MediaSize>> m_mediaSizes;
     };
