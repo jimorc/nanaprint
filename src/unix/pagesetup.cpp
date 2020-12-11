@@ -47,6 +47,11 @@ namespace nanaprint
         m_layout["paper"] << m_paperGroup;
         
         m_layout.collocate();
+        
+        // Must set default printer after paper group is created.
+        // Otherwise, paper size is not set for default paper size.
+        size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
+        m_printerCombox.option(defaultPrinter);
      }
 
     void PageSetup::buildPrinterGroup()
@@ -97,9 +102,6 @@ namespace nanaprint
         m_printerCombox.events().selected( [this](const arg_combox& ar_cbx) {
             printer_selected(ar_cbx);
         });
-
-        size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
-        m_printerCombox.option(defaultPrinter);
     }
 
     void PageSetup::buildPrinterStatusLabel()
@@ -169,6 +171,9 @@ namespace nanaprint
 
         buildPaperSizeCombox();
         m_paperGroup["sizeCombox"] << m_paperSizeCombox;
+
+        buildPaperSize();
+        m_paperGroup["size"] << m_paperSize;
     }
 
     void PageSetup::buildBorderlessCheckbox()
@@ -215,6 +220,11 @@ namespace nanaprint
                 break;
         }
         m_paperSizeCombox.option(option);
+    }
+
+    void PageSetup::buildPaperSize()
+    {
+        m_paperSize.text_align(align::left, align_v::center);
     }
 
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
@@ -267,6 +277,10 @@ namespace nanaprint
         if(mediaSize)
         {
             m_settings.set_media_size(mediaSize.value());
+            stringstream ss;
+            ss << mediaSize.value().getWidth() / 100 << " x " 
+                << mediaSize.value().getHeight()  / 100 << " mm";
+            m_paperSize.caption(ss.str());
         }
     }
 
