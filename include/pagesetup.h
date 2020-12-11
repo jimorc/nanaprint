@@ -49,12 +49,16 @@ namespace nanaprint
             void buildPaperSizeLabel();
             void buildPaperSizeCombox();
             void buildPaperSize();
+            void buildPaperSourceLabel();
+            void buildPaperSourceCombox();
             void populatePaperSizeCombox(size_t printer);
+            void populatePaperSourceCombox(size_t printer);
             void printer_selected(const nana::arg_combox &ar_cbx);
             void updatePaperGroup(size_t printer);
 
             void on_borderlessChecked(const nana::arg_checkbox& arg);
             void paper_size_selected(const nana::arg_combox &ar_cbx);
+            void paper_source_selected(const nana::arg_combox &ar_cbx);
 
             Printers m_printers;
             PrintSettings& m_settings;
@@ -77,7 +81,7 @@ namespace nanaprint
             nana::combox m_paperSizeCombox;
             nana::label m_paperSize;
             nana::label m_paperSourceLabel;
-            nana::label m_paperSourceCombox;
+            nana::combox m_paperSourceCombox;
     };
 }
 

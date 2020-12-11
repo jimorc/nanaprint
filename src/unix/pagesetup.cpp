@@ -47,7 +47,7 @@ namespace nanaprint
         m_layout["paper"] << m_paperGroup;
         
         m_layout.collocate();
-        
+
         // Must set default printer after paper group is created.
         // Otherwise, paper size is not set for default paper size.
         size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
@@ -157,9 +157,12 @@ namespace nanaprint
     {
         m_paperGroup.caption("Paper");
         string groupDiv = string("vert gap=5 margin=0 ") +
+            "<weight=10>" +
             "<<weight=10><borderless><weight=10> weight=20>" +
+            "<weight=10>" +
             "<<weight=10><sizeLabel weight=20%><sizeCombox><weight=10> weight=30>" +
             "<<weight=10><weight=20%><size><weight=10> weight=15>" +
+            "<weight=10>" +
             "<<weight=10><sourceLabel weight=20%><source><weight=10> weight=30>";
         m_paperGroup.div(groupDiv.c_str());
 
@@ -174,6 +177,12 @@ namespace nanaprint
 
         buildPaperSize();
         m_paperGroup["size"] << m_paperSize;
+
+        buildPaperSourceLabel();
+        m_paperGroup["sourceLabel"] << m_paperSourceLabel;
+
+        buildPaperSourceCombox();
+        m_paperGroup["source"] << m_paperSourceCombox;
     }
 
     void PageSetup::buildBorderlessCheckbox()
@@ -227,6 +236,46 @@ namespace nanaprint
         m_paperSize.text_align(align::left, align_v::center);
     }
 
+    void PageSetup::buildPaperSourceLabel()
+    {
+        m_paperSourceLabel.caption("Source:");
+        m_paperSourceLabel.text_align(align::left, align_v::center);
+    }
+
+    void PageSetup::buildPaperSourceCombox()
+    {
+        m_paperSourceCombox.editable(false);
+
+        m_paperSourceCombox.events().selected( [this](const arg_combox& ar_cbx) {
+            paper_source_selected(ar_cbx);});
+    }
+
+    void PageSetup::populatePaperSourceCombox(size_t printer)
+    {
+        auto ptr = m_printers.getPrinters()[printer];
+        auto paperSources = ptr->getMediaSources();
+        auto sources = paperSources.getSources();
+        auto mediaSource = m_settings.get_media_source();
+        m_paperSourceCombox.clear();
+        if (sources.size() < 0) {
+            m_paperSourceCombox.enabled(true);
+            size_t source = 0;
+            for (int src = 0; src < sources.size(); ++src)
+            {
+                m_paperSourceCombox.push_back(sources[src]->getSource());
+                if (mediaSource.getSource() == sources[src]->getSource())
+                {
+                    source = src;
+                }
+            }
+            m_paperSourceCombox.option(source);
+        }
+        else
+        {
+            m_paperSourceCombox.enabled(false);
+        }
+    }
+
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
     {
         size_t printer = m_printerCombox.option();
@@ -256,6 +305,7 @@ namespace nanaprint
             m_borderlessCheckbox.check(false);
         }
         populatePaperSizeCombox(printer);
+        populatePaperSourceCombox(printer);
 
     }
 
@@ -282,6 +332,13 @@ namespace nanaprint
                 << mediaSize.value().getHeight()  / 100 << " mm";
             m_paperSize.caption(ss.str());
         }
+    }
+
+    void PageSetup::paper_source_selected(const nana::arg_combox &ar_cbx)
+    {
+        size_t option = m_paperSourceCombox.option();
+        auto source = m_paperSourceCombox.text(option);
+        m_settings.set_media_source(source);
     }
 
     DialogStatus PageSetup::run()
