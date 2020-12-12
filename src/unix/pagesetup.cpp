@@ -33,7 +33,7 @@ namespace nanaprint
             m_paperGroup(*this), m_borderlessCheckbox(m_paperGroup), 
             m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
             m_paperSize(m_paperGroup), m_paperSourceLabel(m_paperGroup),
-            m_paperSourceCombox(m_paperGroup)
+            m_paperSourceCombox(m_paperGroup), m_orientationLabel(m_paperGroup)
 
     {
         caption(u8"Page Setup");
@@ -163,7 +163,14 @@ namespace nanaprint
             "<<weight=10><sizeLabel weight=20%><sizeCombox><weight=10> weight=30>" +
             "<<weight=10><weight=20%><size><weight=10> weight=15>" +
             "<weight=10>" +
-            "<<weight=10><sourceLabel weight=20%><source><weight=10> weight=30>";
+            "<<weight=10><sourceLabel weight=20%><source><weight=10> weight=30>" +
+            "<weight=10>" +
+            "<<weight=10><orientationLabel weight=20%>"
+                "<portrait weight=38%><weight=10><portraitReverse><weight=10> weight=20>" +
+            "<weight=10>" +
+            "<<weight=10><weight=20%>" +
+                "<landscape weight=38%><weight=10><landscapeReverse><weight=10> weight=20>";
+
         m_paperGroup.div(groupDiv.c_str());
 
         buildBorderlessCheckbox();
@@ -183,6 +190,11 @@ namespace nanaprint
 
         buildPaperSourceCombox();
         m_paperGroup["source"] << m_paperSourceCombox;
+
+        buildOrientationLabel();
+        m_paperGroup["orientationLabel"] << m_orientationLabel;
+
+        buildOrientationGroup();
     }
 
     void PageSetup::buildBorderlessCheckbox()
@@ -248,6 +260,31 @@ namespace nanaprint
 
         m_paperSourceCombox.events().selected( [this](const arg_combox& ar_cbx) {
             paper_source_selected(ar_cbx);});
+    }
+
+    void PageSetup::buildOrientationLabel()
+    {
+        m_orientationLabel.caption("Orientation:");
+        m_orientationLabel.text_align(align::left, align_v::center);
+    }
+
+    void PageSetup::buildOrientationGroup()
+    {
+        addOrientationCheckbox(string("Portrait"), string("portrait"));
+        addOrientationCheckbox(string("Landscape"), string("landscape"));
+        addOrientationCheckbox(string("Reverse Portrait"), string("portraitReverse"));
+        addOrientationCheckbox(string("Reverse Landscape"), string("landscapeReverse"));
+    }
+
+    void PageSetup::addOrientationCheckbox(const std::string& label, 
+        const std::string& groupLabel)
+    {
+        m_orientations.push_back(make_shared<checkbox>(m_paperGroup));
+        m_orientations.back()->caption(label);
+        m_paperGroup[groupLabel.c_str()] << *m_orientations.back();
+        m_orientations.push_back(m_orientations.back());
+        m_orientationGroup.add(*m_orientations.back());
+
     }
 
     void PageSetup::populatePaperSourceCombox(size_t printer)

@@ -51,6 +51,9 @@ namespace nanaprint
             void buildPaperSize();
             void buildPaperSourceLabel();
             void buildPaperSourceCombox();
+            void buildOrientationLabel();
+            void buildOrientationGroup();
+            void addOrientationCheckbox(const std::string& label, const std::string& groupLabel);
             void populatePaperSizeCombox(size_t printer);
             void populatePaperSourceCombox(size_t printer);
             void printer_selected(const nana::arg_combox &ar_cbx);
@@ -82,6 +85,9 @@ namespace nanaprint
             nana::label m_paperSize;
             nana::label m_paperSourceLabel;
             nana::combox m_paperSourceCombox;
+            nana::label m_orientationLabel;
+            nana::radio_group m_orientationGroup;
+            std::vector<std::shared_ptr<nana::checkbox>> m_orientations;
     };
 }
 
