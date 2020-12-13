@@ -284,7 +284,25 @@ namespace nanaprint
         m_paperGroup[groupLabel.c_str()] << *m_orientations.back();
         m_orientations.push_back(m_orientations.back());
         m_orientationGroup.add(*m_orientations.back());
+    }
 
+    void PageSetup::setAllowableOrientations(size_t printer)
+    {
+        // disable all orientations
+        for (auto orient: m_orientations)
+        {
+            orient->enabled(false);
+        }
+
+        // enable orientations supported by the printer
+        auto ptr = m_printers.getPrinters()[printer];
+        auto orientations = ptr->getOrientations();
+        for (auto orientation: orientations.getOrientations())
+        {
+            auto orientationNum = orientation->getOrientationNumber();
+            auto orientationCheckboxNum = orientationNum - PORTRAIT;
+            m_orientations[orientationCheckboxNum]->enabled(true);
+        }
     }
 
     void PageSetup::populatePaperSourceCombox(size_t printer)

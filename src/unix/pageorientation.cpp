@@ -18,12 +18,12 @@ using namespace std;
 
 namespace nanaprint
 {
-    PageOrientation::PageOrientation() : m_orientation(nullopt)
+    PageOrientation::PageOrientation() : m_orientation(nullopt), m_orientationNum(0)
     {
 
     }
 
-    PageOrientation::PageOrientation(const int orientation)
+    PageOrientation::PageOrientation(const int orientation) : m_orientationNum(orientation)
     {
         switch (orientation)
         {
@@ -43,6 +43,11 @@ namespace nanaprint
                 m_orientation = nullopt;
                 break;
         }
+    }
+
+    const int PageOrientation::getOrientationNumber() const
+    {
+        return m_orientationNum;
     }
 
     const std::optional<std::string>& PageOrientation::getOrientation() const

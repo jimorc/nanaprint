@@ -53,6 +53,7 @@ namespace nanaprint
             void buildPaperSourceCombox();
             void buildOrientationLabel();
             void buildOrientationGroup();
+            void setAllowableOrientations(size_t printer);
             void addOrientationCheckbox(const std::string& label, const std::string& groupLabel);
             void populatePaperSizeCombox(size_t printer);
             void populatePaperSourceCombox(size_t printer);
