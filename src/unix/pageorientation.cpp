@@ -18,7 +18,7 @@ using namespace std;
 
 namespace nanaprint
 {
-    PageOrientation::PageOrientation() : m_orientation(u8"None")
+    PageOrientation::PageOrientation() : m_orientation(nullopt)
     {
 
     }
@@ -40,18 +40,29 @@ namespace nanaprint
                 m_orientation = u8"Reverse Portrait";
                 break;
             default:
-                throw invalid_argument("Invalid argument value to PageOrientation constructor");
+                m_orientation = nullopt;
+                break;
         }
     }
 
-    const std::string& PageOrientation::getOrientation() const
+    const std::optional<std::string>& PageOrientation::getOrientation() const
     {
         return m_orientation;
     }
     
     ostream& operator<<(ostream& os, const PageOrientation& orientation)
     {
-        os << "    " << orientation.getOrientation() << '\n';
+        os << "    ";
+        auto orient = orientation.getOrientation();
+        if (orient)
+        {
+            os << orientation.getOrientation().value() << '\n';
+        }
+        else
+        {
+            os << "None\n";
+        }
+        
         return os;
     }
 

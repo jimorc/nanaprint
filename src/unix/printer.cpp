@@ -518,6 +518,11 @@ namespace nanaprint
                         m_defaultOrientation = PageOrientation(defaultOr);
                     }
                 }
+                else
+                {
+                    m_defaultOrientation = PageOrientation();
+                }
+                
             }
             m_gotDefaultMediaType = true;
         }   

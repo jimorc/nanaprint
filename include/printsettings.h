@@ -17,6 +17,7 @@
 
 #include <vector>
 #include <memory>
+#include <optional>
 #include "printers.h"
 #include "mediasize.h"
 
@@ -43,8 +44,8 @@ namespace nanaprint
             const MediaSource& get_media_source() { return m_mediaSource; }
             void set_media_type(const MediaType& mediaType);
             const MediaType& get_media_type() { return m_mediaType; }
-            void set_page_orientation(const PageOrientation& orientation);
-            const PageOrientation& get_page_orientation() const { return m_orientation; }
+            void set_page_orientation(const std::optional<PageOrientation>& orientation);
+            const std::optional<PageOrientation>& get_page_orientation() const { return m_orientation; }
             void set_color_mode(const ColorMode& colorMode);
             const ColorMode& get_color_mode() const { return m_colorMode; }
             void set_print_quality(const PrintQuality& quality);
@@ -62,7 +63,7 @@ namespace nanaprint
             Finishings m_finishings;
             MediaSource m_mediaSource;
             MediaType m_mediaType;
-            PageOrientation m_orientation;
+            std::optional<PageOrientation> m_orientation;
             ColorMode m_colorMode;
             PrintQuality m_printQuality;
             Side m_side;

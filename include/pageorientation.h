@@ -19,6 +19,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <optional>
 #include <cups/cups.h>
 
 namespace nanaprint
@@ -34,10 +35,10 @@ namespace nanaprint
             PageOrientation();
             PageOrientation(int orientation);
             virtual ~PageOrientation() {}
-            const std::string& getOrientation() const;
+            const std::optional<std::string>& getOrientation() const;
 
         private:
-            std::string m_orientation;
+            std::optional<std::string> m_orientation;
     };
 
     std::ostream& operator<<(std::ostream& os, const PageOrientation& orientation);

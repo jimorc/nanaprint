@@ -14,6 +14,9 @@
 #include <climits>
 #include "printsettings.h"
 
+using namespace std;
+using namespace nanaprint;
+
 namespace nanaprint
 {
     PrintSettings::PrintSettings(const Printers& printers)
@@ -91,7 +94,7 @@ namespace nanaprint
         m_mediaType = mediaType;
     }
 
-    void PrintSettings::set_page_orientation(const PageOrientation& orientation)
+    void PrintSettings::set_page_orientation(const optional<PageOrientation>& orientation)
     {
         m_orientation = orientation;
     }

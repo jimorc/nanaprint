@@ -13,28 +13,24 @@ TEST(PageOrientationTests, testCreate)
     auto landscape = PageOrientation(LANDSCAPE);
     auto revLandscape = PageOrientation(REVERSE_LANDSCAPE);
     auto revPortrait = PageOrientation(REVERSE_PORTRAIT);
-    ASSERT_STREQ(u8"Portrait", portrait.getOrientation().c_str());
-    ASSERT_STREQ(u8"Landscape", landscape.getOrientation().c_str());
-    ASSERT_STREQ(u8"Reverse Landscape", revLandscape.getOrientation().c_str());
-    ASSERT_STREQ(u8"Reverse Portrait", revPortrait.getOrientation().c_str());
+    ASSERT_TRUE(portrait.getOrientation());
+    ASSERT_STREQ(u8"Portrait", portrait.getOrientation().value().c_str());
+    ASSERT_TRUE(landscape.getOrientation());
+    ASSERT_STREQ(u8"Landscape", landscape.getOrientation().value().c_str());
+    ASSERT_TRUE(revLandscape.getOrientation());
+    ASSERT_STREQ(u8"Reverse Landscape", revLandscape.getOrientation().value().c_str());
+    ASSERT_TRUE(revPortrait.getOrientation());
+    ASSERT_STREQ(u8"Reverse Portrait", revPortrait.getOrientation().value().c_str());
 }
 
 // Test create with invalid orientation argument
 TEST(PageOrientationTests, testCreateInvalidOrientation)
 {
-    try
-    {
-        auto orientation = PageOrientation(7);
-        FAIL() << "Should have thrown exception because of bad input value to PageOrientation::create\n";
-    }
-    catch (invalid_argument& ex)
-    {
-        ASSERT_STREQ(ex.what(), "Invalid argument value to PageOrientation constructor");
-    }
-    catch(...)
-    {
-        FAIL() << "Unexpected Excetion thrown: " << std::current_exception << endl;
-    }
+    PageOrientation orientation;
+    PageOrientation badValue(7);
+
+    ASSERT_FALSE(orientation.getOrientation());
+    ASSERT_FALSE(badValue.getOrientation());
 }
 
 // Test the insertion operator

@@ -16,6 +16,7 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <optional>
 #include <cups/cups.h>
 #include "mediasizes.h"
 #include "pageorientation.h"
