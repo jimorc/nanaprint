@@ -61,8 +61,16 @@ int main()
         cout << orientations;
                  
         cout << "Default Orientation:\n";
-        cout << printer->getDefaultOrientation();
-        
+        auto defOrientation = printer->getDefaultOrientation();
+        if (defOrientation)
+        {
+            cout << defOrientation.value();
+        }
+        else
+        {
+            cout << "    None\n";
+        }
+
         cout << "Supported ";
         auto colorModes = printer->getColorModes();
         cout << colorModes;

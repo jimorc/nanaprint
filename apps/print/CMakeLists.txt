@@ -17,7 +17,7 @@ else()
   FetchContent_Declare(
     nana
     GIT_REPOSITORY https://github.com/cnjinhao/nana.git
-    GIT_TAG        master
+    GIT_TAG        develop-1.8
   )
 endif()
 

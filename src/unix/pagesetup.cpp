@@ -282,7 +282,6 @@ namespace nanaprint
         m_orientations.push_back(make_shared<checkbox>(m_paperGroup));
         m_orientations.back()->caption(label);
         m_paperGroup[groupLabel.c_str()] << *m_orientations.back();
-        m_orientations.push_back(m_orientations.back());
         m_orientationGroup.add(*m_orientations.back());
     }
 
@@ -293,7 +292,6 @@ namespace nanaprint
         {
             orient->enabled(false);
         }
-
         // enable orientations supported by the printer
         auto ptr = m_printers.getPrinters()[printer];
         auto orientations = ptr->getOrientations();
@@ -302,6 +300,26 @@ namespace nanaprint
             auto orientationNum = orientation->getOrientationNumber();
             auto orientationCheckboxNum = orientationNum - PORTRAIT;
             m_orientations[orientationCheckboxNum]->enabled(true);
+        }
+
+        // set default orientation button
+        auto defOrientation = m_settings.get_page_orientation();
+        if (defOrientation)
+        {
+            auto defOrientationNum = defOrientation->getOrientationNumber();
+            auto orientationCheckboxNum = defOrientationNum - PORTRAIT;
+            m_orientations[orientationCheckboxNum]->check(true);
+        }
+        else
+        {
+            for (auto orientation: m_orientations)
+            {
+                if (orientation->enabled())
+                {
+                    orientation->check(true);
+                    break;
+                }
+            }
         }
     }
 
@@ -361,6 +379,7 @@ namespace nanaprint
         }
         populatePaperSizeCombox(printer);
         populatePaperSourceCombox(printer);
+        setAllowableOrientations(printer);
 
     }
 
