@@ -55,10 +55,9 @@ namespace nanaprint
         
         m_layout.collocate();
 
-        // Must set default printer after paper group is created.
+        // Must set printer after paper group is created.
         // Otherwise, paper size is not set for default paper size.
-        size_t defaultPrinter = m_printers.getDefaultPrinterNumber();
-        m_printerCombox.option(defaultPrinter);
+         m_printerCombox.option(m_settings.get_printer());
      }
 
     void PageSetup::buildPrinterGroup()
