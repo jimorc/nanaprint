@@ -353,7 +353,6 @@ namespace nanaprint
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
     {
         m_printer = m_printerCombox.option();
-        m_settings.set_printer(m_printer);
         buildPrinterStatus();
         m_printerGroup["printerStatus"] << m_printerStatus;
         buildPrinterType();
