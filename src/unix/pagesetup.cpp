@@ -24,7 +24,7 @@ using namespace nanaprint;
 namespace nanaprint
 {
     PageSetup::PageSetup(nana::form& parent, PrintSettings& settings) 
-        : form(parent, {500, 500}), m_settings(settings),
+        : form(parent, {500, 500}, appear::decorate<>()), m_settings(settings),
             m_printer(m_settings.get_printer()), m_layout(*this),
             m_printerGroup(*this), m_printerNameLabel(m_printerGroup), m_printerCombox(m_printerGroup),
             m_printerStatusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
