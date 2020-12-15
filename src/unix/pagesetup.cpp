@@ -385,7 +385,6 @@ namespace nanaprint
 
     void PageSetup::on_borderlessChecked(const arg_checkbox& arg)
     {
-        m_settings.set_borderless(arg.widget->checked());
         populatePaperSizeCombox();
     }
 
@@ -400,7 +399,6 @@ namespace nanaprint
             paperSizeTranslatedName, m_borderlessCheckbox.checked());
         if(mediaSize)
         {
-            m_settings.set_media_size(mediaSize.value());
             stringstream ss;
             ss << mediaSize.value().getWidth() / 100 << " x " 
                 << mediaSize.value().getHeight()  / 100 << " mm";
@@ -412,7 +410,6 @@ namespace nanaprint
     {
         size_t option = m_paperSourceCombox.option();
         auto source = m_paperSourceCombox.text(option);
-        m_settings.set_media_source(source);
     }
 
     DialogStatus PageSetup::run()
