@@ -20,11 +20,11 @@ using namespace nanaprint;
 namespace nanaprint
 {
     PrintSettings::PrintSettings(const Printers& printers)
-        : m_printers(printers.getPrinters()), m_printer(INT_MAX),
+        : m_printers(printers.getPrinters()), m_printer(printers.getDefaultPrinterNumber()),
             m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
             m_mediaType("None"), m_borderless(false)
     {
-
+        set_default_settings(m_printer);
     }
 
     void PrintSettings::set_printer(int printer)
