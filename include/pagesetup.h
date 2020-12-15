@@ -68,6 +68,7 @@ namespace nanaprint
             void on_borderlessChecked(const nana::arg_checkbox& arg);
             void paper_size_selected(const nana::arg_combox &ar_cbx);
             void paper_source_selected(const nana::arg_combox &ar_cbx);
+            void apply_clicked();
 
             Printers m_printers;
             PrintSettings& m_settings;

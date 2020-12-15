@@ -69,17 +69,17 @@ namespace nanaprint
         m_borderless = borderless;
     }
 
-    void PrintSettings::set_media_size(const MediaSize& mediaSize)
+    void PrintSettings::set_media_size(const MediaSize mediaSize)
     {
         m_mediaSize = mediaSize;
     }
 
-    void PrintSettings::set_finishings(const Finishings& finishings)
+    void PrintSettings::set_finishings(const Finishings finishings)
     {
         m_finishings = finishings;
     }
 
-    void PrintSettings::set_media_source(const MediaSource& source)
+    void PrintSettings::set_media_source(const MediaSource source)
     {
         m_mediaSource = source;
     }
@@ -89,7 +89,7 @@ namespace nanaprint
         m_mediaSource = source;
     }
     
-    void PrintSettings::set_media_type(const MediaType& mediaType)
+    void PrintSettings::set_media_type(const MediaType mediaType)
     {
         m_mediaType = mediaType;
     }
@@ -99,17 +99,17 @@ namespace nanaprint
         m_orientation = orientation;
     }
 
-    void PrintSettings::set_color_mode(const ColorMode& colorMode)
+    void PrintSettings::set_color_mode(const ColorMode colorMode)
     {
         m_colorMode = colorMode;
     }
 
-    void PrintSettings::set_print_quality(const PrintQuality& quality)
+    void PrintSettings::set_print_quality(const PrintQuality quality)
     {
         m_printQuality = quality;
     }
 
-    void PrintSettings::set_side(const Side& side)
+    void PrintSettings::set_side(const Side side)
     {
         m_side = side;
     }

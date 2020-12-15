@@ -428,11 +428,37 @@ namespace nanaprint
     void PageSetup::buildCancelButton()
     {
         m_cancel.caption("Cancel");
+        m_cancel.events().click([this](){close();});
     }
 
     void PageSetup::buildApplyButton()
     {
         m_apply.caption("Apply");
+        m_apply.events().click([this]() {apply_clicked();});
+    }
+
+    void PageSetup::apply_clicked()
+    {
+        m_settings.set_printer(m_printer);
+        m_settings.set_borderless(m_borderlessCheckbox.checked());
+        auto sizeOption = m_paperSizeCombox.option();
+        auto size = m_paperSizeCombox.text(sizeOption);
+        auto mediaSizes = m_printers.getPrinters()[m_printer]->getMediaSizes();
+        auto mediaSize = mediaSizes.getMediaSizeByTranslatedNameAndBorder(size,
+            m_borderlessCheckbox.checked());
+        if(mediaSize)
+        {
+            m_settings.set_media_size(mediaSize.value());
+        }
+        if(m_paperSourceCombox.enabled())
+        {
+            auto source = m_paperSourceCombox.option();
+            m_settings.set_media_source(MediaSource(m_paperSourceCombox.text(source)));
+        }
+        auto orientation = m_orientationGroup.checked();
+        m_settings.set_page_orientation(PageOrientation(orientation + PORTRAIT));
+
+        close();
     }
 
     DialogStatus PageSetup::run()

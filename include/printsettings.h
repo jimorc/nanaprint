@@ -35,22 +35,22 @@ namespace nanaprint
             int get_printer() const { return m_printer; }
             void set_borderless(bool borderless);
             const bool get_borderless() const { return m_borderless; }
-            void set_media_size(const MediaSize& mediaSize);
+            void set_media_size(const MediaSize mediaSize);
             const MediaSize& get_media_size() const { return m_mediaSize; }
-            void set_finishings(const Finishings& finishings);
+            void set_finishings(const Finishings finishings);
             const Finishings& get_finishings() const { return m_finishings; }
-            void set_media_source(const MediaSource& source);
+            void set_media_source(const MediaSource source);
             void set_media_source(const std::string& source);
             const MediaSource& get_media_source() { return m_mediaSource; }
-            void set_media_type(const MediaType& mediaType);
+            void set_media_type(const MediaType mediaType);
             const MediaType& get_media_type() { return m_mediaType; }
             void set_page_orientation(const std::optional<PageOrientation>& orientation);
             const std::optional<PageOrientation>& get_page_orientation() const { return m_orientation; }
-            void set_color_mode(const ColorMode& colorMode);
+            void set_color_mode(const ColorMode colorMode);
             const ColorMode& get_color_mode() const { return m_colorMode; }
-            void set_print_quality(const PrintQuality& quality);
+            void set_print_quality(const PrintQuality quality);
             const PrintQuality& get_print_quality() const { return m_printQuality; }
-            void set_side(const Side& side);
+            void set_side(const Side side);
             const Side& get_side() const { return m_side; }
             bool can_print_multiple_copies() { return m_canPrintMultipleCopies; }
         protected:
