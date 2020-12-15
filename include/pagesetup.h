@@ -36,13 +36,13 @@ namespace nanaprint
             void buildPrinterNameLabel();
             void buildPrinterCombox();
             void buildPrinterStatusLabel();
-            void buildPrinterStatus(size_t printer);
+            void buildPrinterStatus();
             void buildPrinterTypeLabel();
-            void buildPrinterType(size_t printer);
+            void buildPrinterType();
             void buildPrinterWhereLabel();
-            void buildPrinterWhere(size_t printer);
+            void buildPrinterWhere();
             void buildPrinterCommentLabel();
-            void buildPrinterComment(size_t printer);
+            void buildPrinterComment();
 
             void buildPaperGroup();
             void buildBorderlessCheckbox();
@@ -53,12 +53,12 @@ namespace nanaprint
             void buildPaperSourceCombox();
             void buildOrientationLabel();
             void buildOrientationGroup();
-            void setAllowableOrientations(size_t printer);
+            void setAllowableOrientations();
             void addOrientationCheckbox(const std::string& label, const std::string& groupLabel);
-            void populatePaperSizeCombox(size_t printer);
-            void populatePaperSourceCombox(size_t printer);
+            void populatePaperSizeCombox();
+            void populatePaperSourceCombox();
             void printer_selected(const nana::arg_combox &ar_cbx);
-            void updatePaperGroup(size_t printer);
+            void updatePaperGroup();
 
             void on_borderlessChecked(const nana::arg_checkbox& arg);
             void paper_size_selected(const nana::arg_combox &ar_cbx);
@@ -66,6 +66,7 @@ namespace nanaprint
 
             Printers m_printers;
             PrintSettings& m_settings;
+            size_t m_printer;
             nana::place m_layout;
             nana::group m_printerGroup;
             nana::label m_printerNameLabel;
