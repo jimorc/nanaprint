@@ -34,18 +34,24 @@ namespace nanaprint
             m_paperGroup(*this), m_borderlessCheckbox(m_paperGroup), 
             m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
             m_paperSize(m_paperGroup), m_paperSourceLabel(m_paperGroup),
-            m_paperSourceCombox(m_paperGroup), m_orientationLabel(m_paperGroup)
+            m_paperSourceCombox(m_paperGroup), m_orientationLabel(m_paperGroup),
+            m_cancel(*this), m_apply(*this)
 
     {
         caption(u8"Page Setup");
         m_layout.div(string("vert gap=10 margin=5") +
-            "<printer weight=50%>" +
-            "<paper weight = 25%>");
+            "<printer weight=40%>" +
+            "<paper weight = 50%>" +
+            "<weight=5>" +
+            "<gap=10 <weight=50%><cancel><weight=10><apply> weight=10%>");
 
         buildPrinterGroup();
         m_layout["printer"] << m_printerGroup;
         buildPaperGroup();
         m_layout["paper"] << m_paperGroup;
+        buildButtons();
+        m_layout["cancel"] << m_cancel;
+        m_layout["apply"] << m_apply;
         
         m_layout.collocate();
 
@@ -410,6 +416,23 @@ namespace nanaprint
     {
         size_t option = m_paperSourceCombox.option();
         auto source = m_paperSourceCombox.text(option);
+    }
+
+    void PageSetup::buildButtons()
+    {
+        buildCancelButton();
+        buildApplyButton();
+
+    }
+
+    void PageSetup::buildCancelButton()
+    {
+        m_cancel.caption("Cancel");
+    }
+
+    void PageSetup::buildApplyButton()
+    {
+        m_apply.caption("Apply");
     }
 
     DialogStatus PageSetup::run()

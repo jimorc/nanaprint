@@ -17,6 +17,7 @@
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/widgets/combox.hpp>
 #include <nana/gui/widgets/group.hpp>
+#include <nana/gui/widgets/button.hpp>
 #include <nana/gui/place.hpp>
 #include <nanaprint.h>
 #include "printsettings.h"
@@ -60,6 +61,10 @@ namespace nanaprint
             void printer_selected(const nana::arg_combox &ar_cbx);
             void updatePaperGroup();
 
+            void buildButtons();
+            void buildCancelButton();
+            void buildApplyButton();
+
             void on_borderlessChecked(const nana::arg_checkbox& arg);
             void paper_size_selected(const nana::arg_combox &ar_cbx);
             void paper_source_selected(const nana::arg_combox &ar_cbx);
@@ -90,6 +95,9 @@ namespace nanaprint
             nana::label m_orientationLabel;
             nana::radio_group m_orientationGroup;
             std::vector<std::shared_ptr<nana::checkbox>> m_orientations;
+
+            nana::button m_cancel;
+            nana::button m_apply;
     };
 }
 
