@@ -33,10 +33,8 @@ int main()
         DialogStatus status = printOper.run_page_setup();
     });
 
-    fileMenu.append("Print...", [](menu::item_proxy& ip) {
-        msgbox msg("Print clicked");
-        msg << ip.text();
-        msg.show();
+    fileMenu.append("Print...", [&](menu::item_proxy& ip) {
+        printOper.run_print();
     });
 
     mainForm.show();

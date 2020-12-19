@@ -29,6 +29,7 @@ namespace nanaprint
             PrintOperation(nana::form& parent);
             virtual ~PrintOperation() {}
             DialogStatus run_page_setup();
+            void run_print();
 
         private:
             nana::form& m_parentForm;

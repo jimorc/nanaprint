@@ -13,6 +13,7 @@
 
 #include "printoperation.h"
 #include "pagesetup.h"
+#include "printdialog.h"
 
 using namespace nanaprint;
 using namespace std;
@@ -30,5 +31,11 @@ namespace nanaprint
         PageSetup pageSetup(m_parentForm, m_printSettings);
         pageSetup.run();
         return DialogStatus::apply;
+    }
+
+    void PrintOperation::run_print()
+    {
+        PrintDialog printDialog(m_parentForm, m_printSettings);
+        printDialog.run();
     }
 }
