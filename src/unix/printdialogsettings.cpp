@@ -38,20 +38,21 @@ namespace nanaprint
         set_default_settings(printer);
     }
 
-        // fill the print settings with the printer's defaults
-    void PrintSettings::set_default_settings(int printerNum)
+    // fill the print settings with the printer's defaults
+    void PrintDialogSettings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
+        auto printer = m_settings.getPrinters()[m_printer];
         set_borderless(false);
-        set_media_size(m_printers[m_printer]->getDefaultMediaSize());
-        set_finishings(m_printers[m_printer]->getDefaultFinishings());
-        set_media_source(m_printers[m_printer]->getDefaultMediaSource());
-        set_media_type(m_printers[m_printer]->getDefaultMediaType()),
-        set_page_orientation(m_printers[m_printer]->getDefaultOrientation());
-        set_color_mode(m_printers[m_printer]->getDefaultColorMode());
-        set_print_quality(m_printers[m_printer]->getDefaultPrintQuality());
-        set_side(m_printers[m_printer]->getDefaultSide());
-        m_canPrintMultipleCopies = m_printers[m_printer]->canPrintMultipleCopies();
+        set_media_size(printer->getDefaultMediaSize());
+        set_finishings(printer->getDefaultFinishings());
+        set_media_source(printer->getDefaultMediaSource());
+        set_media_type(printer->getDefaultMediaType()),
+        set_page_orientation(printer->getDefaultOrientation());
+        set_color_mode(printer->getDefaultColorMode());
+        set_print_quality(printer->getDefaultPrintQuality());
+        set_side(printer->getDefaultSide());
+        m_canPrintMultipleCopies = printer->canPrintMultipleCopies();
     }
 
     void PrintDialogSettings::set_borderless(bool borderless)
