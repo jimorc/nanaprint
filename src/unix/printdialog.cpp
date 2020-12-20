@@ -87,7 +87,7 @@ namespace nanaprint
 
     void PrintDialog::printer_selected(size_t pos)
     {
-
+        m_dialogSettings.set_printer(pos);
     }
 
     void PrintDialog::run()
