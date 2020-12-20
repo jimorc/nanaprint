@@ -14,13 +14,17 @@
  */
 
 #include <nana/gui.hpp>
+#include <nana/gui/widgets/tabbar.hpp>
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/widgets/combox.hpp>
 #include <nana/gui/widgets/group.hpp>
 #include <nana/gui/widgets/button.hpp>
 #include <nana/gui/place.hpp>
+#include <nana/gui/widgets/panel.hpp>
+#include <nana/gui/widgets/listbox.hpp>
 #include <nanaprint.h>
 #include "printsettings.h"
+#include "printdialogsettings.h"
 #include "printers.h"
 
 namespace nanaprint
@@ -32,6 +36,17 @@ namespace nanaprint
             virtual ~PrintDialog() {}
             void run();
         private:
+            void buildGeneralTab();
+            void buildPrinterListbox();
+            void select_printer();
+            void printer_selected(size_t pos);
             PrintSettings m_settings;
+            PrintDialogSettings m_dialogSettings;
+
+            nana::place m_layout;
+            nana::panel<false> m_general;
+            nana::place m_generalLayout;
+            nana::listbox m_printerListbox;
+            nana::tabbar<std::string> m_tabbar;
     };
 }
