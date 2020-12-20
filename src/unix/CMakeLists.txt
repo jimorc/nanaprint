@@ -42,6 +42,7 @@ add_library(cupsprint
     printsettings.cpp
     printoperation.cpp
     printdialog.cpp
+    printdialogsettings.cpp
 )
 
 link_directories(
