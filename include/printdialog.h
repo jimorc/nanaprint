@@ -22,7 +22,8 @@
 #include <nana/gui/place.hpp>
 #include <nana/gui/widgets/panel.hpp>
 #include <nana/gui/widgets/listbox.hpp>
-#include <nanaprint.h>
+#include <nana/gui/widgets/textbox.hpp>
+#include "nanaprint.h"
 #include "printsettings.h"
 #include "printdialogsettings.h"
 #include "printers.h"
@@ -38,8 +39,15 @@ namespace nanaprint
         private:
             void buildGeneralTab();
             void buildPrinterListbox();
+            void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
+            void buildAllPagesCheckbox();
+            void buildCurrentPageCheckbox();
+            void buildSelectionCheckbox();
+            void buildPagesCheckbox();
+            void buildPagesBox();
+
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
 
@@ -47,6 +55,14 @@ namespace nanaprint
             nana::panel<false> m_general;
             nana::place m_generalLayout;
             nana::listbox m_printerListbox;
+            nana::group m_rangeGroup;
+            nana::place m_rangeLayout;
+            nana::radio_group m_rangeRadioGroup;
+            nana::checkbox m_allPages;
+            nana::checkbox m_currentPage;
+            nana::checkbox m_selection;
+            nana::checkbox m_pages;
+            nana::textbox m_pagesBox;
             nana::tabbar<std::string> m_tabbar;
     };
 }
