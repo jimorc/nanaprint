@@ -125,24 +125,28 @@ namespace nanaprint
     {
         m_allPages.caption(u8"All Pages");
         m_allPages.enabled(true);
+        m_rangeRadioGroup.add(m_allPages);
     }
 
     void PrintDialog::buildCurrentPageCheckbox()
     {
         m_currentPage.caption(u8"Current Page");
         m_currentPage.enabled(false);
+        m_rangeRadioGroup.add(m_currentPage);
     }
 
     void PrintDialog::buildSelectionCheckbox()
     {
         m_selection.caption(u8"Selection");
         m_selection.enabled(false);
+        m_rangeRadioGroup.add(m_selection);
     }
 
     void PrintDialog::buildPagesCheckbox()
     {
         m_pages.caption(u8"Pages:");
         m_pages.enabled(true);
+        m_rangeRadioGroup.add(m_pages);
     }
 
     void PrintDialog::buildPagesBox()
