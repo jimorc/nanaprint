@@ -42,6 +42,7 @@ namespace nanaprint
             void buildPrinterCombox();
             void buildStatusLabel();
             void buildPrinterStatus();
+            void buildPrinterTypeLabel();
             void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
@@ -63,6 +64,7 @@ namespace nanaprint
             nana::combox m_printerCombox;
             nana::label m_statusLabel;
             nana::label m_printerStatus;
+            nana::label m_typeLabel;
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
             nana::radio_group m_rangeRadioGroup;
