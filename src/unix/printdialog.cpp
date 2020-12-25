@@ -26,9 +26,9 @@ namespace nanaprint
 {
     PrintDialog::PrintDialog(form& parent, PrintSettings& settings)
         : form(parent, {750, 500}, appear::decorate<>()), m_settings(settings),
-             m_dialogSettings(m_settings), m_layout(*this), m_general(*this), 
-             m_generalLayout(m_general),
-             m_tabbar(*this), m_printerListbox(m_general), m_rangeGroup(m_general),
+             m_dialogSettings(m_settings), m_layout(*this), m_basic(*this), 
+             m_basicLayout(m_basic),
+             m_tabbar(*this), m_printerListbox(m_basic), m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
              m_selection(m_rangeGroup), m_pages(m_rangeGroup),
@@ -41,10 +41,10 @@ namespace nanaprint
             "<weight=5>" +
             "<gap=10 <weight=50%><cancel><weight=10><print> weight=10%>");
 
-        m_tabbar.append(u8"General", m_general);
+        m_tabbar.append(u8"Basic", m_basic);
         m_layout["tab"] << m_tabbar;
         buildGeneralTab();
-        m_layout["tabframe"] << m_general;
+        m_layout["tabframe"] << m_basic;
         m_layout.collocate();
 
         select_printer();
@@ -52,19 +52,19 @@ namespace nanaprint
 
     void PrintDialog::buildGeneralTab()
     {
-        m_generalLayout.div(string("vertical gap=10") +
+        m_basicLayout.div(string("vertical gap=10") +
             "<<printers> weight=65%>" +
             "<weight=10>" +
             "<<range weight=50%><weight=10><copies> weight=22%>");
 
         buildPrinterListbox();
-        m_generalLayout["printers"] << m_printerListbox;
+        m_basicLayout["printers"] << m_printerListbox;
         
         buildRangeGroup();
-        m_generalLayout["range"] << m_rangeGroup;
+        m_basicLayout["range"] << m_rangeGroup;
 
 
-        m_generalLayout.collocate();
+        m_basicLayout.collocate();
     }
 
     void PrintDialog::buildPrinterListbox()

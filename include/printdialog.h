@@ -52,8 +52,8 @@ namespace nanaprint
             PrintDialogSettings m_dialogSettings;
 
             nana::place m_layout;
-            nana::panel<false> m_general;
-            nana::place m_generalLayout;
+            nana::panel<false> m_basic;
+            nana::place m_basicLayout;
             nana::listbox m_printerListbox;
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
