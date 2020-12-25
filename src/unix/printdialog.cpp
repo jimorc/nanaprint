@@ -30,6 +30,7 @@ namespace nanaprint
              m_basicLayout(m_basic),
              m_tabbar(*this), m_printerGroup(m_basic),
              m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
+             m_statusLabel(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -75,7 +76,8 @@ namespace nanaprint
 
         auto div = string("vertical gap=10") +
             "<weight=10>" +
-            "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>";
+            "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>" +
+            "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=20>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
@@ -84,6 +86,8 @@ namespace nanaprint
             buildPrinterCombox();
             m_printerGroup["printerCombox"] << m_printerCombox;
 
+            buildStatusLabel();
+            m_printerGroup["statusLabel"] << m_statusLabel;
     }
 
     void PrintDialog::buildPrinterLabel()
@@ -105,6 +109,11 @@ namespace nanaprint
         m_printerCombox.events().selected( [this](const arg_combox& ar_cbx) {
             printer_selected(m_printerCombox.option());
         });
+    }
+
+    void PrintDialog::buildStatusLabel()
+    {
+        m_statusLabel.caption(u8"Status:");
     }
 
     void PrintDialog::printer_selected(size_t pos)
