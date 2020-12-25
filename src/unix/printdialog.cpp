@@ -28,7 +28,9 @@ namespace nanaprint
         : form(parent, {750, 500}, appear::decorate<>()), m_settings(settings),
              m_dialogSettings(m_settings), m_layout(*this), m_basic(*this), 
              m_basicLayout(m_basic),
-             m_tabbar(*this), m_printerListbox(m_basic), m_rangeGroup(m_basic),
+             m_tabbar(*this), m_printerGroup(m_basic),
+             m_printerLabel(m_printerGroup),
+             m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
              m_selection(m_rangeGroup), m_pages(m_rangeGroup),
@@ -47,18 +49,18 @@ namespace nanaprint
         m_layout["tabframe"] << m_basic;
         m_layout.collocate();
 
-        select_printer();
+//        select_printer();
     }
 
     void PrintDialog::buildGeneralTab()
     {
         m_basicLayout.div(string("vertical gap=10") +
-            "<<printers> weight=65%>" +
+            "<<printerGroup weight=48%><><paperGroup weight=48%> weight=30%>" +
             "<weight=10>" +
-            "<<range weight=50%><weight=10><copies> weight=22%>");
+            "<<range weight=48%><weight=10><copies weight=48%> weight=22%>");
 
-        buildPrinterListbox();
-        m_basicLayout["printers"] << m_printerListbox;
+        buildPrinterGroup();
+        m_basicLayout["printerGroup"] << m_printerGroup;
         
         buildRangeGroup();
         m_basicLayout["range"] << m_rangeGroup;
@@ -67,7 +69,26 @@ namespace nanaprint
         m_basicLayout.collocate();
     }
 
-    void PrintDialog::buildPrinterListbox()
+    void PrintDialog::buildPrinterGroup()
+    {
+        m_printerGroup.caption(u8"Printer");
+
+        auto div = string("vertical gap=10") +
+            "<weight=10>" +
+            "<<weight=10><printerLabel weight=30%><><printerList><> weight=20%>";
+        m_printerGroup.div(div.c_str());
+
+            buildPrinterLabel();
+            m_printerGroup["printerLabel"] << m_printerLabel;
+
+    }
+
+    void PrintDialog::buildPrinterLabel()
+    {
+        m_printerLabel.caption(u8"Printer:");
+    }
+
+/*    void PrintDialog::buildPrinterListbox()
     {
         m_printerListbox.enable_single(true, false);
         m_printerListbox.append_header(u8"Printer", 200);
@@ -92,7 +113,7 @@ namespace nanaprint
     {
         auto selectedPrinter = m_printerListbox.at(m_dialogSettings.get_printer());
         selectedPrinter.select(true);
-    }
+    }*/
 
     void PrintDialog::printer_selected(size_t pos)
     {

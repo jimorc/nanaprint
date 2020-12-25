@@ -38,7 +38,8 @@ namespace nanaprint
             void run();
         private:
             void buildGeneralTab();
-            void buildPrinterListbox();
+            void buildPrinterGroup();
+            void buildPrinterLabel();
             void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
@@ -54,7 +55,8 @@ namespace nanaprint
             nana::place m_layout;
             nana::panel<false> m_basic;
             nana::place m_basicLayout;
-            nana::listbox m_printerListbox;
+            nana::group m_printerGroup;
+            nana::label m_printerLabel;
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
             nana::radio_group m_rangeRadioGroup;
