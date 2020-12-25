@@ -49,8 +49,6 @@ namespace nanaprint
         buildGeneralTab();
         m_layout["tabframe"] << m_basic;
         m_layout.collocate();
-
-//        select_printer();
     }
 
     void PrintDialog::buildGeneralTab()
@@ -79,7 +77,7 @@ namespace nanaprint
         auto div = string("vertical gap=10") +
             "<weight=10>" +
             "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>" +
-            "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=20>";
+            "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=25>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
@@ -117,11 +115,13 @@ namespace nanaprint
     void PrintDialog::buildStatusLabel()
     {
         m_statusLabel.caption(u8"Status:");
+        m_statusLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildPrinterStatus()
     {
-        // do nothing. Caption is set when printer is selected.
+        // Caption is set when printer is selected.
+        m_printerStatus.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::printer_selected(size_t pos)
