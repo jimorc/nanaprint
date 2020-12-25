@@ -29,7 +29,7 @@ namespace nanaprint
              m_dialogSettings(m_settings), m_layout(*this), m_basic(*this), 
              m_basicLayout(m_basic),
              m_tabbar(*this), m_printerGroup(m_basic),
-             m_printerLabel(m_printerGroup),
+             m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -75,11 +75,14 @@ namespace nanaprint
 
         auto div = string("vertical gap=10") +
             "<weight=10>" +
-            "<<weight=10><printerLabel weight=30%><><printerList><> weight=20%>";
+            "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
             m_printerGroup["printerLabel"] << m_printerLabel;
+
+            buildPrinterCombox();
+            m_printerGroup["printerCombox"] << m_printerCombox;
 
     }
 
@@ -88,32 +91,21 @@ namespace nanaprint
         m_printerLabel.caption(u8"Printer:");
     }
 
-/*    void PrintDialog::buildPrinterListbox()
+    void PrintDialog::buildPrinterCombox()
     {
-        m_printerListbox.enable_single(true, false);
-        m_printerListbox.append_header(u8"Printer", 200);
-        m_printerListbox.append_header(u8"Location", 200);
-        m_printerListbox.append_header(u8"Status", 330);
-
+        m_printerCombox.editable(false);
         auto printers = m_settings.getPrinters();
-        for (auto printer: printers)
+        for (auto& printer: printers)
         {
-            auto name = printer->getName();
-            auto location = printer->get_printer_location();
-            auto status = printer->get_printer_state();
-            auto cat = m_printerListbox.at(0);
-            cat.append({name, location, status});
+            m_printerCombox.push_back(printer->getName());
         }
-        m_printerListbox.events().selected([this](const arg_listbox& arg){
-            printer_selected(arg.item.pos().item);
+
+        m_printerCombox.option(m_dialogSettings.get_printer());
+
+        m_printerCombox.events().selected( [this](const arg_combox& ar_cbx) {
+            printer_selected(m_printerCombox.option());
         });
     }
-
-    void PrintDialog::select_printer()
-    {
-        auto selectedPrinter = m_printerListbox.at(m_dialogSettings.get_printer());
-        selectedPrinter.select(true);
-    }*/
 
     void PrintDialog::printer_selected(size_t pos)
     {

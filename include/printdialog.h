@@ -21,7 +21,6 @@
 #include <nana/gui/widgets/button.hpp>
 #include <nana/gui/place.hpp>
 #include <nana/gui/widgets/panel.hpp>
-#include <nana/gui/widgets/listbox.hpp>
 #include <nana/gui/widgets/textbox.hpp>
 #include "nanaprint.h"
 #include "printsettings.h"
@@ -40,6 +39,7 @@ namespace nanaprint
             void buildGeneralTab();
             void buildPrinterGroup();
             void buildPrinterLabel();
+            void buildPrinterCombox();
             void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
@@ -57,6 +57,7 @@ namespace nanaprint
             nana::place m_basicLayout;
             nana::group m_printerGroup;
             nana::label m_printerLabel;
+            nana::combox m_printerCombox;
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
             nana::radio_group m_rangeRadioGroup;
