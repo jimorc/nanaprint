@@ -30,7 +30,7 @@ namespace nanaprint
              m_basicLayout(m_basic),
              m_tabbar(*this), m_printerGroup(m_basic),
              m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
-             m_statusLabel(m_printerGroup),
+             m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -68,6 +68,8 @@ namespace nanaprint
 
 
         m_basicLayout.collocate();
+
+        m_printerCombox.option(m_dialogSettings.get_printer());
     }
 
     void PrintDialog::buildPrinterGroup()
@@ -88,6 +90,9 @@ namespace nanaprint
 
             buildStatusLabel();
             m_printerGroup["statusLabel"] << m_statusLabel;
+
+            buildPrinterStatus();
+            m_printerGroup["printerStatus"] << m_printerStatus;
     }
 
     void PrintDialog::buildPrinterLabel()
@@ -104,21 +109,32 @@ namespace nanaprint
             m_printerCombox.push_back(printer->getName());
         }
 
-        m_printerCombox.option(m_dialogSettings.get_printer());
-
         m_printerCombox.events().selected( [this](const arg_combox& ar_cbx) {
             printer_selected(m_printerCombox.option());
         });
-    }
+   }
 
     void PrintDialog::buildStatusLabel()
     {
         m_statusLabel.caption(u8"Status:");
     }
 
+    void PrintDialog::buildPrinterStatus()
+    {
+        // do nothing. Caption is set when printer is selected.
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
+        updatePrinterGroup();
+    }
+
+    void PrintDialog::updatePrinterGroup()
+    {
+        auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
+        auto status = printer->get_printer_state();
+        m_printerStatus.caption(printer->get_printer_state());
     }
 
     void PrintDialog::buildRangeGroup()
