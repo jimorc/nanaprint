@@ -33,7 +33,7 @@ namespace nanaprint
              m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
              m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
              m_locationLabel(m_printerGroup), m_printerLocation(m_printerGroup),
-             m_commentLabel(m_printerGroup),
+             m_commentLabel(m_printerGroup), m_printerComment(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -57,7 +57,7 @@ namespace nanaprint
     void PrintDialog::buildGeneralTab()
     {
         m_basicLayout.div(string("vertical gap=10") +
-            "<<printerGroup weight=48%><><paperGroup weight=48%> weight=36%>" +
+            "<<printerGroup weight=48%><><paperGroup weight=48%> weight=42%>" +
             "<weight=10>" +
             "<<range weight=48%><weight=10><copies weight=48%> weight=22%>");
 
@@ -83,7 +83,7 @@ namespace nanaprint
             "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=25>" +
             "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=25>" +
             "<<weight=10><locationLabel weight=30%><><printerLocation weight=64%><> weight=25>" +
-            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=25>";
+            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=45>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
@@ -112,6 +112,9 @@ namespace nanaprint
 
             buildCommentLabel();
             m_printerGroup["commentLabel"] << m_commentLabel;
+
+            buildPrinterComment();
+            m_printerGroup["printerComment"] << m_printerComment;
     }
 
     void PrintDialog::buildPrinterLabel()
@@ -175,6 +178,12 @@ namespace nanaprint
         m_commentLabel.text_align(align::left, align_v::center);
     }
 
+    void PrintDialog::buildPrinterComment()
+    {
+        // Caption is set when printer is selected.
+        m_printerComment.text_align(align::left, align_v::center);
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
@@ -188,6 +197,7 @@ namespace nanaprint
         m_printerStatus.caption(printer->get_printer_state());
         m_printerType.caption(printer->get_printer_make_and_model());
         m_printerLocation.caption(printer->get_printer_location());
+        m_printerComment.caption(printer->get_printer_info());
     }
 
     void PrintDialog::buildRangeGroup()
