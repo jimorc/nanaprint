@@ -56,8 +56,8 @@ namespace nanaprint
             void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
-            void updatePrinterGroup();
-            void updatePaperGroup();
+            void updatePrinterGroup(Printer& printer);
+            void updatePaperGroup(Printer& printer);
             void buildAllPagesCheckbox();
             void buildCurrentPageCheckbox();
             void buildSelectionCheckbox();

@@ -210,24 +210,22 @@ namespace nanaprint
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
-        updatePrinterGroup();
-        updatePaperGroup();
+        auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
+        updatePrinterGroup(*printer);
+        updatePaperGroup(*printer);
     }
 
-    void PrintDialog::updatePrinterGroup()
+    void PrintDialog::updatePrinterGroup(Printer& printer)
     {
-        auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
-        auto status = printer->get_printer_state();
-        m_printerStatus.caption(printer->get_printer_state());
-        m_printerType.caption(printer->get_printer_make_and_model());
-        m_printerLocation.caption(printer->get_printer_location());
-        m_printerComment.caption(printer->get_printer_info());
+        m_printerStatus.caption(printer.get_printer_state());
+        m_printerType.caption(printer.get_printer_make_and_model());
+        m_printerLocation.caption(printer.get_printer_location());
+        m_printerComment.caption(printer.get_printer_info());
     }
 
-    void PrintDialog::updatePaperGroup()
+    void PrintDialog::updatePaperGroup(Printer& printer)
     {
-        auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
-        m_borderlessCheckbox.enabled(printer->getMediaSizes().contains_borderless_paper());
+        m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
     }
 
     void PrintDialog::buildRangeGroup()
