@@ -97,6 +97,8 @@ namespace nanaprint
             buildPrinterTypeLabel();
             m_printerGroup["typeLabel"] << m_typeLabel;
 
+            buildPrinterType();
+            m_printerGroup["printerType"] << m_printerType;
     }
 
     void PrintDialog::buildPrinterLabel()
