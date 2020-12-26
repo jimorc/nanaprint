@@ -32,6 +32,7 @@ namespace nanaprint
              m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
              m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
              m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
+             m_locationLabel(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -79,7 +80,8 @@ namespace nanaprint
             "<weight=10>" +
             "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>" +
             "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=25>" +
-            "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=25>";
+            "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=25>" +
+            "<<weight=10><locationLabel weight=30%><><printerLocation weight=64%><> weight=25>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
@@ -99,6 +101,9 @@ namespace nanaprint
 
             buildPrinterType();
             m_printerGroup["printerType"] << m_printerType;
+
+            buildLocationLabel();
+            m_printerGroup["locationLabel"] << m_locationLabel;
     }
 
     void PrintDialog::buildPrinterLabel()
@@ -142,6 +147,12 @@ namespace nanaprint
     {
         // Caption is set when printer is selected.
         m_printerType.text_align(align::left, align_v::center);
+    }
+
+    void PrintDialog::buildLocationLabel()
+    {
+        m_locationLabel.caption(u8"Location:");
+        m_locationLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::printer_selected(size_t pos)
