@@ -52,6 +52,7 @@ namespace nanaprint
 
             void buildPaperGroup();
             void buildBorderlessCheckbox();
+            void buildMediaTypeLabel();
 
             void buildRangeGroup();
             void select_printer();
@@ -85,6 +86,7 @@ namespace nanaprint
 
             nana::group m_paperGroup;
             nana::checkbox m_borderlessCheckbox;
+            nana::label m_mediaTypeLabel;
 
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
