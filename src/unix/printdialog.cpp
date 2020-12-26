@@ -32,7 +32,7 @@ namespace nanaprint
              m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
              m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
              m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
-             m_locationLabel(m_printerGroup),
+             m_locationLabel(m_printerGroup), m_printerLocation(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -104,6 +104,9 @@ namespace nanaprint
 
             buildLocationLabel();
             m_printerGroup["locationLabel"] << m_locationLabel;
+
+            buildPrinterLocation();
+            m_printerGroup["printerLocation"] << m_printerLocation;
     }
 
     void PrintDialog::buildPrinterLabel()
@@ -155,6 +158,12 @@ namespace nanaprint
         m_locationLabel.text_align(align::left, align_v::center);
     }
 
+    void PrintDialog::buildPrinterLocation()
+    {
+        // Caption is set when printer is selected.
+        m_printerLocation.text_align(align::left, align_v::center);
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
@@ -167,6 +176,7 @@ namespace nanaprint
         auto status = printer->get_printer_state();
         m_printerStatus.caption(printer->get_printer_state());
         m_printerType.caption(printer->get_printer_make_and_model());
+        m_printerLocation.caption(printer->get_printer_location());
     }
 
     void PrintDialog::buildRangeGroup()
