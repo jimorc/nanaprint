@@ -50,12 +50,12 @@ namespace nanaprint
 
         m_tabbar.append(u8"Basic", m_basic);
         m_layout["tab"] << m_tabbar;
-        buildGeneralTab();
+        buildBasicTab();
         m_layout["tabframe"] << m_basic;
         m_layout.collocate();
     }
 
-    void PrintDialog::buildGeneralTab()
+    void PrintDialog::buildBasicTab()
     {
         m_basicLayout.div(string("vertical gap=10") +
             "<<printerGroup weight=48%><weight=10><paperGroup weight=48%> weight=42%>" +

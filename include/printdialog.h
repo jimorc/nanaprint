@@ -36,7 +36,7 @@ namespace nanaprint
             virtual ~PrintDialog() {}
             void run();
         private:
-            void buildGeneralTab();
+            void buildBasicTab();
 
             void buildPrinterGroup();
             void buildPrinterLabel();
