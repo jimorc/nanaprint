@@ -46,6 +46,7 @@ namespace nanaprint
             void buildPrinterType();
             void buildLocationLabel();
             void buildPrinterLocation();
+            void buildCommentLabel();
             void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
@@ -71,6 +72,7 @@ namespace nanaprint
             nana::label m_printerType;
             nana::label m_locationLabel;
             nana::label m_printerLocation;
+            nana::label m_commentLabel;
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
             nana::radio_group m_rangeRadioGroup;

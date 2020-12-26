@@ -33,6 +33,7 @@ namespace nanaprint
              m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
              m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
              m_locationLabel(m_printerGroup), m_printerLocation(m_printerGroup),
+             m_commentLabel(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -56,7 +57,7 @@ namespace nanaprint
     void PrintDialog::buildGeneralTab()
     {
         m_basicLayout.div(string("vertical gap=10") +
-            "<<printerGroup weight=48%><><paperGroup weight=48%> weight=30%>" +
+            "<<printerGroup weight=48%><><paperGroup weight=48%> weight=36%>" +
             "<weight=10>" +
             "<<range weight=48%><weight=10><copies weight=48%> weight=22%>");
 
@@ -81,7 +82,8 @@ namespace nanaprint
             "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>" +
             "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=25>" +
             "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=25>" +
-            "<<weight=10><locationLabel weight=30%><><printerLocation weight=64%><> weight=25>";
+            "<<weight=10><locationLabel weight=30%><><printerLocation weight=64%><> weight=25>" +
+            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=25>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
@@ -107,6 +109,9 @@ namespace nanaprint
 
             buildPrinterLocation();
             m_printerGroup["printerLocation"] << m_printerLocation;
+
+            buildCommentLabel();
+            m_printerGroup["commentLabel"] << m_commentLabel;
     }
 
     void PrintDialog::buildPrinterLabel()
@@ -162,6 +167,12 @@ namespace nanaprint
     {
         // Caption is set when printer is selected.
         m_printerLocation.text_align(align::left, align_v::center);
+    }
+
+    void PrintDialog::buildCommentLabel()
+    {
+        m_commentLabel.caption(u8"Comment:");
+        m_commentLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::printer_selected(size_t pos)
