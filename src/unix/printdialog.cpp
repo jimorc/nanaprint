@@ -31,7 +31,7 @@ namespace nanaprint
              m_tabbar(*this), m_printerGroup(m_basic),
              m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
              m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
-             m_typeLabel(m_printerGroup),
+             m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -136,6 +136,12 @@ namespace nanaprint
         m_typeLabel.text_align(align::left, align_v::center);
     }
 
+    void PrintDialog::buildPrinterType()
+    {
+        // Caption is set when printer is selected.
+        m_printerType.text_align(align::left, align_v::center);
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
@@ -147,6 +153,7 @@ namespace nanaprint
         auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
         auto status = printer->get_printer_state();
         m_printerStatus.caption(printer->get_printer_state());
+        m_printerType.caption(printer->get_printer_make_and_model());
     }
 
     void PrintDialog::buildRangeGroup()
