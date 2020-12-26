@@ -34,6 +34,7 @@ namespace nanaprint
              m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
              m_locationLabel(m_printerGroup), m_printerLocation(m_printerGroup),
              m_commentLabel(m_printerGroup), m_printerComment(m_printerGroup),
+             m_paperGroup(m_basic), m_borderlessCheckbox(m_paperGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -63,6 +64,9 @@ namespace nanaprint
 
         buildPrinterGroup();
         m_basicLayout["printerGroup"] << m_printerGroup;
+
+        buildPaperGroup();
+        m_basicLayout["paperGroup"] << m_paperGroup;
         
         buildRangeGroup();
         m_basicLayout["range"] << m_rangeGroup;
@@ -184,10 +188,30 @@ namespace nanaprint
         m_printerComment.text_align(align::left, align_v::center);
     }
 
+    void PrintDialog::buildPaperGroup()
+    {
+        m_paperGroup.caption(u8"Paper");
+
+        auto div = string("vertical gap=10") +
+            "<weight=10>" +
+            "<<weight=10><borderlessCheckbox><> weight=25>";
+        m_paperGroup.div(div.c_str());
+
+        buildBorderlessCheckbox();
+        m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
+    }
+
+    void PrintDialog::buildBorderlessCheckbox()
+    {
+        m_borderlessCheckbox.caption(u8"Borderless papers");
+        // checkbox is enabled/disabled when printer is selected.
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
         updatePrinterGroup();
+        updatePaperGroup();
     }
 
     void PrintDialog::updatePrinterGroup()
@@ -198,6 +222,12 @@ namespace nanaprint
         m_printerType.caption(printer->get_printer_make_and_model());
         m_printerLocation.caption(printer->get_printer_location());
         m_printerComment.caption(printer->get_printer_info());
+    }
+
+    void PrintDialog::updatePaperGroup()
+    {
+        auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
+        m_borderlessCheckbox.enabled(printer->getMediaSizes().contains_borderless_paper());
     }
 
     void PrintDialog::buildRangeGroup()

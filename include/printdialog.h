@@ -37,6 +37,7 @@ namespace nanaprint
             void run();
         private:
             void buildGeneralTab();
+
             void buildPrinterGroup();
             void buildPrinterLabel();
             void buildPrinterCombox();
@@ -48,10 +49,15 @@ namespace nanaprint
             void buildPrinterLocation();
             void buildCommentLabel();
             void buildPrinterComment();
+
+            void buildPaperGroup();
+            void buildBorderlessCheckbox();
+
             void buildRangeGroup();
             void select_printer();
             void printer_selected(size_t pos);
             void updatePrinterGroup();
+            void updatePaperGroup();
             void buildAllPagesCheckbox();
             void buildCurrentPageCheckbox();
             void buildSelectionCheckbox();
@@ -64,6 +70,7 @@ namespace nanaprint
             nana::place m_layout;
             nana::panel<false> m_basic;
             nana::place m_basicLayout;
+
             nana::group m_printerGroup;
             nana::label m_printerLabel;
             nana::combox m_printerCombox;
@@ -75,6 +82,10 @@ namespace nanaprint
             nana::label m_printerLocation;
             nana::label m_commentLabel;
             nana::label m_printerComment;
+
+            nana::group m_paperGroup;
+            nana::checkbox m_borderlessCheckbox;
+
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
             nana::radio_group m_rangeRadioGroup;
