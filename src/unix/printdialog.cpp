@@ -251,7 +251,14 @@ namespace nanaprint
 
     void PrintDialog::updateMediaTypeCombox(Printer& printer)
     {
-        m_mediaTypeCombox.clear();
+        // Delete media types in the media type combox individually. Using combox::clear()
+        // to clear the types does not clear the selected type.
+        auto numberOfOptions = m_mediaTypeCombox.the_number_of_options();
+        for (auto optionNumber = 0; optionNumber < numberOfOptions; ++optionNumber)
+        {
+            m_mediaTypeCombox.erase(numberOfOptions - optionNumber -1);
+        }
+
         auto mediaTypes = printer.getMediaTypes().getMediaTypes();
         auto hasMediaTypes = mediaTypes.size() > 0;
         m_mediaTypeCombox.enabled(hasMediaTypes);
