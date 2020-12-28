@@ -251,12 +251,17 @@ namespace nanaprint
 
     void PrintDialog::updateMediaTypeCombox(Printer& printer)
     {
-        auto mediaTypes = printer.getMediaTypes().getMediaTypes();
         m_mediaTypeCombox.clear();
-        m_mediaTypeCombox.enabled(mediaTypes.size() > 0);
-        for (auto mediaType: mediaTypes)
+        auto mediaTypes = printer.getMediaTypes().getMediaTypes();
+        auto hasMediaTypes = mediaTypes.size() > 0;
+        m_mediaTypeCombox.enabled(hasMediaTypes);
+        if (hasMediaTypes)
         {
-            m_mediaTypeCombox.push_back(mediaType->getType());
+            for (auto mediaType: mediaTypes)
+            {
+                m_mediaTypeCombox.push_back(mediaType->getType());
+            }
+
         }
     }
 
