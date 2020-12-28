@@ -35,7 +35,7 @@ namespace nanaprint
              m_locationLabel(m_printerGroup), m_printerLocation(m_printerGroup),
              m_commentLabel(m_printerGroup), m_printerComment(m_printerGroup),
              m_paperGroup(m_basic), m_borderlessCheckbox(m_paperGroup),
-             m_mediaTypeLabel(m_paperGroup),
+             m_mediaTypeLabel(m_paperGroup), m_mediaTypeCombox(m_paperGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -195,12 +195,15 @@ namespace nanaprint
 
         auto div = string("vertical gap=10") +
             "<weight=10>" +
-            "<<weight=10><mediaTypeLabel weight=35%><><mediaTypeCombox weight=64%><> weight=25>" +
+            "<<weight=10><mediaTypeLabel weight=35%><><mediaTypeCombox weight=60%><> weight=25>" +
             "<<weight=10><borderlessCheckbox><> weight=25>";
         m_paperGroup.div(div.c_str());
 
         buildMediaTypeLabel();
         m_paperGroup["mediaTypeLabel"] << m_mediaTypeLabel;
+
+        buildMediaTypeCombox();
+        m_paperGroup["mediaTypeCombox"] << m_mediaTypeCombox;
         
         buildBorderlessCheckbox();
         m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
@@ -216,6 +219,12 @@ namespace nanaprint
     {
         m_mediaTypeLabel.caption(u8"Media Type:");
         m_mediaTypeLabel.text_align(align::left, align_v::center);
+    }
+
+    void PrintDialog::buildMediaTypeCombox()
+    {
+        m_mediaTypeCombox.editable(false);
+        // Media types loaded when printer is selected.
     }
 
     void PrintDialog::printer_selected(size_t pos)
@@ -237,6 +246,18 @@ namespace nanaprint
     void PrintDialog::updatePaperGroup(Printer& printer)
     {
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
+        updateMediaTypeCombox(printer);
+    }
+
+    void PrintDialog::updateMediaTypeCombox(Printer& printer)
+    {
+        auto mediaTypes = printer.getMediaTypes().getMediaTypes();
+        m_mediaTypeCombox.clear();
+        m_mediaTypeCombox.enabled(mediaTypes.size() > 0);
+        for (auto mediaType: mediaTypes)
+        {
+            m_mediaTypeCombox.push_back(mediaType->getType());
+        }
     }
 
     void PrintDialog::buildRangeGroup()
