@@ -36,6 +36,7 @@ namespace nanaprint
              m_commentLabel(m_printerGroup), m_printerComment(m_printerGroup),
              m_paperGroup(m_basic), m_borderlessCheckbox(m_paperGroup),
              m_mediaTypeLabel(m_paperGroup), m_mediaTypeCombox(m_paperGroup),
+             m_printQualityLabel(m_paperGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -196,6 +197,7 @@ namespace nanaprint
         auto div = string("vertical gap=10") +
             "<weight=10>" +
             "<<weight=10><mediaTypeLabel weight=35%><><mediaTypeCombox weight=60%><> weight=25>" +
+            "<<weight=10><qualityLabel weight=35%><><qualityCombox weight=60%><> weight=25>" +
             "<<weight=10><borderlessCheckbox><> weight=25>";
         m_paperGroup.div(div.c_str());
 
@@ -207,6 +209,9 @@ namespace nanaprint
         
         buildBorderlessCheckbox();
         m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
+
+        buildPrintQualityLabel();
+        m_paperGroup["qualityLabel"] << m_printQualityLabel;
     }
 
     void PrintDialog::buildBorderlessCheckbox()
@@ -225,6 +230,12 @@ namespace nanaprint
     {
         m_mediaTypeCombox.editable(false);
         // Media types loaded when printer is selected.
+    }
+
+    void PrintDialog::buildPrintQualityLabel()
+    {
+        m_printQualityLabel.caption(u8"Print Quality:");
+        m_printQualityLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::printer_selected(size_t pos)
