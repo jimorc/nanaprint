@@ -37,7 +37,7 @@ namespace nanaprint
              m_paperGroup(m_basic), m_borderlessCheckbox(m_paperGroup),
              m_mediaTypeLabel(m_paperGroup), m_mediaTypeCombox(m_paperGroup),
              m_printQualityLabel(m_paperGroup), m_printQualityCombox(m_paperGroup),
-             m_paperSizeLabel(m_paperGroup), 
+             m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -222,6 +222,9 @@ namespace nanaprint
 
         buildPaperSizeLabel();
         m_paperGroup["sizeLabel"] << m_paperSizeLabel;
+
+        buildPaperSizeCombox();
+        m_paperGroup["sizeCombox"] << m_paperSizeCombox;
     }
 
     void PrintDialog::buildBorderlessCheckbox()
@@ -260,6 +263,12 @@ namespace nanaprint
         m_paperSizeLabel.text_align(align::left, align_v::center);
     }
 
+    void PrintDialog::buildPaperSizeCombox()
+    {
+        m_paperSizeCombox.editable(false);
+        // Paper sizes are loaded when printer is selected.
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
@@ -281,6 +290,7 @@ namespace nanaprint
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
         updateMediaTypeCombox(printer);
         updatePrintQualityCombox(printer);
+        updatePaperSizeCombox(printer);
     }
 
     void PrintDialog::updateMediaTypeCombox(Printer& printer)
@@ -340,6 +350,28 @@ namespace nanaprint
                 }
             }
             m_printQualityCombox.option(optionNumber);
+        }
+    }
+
+    void PrintDialog::updatePaperSizeCombox(Printer& printer)
+    {
+        // Delete paper sizes in paper sizes combox individually. Using combox::clear()
+        // to clear the sizes does not clear the selected size.
+        auto numberOfOptions = m_paperSizeCombox.the_number_of_options();
+        for (auto optionNumber = 0; optionNumber < numberOfOptions; ++optionNumber)
+        {
+            m_paperSizeCombox.erase(numberOfOptions - optionNumber - 1);
+        }
+        auto paperSizes = printer.getMediaSizes().getMediaSizes();
+        auto hasPaperSizes = paperSizes.size() > 0;
+        m_paperSizeCombox.enabled(hasPaperSizes);
+        if (hasPaperSizes)
+        {
+            for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
+            {
+                auto size = paperSizes[sizeNum]->getTranslatedName();
+                m_paperSizeCombox.push_back(size);
+            }
         }
     }
 
