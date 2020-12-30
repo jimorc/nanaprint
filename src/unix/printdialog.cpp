@@ -202,7 +202,8 @@ namespace nanaprint
             "<<weight=10><qualityLabel weight=35%><><qualityCombox weight=60%><> weight=25>" +
             "<weight=10>" +
             "<<weight=10><sizeLabel weight=35%><><sizeCombox weight=60%><> weight=25>" +
-            "<<weight=10><borderlessCheckbox><> weight=25>";
+            "<weight=5>" +
+            "<<weight=10><weight=35%><><borderlessCheckbox weight=60%><> weight=20>";
         m_paperGroup.div(div.c_str());
 
         buildMediaTypeLabel();
@@ -210,9 +211,6 @@ namespace nanaprint
 
         buildMediaTypeCombox();
         m_paperGroup["mediaTypeCombox"] << m_mediaTypeCombox;
-        
-        buildBorderlessCheckbox();
-        m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
 
         buildPrintQualityLabel();
         m_paperGroup["qualityLabel"] << m_printQualityLabel;
@@ -225,6 +223,9 @@ namespace nanaprint
 
         buildPaperSizeCombox();
         m_paperGroup["sizeCombox"] << m_paperSizeCombox;
+        
+        buildBorderlessCheckbox();
+        m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
     }
 
     void PrintDialog::buildBorderlessCheckbox()
@@ -365,12 +366,18 @@ namespace nanaprint
         auto paperSizes = printer.getMediaSizes().getMediaSizes();
         auto hasPaperSizes = paperSizes.size() > 0;
         m_paperSizeCombox.enabled(hasPaperSizes);
+        auto selectedPaperSize = m_dialogSettings.get_media_size();
         if (hasPaperSizes)
         {
+            size_t optionNumber = 0;
             for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
             {
                 auto size = paperSizes[sizeNum]->getTranslatedName();
                 m_paperSizeCombox.push_back(size);
+                if(size == selectedPaperSize.getTranslatedName())
+                {
+                    m_paperSizeCombox.option(sizeNum);
+                }
             }
         }
     }
