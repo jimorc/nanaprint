@@ -310,15 +310,24 @@ namespace nanaprint
         {
             m_printQualityCombox.erase(numberOfOptions - optionNumber - 1);
         }
-        
+
         auto qualities = printer.getPrintQualities().getPrintQualities();
         auto hasPrintQualities = qualities.size() > 0;
+        m_printQualityCombox.enabled(hasPrintQualities);
+        auto selectedPrintQuality = printer.getDefaultPrintQuality();
         if (hasPrintQualities)
         {
-            for (auto quality: qualities)
+            size_t optionNumber = 0;
+            for (auto qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
             {
-                m_printQualityCombox.push_back(quality->getPrintQuality());
+                auto quality = qualities[qualityNum]->getPrintQuality();
+                m_printQualityCombox.push_back(quality);
+                if (quality == selectedPrintQuality.getPrintQuality())
+                {
+                    optionNumber = qualityNum;
+                }
             }
+            m_printQualityCombox.option(optionNumber);
         }
     }
 
