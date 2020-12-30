@@ -83,6 +83,26 @@ TEST(PrintQualitiesTests, testAddPrintQuality)
     ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
 }
 
+// Test PrintQualities::getPrintQualities
+TEST(PrintQualitiesTests, testGetPrintQualities)
+{
+    PrintQualities printQualities;
+    printQualities.addPrintQuality(FAST);
+    printQualities.addPrintQuality(NORMAL);
+    printQualities.addPrintQuality(HIGH);
+
+    auto qualities = printQualities.getPrintQualities();
+    std::vector<std::string> qualitiesAsString;
+    for (auto quality: qualities)
+    {
+        qualitiesAsString.push_back(quality->getPrintQuality());
+    }
+    for (auto quality: qualitiesAsString)
+    {
+        ASSERT_TRUE(quality == u8"Fast" || quality == u8"Normal" || quality == u8"High");
+    }
+}
+
 // Test the insertion operator
 TEST(PrintQualitiesTests, testInsertionOperator)
 {

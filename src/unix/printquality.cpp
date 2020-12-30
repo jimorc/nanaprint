@@ -75,6 +75,16 @@ namespace nanaprint
         return false;
     }
 
+    std::vector<std::shared_ptr<PrintQuality>> PrintQualities::getPrintQualities() const
+    {
+        vector<shared_ptr<PrintQuality>> qualities;
+        for (auto quality: m_qualities)
+        {
+            qualities.push_back(quality);
+        }
+        return qualities;
+    }
+
     std::ostream& operator<<(std::ostream& os, const PrintQualities& qualities)
     {
         os << "Print Qualities:\n";

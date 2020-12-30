@@ -17,6 +17,7 @@
 #include <memory>
 #include <iostream>
 #include <set>
+#include <vector>
 
 namespace nanaprint
 {
@@ -47,6 +48,7 @@ namespace nanaprint
             ~PrintQualities() {}
             void addPrintQuality(int quality);
             bool containsPrintQuality(const std::string& quality) const;
+            std::vector<std::shared_ptr<PrintQuality>> getPrintQualities() const;
 
         private:
             std::set<std::shared_ptr<PrintQuality>> m_qualities;
