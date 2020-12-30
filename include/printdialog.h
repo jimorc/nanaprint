@@ -56,6 +56,7 @@ namespace nanaprint
             void buildMediaTypeCombox();
             void buildPrintQualityLabel();
             void buildPrintQualityCombox();
+            void buildPaperSizeLabel();
 
             void buildRangeGroup();
             void select_printer();
@@ -95,6 +96,7 @@ namespace nanaprint
             nana::combox m_mediaTypeCombox;
             nana::label m_printQualityLabel;
             nana::combox m_printQualityCombox;
+            nana::label m_paperSizeLabel;
 
             nana::group m_rangeGroup;
             nana::place m_rangeLayout;
