@@ -36,7 +36,7 @@ namespace nanaprint
              m_commentLabel(m_printerGroup), m_printerComment(m_printerGroup),
              m_paperGroup(m_basic), m_borderlessCheckbox(m_paperGroup),
              m_mediaTypeLabel(m_paperGroup), m_mediaTypeCombox(m_paperGroup),
-             m_printQualityLabel(m_paperGroup),
+             m_printQualityLabel(m_paperGroup), m_printQualityCombox(m_paperGroup),
              m_rangeGroup(m_basic),
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
@@ -197,6 +197,7 @@ namespace nanaprint
         auto div = string("vertical gap=10") +
             "<weight=10>" +
             "<<weight=10><mediaTypeLabel weight=35%><><mediaTypeCombox weight=60%><> weight=25>" +
+            "<weight=10>" +
             "<<weight=10><qualityLabel weight=35%><><qualityCombox weight=60%><> weight=25>" +
             "<<weight=10><borderlessCheckbox><> weight=25>";
         m_paperGroup.div(div.c_str());
@@ -212,6 +213,9 @@ namespace nanaprint
 
         buildPrintQualityLabel();
         m_paperGroup["qualityLabel"] << m_printQualityLabel;
+
+        buildPrintQualityCombox();
+        m_paperGroup["qualityCombox"] << m_printQualityCombox;
     }
 
     void PrintDialog::buildBorderlessCheckbox()
@@ -238,6 +242,12 @@ namespace nanaprint
         m_printQualityLabel.text_align(align::left, align_v::center);
     }
 
+    void PrintDialog::buildPrintQualityCombox()
+    {
+        m_printQualityCombox.editable(false);
+        // Print qualitys loaded when printer is selected
+    }
+
     void PrintDialog::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
@@ -258,6 +268,7 @@ namespace nanaprint
     {
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
         updateMediaTypeCombox(printer);
+        updatePrintQualityCombox(printer);
     }
 
     void PrintDialog::updateMediaTypeCombox(Printer& printer)
@@ -287,6 +298,27 @@ namespace nanaprint
                 }
             }
             m_mediaTypeCombox.option(optionNumber);
+        }
+    }
+
+    void PrintDialog::updatePrintQualityCombox(Printer& printer)
+    {
+        // Delete print qualities in print quality combox individually. Using combox::clear()
+        // to clear the qualities does not clear the selected quality.
+        auto numberOfOptions = m_printQualityCombox.the_number_of_options();
+        for (auto optionNumber = 0; optionNumber < numberOfOptions; ++optionNumber)
+        {
+            m_printQualityCombox.erase(numberOfOptions - optionNumber - 1);
+        }
+        
+        auto qualities = printer.getPrintQualities().getPrintQualities();
+        auto hasPrintQualities = qualities.size() > 0;
+        if (hasPrintQualities)
+        {
+            for (auto quality: qualities)
+            {
+                m_printQualityCombox.push_back(quality->getPrintQuality());
+            }
         }
     }
 
