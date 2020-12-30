@@ -262,13 +262,20 @@ namespace nanaprint
         auto mediaTypes = printer.getMediaTypes().getMediaTypes();
         auto hasMediaTypes = mediaTypes.size() > 0;
         m_mediaTypeCombox.enabled(hasMediaTypes);
+        auto selectedMediaType = printer.getDefaultMediaType();
+        size_t optionNumber = 0;
         if (hasMediaTypes)
         {
-            for (auto mediaType: mediaTypes)
+            for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
             {
+                auto mediaType = mediaTypes[mediaNum];
                 m_mediaTypeCombox.push_back(mediaType->getType());
+                if (mediaType->getType() == selectedMediaType.getType())
+                {
+                    optionNumber = mediaNum;
+                }
             }
-
+            m_mediaTypeCombox.option(optionNumber);
         }
     }
 
