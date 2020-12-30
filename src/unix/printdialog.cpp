@@ -284,7 +284,7 @@ namespace nanaprint
         auto mediaTypes = printer.getMediaTypes().getMediaTypes();
         auto hasMediaTypes = mediaTypes.size() > 0;
         m_mediaTypeCombox.enabled(hasMediaTypes);
-        auto selectedMediaType = printer.getDefaultMediaType();
+        auto selectedMediaType = m_dialogSettings.get_media_type();
         size_t optionNumber = 0;
         if (hasMediaTypes)
         {
@@ -314,7 +314,7 @@ namespace nanaprint
         auto qualities = printer.getPrintQualities().getPrintQualities();
         auto hasPrintQualities = qualities.size() > 0;
         m_printQualityCombox.enabled(hasPrintQualities);
-        auto selectedPrintQuality = printer.getDefaultPrintQuality();
+        auto selectedPrintQuality = m_dialogSettings.get_print_quality();
         if (hasPrintQualities)
         {
             size_t optionNumber = 0;
