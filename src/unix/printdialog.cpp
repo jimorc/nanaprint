@@ -61,7 +61,7 @@ namespace nanaprint
     void PrintDialog::buildBasicTab()
     {
         m_basicLayout.div(string("vertical gap=10") +
-            "<<printerGroup weight=48%><weight=10><paperGroup weight=48%> weight=42%>" +
+            "<<printerGroup weight=48%><weight=10><paperGroup weight=48%> weight=55%>" +
             "<weight=10>" +
             "<<range weight=48%><weight=10><copies weight=48%> weight=22%>");
 
@@ -87,10 +87,10 @@ namespace nanaprint
         auto div = string("vertical gap=10") +
             "<weight=10>" +
             "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>" +
-            "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=25>" +
+            "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=45>" +
             "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=25>" +
             "<<weight=10><locationLabel weight=30%><><printerLocation weight=64%><> weight=25>" +
-            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=45>";
+            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=80>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
