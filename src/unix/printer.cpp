@@ -770,6 +770,10 @@ namespace nanaprint
                 }
             }
             printerState = optMap["printer-state"];
+            if (printerState.empty())
+            {
+                printerState = u8"offline";
+            }
             string reasons = optMap["printer-state-reasons"];
             if (!reasons.empty() && reasons != "none")
             {
