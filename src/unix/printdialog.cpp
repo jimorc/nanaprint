@@ -343,12 +343,23 @@ namespace nanaprint
     void PrintDialog::updatePaperSizeCombox(Printer& printer)
     {
         m_paperSizeCombox.clear();
+
         auto paperSizes = printer.getMediaSizes().getMediaSizes();
         auto hasPaperSizes = paperSizes.size() > 0;
         m_paperSizeCombox.enabled(hasPaperSizes);
-        auto selectedPaperSize = m_dialogSettings.get_media_size();
         if (hasPaperSizes)
         {
+            bool borderless = m_borderlessCheckbox.checked();
+            for (size_t i = 0; i < paperSizes.size(); ++i)
+            {
+                auto mediaSize = paperSizes[i];
+                if (mediaSize->isBorderless() == borderless)
+                {
+                    m_paperSizeCombox.push_back(mediaSize->getTranslatedName());
+                }
+            }
+
+            auto selectedPaperSize = m_dialogSettings.get_media_size();
             size_t optionNumber = 0;
             for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
             {
