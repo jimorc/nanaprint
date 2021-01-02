@@ -296,14 +296,7 @@ namespace nanaprint
 
     void PrintDialog::updateMediaTypeCombox(Printer& printer)
     {
-        // Delete media types in the media type combox individually. Using combox::clear()
-        // to clear the types does not clear the selected type.
-        auto numberOfOptions = m_mediaTypeCombox.the_number_of_options();
-        for (auto optionNumber = 0; optionNumber < numberOfOptions; ++optionNumber)
-        {
-            m_mediaTypeCombox.erase(numberOfOptions - optionNumber -1);
-        }
-
+        m_mediaTypeCombox.clear();
         auto mediaTypes = printer.getMediaTypes().getMediaTypes();
         auto hasMediaTypes = mediaTypes.size() > 0;
         m_mediaTypeCombox.enabled(hasMediaTypes);
@@ -326,14 +319,7 @@ namespace nanaprint
 
     void PrintDialog::updatePrintQualityCombox(Printer& printer)
     {
-        // Delete print qualities in print quality combox individually. Using combox::clear()
-        // to clear the qualities does not clear the selected quality.
-        auto numberOfOptions = m_printQualityCombox.the_number_of_options();
-        for (auto optionNumber = 0; optionNumber < numberOfOptions; ++optionNumber)
-        {
-            m_printQualityCombox.erase(numberOfOptions - optionNumber - 1);
-        }
-
+        m_printQualityCombox.clear();
         auto qualities = printer.getPrintQualities().getPrintQualities();
         auto hasPrintQualities = qualities.size() > 0;
         m_printQualityCombox.enabled(hasPrintQualities);
@@ -356,13 +342,7 @@ namespace nanaprint
 
     void PrintDialog::updatePaperSizeCombox(Printer& printer)
     {
-        // Delete paper sizes in paper sizes combox individually. Using combox::clear()
-        // to clear the sizes does not clear the selected size.
-        auto numberOfOptions = m_paperSizeCombox.the_number_of_options();
-        for (auto optionNumber = 0; optionNumber < numberOfOptions; ++optionNumber)
-        {
-            m_paperSizeCombox.erase(numberOfOptions - optionNumber - 1);
-        }
+        m_paperSizeCombox.clear();
         auto paperSizes = printer.getMediaSizes().getMediaSizes();
         auto hasPaperSizes = paperSizes.size() > 0;
         m_paperSizeCombox.enabled(hasPaperSizes);
