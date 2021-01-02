@@ -42,7 +42,8 @@ namespace nanaprint
              m_rangeLayout(m_rangeGroup),
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
              m_selection(m_rangeGroup), m_pages(m_rangeGroup),
-             m_pagesBox(m_rangeGroup)
+             m_pagesBox(m_rangeGroup),
+             m_miscGroup(m_basic)
     {
         caption(u8"Print");
         m_layout.div(string("vert gap=10 margin=5") +
@@ -63,7 +64,7 @@ namespace nanaprint
         m_basicLayout.div(string("vertical gap=10") +
             "<<printerGroup weight=48%><weight=10><paperGroup weight=48%> weight=55%>" +
             "<weight=10>" +
-            "<<range weight=48%><weight=10><copies weight=48%> weight=22%>");
+            "<<range weight=48%><weight=10><misc weight=48%> weight=22%>");
 
         buildPrinterGroup();
         m_basicLayout["printerGroup"] << m_printerGroup;
@@ -73,6 +74,9 @@ namespace nanaprint
         
         buildRangeGroup();
         m_basicLayout["range"] << m_rangeGroup;
+
+        buildMiscGroup();
+        m_basicLayout["misc"] << m_miscGroup;
 
 
         m_basicLayout.collocate();
@@ -428,6 +432,11 @@ namespace nanaprint
         m_pagesBox.editable(true);
         m_pagesBox.multi_lines(false);
         m_pagesBox.indention(false);
+    }
+
+    void PrintDialog::buildMiscGroup()
+    {
+        m_miscGroup.caption(u8"Miscellaneous");
     }
 
     void PrintDialog::run()

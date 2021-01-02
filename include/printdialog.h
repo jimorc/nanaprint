@@ -73,6 +73,8 @@ namespace nanaprint
             void buildPagesCheckbox();
             void buildPagesBox();
 
+            void buildMiscGroup();
+
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
 
@@ -110,5 +112,7 @@ namespace nanaprint
             nana::checkbox m_pages;
             nana::textbox m_pagesBox;
             nana::tabbar<std::string> m_tabbar;
+
+            nana::group m_miscGroup;
     };
 }
