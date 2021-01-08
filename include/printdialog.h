@@ -74,6 +74,7 @@ namespace nanaprint
             void buildPagesBox();
 
             void buildMiscGroup();
+            void buildOrientationGroup();
 
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
@@ -114,5 +115,6 @@ namespace nanaprint
             nana::tabbar<std::string> m_tabbar;
 
             nana::group m_miscGroup;
+            nana::group m_orientationGroup;
     };
 }

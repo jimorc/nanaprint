@@ -437,6 +437,24 @@ namespace nanaprint
     void PrintDialog::buildMiscGroup()
     {
         m_miscGroup.caption(u8"Miscellaneous");
+        string layout(string("vertical gap=10") +
+            "<weight=10>" +
+            "<<weight=10><orientationGroup weight=95%><> weight=20%>");
+        m_miscGroup.div(layout.c_str());
+
+        buildOrientationGroup();
+        m_miscGroup["orientationGroup"] << m_orientationGroup;
+    }
+
+    void PrintDialog::buildOrientationGroup()
+    {
+        m_orientationGroup.create(m_miscGroup);
+        m_orientationGroup.caption(u8"Orientation");
+        string layout(string("vertical gap=10") +
+            "<weight=10>" +
+            "<<weight=10><portrait weight=48%><><landscape weight=48%><> weight=25>" +
+            "<weight=10>" +
+            "<<weight=10><portraitReverse weight=48%><><landscapeReverse weight=48%><> weight=25>");
     }
 
     void PrintDialog::run()
