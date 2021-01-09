@@ -395,12 +395,8 @@ namespace nanaprint
     void PrintDialog::updateOrientationGroup(Printer& printer)
     {
         disableOrientationCheckboxes();
+        uncheckOrientationCheckboxes();
         
-        m_portrait.check(false);
-        m_landscape.check(false);
-        m_revLandscape.check(false);
-        m_revPortrait.check(false);
-
         auto orientations = printer.getOrientations().getOrientations();
         for (auto orientation: orientations)
         {
@@ -466,6 +462,14 @@ namespace nanaprint
                 m_revLandscape.check(true);
                 break;
         }
+    }
+
+    void PrintDialog::uncheckOrientationCheckboxes()
+    {
+        m_portrait.check(false);
+        m_landscape.check(false);
+        m_revLandscape.check(false);
+        m_revPortrait.check(false);
     }
 
     void PrintDialog::buildRangeGroup()
