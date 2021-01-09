@@ -43,7 +43,7 @@ namespace nanaprint
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
              m_selection(m_rangeGroup), m_pages(m_rangeGroup),
              m_pagesBox(m_rangeGroup),
-             m_miscGroup(m_basic)
+             m_miscGroup(m_basic), m_copiesLabel(m_miscGroup)
              // Cannot create m_orientationGroup and its contents here because the group is
              // within m_miscGroup and this calls the group copy constructor. This is incorrect.
              // Linking m_orientationGroup to m_miscGroup is done below.
@@ -525,11 +525,15 @@ namespace nanaprint
         m_miscGroup.caption(u8"Miscellaneous");
         string layout(string("vertical gap=10") +
             "<weight=10>" +
-            "<<weight=10><orientationGroup weight=95%><> weight=20%>");
+            "<<weight=10><orientationGroup weight=95%><> weight=60%>" +
+            "<weight=10>" +
+            "<<weight=10><copies weight=35%><copiesBox weight=15%><weight=45%> weight=25>");
         m_miscGroup.div(layout.c_str());
 
         buildOrientationGroup();
         m_miscGroup["orientationGroup"] << m_orientationGroup;
+        buildCopiesLabel();
+        m_miscGroup["copies"] << m_copiesLabel;
     }
 
     void PrintDialog::buildOrientationGroup()
@@ -539,7 +543,8 @@ namespace nanaprint
             "<weight=10>" +
             "<<weight=10><portrait weight=48%><><landscape weight=48%><> weight=25>" +
             "<weight=10>" +
-            "<<weight=10><portraitReverse weight=48%><><landscapeReverse weight=48%><> weight=25>");
+            "<<weight=10><portraitReverse weight=48%><><landscapeReverse weight=48%><> weight=25>" +
+            "<weight=10>");
         m_orientationGroup.div(layout.c_str());
 
         buildPortraitCheckbox();
@@ -577,6 +582,12 @@ namespace nanaprint
     {
         m_revLandscape.caption(u8"Reverse Landscape");
         m_orientationRadioGroup.add(m_revLandscape);
+    }
+
+    void PrintDialog::buildCopiesLabel()
+    {
+        m_copiesLabel.caption(u8"Copies:");
+        m_copiesLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::run()
