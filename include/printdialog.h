@@ -67,6 +67,10 @@ namespace nanaprint
             void updateMediaTypeCombox(Printer& printer);
             void updatePrintQualityCombox(Printer& printer);
             void updatePaperSizeCombox(Printer& printer);
+            void updateMiscGroup(Printer& printer);
+            void updateOrientationGroup(Printer& printer);
+            void enableOrientationCheckbox(const PageOrientation& orientation);
+            void selectOrientationCheckbox(const PageOrientation& orientation);
             void buildAllPagesCheckbox();
             void buildCurrentPageCheckbox();
             void buildSelectionCheckbox();

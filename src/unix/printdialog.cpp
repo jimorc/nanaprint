@@ -289,6 +289,7 @@ namespace nanaprint
         auto printer = m_settings.getPrinters()[m_dialogSettings.get_printer()];
         updatePrinterGroup(*printer);
         updatePaperGroup(*printer);
+        updateMiscGroup(*printer);
     }
 
     void PrintDialog::updatePrinterGroup(Printer& printer)
@@ -383,6 +384,82 @@ namespace nanaprint
                     m_paperSizeCombox.option(sizeNum);
                 }
             }
+        }
+    }
+
+    void PrintDialog::updateMiscGroup(Printer& printer)
+    {
+        updateOrientationGroup(printer);
+    }
+
+    void PrintDialog::updateOrientationGroup(Printer& printer)
+    {
+        m_portrait.enabled(false);
+        m_landscape.enabled(false);
+        m_revLandscape.enabled(false);
+        m_revPortrait.enabled(false);
+
+        m_portrait.check(false);
+        m_landscape.check(false);
+        m_revLandscape.check(false);
+        m_revPortrait.check(false);
+
+        auto orientations = printer.getOrientations().getOrientations();
+        for (auto orientation: orientations)
+        {
+            enableOrientationCheckbox(*orientation);
+        }
+        auto orientation = m_settings.get_page_orientation();
+        if(orientation)
+        {
+            selectOrientationCheckbox(*orientation);
+        }
+        else
+        {
+            selectOrientationCheckbox(PageOrientation(PORTRAIT));
+        }
+        
+    }
+
+    void PrintDialog::enableOrientationCheckbox(const PageOrientation& orientation)
+    {
+        auto numOrientation = orientation.getOrientationNumber();
+        switch (numOrientation)
+        {
+            case PORTRAIT:
+                m_portrait.enabled(true);
+                break;
+            case LANDSCAPE:
+                m_landscape.enabled(true);
+                break;
+            case REVERSE_LANDSCAPE:
+                m_revLandscape.enabled(true);
+                break;
+            case REVERSE_PORTRAIT:
+                m_revPortrait.enabled(true);
+                break;
+        }
+    }
+
+    // Argument must be one of Portrait, Landscape, Reverse Portrait, or Reverse Landscape.
+    // Check this before calling this method.
+    void PrintDialog::selectOrientationCheckbox(const PageOrientation& orientation)
+    {
+        auto numOrientation = orientation.getOrientationNumber();
+        switch (numOrientation)
+        {
+            case PORTRAIT:
+                m_portrait.check(true);
+                break;
+            case LANDSCAPE:
+                m_landscape.check(true);
+                break;
+            case REVERSE_PORTRAIT:
+                m_revPortrait.check(true);
+                break;
+            case REVERSE_LANDSCAPE:
+                m_revLandscape.check(true);
+                break;
         }
     }
 
@@ -481,28 +558,24 @@ namespace nanaprint
     void PrintDialog::buildPortraitCheckbox()
     {
         m_portrait.caption(u8"Portrait");
-        m_portrait.enabled(true);
         m_orientationRadioGroup.add(m_portrait);
     }
 
     void PrintDialog::buildLandscapeCheckbox()
     {
         m_landscape.caption(u8"Landscape");
-        m_landscape.enabled(true);
-        m_orientationRadioGroup.add(m_landscape);
+       m_orientationRadioGroup.add(m_landscape);
     }
 
     void PrintDialog::buildReversePortraitCheckbox()
     {
         m_revPortrait.caption(u8"Reverse Portrait");
-        m_revPortrait.enabled(true);
-        m_orientationRadioGroup.add(m_revPortrait);
+       m_orientationRadioGroup.add(m_revPortrait);
     }
 
     void PrintDialog::buildReverseLandscapeCheckbox()
     {
         m_revLandscape.caption(u8"Reverse Landscape");
-        m_revLandscape.enabled(true);
         m_orientationRadioGroup.add(m_revLandscape);
     }
 
