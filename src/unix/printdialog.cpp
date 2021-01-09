@@ -44,6 +44,9 @@ namespace nanaprint
              m_selection(m_rangeGroup), m_pages(m_rangeGroup),
              m_pagesBox(m_rangeGroup),
              m_miscGroup(m_basic)
+             // Cannot create m_orientationGroup and its contents here because the group is
+             // within m_miscGroup and this calls the group copy constructor. This is incorrect.
+             // Linking m_orientationGroup to m_miscGroup is done below.
     {
         caption(u8"Print");
         m_layout.div(string("vert gap=10 margin=5") +
@@ -51,6 +54,9 @@ namespace nanaprint
             "<<tabframe> weight=88%>" +
             "<weight=5>" +
             "<gap=10 <weight=50%><cancel><weight=10><print> weight=10%>");
+
+        m_orientationGroup.create(m_miscGroup);
+        m_portrait.create(m_orientationGroup);
 
         m_tabbar.append(u8"Basic", m_basic);
         m_layout["tab"] << m_tabbar;
@@ -448,13 +454,23 @@ namespace nanaprint
 
     void PrintDialog::buildOrientationGroup()
     {
-        m_orientationGroup.create(m_miscGroup);
         m_orientationGroup.caption(u8"Orientation");
         string layout(string("vertical gap=10") +
             "<weight=10>" +
             "<<weight=10><portrait weight=48%><><landscape weight=48%><> weight=25>" +
             "<weight=10>" +
             "<<weight=10><portraitReverse weight=48%><><landscapeReverse weight=48%><> weight=25>");
+        m_orientationGroup.div(layout.c_str());
+
+        buildPortraitCheckbox();
+        m_orientationGroup["portrait"] << m_portrait;
+    }
+
+    void PrintDialog::buildPortraitCheckbox()
+    {
+        m_portrait.caption(u8"Portrait");
+        m_portrait.enabled(true);
+        m_orientationRadioGroup.add(m_portrait);
     }
 
     void PrintDialog::run()
