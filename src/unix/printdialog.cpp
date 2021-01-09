@@ -394,11 +394,8 @@ namespace nanaprint
 
     void PrintDialog::updateOrientationGroup(Printer& printer)
     {
-        m_portrait.enabled(false);
-        m_landscape.enabled(false);
-        m_revLandscape.enabled(false);
-        m_revPortrait.enabled(false);
-
+        disableOrientationCheckboxes();
+        
         m_portrait.check(false);
         m_landscape.check(false);
         m_revLandscape.check(false);
@@ -439,6 +436,14 @@ namespace nanaprint
                 m_revPortrait.enabled(true);
                 break;
         }
+    }
+
+    void PrintDialog::disableOrientationCheckboxes()
+    {
+        m_portrait.enabled(false);
+        m_landscape.enabled(false);
+        m_revLandscape.enabled(false);
+        m_revPortrait.enabled(false);
     }
 
     // Argument must be one of Portrait, Landscape, Reverse Portrait, or Reverse Landscape.
