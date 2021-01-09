@@ -77,6 +77,7 @@ namespace nanaprint
             void buildOrientationGroup();
             void buildPortraitCheckbox();
             void buildLandscapeCheckbox();
+            void buildReversePortraitCheckbox();
 
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
@@ -121,5 +122,6 @@ namespace nanaprint
             nana::radio_group m_orientationRadioGroup;
             nana::checkbox m_portrait;
             nana::checkbox m_landscape;
+            nana::checkbox m_revPortrait;
     };
 }

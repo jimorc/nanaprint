@@ -58,6 +58,7 @@ namespace nanaprint
         m_orientationGroup.create(m_miscGroup);
         m_portrait.create(m_orientationGroup);
         m_landscape.create(m_orientationGroup);
+        m_revPortrait.create(m_orientationGroup);
 
         m_tabbar.append(u8"Basic", m_basic);
         m_layout["tab"] << m_tabbar;
@@ -468,6 +469,9 @@ namespace nanaprint
 
         buildLandscapeCheckbox();
         m_orientationGroup["landscape"] << m_landscape;
+
+        buildReversePortraitCheckbox();
+        m_orientationGroup["portraitReverse"] << m_revPortrait;
     }
 
     void PrintDialog::buildPortraitCheckbox()
@@ -482,6 +486,13 @@ namespace nanaprint
         m_landscape.caption(u8"Landscape");
         m_landscape.enabled(true);
         m_orientationRadioGroup.add(m_landscape);
+    }
+
+    void PrintDialog::buildReversePortraitCheckbox()
+    {
+        m_revPortrait.caption(u8"Reverse Portrait");
+        m_revPortrait.enabled(true);
+        m_orientationRadioGroup.add(m_revPortrait);
     }
 
     void PrintDialog::run()
