@@ -564,7 +564,7 @@ namespace nanaprint
             "<<weight=10><orientationGroup weight=95%><> weight=60%>" +
             "<weight=10>" +
             "<<weight=10><copies weight=35%><copiesBox weight=15%><weight=45%> weight=25>" +
-            "<weight=10>" +
+            "<weight=2>" +
             "<<weight=10><weight=35%><collate weight=60%> weight=25>");
         m_miscGroup.div(layout.c_str());
 
@@ -574,6 +574,8 @@ namespace nanaprint
         m_miscGroup["copies"] << m_copiesLabel;
         buildCopiesSpinbox();
         m_miscGroup["copiesBox"] << m_copiesSpinbox;
+        buildCollateCheckbox();
+        m_miscGroup["collate"] << m_collateCheckbox;
     }
 
     void PrintDialog::buildOrientationGroup()
@@ -651,6 +653,13 @@ namespace nanaprint
             ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
             m_copiesSpinbox.tooltip(ss.str());
         });
+    }
+
+    void PrintDialog::buildCollateCheckbox()
+    {
+        m_collateCheckbox.create(m_miscGroup);
+        m_collateCheckbox.caption(u8"Collate");
+        m_collateCheckbox.enabled(false);
     }
 
     void PrintDialog::validateCopies()

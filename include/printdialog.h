@@ -92,6 +92,7 @@ namespace nanaprint
             void buildReverseLandscapeCheckbox();
             void buildCopiesLabel();
             void buildCopiesSpinbox();
+            void buildCollateCheckbox();
 
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
@@ -146,5 +147,6 @@ namespace nanaprint
             nana::checkbox m_revLandscape;
             nana::label m_copiesLabel;
             nana::spinbox m_copiesSpinbox;
+            nana::checkbox m_collateCheckbox;
     };
 }
