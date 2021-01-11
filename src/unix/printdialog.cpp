@@ -34,26 +34,7 @@ namespace nanaprint
         : form(parent, {750, 500}, appear::decorate<>()), m_settings(settings),
              m_dialogSettings(m_settings), m_layout(*this), m_basic(*this), 
              m_basicLayout(m_basic),
-             m_tabbar(*this), m_printerGroup(m_basic),
-             m_printerLabel(m_printerGroup), m_printerCombox(m_printerGroup),
-             m_statusLabel(m_printerGroup), m_printerStatus(m_printerGroup),
-             m_typeLabel(m_printerGroup), m_printerType(m_printerGroup),
-             m_locationLabel(m_printerGroup), m_printerLocation(m_printerGroup),
-             m_commentLabel(m_printerGroup), m_printerComment(m_printerGroup),
-             m_paperGroup(m_basic), m_borderlessCheckbox(m_paperGroup),
-             m_mediaTypeLabel(m_paperGroup), m_mediaTypeCombox(m_paperGroup),
-             m_printQualityLabel(m_paperGroup), m_printQualityCombox(m_paperGroup),
-             m_paperSizeLabel(m_paperGroup), m_paperSizeCombox(m_paperGroup),
-             m_rangeGroup(m_basic),
-             m_rangeLayout(m_rangeGroup),
-             m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
-             m_selection(m_rangeGroup), m_pages(m_rangeGroup),
-             m_pagesBox(m_rangeGroup),
-             m_miscGroup(m_basic), m_copiesLabel(m_miscGroup),
-             m_copiesSpinbox(m_miscGroup)
-             // Cannot create m_orientationGroup and its contents here because the group is
-             // within m_miscGroup and this calls the group copy constructor. This is incorrect.
-             // Linking m_orientationGroup to m_miscGroup is done below.
+             m_tabbar(*this)
     {
         caption(u8"Print");
         m_layout.div(string("vert gap=10 margin=5") +
@@ -62,11 +43,6 @@ namespace nanaprint
             "<weight=5>" +
             "<gap=10 <weight=50%><cancel><weight=10><print> weight=10%>");
 
-        m_orientationGroup.create(m_miscGroup);
-        m_portrait.create(m_orientationGroup);
-        m_landscape.create(m_orientationGroup);
-        m_revPortrait.create(m_orientationGroup);
-        m_revLandscape.create(m_orientationGroup);
 
         m_tabbar.append(u8"Basic", m_basic);
         m_layout["tab"] << m_tabbar;
@@ -77,31 +53,47 @@ namespace nanaprint
 
     void PrintDialog::buildBasicTab()
     {
-        m_basicLayout.div(string("vertical gap=10") +
-            "<<printerGroup weight=48%><weight=10><paperGroup weight=48%> weight=55%>" +
-            "<weight=10>" +
-            "<<range weight=48%><weight=10><misc weight=48%> weight=22%>");
+        m_basicLayout.div(string("horizontal gap=10") +
+            "<weight=10><column1 weight=48%><><column2 weight=48%><weight=10>");
 
-        buildPrinterGroup();
-        m_basicLayout["printerGroup"] << m_printerGroup;
-
-        buildPaperGroup();
-        m_basicLayout["paperGroup"] << m_paperGroup;
-        
-        buildRangeGroup();
-        m_basicLayout["range"] << m_rangeGroup;
-
-        buildMiscGroup();
-        m_basicLayout["misc"] << m_miscGroup;
-
-
+        buildBasicColumn1();
+        m_basicLayout["column1"] << m_basicColumn1;
+        buildBasicColumn2();
+        m_basicLayout["column2"] << m_basicColumn2;
         m_basicLayout.collocate();
 
         m_printerCombox.option(m_dialogSettings.get_printer());
     }
 
+    void PrintDialog::buildBasicColumn1()
+    {
+        m_basicColumn1.create(m_basic);
+        m_column1Layout.bind(m_basicColumn1);
+        m_column1Layout.div(string("vertical gap=10") +
+            "<printerGroup weight=65%><weight=10><range weight=30%>");
+
+        buildPrinterGroup();
+        m_column1Layout["printerGroup"] << m_printerGroup;
+        buildRangeGroup();
+        m_column1Layout["range"] << m_rangeGroup;
+    }
+
+    void PrintDialog::buildBasicColumn2()
+    {
+        m_basicColumn2.create(m_basic);
+        m_column2Layout.bind(m_basicColumn2);
+        m_column2Layout.div(string("vertical gap=10") +
+            "<paperGroup weight=38%><weight=10><misc weight=57%>");
+
+        buildPaperGroup();
+        m_column2Layout["paperGroup"] << m_paperGroup;
+        buildMiscGroup();
+        m_column2Layout["misc"] << m_miscGroup;
+    }
+
     void PrintDialog::buildPrinterGroup()
     {
+        m_printerGroup.create(m_basicColumn1);
         m_printerGroup.caption(u8"Printer");
 
         auto div = string("vertical gap=10") +
@@ -146,11 +138,13 @@ namespace nanaprint
 
     void PrintDialog::buildPrinterLabel()
     {
+        m_printerLabel.create(m_printerGroup);
         m_printerLabel.caption(u8"Printer:");
     }
 
     void PrintDialog::buildPrinterCombox()
     {
+        m_printerCombox.create(m_printerGroup);
         m_printerCombox.editable(false);
         auto printers = m_settings.getPrinters();
         for (auto& printer: printers)
@@ -165,6 +159,7 @@ namespace nanaprint
 
     void PrintDialog::buildStatusLabel()
     {
+        m_statusLabel.create(m_printerGroup);
         m_statusLabel.caption(u8"Status:");
         m_statusLabel.text_align(align::left, align_v::center);
     }
@@ -172,11 +167,13 @@ namespace nanaprint
     void PrintDialog::buildPrinterStatus()
     {
         // Caption is set when printer is selected.
+        m_printerStatus.create(m_printerGroup);
         m_printerStatus.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildPrinterTypeLabel()
     {
+        m_typeLabel.create(m_printerGroup);
         m_typeLabel.caption("Type:");
         m_typeLabel.text_align(align::left, align_v::center);
     }
@@ -184,11 +181,13 @@ namespace nanaprint
     void PrintDialog::buildPrinterType()
     {
         // Caption is set when printer is selected.
+        m_printerType.create(m_printerGroup);
         m_printerType.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildLocationLabel()
     {
+        m_locationLabel.create(m_printerGroup);
         m_locationLabel.caption(u8"Location:");
         m_locationLabel.text_align(align::left, align_v::center);
     }
@@ -196,11 +195,13 @@ namespace nanaprint
     void PrintDialog::buildPrinterLocation()
     {
         // Caption is set when printer is selected.
+        m_printerLocation.create(m_printerGroup);
         m_printerLocation.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildCommentLabel()
     {
+        m_commentLabel.create(m_printerGroup);
         m_commentLabel.caption(u8"Comment:");
         m_commentLabel.text_align(align::left, align_v::center);
     }
@@ -208,11 +209,13 @@ namespace nanaprint
     void PrintDialog::buildPrinterComment()
     {
         // Caption is set when printer is selected.
+        m_printerComment.create(m_printerGroup);
         m_printerComment.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildPaperGroup()
     {
+        m_paperGroup.create(m_basicColumn2);
         m_paperGroup.caption(u8"Paper");
 
         auto div = string("vertical gap=10") +
@@ -250,42 +253,49 @@ namespace nanaprint
 
     void PrintDialog::buildBorderlessCheckbox()
     {
+        m_borderlessCheckbox.create(m_paperGroup);
         m_borderlessCheckbox.caption(u8"Borderless papers");
         // checkbox is enabled/disabled when printer is selected.
     }
 
     void PrintDialog::buildMediaTypeLabel()
     {
+        m_mediaTypeLabel.create(m_paperGroup);
         m_mediaTypeLabel.caption(u8"Media Type:");
         m_mediaTypeLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildMediaTypeCombox()
     {
+        m_mediaTypeCombox.create(m_paperGroup);
         m_mediaTypeCombox.editable(false);
         // Media types loaded when printer is selected.
     }
 
     void PrintDialog::buildPrintQualityLabel()
     {
+        m_printQualityLabel.create(m_paperGroup);
         m_printQualityLabel.caption(u8"Print Quality:");
         m_printQualityLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildPrintQualityCombox()
     {
+        m_printQualityCombox.create(m_paperGroup);
         m_printQualityCombox.editable(false);
         // Print qualitys loaded when printer is selected
     }
 
     void PrintDialog::buildPaperSizeLabel()
     {
+        m_paperSizeLabel.create(m_paperGroup);
         m_paperSizeLabel.caption(u8"Paper Size:");
         m_paperSizeLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildPaperSizeCombox()
     {
+        m_paperSizeCombox.create(m_paperGroup);
         m_paperSizeCombox.editable(false);
         // Paper sizes are loaded when printer is selected.
     }
@@ -481,6 +491,9 @@ namespace nanaprint
 
     void PrintDialog::buildRangeGroup()
     {
+        m_rangeGroup.create(m_basicColumn1);
+        m_rangeLayout.bind(m_rangeGroup);
+
         m_rangeGroup.caption(u8"Range");
         string layout(string("vertical gap=10") +
             "<weight=25>" +
@@ -503,6 +516,7 @@ namespace nanaprint
 
     void PrintDialog::buildAllPagesCheckbox()
     {
+        m_allPages.create(m_rangeGroup);
         m_allPages.caption(u8"All Pages");
         m_allPages.enabled(true);
         m_rangeRadioGroup.add(m_allPages);
@@ -510,6 +524,7 @@ namespace nanaprint
 
     void PrintDialog::buildCurrentPageCheckbox()
     {
+        m_currentPage.create(m_rangeGroup);
         m_currentPage.caption(u8"Current Page");
         m_currentPage.enabled(false);
         m_rangeRadioGroup.add(m_currentPage);
@@ -517,6 +532,7 @@ namespace nanaprint
 
     void PrintDialog::buildSelectionCheckbox()
     {
+        m_selection.create(m_rangeGroup);
         m_selection.caption(u8"Selection");
         m_selection.enabled(false);
         m_rangeRadioGroup.add(m_selection);
@@ -524,6 +540,7 @@ namespace nanaprint
 
     void PrintDialog::buildPagesCheckbox()
     {
+        m_pages.create(m_rangeGroup);
         m_pages.caption(u8"Pages:");
         m_pages.enabled(true);
         m_rangeRadioGroup.add(m_pages);
@@ -531,6 +548,7 @@ namespace nanaprint
 
     void PrintDialog::buildPagesBox()
     {
+        m_pagesBox.create(m_rangeGroup);
         m_pagesBox.editable(true);
         m_pagesBox.multi_lines(false);
         m_pagesBox.indention(false);
@@ -538,6 +556,8 @@ namespace nanaprint
 
     void PrintDialog::buildMiscGroup()
     {
+        m_miscGroup.create(m_basicColumn2);
+
         m_miscGroup.caption(u8"Miscellaneous");
         string layout(string("vertical gap=10") +
             "<weight=10>" +
@@ -558,6 +578,7 @@ namespace nanaprint
 
     void PrintDialog::buildOrientationGroup()
     {
+        m_orientationGroup.create(m_miscGroup);
         m_orientationGroup.caption(u8"Orientation");
         string layout(string("vertical gap=10") +
             "<weight=10>" +
@@ -582,38 +603,42 @@ namespace nanaprint
 
     void PrintDialog::buildPortraitCheckbox()
     {
+        m_portrait.create(m_orientationGroup);
         m_portrait.caption(u8"Portrait");
         m_orientationRadioGroup.add(m_portrait);
     }
 
     void PrintDialog::buildLandscapeCheckbox()
     {
+        m_landscape.create(m_orientationGroup);
         m_landscape.caption(u8"Landscape");
-       m_orientationRadioGroup.add(m_landscape);
+        m_orientationRadioGroup.add(m_landscape);
     }
 
     void PrintDialog::buildReversePortraitCheckbox()
     {
+        m_revPortrait.create(m_orientationGroup);
         m_revPortrait.caption(u8"Reverse Portrait");
-       m_orientationRadioGroup.add(m_revPortrait);
+        m_orientationRadioGroup.add(m_revPortrait);
     }
 
     void PrintDialog::buildReverseLandscapeCheckbox()
     {
+        m_revLandscape.create(m_orientationGroup);
         m_revLandscape.caption(u8"Reverse Landscape");
         m_orientationRadioGroup.add(m_revLandscape);
     }
 
     void PrintDialog::buildCopiesLabel()
     {
+        m_copiesLabel.create(m_miscGroup);
         m_copiesLabel.caption(u8"Copies:");
         m_copiesLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::buildCopiesSpinbox()
     {
-        using namespace std::this_thread;
-        using namespace std::chrono_literals;
+        m_copiesSpinbox.create(m_miscGroup);
         m_copiesSpinbox.range(MINIMUMCOPIES, MAXIMUMCOPIES, 1);
         m_copiesSpinbox.editable(true);
         stringstream ss;
@@ -625,7 +650,6 @@ namespace nanaprint
             stringstream ss;
             ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
             m_copiesSpinbox.tooltip(ss.str());
-//            sleep_for(5s);
         });
     }
 

@@ -38,6 +38,8 @@ namespace nanaprint
             void run();
         private:
             void buildBasicTab();
+            void buildBasicColumn1();
+            void buildBasicColumn2();
 
             void buildPrinterGroup();
             void buildPrinterLabel();
@@ -97,6 +99,12 @@ namespace nanaprint
             nana::place m_layout;
             nana::panel<false> m_basic;
             nana::place m_basicLayout;
+
+            nana::panel<false> m_basicColumn1;
+            nana::place m_column1Layout;
+
+            nana::panel<false> m_basicColumn2;
+            nana::place m_column2Layout;
 
             nana::group m_printerGroup;
             nana::label m_printerLabel;
