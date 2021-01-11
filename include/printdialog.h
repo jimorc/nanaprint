@@ -22,6 +22,7 @@
 #include <nana/gui/place.hpp>
 #include <nana/gui/widgets/panel.hpp>
 #include <nana/gui/widgets/textbox.hpp>
+#include <nana/gui/widgets/spinbox.hpp>
 #include "nanaprint.h"
 #include "printsettings.h"
 #include "printdialogsettings.h"
@@ -73,6 +74,8 @@ namespace nanaprint
             void selectOrientationCheckbox(const PageOrientation& orientation);
             void disableOrientationCheckboxes();
             void uncheckOrientationCheckboxes();
+            void validateCopies();
+
             void buildAllPagesCheckbox();
             void buildCurrentPageCheckbox();
             void buildSelectionCheckbox();
@@ -86,6 +89,7 @@ namespace nanaprint
             void buildReversePortraitCheckbox();
             void buildReverseLandscapeCheckbox();
             void buildCopiesLabel();
+            void buildCopiesSpinbox();
 
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
@@ -133,5 +137,6 @@ namespace nanaprint
             nana::checkbox m_revPortrait;
             nana::checkbox m_revLandscape;
             nana::label m_copiesLabel;
+            nana::spinbox m_copiesSpinbox;
     };
 }

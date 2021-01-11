@@ -11,7 +11,10 @@
  *  @file unix/prkintdialog.cpp
  */
 
+#include <chrono>
+#include <thread>
 #include <string>
+#include <sstream>
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/widgets/combox.hpp>
@@ -24,6 +27,9 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
+    constexpr int MINIMUMCOPIES = 1;
+    constexpr int MAXIMUMCOPIES = 100;
+
     PrintDialog::PrintDialog(form& parent, PrintSettings& settings)
         : form(parent, {750, 500}, appear::decorate<>()), m_settings(settings),
              m_dialogSettings(m_settings), m_layout(*this), m_basic(*this), 
@@ -43,7 +49,8 @@ namespace nanaprint
              m_allPages(m_rangeGroup), m_currentPage(m_rangeGroup),
              m_selection(m_rangeGroup), m_pages(m_rangeGroup),
              m_pagesBox(m_rangeGroup),
-             m_miscGroup(m_basic), m_copiesLabel(m_miscGroup)
+             m_miscGroup(m_basic), m_copiesLabel(m_miscGroup),
+             m_copiesSpinbox(m_miscGroup)
              // Cannot create m_orientationGroup and its contents here because the group is
              // within m_miscGroup and this calls the group copy constructor. This is incorrect.
              // Linking m_orientationGroup to m_miscGroup is done below.
@@ -396,7 +403,7 @@ namespace nanaprint
     {
         disableOrientationCheckboxes();
         uncheckOrientationCheckboxes();
-        
+
         auto orientations = printer.getOrientations().getOrientations();
         for (auto orientation: orientations)
         {
@@ -536,13 +543,17 @@ namespace nanaprint
             "<weight=10>" +
             "<<weight=10><orientationGroup weight=95%><> weight=60%>" +
             "<weight=10>" +
-            "<<weight=10><copies weight=35%><copiesBox weight=15%><weight=45%> weight=25>");
+            "<<weight=10><copies weight=35%><copiesBox weight=15%><weight=45%> weight=25>" +
+            "<weight=10>" +
+            "<<weight=10><weight=35%><collate weight=60%> weight=25>");
         m_miscGroup.div(layout.c_str());
 
         buildOrientationGroup();
         m_miscGroup["orientationGroup"] << m_orientationGroup;
         buildCopiesLabel();
         m_miscGroup["copies"] << m_copiesLabel;
+        buildCopiesSpinbox();
+        m_miscGroup["copiesBox"] << m_copiesSpinbox;
     }
 
     void PrintDialog::buildOrientationGroup()
@@ -597,6 +608,37 @@ namespace nanaprint
     {
         m_copiesLabel.caption(u8"Copies:");
         m_copiesLabel.text_align(align::left, align_v::center);
+    }
+
+    void PrintDialog::buildCopiesSpinbox()
+    {
+        using namespace std::this_thread;
+        using namespace std::chrono_literals;
+        m_copiesSpinbox.range(MINIMUMCOPIES, MAXIMUMCOPIES, 1);
+        m_copiesSpinbox.editable(true);
+        stringstream ss;
+        ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
+        m_copiesSpinbox.tooltip(ss.str());
+        m_copiesSpinbox.events().key_release( [&](const arg_keyboard& arg) {
+            validateCopies(); });
+        m_copiesSpinbox.events().mouse_enter( [&]() {
+            stringstream ss;
+            ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
+            m_copiesSpinbox.tooltip(ss.str());
+//            sleep_for(5s);
+        });
+    }
+
+    void PrintDialog::validateCopies()
+    {
+        // This code is needed because of a bug in nana::spinbox. If a value is entered in
+        // the spinbox's edit box that is larger than the maximum value, or smaller than
+        // the minimum value, the spinbox will not accept the value, but the edit box still
+        // displays it. This code changes the displayed value back to the previous value.
+        m_copiesSpinbox.value(m_copiesSpinbox.value());
+        // the displayed value is not updated until the spinbox loses focus.
+        m_copiesLabel.focus();
+        m_copiesSpinbox.focus();
     }
 
     void PrintDialog::run()
