@@ -5,7 +5,7 @@
  *
  *	This header file is used in both Unix and Win32 implementations
  *	nanaprint C++ Library(http://www.github.com/jimorc/nanaprint)
- *	Copyright(C) 2020 Jim Orcheson (jimorcheson@gmail.com)
+ *	Copyright(C) 2020-2021 Jim Orcheson (jimorcheson@gmail.com)
  *
  *	Distributed under the Boost Software License, Version 1.0.
  *	(See accompanying file LICENSE or copy at
