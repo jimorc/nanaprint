@@ -561,12 +561,14 @@ namespace nanaprint
         m_miscGroup.caption(u8"Miscellaneous");
         string layout(string("vertical gap=10") +
             "<weight=10>" +
-            "<<weight=10><orientationGroup weight=95%><> weight=60%>" +
+            "<<weight=10><orientationGroup weight=95%><> weight=40%>" +
             "<weight=10>" +
             "<<weight=10><copies weight=35%><copiesBox weight=15%><weight=45%> weight=25>" +
             "<weight=2>" +
             "<<weight=10><weight=35%><collate weight=60%> weight=25>" +
-            "<<weight=10><weight=35%><reverseOrder weight=60%> weight=25>");
+            "<<weight=10><weight=35%><reverseOrder weight=60%> weight=25>" +
+            "<weight=10>" +
+            "<<weight=10><twosidedLabel weight=35%><2twosidedCombox weight=60%> weight=25>");
         m_miscGroup.div(layout.c_str());
 
         buildOrientationGroup();
@@ -579,6 +581,8 @@ namespace nanaprint
         m_miscGroup["collate"] << m_collateCheckbox;
         buildReverseOrderCheckbox();
         m_miscGroup["reverseOrder"] << m_reverseOrderCheckbox;
+        build2SidedLabel();
+        m_miscGroup["twosidedLabel"] << m_2SidedLabel;
     }
 
     void PrintDialog::buildOrientationGroup()
@@ -669,6 +673,13 @@ namespace nanaprint
     {
         m_reverseOrderCheckbox.create(m_miscGroup);
         m_reverseOrderCheckbox.caption(u8"Reverse Order");
+    }
+
+    void PrintDialog::build2SidedLabel()
+    {
+        m_2SidedLabel.create(m_miscGroup);
+        m_2SidedLabel.caption(u8"2-sided/Booklet:");
+        m_2SidedLabel.text_align(align::left, align_v::center);
     }
 
     void PrintDialog::validateCopies()
