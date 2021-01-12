@@ -407,6 +407,7 @@ namespace nanaprint
     void PrintDialog::updateMiscGroup(Printer& printer)
     {
         updateOrientationGroup(printer);
+        update2SidedCombox(printer);
     }
 
     void PrintDialog::updateOrientationGroup(Printer& printer)
@@ -489,6 +490,25 @@ namespace nanaprint
         m_revPortrait.check(false);
     }
 
+    void PrintDialog::update2SidedCombox(Printer& printer)
+    {
+        m_2SidedCombox.clear();
+        auto sides = printer.getSides().getSides();
+        auto defaultSide = m_settings.get_side();
+        size_t opt = 0;
+        for (size_t side = 0; side < sides.size(); ++side)
+        {
+            auto text = sides[side]->getSide();
+            m_2SidedCombox.push_back(text);
+            if (text.compare(defaultSide.getSide().c_str()) == 0)
+            {
+                opt = side;
+            }
+        }
+        m_2SidedCombox.option(opt);
+        
+    }
+
     void PrintDialog::buildRangeGroup()
     {
         m_rangeGroup.create(m_basicColumn1);
@@ -568,7 +588,7 @@ namespace nanaprint
             "<<weight=10><weight=35%><collate weight=60%> weight=25>" +
             "<<weight=10><weight=35%><reverseOrder weight=60%> weight=25>" +
             "<weight=10>" +
-            "<<weight=10><twosidedLabel weight=35%><2twosidedCombox weight=60%> weight=25>");
+            "<<weight=10><twosidedLabel weight=35%><2twosidedCombox weight=60%><> weight=25>");
         m_miscGroup.div(layout.c_str());
 
         buildOrientationGroup();
@@ -583,6 +603,8 @@ namespace nanaprint
         m_miscGroup["reverseOrder"] << m_reverseOrderCheckbox;
         build2SidedLabel();
         m_miscGroup["twosidedLabel"] << m_2SidedLabel;
+        build2SidedCombox();
+        m_miscGroup["twosidedCombox"] << m_2SidedCombox;
     }
 
     void PrintDialog::buildOrientationGroup()
@@ -680,6 +702,13 @@ namespace nanaprint
         m_2SidedLabel.create(m_miscGroup);
         m_2SidedLabel.caption(u8"2-sided/Booklet:");
         m_2SidedLabel.text_align(align::left, align_v::center);
+    }
+
+    void PrintDialog::build2SidedCombox()
+    {
+        m_2SidedCombox.create(m_miscGroup);
+        m_2SidedCombox.editable(false);
+        // contents of combox added when a printer is selected.
     }
 
     void PrintDialog::validateCopies()

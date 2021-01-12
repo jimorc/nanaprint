@@ -77,6 +77,7 @@ namespace nanaprint
             void disableOrientationCheckboxes();
             void uncheckOrientationCheckboxes();
             void validateCopies();
+            void update2SidedCombox(Printer& printer);
 
             void buildAllPagesCheckbox();
             void buildCurrentPageCheckbox();
@@ -95,6 +96,7 @@ namespace nanaprint
             void buildCollateCheckbox();
             void buildReverseOrderCheckbox();
             void build2SidedLabel();
+            void build2SidedCombox();
 
             PrintSettings m_settings;
             PrintDialogSettings m_dialogSettings;
@@ -152,5 +154,6 @@ namespace nanaprint
             nana::checkbox m_collateCheckbox;
             nana::checkbox m_reverseOrderCheckbox;
             nana::label m_2SidedLabel;
+            nana::combox m_2SidedCombox;
     };
 }
