@@ -406,7 +406,7 @@ namespace nanaprint
         {
             enableOrientationCheckbox(*orientation);
         }
-        auto orientation = m_settings.get_page_orientation();
+        auto orientation = m_dialogSettings.get_page_orientation();
         if(orientation)
         {
             selectOrientationCheckbox(*orientation);
@@ -480,7 +480,7 @@ namespace nanaprint
     {
         m_2SidedCombox.clear();
         auto sides = printer.getSides().getSides();
-        auto defaultSide = m_settings.get_side();
+        auto defaultSide = m_dialogSettings.get_side();
         size_t opt = 0;
         for (size_t side = 0; side < sides.size(); ++side)
         {
