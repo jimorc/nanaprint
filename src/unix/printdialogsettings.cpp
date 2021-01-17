@@ -42,7 +42,7 @@ namespace nanaprint
     void PrintDialogSettings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
-        auto printer = m_settings.getPrinters()[m_printer];
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
         set_borderless(false);
         set_media_size(printer->getDefaultMediaSize());
         set_finishings(printer->getDefaultFinishings());

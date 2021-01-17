@@ -19,11 +19,11 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-    PrintSettings::PrintSettings(const Printers& printers)
-        : m_printers(printers.getPrinters()), m_printer(printers.getDefaultPrinterNumber()),
-            m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
+    PrintSettings::PrintSettings()
+        : m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
             m_mediaType("None"), m_borderless(false)
     {
+        m_printer = m_printers.getDefaultPrinterNumber();
         set_default_settings(m_printer);
     }
 
@@ -38,9 +38,10 @@ namespace nanaprint
     int PrintSettings::get_default_printer_number() const
     {
         int printerNum = 0;
-        for (printerNum = 0; printerNum < m_printers.size(); ++printerNum)
+        auto printers = m_printers.getPrinters();
+        for (printerNum = 0; printerNum < printers.size(); ++printerNum)
         {
-            if (m_printers[printerNum]->isDefault())
+            if (printers[printerNum]->isDefault())
             {
                 return printerNum;
             }
@@ -52,16 +53,17 @@ namespace nanaprint
     void PrintSettings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
+        auto printers = m_printers.getPrinters();
         set_borderless(false);
-        set_media_size(m_printers[m_printer]->getDefaultMediaSize());
-        set_finishings(m_printers[m_printer]->getDefaultFinishings());
-        set_media_source(m_printers[m_printer]->getDefaultMediaSource());
-        set_media_type(m_printers[m_printer]->getDefaultMediaType()),
-        set_page_orientation(m_printers[m_printer]->getDefaultOrientation());
-        set_color_mode(m_printers[m_printer]->getDefaultColorMode());
-        set_print_quality(m_printers[m_printer]->getDefaultPrintQuality());
-        set_side(m_printers[m_printer]->getDefaultSide());
-        m_canPrintMultipleCopies = m_printers[m_printer]->canPrintMultipleCopies();
+        set_media_size(printers[m_printer]->getDefaultMediaSize());
+        set_finishings(printers[m_printer]->getDefaultFinishings());
+        set_media_source(printers[m_printer]->getDefaultMediaSource());
+        set_media_type(printers[m_printer]->getDefaultMediaType()),
+        set_page_orientation(printers[m_printer]->getDefaultOrientation());
+        set_color_mode(printers[m_printer]->getDefaultColorMode());
+        set_print_quality(printers[m_printer]->getDefaultPrintQuality());
+        set_side(printers[m_printer]->getDefaultSide());
+        m_canPrintMultipleCopies = printers[m_printer]->canPrintMultipleCopies();
     }
 
     void PrintSettings::set_borderless(bool borderless)

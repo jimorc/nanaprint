@@ -23,7 +23,8 @@ using namespace std;
 int main()
 {
     form mainForm;
-    PrintOperation printOper(mainForm);
+    PrintSettings settings;
+    PrintOperation printOper(mainForm, settings);
     mainForm.caption(u8"Print Test Program");
     menubar mainMenu(mainForm);
 

@@ -99,7 +99,7 @@ namespace nanaprint
     void PageSetup::buildPrinterCombox()
     {
         m_printerCombox.editable(false);
-        auto printers = m_printers.getPrinters();
+        auto printers = m_settings.getPrinters().getPrinters();
         for (auto& printer: printers)
         {
             m_printerCombox.push_back(printer->getName());
@@ -118,7 +118,8 @@ namespace nanaprint
 
     void PageSetup::buildPrinterStatus()
     {
-        m_printerStatus.caption(m_printers.getPrinters()[m_printer]->get_printer_state());
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        m_printerStatus.caption(printer->get_printer_state());
         m_printerStatus.text_align(align::left, align_v::center);
     }
 
@@ -130,7 +131,8 @@ namespace nanaprint
 
     void PageSetup::buildPrinterType()
     {
-        m_printerType.caption(m_printers.getPrinters()[m_printer]->get_printer_make_and_model());
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        m_printerType.caption(printer->get_printer_make_and_model());
         m_printerType.text_align(align::left, align_v::center);
     }
 
@@ -142,7 +144,8 @@ namespace nanaprint
 
     void PageSetup::buildPrinterWhere()
     {
-        m_printerWhere.caption(m_printers.getPrinters()[m_printer]->get_printer_location());
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        m_printerWhere.caption(printer->get_printer_location());
         m_printerWhere.text_align(align::left, align_v::center);
     }
 
@@ -154,7 +157,8 @@ namespace nanaprint
 
     void PageSetup::buildPrinterComment()
     {
-        m_printerComment.caption(m_printers.getPrinters()[m_printer]->get_printer_info());
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        m_printerComment.caption(printer->get_printer_info());
         m_printerComment.text_align(align::left, align_v::center);
     }
 
@@ -227,8 +231,8 @@ namespace nanaprint
 
     void PageSetup::populatePaperSizeCombox()
     {
-        auto ptr = m_printers.getPrinters()[m_printer];
-        auto paperSizes = ptr->getMediaSizes();
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        auto paperSizes = printer->getMediaSizes();
         m_paperSizeCombox.clear();
         bool borderless = m_borderlessCheckbox.checked();
         for (size_t i = 0; i < paperSizes.getSize(); ++i)
@@ -299,8 +303,8 @@ namespace nanaprint
             orient->enabled(false);
         }
         // enable orientations supported by the printer
-        auto ptr = m_printers.getPrinters()[m_printer];
-        auto orientations = ptr->getOrientations();
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        auto orientations = printer->getOrientations();
         for (auto orientation: orientations.getOrientations())
         {
             auto orientationNum = orientation->getOrientationNumber();
@@ -331,8 +335,8 @@ namespace nanaprint
 
     void PageSetup::populatePaperSourceCombox()
     {
-        auto ptr = m_printers.getPrinters()[m_printer];
-        auto paperSources = ptr->getMediaSources();
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        auto paperSources = printer->getMediaSources();
         auto sources = paperSources.getSources();
         auto mediaSource = m_settings.get_media_source();
         m_paperSourceCombox.clear();
@@ -372,7 +376,8 @@ namespace nanaprint
 
     void PageSetup::updatePaperGroup()
     {
-        auto mediaSizes = m_printers.getPrinters()[m_printer]->getMediaSizes();
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        auto mediaSizes = printer->getMediaSizes();
         m_borderlessCheckbox.enabled(mediaSizes.contains_borderless_paper());
         if (m_printer == m_settings.get_printer())
         {
@@ -396,9 +401,9 @@ namespace nanaprint
     void PageSetup::paper_size_selected(const nana::arg_combox &arg)
     {
         size_t option = m_paperSizeCombox.option();
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
         auto paperSizeTranslatedName = m_paperSizeCombox.text(option);
-        auto mediaSizes = m_printers.getPrinters()[m_printer]
-            ->getMediaSizes();
+        auto mediaSizes = printer->getMediaSizes();
 
         auto mediaSize = mediaSizes.getMediaSizeByTranslatedNameAndBorder(
             paperSizeTranslatedName, m_borderlessCheckbox.checked());
@@ -442,7 +447,8 @@ namespace nanaprint
         m_settings.set_borderless(m_borderlessCheckbox.checked());
         auto sizeOption = m_paperSizeCombox.option();
         auto size = m_paperSizeCombox.text(sizeOption);
-        auto mediaSizes = m_printers.getPrinters()[m_printer]->getMediaSizes();
+        auto printer = m_settings.getPrinters().getPrinters()[m_printer];
+        auto mediaSizes = printer->getMediaSizes();
         auto mediaSize = mediaSizes.getMediaSizeByTranslatedNameAndBorder(size,
             m_borderlessCheckbox.checked());
         if(mediaSize)

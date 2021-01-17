@@ -70,7 +70,7 @@ namespace nanaprint
             void paper_source_selected(const nana::arg_combox &ar_cbx);
             void apply_clicked();
 
-            Printers m_printers;
+//            Printers m_printers;
             PrintSettings& m_settings;
             size_t m_printer;
             nana::place m_layout;

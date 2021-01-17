@@ -20,8 +20,8 @@ using namespace std;
 
 namespace nanaprint
 {
-    PrintOperation::PrintOperation(nana::form& parentForm)
-        : m_parentForm(parentForm), m_printSettings(m_printers)
+    PrintOperation::PrintOperation(nana::form& parentForm, PrintSettings& settings)
+        : m_parentForm(parentForm), m_printSettings(settings)
     {
 
     }
