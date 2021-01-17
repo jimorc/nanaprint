@@ -28,7 +28,7 @@ namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest), m_gotFinishings(false), m_gotMediaSizes(false), m_gotDefaultMediaSize(false),
-            m_defaultMediaSize("None", 0, 0, 0, 0, 0, 0),
+            m_defaultMediaSize(nullopt),
             m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
@@ -218,11 +218,16 @@ namespace nanaprint
                     size.bottom, size.left, size.right, size.top);
                 m_gotDefaultMediaSize = true;
             }
+            else
+            {
+                m_defaultMediaSize = nullopt;
+            }
+            
             m_gotDefaultMediaSize = true;
         }
     }
 
-    MediaSize& Printer::getDefaultMediaSize()
+    std::optional<MediaSize>& Printer::getDefaultMediaSize()
         {
             populateDefaultMediaSize();
             return m_defaultMediaSize;

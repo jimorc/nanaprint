@@ -382,11 +382,16 @@ namespace nanaprint
             {
                 auto size = paperSizes[sizeNum]->getTranslatedName();
                 m_paperSizeCombox.push_back(size);
-                if(size == selectedPaperSize.getTranslatedName())
+                if (selectedPaperSize)
                 {
-                    m_paperSizeCombox.option(sizeNum);
+                    if(size == selectedPaperSize.value().getTranslatedName())
+                    {
+                        optionNumber = sizeNum;
+                    }
                 }
             }
+            m_paperSizeCombox.option(optionNumber);
+
         }
     }
 

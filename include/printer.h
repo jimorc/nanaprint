@@ -39,7 +39,7 @@ namespace nanaprint
             bool isDefault() { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
             MediaSizes& getMediaSizes();
-            MediaSize& getDefaultMediaSize();
+            std::optional<MediaSize>& getDefaultMediaSize();
             bool canPrintMultipleCopies() const;
             const Finishings& getFinishings();
             const Finishings& getDefaultFinishings();
@@ -105,7 +105,7 @@ namespace nanaprint
             Finishings m_finishings;
 
             bool m_gotDefaultMediaSize;
-            MediaSize m_defaultMediaSize;
+            std::optional<MediaSize> m_defaultMediaSize;
             bool m_gotDefaultMediaSource;
             MediaSource m_defaultMediaSource;
             bool m_gotDefaultMediaType;

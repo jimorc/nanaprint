@@ -60,7 +60,7 @@ namespace nanaprint
         m_borderless = borderless;
     }
 
-    void PrintDialogSettings::set_media_size(const MediaSize mediaSize)
+    void PrintDialogSettings::set_media_size(const std::optional<MediaSize>& mediaSize)
     {
         m_mediaSize = mediaSize;
     }

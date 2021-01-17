@@ -243,12 +243,19 @@ namespace nanaprint
                 m_paperSizeCombox.push_back(mediaSize->getTranslatedName());
             }
         }
-        auto mediaSize = m_settings.get_media_size().getTranslatedName();
         size_t option = 0;
-        for (option = 0; m_paperSizeCombox.the_number_of_options(); ++option)
+        auto mediaSize = m_settings.get_media_size();
+        if(mediaSize)
         {
-            if (m_paperSizeCombox.text(option) == mediaSize)
-                break;
+            auto size = mediaSize.value().getTranslatedName();
+            for (size_t opt = 0; m_paperSizeCombox.the_number_of_options(); ++opt)
+            {
+                if (size.compare(m_paperSizeCombox.text(opt)) == 0)
+                {
+                    option = opt;
+                    break;
+                }
+            }
         }
         m_paperSizeCombox.option(option);
     }
