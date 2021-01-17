@@ -29,7 +29,7 @@ namespace nanaprint
             // PrintSettings set up for default printer (or first printer if no default)
             PrintSettings();
             virtual ~PrintSettings() {}
-            const Printers& getPrinters() const
+            const Printers& get_printers() const
                 { return m_printers; }
             void set_printer(int printer);
             int get_printer() const { return m_printer; }
