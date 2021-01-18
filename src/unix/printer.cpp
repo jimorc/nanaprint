@@ -601,12 +601,17 @@ namespace nanaprint
                     const char *defaultColorMode = ippGetString(defColorMode, 0, NULL);
                     m_defaultColorMode = ColorMode(defaultColorMode);
                 }
+                else
+                {
+                    m_defaultColorMode = nullopt;
+                }
+                
             }
             m_gotDefaultColorMode = true;
         }   
     }
 
-    ColorMode& Printer::getDefaultColorMode()
+    const std::optional<ColorMode>& Printer::getDefaultColorMode()
     {
         populateDefaultColorMode();
         return m_defaultColorMode;

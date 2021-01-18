@@ -101,7 +101,7 @@ namespace nanaprint
         m_orientation = orientation;
     }
 
-    void PrintSettings::set_color_mode(const ColorMode colorMode)
+    void PrintSettings::set_color_mode(const std::optional<ColorMode>& colorMode)
     {
         m_colorMode = colorMode;
     }
