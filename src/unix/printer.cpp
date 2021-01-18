@@ -741,11 +741,16 @@ namespace nanaprint
                     const char *defaultSide = ippGetString(defSide, 0, NULL);
                      m_defaultSide = Side(defaultSide);
                 }
+                else
+                {
+                    m_defaultSide = nullopt;
+                }
+                
             }
             m_gotDefaultSide = true;
         }   
     }
-    Side& Printer::getDefaultSide()
+    const std::optional<Side>& Printer::getDefaultSide()
     {
         populateDefaultSide();
         return m_defaultSide;

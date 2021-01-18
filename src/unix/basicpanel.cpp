@@ -493,13 +493,16 @@ namespace nanaprint
         auto sides = printer.getSides().getSides();
         auto defaultSide = m_dialogSettings.get_side();
         size_t opt = 0;
-        for (size_t side = 0; side < sides.size(); ++side)
+        if (defaultSide)
         {
-            auto text = sides[side]->getSide();
-            m_2SidedCombox.push_back(text);
-            if (text.compare(defaultSide.getSide().c_str()) == 0)
+            for (size_t side = 0; side < sides.size(); ++side)
             {
-                opt = side;
+                auto text = sides[side]->getSide();
+                m_2SidedCombox.push_back(text);
+                if (text.compare(defaultSide.value().getSide().c_str()) == 0)
+                {
+                    opt = side;
+                }
             }
         }
         m_2SidedCombox.option(opt);
