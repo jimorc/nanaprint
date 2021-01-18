@@ -347,13 +347,16 @@ namespace nanaprint
         if (hasPrintQualities)
         {
             size_t optionNumber = 0;
-            for (auto qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
+            if (selectedPrintQuality)
             {
-                auto quality = qualities[qualityNum]->getPrintQuality();
-                m_printQualityCombox.push_back(quality);
-                if (quality == selectedPrintQuality.getPrintQuality())
+                for (auto qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
                 {
-                    optionNumber = qualityNum;
+                    auto quality = qualities[qualityNum]->getPrintQuality();
+                    m_printQualityCombox.push_back(quality);
+                    if (quality == selectedPrintQuality.value().getPrintQuality())
+                    {
+                        optionNumber = qualityNum;
+                    }
                 }
             }
             m_printQualityCombox.option(optionNumber);

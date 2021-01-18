@@ -672,11 +672,16 @@ namespace nanaprint
                     int defaultQuality = ippGetInteger(defQuality, 0);
                     m_defaultPrintQuality = PrintQuality(defaultQuality);
                 }
+                else
+                {
+                    m_defaultPrintQuality = nullopt;
+                }
+                
             }
             m_gotDefaultPrintQuality = true;
         }   
     }
-    PrintQuality& Printer::getDefaultPrintQuality()
+    const std::optional<PrintQuality>& Printer::getDefaultPrintQuality()
     {
         populateDefaultPrintQuality();
         return m_defaultPrintQuality;

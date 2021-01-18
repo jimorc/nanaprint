@@ -48,8 +48,8 @@ namespace nanaprint
             const std::optional<PageOrientation>& get_page_orientation() const { return m_orientation; }
             void set_color_mode(const std::optional<ColorMode>& colorMode);
             const std::optional<ColorMode>& get_color_mode() const { return m_colorMode; }
-            void set_print_quality(const PrintQuality quality);
-            const PrintQuality& get_print_quality() const { return m_printQuality; }
+            void set_print_quality(const std::optional<PrintQuality>& quality);
+            const std::optional<PrintQuality>& get_print_quality() const { return m_printQuality; }
             void set_side(const Side side);
             const Side& get_side() const { return m_side; }
             bool can_print_multiple_copies() const { return m_canPrintMultipleCopies; }
@@ -66,7 +66,7 @@ namespace nanaprint
             std::optional<MediaType> m_mediaType;
             std::optional<PageOrientation> m_orientation;
             std::optional<ColorMode> m_colorMode;
-            PrintQuality m_printQuality;
+            std::optional<PrintQuality> m_printQuality;
             Side m_side;
             bool m_canPrintMultipleCopies;
     };
