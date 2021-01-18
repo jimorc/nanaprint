@@ -46,7 +46,7 @@ namespace nanaprint
             const MediaSources getMediaSources();
             std::optional<MediaSource>& getDefaultMediaSource();
             MediaTypes& getMediaTypes();
-            MediaType& getDefaultMediaType();
+            std::optional<MediaType>& getDefaultMediaType();
             PageOrientations& getOrientations();
             const std::optional<PageOrientation>& getDefaultOrientation();
             ColorModes& getColorModes();
@@ -109,7 +109,7 @@ namespace nanaprint
             bool m_gotDefaultMediaSource;
             std::optional<MediaSource> m_defaultMediaSource;
             bool m_gotDefaultMediaType;
-            MediaType m_defaultMediaType;
+            std::optional<MediaType> m_defaultMediaType;
             bool m_gotDefaultOrientation;
             std::optional<PageOrientation> m_defaultOrientation;
             bool m_gotDefaultColorMode;

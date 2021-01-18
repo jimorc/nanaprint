@@ -321,16 +321,19 @@ namespace nanaprint
         size_t optionNumber = 0;
         if (hasMediaTypes)
         {
-            for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
+            if(selectedMediaType)
             {
-                auto mediaType = mediaTypes[mediaNum];
-                m_mediaTypeCombox.push_back(mediaType->getType());
-                if (mediaType->getType() == selectedMediaType.getType())
+                for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
                 {
-                    optionNumber = mediaNum;
+                    auto mediaType = mediaTypes[mediaNum];
+                    m_mediaTypeCombox.push_back(mediaType->getType());
+                    if (mediaType->getType() == selectedMediaType.value().getType())
+                    {
+                        optionNumber = mediaNum;
+                    }
                 }
+                m_mediaTypeCombox.option(optionNumber);
             }
-            m_mediaTypeCombox.option(optionNumber);
         }
     }
 

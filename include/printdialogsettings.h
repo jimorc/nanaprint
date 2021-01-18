@@ -41,8 +41,8 @@ namespace nanaprint
             void set_media_source(const std::optional<MediaSource>& source);
             void set_media_source(const std::string& source);
             const std::optional<MediaSource>& get_media_source() { return m_mediaSource; }
-            void set_media_type(const MediaType mediaType);
-            const MediaType& get_media_type() { return m_mediaType; }
+            void set_media_type(const std::optional<MediaType>& mediaType);
+            const std::optional<MediaType>& get_media_type() { return m_mediaType; }
             void set_page_orientation(const std::optional<PageOrientation>& orientation);
             const std::optional<PageOrientation>& get_page_orientation() const { return m_orientation; }
             void set_color_mode(const ColorMode colorMode);
@@ -61,7 +61,7 @@ namespace nanaprint
             std::optional<MediaSize> m_mediaSize;
             Finishings m_finishings;
             std::optional<MediaSource> m_mediaSource;
-            MediaType m_mediaType;
+            std::optional<MediaType> m_mediaType;
             std::optional<PageOrientation> m_orientation;
             ColorMode m_colorMode;
             PrintQuality m_printQuality;

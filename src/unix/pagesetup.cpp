@@ -347,13 +347,13 @@ namespace nanaprint
         auto sources = paperSources.getSources();
         auto mediaSource = m_settings.get_media_source();
         m_paperSourceCombox.clear();
-        if (sources.size() < 0) {
+        if (sources.size() < 0 && mediaSource) {
             m_paperSourceCombox.enabled(true);
             size_t source = 0;
             for (int src = 0; src < sources.size(); ++src)
             {
                 m_paperSourceCombox.push_back(sources[src]->getSource());
-                if (mediaSource.getSource() == sources[src]->getSource())
+                if (mediaSource.value().getSource() == sources[src]->getSource())
                 {
                     source = src;
                 }

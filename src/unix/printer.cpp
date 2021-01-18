@@ -458,12 +458,17 @@ namespace nanaprint
                     const char *defaultType = ippGetString(type, 0, NULL);
                     m_defaultMediaType = MediaType(defaultType);
                 }
+                else
+                {
+                    m_defaultMediaType = nullopt;
+                }
+                
             }
             m_gotDefaultMediaType = true;
         }   
     }
 
-    MediaType& Printer::getDefaultMediaType()
+    std::optional<MediaType>& Printer::getDefaultMediaType()
     {
         populateDefaultMediaType();
         return m_defaultMediaType;
