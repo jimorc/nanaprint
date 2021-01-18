@@ -388,12 +388,16 @@ namespace nanaprint
                     const char *src = ippGetString(source, 0, NULL);
                     m_defaultMediaSource = MediaSource(src);
                 }
+                else
+                {
+                    m_defaultMediaSource = nullopt;
+                }
             }
             m_gotDefaultMediaSource = true;
         }   
     }
 
-    MediaSource& Printer::getDefaultMediaSource()
+    std::optional<MediaSource>& Printer::getDefaultMediaSource()
     {
         populateDefaultMediaSource();
         return m_defaultMediaSource;

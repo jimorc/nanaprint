@@ -81,7 +81,7 @@ namespace nanaprint
         m_finishings = finishings;
     }
 
-    void PrintSettings::set_media_source(const MediaSource source)
+    void PrintSettings::set_media_source(const std::optional<MediaSource>& source)
     {
         m_mediaSource = source;
     }

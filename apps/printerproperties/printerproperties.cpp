@@ -47,7 +47,8 @@ int main()
 
         cout << "Default Media Source:\n";
         auto defaultMediaSource = printer->getDefaultMediaSource();
-        cout << defaultMediaSource;
+        cout << "    ";
+        cout << ((defaultMediaSource) ? defaultMediaSource.value().getSource() : "None") << "\n";
 
         cout << "Supported ";
         auto mediaTypes = printer->getMediaTypes();

@@ -39,9 +39,9 @@ namespace nanaprint
             const std::optional<MediaSize>& get_media_size() const { return m_mediaSize; }
             void set_finishings(const Finishings finishings);
             const Finishings& get_finishings() const { return m_finishings; }
-            void set_media_source(const MediaSource source);
+            void set_media_source(const std::optional<MediaSource>& source);
             void set_media_source(const std::string& source);
-            const MediaSource& get_media_source() const { return m_mediaSource; }
+            const std::optional<MediaSource>& get_media_source() const { return m_mediaSource; }
             void set_media_type(const MediaType mediaType);
             const MediaType& get_media_type() const { return m_mediaType; }
             void set_page_orientation(const std::optional<PageOrientation>& orientation);
@@ -62,7 +62,7 @@ namespace nanaprint
             bool m_borderless;
             std::optional<MediaSize> m_mediaSize;
             Finishings m_finishings;
-            MediaSource m_mediaSource;
+            std::optional<MediaSource> m_mediaSource;
             MediaType m_mediaType;
             std::optional<PageOrientation> m_orientation;
             ColorMode m_colorMode;
