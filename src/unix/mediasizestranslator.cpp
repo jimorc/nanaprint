@@ -30,16 +30,40 @@ namespace nanaprint
         m_mediaMap["na_executive_7.25x10.5in_borderless"] = "Executive 7.25x10.5in";
         m_mediaMap["iso_a4_210x297mm"] = "A4";
         m_mediaMap["iso_a4_210x297mm_borderless"] = "A4";
+        m_mediaMap["iso_a3_297x420mm"] = "A3";
+        m_mediaMap["iso_a3_297x420mm_borderless"] = "A3";
         m_mediaMap["na_letter_8.5x11in"] = "Letter";
         m_mediaMap["na_letter_8.5x11in_borderless"] = "Letter";
         m_mediaMap["na_legal_8.5x14in"] = "Legal";
         m_mediaMap["na_legal_8.5x14in_borderless"] = "Legal";
+        m_mediaMap["na_ledger_11x17in"] = "Ledger";
+        m_mediaMap["na_ledger_11x17in_borderless"] = "Ledger";
+        m_mediaMap["na_govt-letter_8x10in"] = "Gov't Letter";
+        m_mediaMap["na_govt-letter_8x10in_borderless"] = "Gov't Letter";
         m_mediaMap["jpn_chou4_90x205mm"] = "Nagagata 4";
+        m_mediaMap["jpn_chou4_90x205mm_borderless"] = "Nagagata 4";
         m_mediaMap["jpn_hagaki_100x148mm"] = "Hagaki";
+        m_mediaMap["jpn_hagaki_100x148mm_borderless"] = "Hagaki",
         m_mediaMap["jpn_you4_105x235mm"] = "Yougata 4";
+        m_mediaMap["jpn_you4_105x235mm_borderless"] = "Yougata 4";
+        m_mediaMap["jpn_you6_98x190mm"] = "Yougata 6";
+        m_mediaMap["jpn_you6_98x190mm_borderless"] = "Yougata 6";
         m_mediaMap["jpn_chou3_120x235mm"] = "Nagagata 3";
+        m_mediaMap["jpn_chou3_120x235mm_borderless"] = "Nagagata 3";
         m_mediaMap["jpn_oufuku_148x200mm"] = "Oufuku";
         m_mediaMap["jis_b5_182x257mm"] = "JIS B5";
+        m_mediaMap["jis_b5_182x257mm_borderless"] = "JIS B5";
+        m_mediaMap["jis_b4_257x364mm"] = "JIS B4";
+        m_mediaMap["custom_55x91mm_55x91mm"] = "Custom 55x91mm";
+        m_mediaMap["custom_55x91mm_55x91mm_borderless"] = "Custom 55x91mm";
+        m_mediaMap["custom_55.03x91.02mm_55.03x91.02mm"] = "Custom 55x91mm";
+        m_mediaMap["custom_89x89mm_89x89mm"] = "Custom 89x89mm";
+        m_mediaMap["custom_89x89mm_89x89mm_borderless"] = "Custom 89x89mm";
+        m_mediaMap["custom_3.5x3.5in_3.5x3.5in"] = "Custom 3.5x3.5in";
+        m_mediaMap["custom_5x5in_5x5in"] = "Custom 5x5in";
+        m_mediaMap["custom_5x5in_5x5in_borderless"] = "Custom 5x5in";
+        m_mediaMap["custom_7x10in_7x10in"] = "Custom 7x10in";
+        m_mediaMap["custom_7x10in_7x10in_borderless"] = "Custom 7x10in";
     }
 
     MediaSizesTranslator::~MediaSizesTranslator()
