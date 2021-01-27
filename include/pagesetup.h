@@ -59,6 +59,7 @@ namespace nanaprint
             void populatePaperSizeCombox();
             void populatePaperSourceCombox();
             void printer_selected(const nana::arg_combox &ar_cbx);
+            void updatePrinterGroup();
             void updatePaperGroup();
 
             void buildButtons();

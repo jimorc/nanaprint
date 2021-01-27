@@ -77,17 +77,29 @@ namespace nanaprint
         buildPrinterCombox();
         m_printerGroup["printerCombox"] << m_printerCombox;
 
+        buildPrinterStatus();
+        m_printerGroup["printerStatus"] << m_printerStatus;
+
         buildPrinterStatusLabel();
         m_printerGroup["status"] << m_printerStatusLabel;
 
         buildPrinterTypeLabel();
         m_printerGroup["type"] << m_printerTypeLabel;
 
+        buildPrinterType();
+        m_printerGroup["printerType"] << m_printerType;
+
         buildPrinterWhereLabel();
         m_printerGroup["where"] << m_printerWhereLabel;
 
+        buildPrinterWhere();
+        m_printerGroup["printerWhere"] << m_printerWhere;
+
         buildPrinterCommentLabel();
         m_printerGroup["comment"] << m_printerCommentLabel;
+
+        buildPrinterComment();
+        m_printerGroup["printerComment"] << m_printerComment;
 }
 
     void PageSetup::buildPrinterNameLabel()
@@ -118,9 +130,7 @@ namespace nanaprint
 
     void PageSetup::buildPrinterStatus()
     {
-        auto printer = m_settings.get_printers().getPrinters()[m_printer];
-        m_printerStatus.caption(printer->get_printer_state());
-        m_printerStatus.text_align(align::left, align_v::center);
+       m_printerStatus.text_align(align::left, align_v::center);
     }
 
     void PageSetup::buildPrinterTypeLabel()
@@ -131,8 +141,6 @@ namespace nanaprint
 
     void PageSetup::buildPrinterType()
     {
-        auto printer = m_settings.get_printers().getPrinters()[m_printer];
-        m_printerType.caption(printer->get_printer_make_and_model());
         m_printerType.text_align(align::left, align_v::center);
     }
 
@@ -144,8 +152,6 @@ namespace nanaprint
 
     void PageSetup::buildPrinterWhere()
     {
-        auto printer = m_settings.get_printers().getPrinters()[m_printer];
-        m_printerWhere.caption(printer->get_printer_location());
         m_printerWhere.text_align(align::left, align_v::center);
     }
 
@@ -157,8 +163,6 @@ namespace nanaprint
 
     void PageSetup::buildPrinterComment()
     {
-        auto printer = m_settings.get_printers().getPrinters()[m_printer];
-        m_printerComment.caption(printer->get_printer_info());
         m_printerComment.text_align(align::left, align_v::center);
     }
 
@@ -369,16 +373,17 @@ namespace nanaprint
     void PageSetup::printer_selected(const arg_combox &ar_cbx)
     {
         m_printer = m_printerCombox.option();
-        buildPrinterStatus();
-        m_printerGroup["printerStatus"] << m_printerStatus;
-        buildPrinterType();
-        m_printerGroup["printerType"] << m_printerType;
-        buildPrinterWhere();
-        m_printerGroup["printerWhere"] << m_printerWhere;
-        buildPrinterComment();
-        m_printerGroup["printerComment"] << m_printerComment;
-
+        updatePrinterGroup();
         updatePaperGroup();
+    }
+
+    void PageSetup::updatePrinterGroup()
+    {
+        auto printer = m_settings.get_printers().getPrinters()[m_printer];
+        m_printerStatus.caption(printer->get_printer_state());
+        m_printerType.caption(printer->get_printer_make_and_model());
+        m_printerWhere.caption(printer->get_printer_location());
+        m_printerComment.caption(printer->get_printer_info());
     }
 
     void PageSetup::updatePaperGroup()
