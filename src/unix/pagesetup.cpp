@@ -40,8 +40,8 @@ namespace nanaprint
     {
         caption(u8"Page Setup");
         m_layout.div(string("vert gap=10 margin=5") +
-            "<printer weight=40%>" +
-            "<paper weight = 50%>" +
+            "<printer weight=48%>" +
+            "<paper weight = 42%>" +
             "<weight=5>" +
             "<gap=10 <weight=50%><cancel><weight=10><apply> weight=10%>");
 
@@ -68,7 +68,7 @@ namespace nanaprint
             "<<weight=10><status weight=20%><printerStatus><weight=10> weight=30>" +
             "<<weight=10><type weight=20%><printerType><weight=10> weight=30>" +
             "<<weight=10><where weight=20%><printerWhere><weight=10> weight=30>" +
-            "<<weight=10><comment weight=20%><printerComment><weight=10> weight=40>";        
+            "<<weight=10><comment weight=20%><printerComment><weight=10> weight=60>";        
         m_printerGroup.div(groupDiv.c_str());
 
         buildPrinterNameLabel();
