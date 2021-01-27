@@ -54,7 +54,7 @@ namespace nanaprint
         m_basicColumn1.create(*this);
         m_column1Layout.bind(m_basicColumn1);
         m_column1Layout.div(string("vertical gap=10") +
-            "<printerGroup weight=65%><weight=10><range weight=30%>");
+            "<printerGroup weight=67%><weight=10><range weight=28%>");
 
         buildPrinterGroup();
         m_column1Layout["printerGroup"] << m_printerGroup;
@@ -84,9 +84,9 @@ namespace nanaprint
             "<weight=10>" +
             "<<weight=10><printerLabel weight=30%><><printerCombox weight=64%><> weight=25>" +
             "<<weight=10><statusLabel weight=30%><><printerStatus weight=64%><> weight=45>" +
-            "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=25>" +
+            "<<weight=10><typeLabel weight=30%><><printerType weight=64%><> weight=40>" +
             "<<weight=10><locationLabel weight=30%><><printerLocation weight=64%><> weight=25>" +
-            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=80>";
+            "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=120>";
         m_printerGroup.div(div.c_str());
 
             buildPrinterLabel();
