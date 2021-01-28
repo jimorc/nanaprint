@@ -321,18 +321,16 @@ namespace nanaprint
         size_t optionNumber = 0;
         if (hasMediaTypes)
         {
-            if(selectedMediaType)
+            for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
             {
-                for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
+                auto mediaType = mediaTypes[mediaNum];
+                m_mediaTypeCombox.push_back(mediaType->getType());
+                if (selectedMediaType
+                        && mediaType->getType() == selectedMediaType.value().getType())
                 {
-                    auto mediaType = mediaTypes[mediaNum];
-                    m_mediaTypeCombox.push_back(mediaType->getType());
-                    if (mediaType->getType() == selectedMediaType.value().getType())
-                    {
-                        optionNumber = mediaNum;
-                    }
+                    optionNumber = mediaNum;
                 }
-                m_mediaTypeCombox.option(optionNumber);
+            m_mediaTypeCombox.option(optionNumber);
             }
         }
     }
@@ -347,16 +345,13 @@ namespace nanaprint
         if (hasPrintQualities)
         {
             size_t optionNumber = 0;
-            if (selectedPrintQuality)
+            for (auto qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
             {
-                for (auto qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
+                auto quality = qualities[qualityNum]->getPrintQuality();
+                m_printQualityCombox.push_back(quality);
+                if (quality == selectedPrintQuality.value().getPrintQuality())
                 {
-                    auto quality = qualities[qualityNum]->getPrintQuality();
-                    m_printQualityCombox.push_back(quality);
-                    if (quality == selectedPrintQuality.value().getPrintQuality())
-                    {
-                        optionNumber = qualityNum;
-                    }
+                    optionNumber = qualityNum;
                 }
             }
             m_printQualityCombox.option(optionNumber);

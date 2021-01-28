@@ -439,9 +439,9 @@ namespace nanaprint
         {
             char resource[RESOURCE_SIZE];
             
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+//            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
+//                NULL, resource, RESOURCE_SIZE, NULL, NULL);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultType =
                 cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
             if(defaultType != nullptr)
@@ -450,7 +450,7 @@ namespace nanaprint
             }
             else
             {
-                ipp_attribute_t *type = cupsFindDestDefault(http, m_dest,
+                ipp_attribute_t *type = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_MEDIA_TYPE);
                 int count = ippGetCount(type);
                 if (count != 0)
