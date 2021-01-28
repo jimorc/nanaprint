@@ -35,7 +35,7 @@ namespace nanaprint
     class BasicPanel : public nana::panel<false>
     {
         public:
-            BasicPanel(PrintSettings& settings);
+            BasicPanel(PrintSettings& settings, PrintDialogSettings& dialogSettings);
             virtual ~BasicPanel() {}
             bool create(nana::form& parent);
 
@@ -100,8 +100,8 @@ namespace nanaprint
             void build2SidedLabel();
             void build2SidedCombox();
 
-            PrintSettings m_settings;
-            PrintDialogSettings m_dialogSettings;
+            PrintSettings& m_settings;
+            PrintDialogSettings& m_dialogSettings;
 
             nana::place m_basicLayout;
 

@@ -29,7 +29,7 @@ namespace nanaprint
 
     PrintDialog::PrintDialog(form& parent, PrintSettings& settings)
         : form(parent, {750, 500}, appear::decorate<>()), m_settings(settings),
-             m_dialogSettings(m_settings), m_layout(*this), m_basic(m_settings),
+             m_dialogSettings(m_settings), m_layout(*this), m_basic(m_settings, m_dialogSettings),
              m_tabbar(*this)
     {
         caption(u8"Print");

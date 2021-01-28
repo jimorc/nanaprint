@@ -30,8 +30,8 @@ namespace nanaprint
     constexpr int MINIMUMCOPIES = 1;
     constexpr int MAXIMUMCOPIES = 100;
 
-    BasicPanel::BasicPanel(PrintSettings& settings)
-        : m_settings(settings), m_dialogSettings(settings) {}
+    BasicPanel::BasicPanel(PrintSettings& settings, PrintDialogSettings& dialogSettings)
+        : m_settings(settings), m_dialogSettings(dialogSettings) {}
 
     bool BasicPanel::create(nana::form& parent)
     {

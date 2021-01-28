@@ -34,7 +34,7 @@ namespace nanaprint
             void run();
         private:
             void buildBasicTab();
-            PrintSettings m_settings;
+            PrintSettings& m_settings;
             PrintDialogSettings m_dialogSettings;
 
             nana::place m_layout;

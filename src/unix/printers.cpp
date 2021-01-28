@@ -12,6 +12,7 @@
  */
 
 #include "printers.h"
+#include <vector>
 
 using namespace nanaprint;
 
@@ -25,7 +26,16 @@ namespace nanaprint
         enumeratePrinters();
     }
 
-    Printers::~Printers() {}
+    Printers::~Printers() 
+    {
+        std::vector<cups_dest_t*> dests;
+        for (size_t i = 0; i < m_printers.size(); ++i)
+        {
+            cups_dest_t* dest = m_printers[i]->getDest();
+            dests.push_back(dest);
+        }
+        cupsFreeDests(dests.size(), *dests.data());
+    }
 
     void Printers::enumeratePrinters()
     {
