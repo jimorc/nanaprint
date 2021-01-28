@@ -23,12 +23,6 @@
 
 namespace nanaprint
 {
-    typedef struct
-    {
-        int num_dests;
-        cups_dest_t *dests;
-    } user_data_t;
-
    class Printers
     {
         public:
@@ -44,8 +38,4 @@ namespace nanaprint
             std::vector<std::shared_ptr<Printer>> m_printers;
     };
 }
-
-extern "C" int enumPrintersCallBack(nanaprint::user_data_t* userData, unsigned flags,
-    cups_dest_t *dest);
-
 #endif      // PRINTERS_H
