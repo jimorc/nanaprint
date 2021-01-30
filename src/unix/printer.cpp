@@ -41,33 +41,33 @@ namespace nanaprint
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
     {
-    char resource[RESOURCE_SIZE];
-    http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE, MAX_CONNECT_ATTEMPT_TIME,
-                                    NULL, resource, RESOURCE_SIZE, NULL, NULL);
-    return std::make_shared<Printer>(Printer(dest));
+        char resource[RESOURCE_SIZE];
+        http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE, MAX_CONNECT_ATTEMPT_TIME,
+                                        NULL, resource, RESOURCE_SIZE, NULL, NULL);
+        return std::make_shared<Printer>(Printer(dest));
     }
 
     std::map<std::string, std::string> Printer::getOptions()
     {
-    map<string, string> opts;
-    for (int i = 0; i < m_dest->num_options; ++i)
-    {
-        string option = string(m_dest->options[i].name);
-        string value = string(m_dest->options[i].value);
-        if (option == "printer-state")
+        map<string, string> opts;
+        for (int i = 0; i < m_dest->num_options; ++i)
         {
-            opts[option] = getPrinterStateString(value);
+            string option = string(m_dest->options[i].name);
+            string value = string(m_dest->options[i].value);
+            if (option == "printer-state")
+            {
+                opts[option] = getPrinterStateString(value);
+            }
+            else if (option == "printer-type")
+            {
+                opts[option] = getPrinterTypeString(value);
+            }
+            else
+            {
+                opts[string(m_dest->options[i].name)] = value;
+            }
         }
-        else if (option == "printer-type")
-        {
-            opts[option] = getPrinterTypeString(value);
-        }
-        else
-        {
-            opts[string(m_dest->options[i].name)] = value;
-        }
-    }
-    return opts;
+        return opts;
     }
 
     string Printer::getPrinterStateString(string value)
