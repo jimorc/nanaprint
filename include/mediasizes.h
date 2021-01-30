@@ -37,6 +37,7 @@ namespace nanaprint
             MediaSize& operator[](size_t pos);
             const MediaSize& operator[](size_t pos) const;
             MediaSize& at(size_t pos);
+            const MediaSize& at(size_t pos) const;
         private:
             std::vector<MediaSize> m_mediaSizes;
     };

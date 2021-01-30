@@ -115,4 +115,11 @@ namespace nanaprint
             throw std::out_of_range("Out of range");
         return m_mediaSizes[pos];
     }
+
+    const MediaSize& MediaSizes::at(size_t pos) const
+    {
+        if(pos > m_mediaSizes.size() - 1)
+            throw std::out_of_range("Out of range");
+        return m_mediaSizes[pos];
+    }
 }
