@@ -178,15 +178,12 @@ namespace nanaprint
         {
             if(m_mediaSizes.getSize() == 0)
             {
-                char resource[RESOURCE_SIZE];
-                http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-                cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-                int mSizeCount = cupsGetDestMediaCount(http, m_dest, info, 0);
+                cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+                int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, info, 0);
                 cups_size_t size;
                 for(int i = 0; i < mSizeCount; ++i)
                 {
-                    int result = cupsGetDestMediaByIndex(http, m_dest, info, i, 0, &size);
+                    int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, info, i, 0, &size);
                     m_mediaSizes.addSize(make_shared<MediaSize>(MediaSize(
                         size.media, size.width, size.length, size.bottom, size.left,
                         size.right, size.top)));
@@ -206,12 +203,9 @@ namespace nanaprint
     {
         if(!m_gotDefaultMediaSize)
         {
-            char resource[RESOURCE_SIZE];
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-            NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             cups_size_t size;
-            int result = cupsGetDestMediaDefault(http, m_dest, info, 0, &size);
+            int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, info, 0, &size);
             if(result)
             {
                 m_defaultMediaSize = MediaSize(size.media, size.width, size.length,
@@ -247,13 +241,8 @@ namespace nanaprint
 
     bool Printer::canPrintMultipleCopies() const
     {
-        char resource[RESOURCE_SIZE];
-
-        
-        http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-            NULL, resource, RESOURCE_SIZE, NULL, NULL);
-        cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-        return cupsCheckDestSupported(http, m_dest,
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest,
             info, CUPS_COPIES, NULL);
     }
 
@@ -261,14 +250,10 @@ namespace nanaprint
     {
         if (!m_gotFinishings)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_FINISHINGS, NULL))
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
             {
-                ipp_attribute_t *finishings = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *finishings = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_FINISHINGS);
                 int count = ippGetCount(finishings);
                 for (int i = 0; i < count; ++i)
@@ -292,14 +277,10 @@ namespace nanaprint
     {
         if (!m_gotMediaSources)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_FINISHINGS, NULL))
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
             {
-                ipp_attribute_t *source = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_MEDIA_SOURCE);
                 int count = ippGetCount(source);
                 for (int i = 0; i < count; ++i)
@@ -322,17 +303,13 @@ namespace nanaprint
     {
         if (!m_gotDefaultFinishings)
         {
-            char resource[RESOURCE_SIZE];
-
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
 
             const char *defaultFinishings =
                 cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
                     m_dest->options);
             ipp_attribute_t *defaultFinishings2 =
-                cupsFindDestDefault(http, m_dest, info, CUPS_FINISHINGS);
+                cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS);
             
             if(defaultFinishings != NULL)
             {
@@ -367,11 +344,7 @@ namespace nanaprint
     {
         if (!m_gotDefaultMediaSource)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultSource =
                 cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
             if (defaultSource != nullptr)
@@ -380,7 +353,7 @@ namespace nanaprint
             }
             else
             {
-                ipp_attribute_t *source = cupsFindDestDefault(http, m_dest,
+                ipp_attribute_t *source = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_MEDIA_SOURCE);
                 int count = ippGetCount(source);
                 if (count != 0)
@@ -407,14 +380,10 @@ namespace nanaprint
     {
         if (!m_gotMediaTypes)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_MEDIA_TYPE, NULL))
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_MEDIA_TYPE, NULL))
             {
-                ipp_attribute_t *type = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *type = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_MEDIA_TYPE);
                 int count = ippGetCount(type);
                 for (int i = 0; i < count; ++i)
@@ -437,10 +406,6 @@ namespace nanaprint
     {
         if (!m_gotDefaultMediaType)
         {
-            char resource[RESOURCE_SIZE];
-            
-//            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-//                NULL, resource, RESOURCE_SIZE, NULL, NULL);
             cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultType =
                 cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
@@ -478,14 +443,10 @@ namespace nanaprint
     {
         if (!m_gotOrientations)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_ORIENTATION, NULL))
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_ORIENTATION, NULL))
             {
-                ipp_attribute_t *orientations = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *orientations = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_ORIENTATION);
                 int count = ippGetCount(orientations);
                 for (int i = 0; i < count; ++i)
@@ -507,11 +468,7 @@ namespace nanaprint
     {
         if (!m_gotDefaultOrientation)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultOrientation =
                 cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
             if (defaultOrientation != nullptr)
@@ -521,7 +478,7 @@ namespace nanaprint
             }
             else
             {
-                ipp_attribute_t *defOrientation = cupsFindDestDefault(http, m_dest,
+                ipp_attribute_t *defOrientation = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_ORIENTATION);
                 int count = ippGetCount(defOrientation);
                 if (count != 0)
@@ -551,14 +508,10 @@ namespace nanaprint
     {
         if (!m_gotColorModes)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
+           cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
             {
-                ipp_attribute_t *colorModes = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *colorModes = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_PRINT_COLOR_MODE);
                 int count = ippGetCount(colorModes);
                 for (int i = 0; i < count; ++i)
@@ -580,11 +533,7 @@ namespace nanaprint
     {
         if (!m_gotDefaultColorMode)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultColorMode =
                 cupsGetOption(CUPS_PRINT_COLOR_MODE, m_dest->num_options, m_dest->options);
             if (defaultColorMode != nullptr)
@@ -593,7 +542,7 @@ namespace nanaprint
             }
             else
             {
-                ipp_attribute_t *defColorMode = cupsFindDestDefault(http, m_dest,
+                ipp_attribute_t *defColorMode = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_PRINT_COLOR_MODE);
                 int count = ippGetCount(defColorMode);
                 if (count != 0)
@@ -621,14 +570,10 @@ namespace nanaprint
     {
         if (!m_gotPrintQualities)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_PRINT_QUALITY, NULL))
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_QUALITY, NULL))
             {
-                ipp_attribute_t *qualities = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *qualities = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_PRINT_QUALITY);
                 int count = ippGetCount(qualities);
                 for (int i = 0; i < count; ++i)
@@ -650,11 +595,7 @@ namespace nanaprint
     {
         if (!m_gotDefaultPrintQuality)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultQuality =
                 cupsGetOption(CUPS_PRINT_QUALITY, m_dest->num_options, m_dest->options);
             if (defaultQuality != nullptr)
@@ -664,7 +605,7 @@ namespace nanaprint
             }
             else
             {
-                ipp_attribute_t *defQuality = cupsFindDestDefault(http, m_dest,
+                ipp_attribute_t *defQuality = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_PRINT_QUALITY);
                 int count = ippGetCount(defQuality);
                 if (count != 0)
@@ -691,14 +632,10 @@ namespace nanaprint
     {
         if (!m_gotSides)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
-            if (cupsCheckDestSupported(http, m_dest, info, CUPS_SIDES, NULL))
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_SIDES, NULL))
             {
-                ipp_attribute_t *sides = cupsFindDestSupported(http, m_dest,
+                ipp_attribute_t *sides = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_SIDES);
                 int count = ippGetCount(sides);
                 for (int i = 0; i < count; ++i)
@@ -720,11 +657,7 @@ namespace nanaprint
     {
         if (!m_gotDefaultSide)
         {
-            char resource[RESOURCE_SIZE];
-            
-            http_t *http = cupsConnectDest(m_dest, CUPS_DEST_FLAGS_NONE, 5000,
-                NULL, resource, RESOURCE_SIZE, NULL, NULL);
-            cups_dinfo_t *info = cupsCopyDestInfo(http, m_dest);
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
             const char *defaultSide =
                 cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
             if (defaultSide != nullptr)
@@ -733,7 +666,7 @@ namespace nanaprint
             }
             else
             {
-                ipp_attribute_t *defSide = cupsFindDestDefault(http, m_dest,
+                ipp_attribute_t *defSide = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
                     info, CUPS_SIDES);
                 int count = ippGetCount(defSide);
                 if (count != 0)
