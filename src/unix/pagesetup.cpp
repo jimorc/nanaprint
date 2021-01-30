@@ -241,10 +241,10 @@ namespace nanaprint
         bool borderless = m_borderlessCheckbox.checked();
         for (size_t i = 0; i < paperSizes.getSize(); ++i)
         {
-            auto mediaSize = paperSizes.getMediaSizes()[i];
-            if (mediaSize->isBorderless() == borderless)
+            auto mediaSize = paperSizes[i];
+            if (mediaSize.isBorderless() == borderless)
             {
-                m_paperSizeCombox.push_back(mediaSize->getTranslatedName());
+                m_paperSizeCombox.push_back(mediaSize.getTranslatedName());
             }
         }
         size_t option = 0;

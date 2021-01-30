@@ -362,26 +362,26 @@ namespace nanaprint
     {
         m_paperSizeCombox.clear();
 
-        auto paperSizes = printer.getMediaSizes().getMediaSizes();
-        auto hasPaperSizes = paperSizes.size() > 0;
+        auto paperSizes = printer.getMediaSizes();
+        auto hasPaperSizes = paperSizes.getSize() > 0;
         m_paperSizeCombox.enabled(hasPaperSizes);
         if (hasPaperSizes)
         {
             bool borderless = m_borderlessCheckbox.checked();
-            for (size_t i = 0; i < paperSizes.size(); ++i)
+            for (size_t i = 0; i < paperSizes.getSize(); ++i)
             {
                 auto mediaSize = paperSizes[i];
-                if (mediaSize->isBorderless() == borderless)
+                if (mediaSize.isBorderless() == borderless)
                 {
-                    m_paperSizeCombox.push_back(mediaSize->getTranslatedName());
+                    m_paperSizeCombox.push_back(mediaSize.getTranslatedName());
                 }
             }
 
             auto selectedPaperSize = m_dialogSettings.get_media_size();
             size_t optionNumber = 0;
-            for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
+            for (auto sizeNum = 0; sizeNum < paperSizes.getSize(); ++sizeNum)
             {
-                auto size = paperSizes[sizeNum]->getTranslatedName();
+                auto size = paperSizes[sizeNum].getTranslatedName();
                 m_paperSizeCombox.push_back(size);
                 if (selectedPaperSize)
                 {

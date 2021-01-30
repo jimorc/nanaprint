@@ -27,7 +27,7 @@ namespace nanaprint
 
     }
 
-    void MediaSizes::addSize(std::shared_ptr<MediaSize> mediaSize)
+    void MediaSizes::addSize(MediaSize mediaSize)
     {
         m_mediaSizes.push_back(mediaSize);
     }
@@ -37,7 +37,7 @@ namespace nanaprint
         vector<string> mediaNames;
         for (auto mediaSize: m_mediaSizes)
         {
-            mediaNames.push_back(mediaSize->getMediaName());
+            mediaNames.push_back(mediaSize.getMediaName());
         }
         return mediaNames;
     }
@@ -61,7 +61,7 @@ namespace nanaprint
     {
         for (auto& mediaSize: m_mediaSizes)
         {
-            if (mediaSize->isBorderless())
+            if (mediaSize.isBorderless())
                 return true;
         }
         return false;
@@ -72,10 +72,10 @@ namespace nanaprint
         {
             for (auto size: m_mediaSizes)
             {
-                if (size->getTranslatedName() == translatedName &&
-                    size->isBorderless() == isBorderless)
+                if (size.getTranslatedName() == translatedName &&
+                    size.isBorderless() == isBorderless)
                 {
-                    return optional<MediaSize>(*size);
+                    return optional<MediaSize>(size);
                 }
             }
             return nullopt;
@@ -84,16 +84,16 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
     {
         os << "Media Sizes:\n";
-        auto mediaSizes = sizes.getMediaSizes();
-        if (mediaSizes.empty())
+        auto numberOfSizes = sizes.getSize();
+        if (numberOfSizes == 0)
         {
             os << "None\n";
         }
         else
         {
-            for (auto& size: mediaSizes)
+            for (auto i = 0; i < numberOfSizes; ++i)
             {
-                os << *size;
+                os << sizes[i];
             }
         }
         return os;
@@ -101,13 +101,18 @@ namespace nanaprint
 
     MediaSize& MediaSizes::operator[](size_t pos)
     {
-        return *m_mediaSizes[pos];
+        return m_mediaSizes[pos];
+    }
+
+    const MediaSize& MediaSizes::operator[](size_t pos) const
+    {
+        return m_mediaSizes[pos];
     }
 
     MediaSize& MediaSizes::at(size_t pos)
     {
         if(pos > m_mediaSizes.size() - 1)
             throw std::out_of_range("Out of range");
-        return *m_mediaSizes[pos];
+        return m_mediaSizes[pos];
     }
 }

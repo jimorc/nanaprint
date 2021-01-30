@@ -58,10 +58,10 @@ TEST(MediaSizesTests, testInsertionOperator)
 {
     stringstream ss;
     MediaSizes sizes;
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 21590, 27940,
-            508, 610, 915, 1016)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in_borderless", 21590, 27940,
-            0, 0, 0, 0)));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 21590, 27940,
+            508, 610, 915, 1016));
+    sizes.addSize(MediaSize("na_letter_8.5x11in_borderless", 21590, 27940,
+            0, 0, 0, 0));
 
     ss << sizes;
 
@@ -88,14 +88,14 @@ TEST(MediaSizesTests, testInsertionOperatorNoSizes)
 TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
 {
     MediaSizes sizes;
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 318, 318, 318, 318)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 0, 0, 0, 0)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
-                20990, 29704, 318, 318, 318, 318)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
-                20990, 29704, 0, 0, 0, 0)));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
 
     auto letterBordered =
         sizes.getMediaSizeByTranslatedNameAndBorder("Letter", false);
@@ -118,14 +118,14 @@ TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
 TEST(MediaSizesTests, testAccessOperator)
 {
     MediaSizes sizes;
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 318, 318, 318, 318)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 0, 0, 0, 0)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
-                20990, 29704, 318, 318, 318, 318)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
-                20990, 29704, 0, 0, 0, 0)));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
 
     MediaSize& letter = sizes[0];
     ASSERT_EQ("Letter", letter.getTranslatedName());
@@ -141,14 +141,14 @@ TEST(MediaSizesTests, testAccessOperator)
 TEST(MediaSizesTests, testAt)
 {
     MediaSizes sizes;
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 318, 318, 318, 318)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 0, 0, 0, 0)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
-                20990, 29704, 318, 318, 318, 318)));
-    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
-                20990, 29704, 0, 0, 0, 0)));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
 
     MediaSize& letter = sizes.at(0);
     ASSERT_EQ("Letter", letter.getTranslatedName());
@@ -164,8 +164,8 @@ TEST(MediaSizesTests, testAt)
 TEST(MediaSizesTests, testAtOutOfRange)
 {
     MediaSizes sizes;
-    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
-                21590, 27940, 318, 318, 318, 318)));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
 
     try
     {

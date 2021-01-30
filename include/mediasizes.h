@@ -28,17 +28,18 @@ namespace nanaprint
             virtual ~MediaSizes();
 
             int getSize() const { return m_mediaSizes.size(); }
-            void addSize(std::shared_ptr<MediaSize> mediaSize);
+            void addSize(MediaSize mediaSize);
             std::vector<std::string> getMediaSizeNames() const;
-            const std::vector<std::shared_ptr<MediaSize>>& getMediaSizes() const { return m_mediaSizes; }
+//            const std::vector<std::shared_ptr<MediaSize>>& getMediaSizes() const { return m_mediaSizes; }
             size_t getMediaSizeNumber(const MediaSize& mediaSize) const;
             bool contains_borderless_paper() const;
             std::optional<MediaSize> getMediaSizeByTranslatedNameAndBorder(
                 const std::string& translatedName, bool isBorderless) const;
             MediaSize& operator[](size_t pos);
+            const MediaSize& operator[](size_t pos) const;
             MediaSize& at(size_t pos);
         private:
-            std::vector<std::shared_ptr<MediaSize>> m_mediaSizes;
+            std::vector<MediaSize> m_mediaSizes;
     };
 
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes);
