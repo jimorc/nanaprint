@@ -126,14 +126,16 @@ TEST(MediaSizesTests, testAccessOperator)
                 20990, 29704, 318, 318, 318, 318));
     sizes.addSize(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
+    
+    const MediaSizes cSizes = sizes;
 
     MediaSize& letter = sizes[0];
     ASSERT_EQ("Letter", letter.getTranslatedName());
     auto letter_borderless = sizes[1];
     ASSERT_EQ("Letter", letter_borderless.getTranslatedName());
-    const MediaSize& a4 = sizes[2];
+    const MediaSize& a4 = cSizes[2];
     ASSERT_EQ("A4", a4.getTranslatedName());
-    const auto a4_borderless = sizes[3];
+    const auto a4_borderless = cSizes[3];
     ASSERT_EQ("A4", a4_borderless.getTranslatedName());
 }
 
