@@ -136,3 +136,63 @@ TEST(MediaSizesTests, testAccessOperator)
     const auto a4_borderless = sizes[3];
     ASSERT_EQ("A4", a4_borderless.getTranslatedName());
 }
+
+// Test MediaSizes::at
+TEST(MediaSizesTests, testAt)
+{
+    MediaSizes sizes;
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0)));
+
+    MediaSize& letter = sizes.at(0);
+    ASSERT_EQ("Letter", letter.getTranslatedName());
+    auto letter_borderless = sizes.at(1);
+    ASSERT_EQ("Letter", letter_borderless.getTranslatedName());
+    const MediaSize& a4 = sizes.at(2);
+    ASSERT_EQ("A4", a4.getTranslatedName());
+    const auto a4_borderless = sizes.at(3);
+    ASSERT_EQ("A4", a4_borderless.getTranslatedName());
+}
+
+// Test MediaSizes::at index out_of_range
+TEST(MediaSizesTests, testAtOutOfRange)
+{
+    MediaSizes sizes;
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318)));
+
+    try
+    {
+        auto ms = sizes.at(1);
+        FAIL() << "Expected std::out_of_range";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range";
+    }
+    try
+    {
+        const MediaSize& ms = sizes.at(2);
+        FAIL() << "Expected std::out_of_range";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range";
+    }
+
+    
+}
