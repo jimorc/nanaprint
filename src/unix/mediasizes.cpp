@@ -98,4 +98,14 @@ namespace nanaprint
         }
         return os;
     }
+
+    MediaSize& MediaSizes::operator[](size_t pos)
+    {
+        return *m_mediaSizes[pos];
+    }
+
+    const MediaSize& MediaSizes::operator[](size_t pos) const
+    {
+        return *m_mediaSizes[pos];
+    }
 }

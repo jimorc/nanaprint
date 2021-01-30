@@ -113,3 +113,26 @@ TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
     ASSERT_EQ(nullopt, invalidSizeBordered);
     ASSERT_EQ(nullopt, invalidSizeBorderless);
 }
+
+// Test MediaSizes::operator[]
+TEST(MediaSizesTests, testAccessOperator)
+{
+    MediaSizes sizes;
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318)));
+    sizes.addSize(make_shared<MediaSize>(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0)));
+
+    MediaSize& letter = sizes[0];
+    ASSERT_EQ("Letter", letter.getTranslatedName());
+    auto letter_borderless = sizes[1];
+    ASSERT_EQ("Letter", letter_borderless.getTranslatedName());
+    const MediaSize& a4 = sizes[2];
+    ASSERT_EQ("A4", a4.getTranslatedName());
+    const auto a4_borderless = sizes[3];
+    ASSERT_EQ("A4", a4_borderless.getTranslatedName());
+}

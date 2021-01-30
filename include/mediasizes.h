@@ -34,7 +34,9 @@ namespace nanaprint
             size_t getMediaSizeNumber(const MediaSize& mediaSize) const;
             bool contains_borderless_paper() const;
             std::optional<MediaSize> getMediaSizeByTranslatedNameAndBorder(
-                const std::string& tranlatedName, bool isBorderless) const;
+                const std::string& translatedName, bool isBorderless) const;
+            MediaSize& operator[](size_t pos);
+            const MediaSize& operator[](size_t pos) const;
         private:
             std::vector<std::shared_ptr<MediaSize>> m_mediaSizes;
     };
