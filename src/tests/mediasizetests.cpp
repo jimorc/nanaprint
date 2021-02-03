@@ -258,6 +258,62 @@ TEST(MediaSizesTests, testConstIterator)
     ASSERT_EQ("A4", mSizes[3].getTranslatedName());
 }
 
+TEST(MediaSizesTests, testReverseIterator)
+{
+    MediaSizes sizes;
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    auto begin = sizes.rbegin();
+    ASSERT_EQ("iso_a4_210x297mm", begin->getMediaName());
+    ASSERT_EQ("iso_a4_210x297mm", (*begin).getMediaName());
+
+    std::vector<MediaSize> sizeVector;
+    for (auto iter = sizes.rbegin(); iter != sizes.rend(); --iter)
+    {
+        sizeVector.push_back(*iter);
+    }
+
+    ASSERT_EQ("iso_a4_210x297mm", sizeVector[0].getMediaName());
+    ASSERT_EQ("iso_a4_210x297mm", sizeVector[1].getMediaName());
+    ASSERT_EQ("na_letter_8.5x11in", sizeVector[2].getMediaName());
+    ASSERT_EQ("na_letter_8.5x11in", sizeVector[3].getMediaName());
+}
+
+TEST(MediaSizesTests, testConstReverseIterator)
+{
+    MediaSizes sizes;
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    auto begin = sizes.crbegin();
+    ASSERT_EQ("iso_a4_210x297mm", begin->getMediaName());
+    ASSERT_EQ("iso_a4_210x297mm", (*begin).getMediaName());
+
+    std::vector<MediaSize> sizeVector;
+    for (auto iter = sizes.crbegin(); iter != sizes.crend(); --iter)
+    {
+        sizeVector.push_back(*iter);
+    }
+
+    ASSERT_EQ("iso_a4_210x297mm", sizeVector[0].getMediaName());
+    ASSERT_EQ("iso_a4_210x297mm", sizeVector[1].getMediaName());
+    ASSERT_EQ("na_letter_8.5x11in", sizeVector[2].getMediaName());
+    ASSERT_EQ("na_letter_8.5x11in", sizeVector[3].getMediaName());
+}
+
 TEST(MediaSizesTests, testIteratorWithStdLib)
 {
     MediaSizes sizes;

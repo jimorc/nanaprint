@@ -22,14 +22,12 @@
 
 namespace nanaprint 
 {
-    class MediaSizesIterator;
-
     class MediaSizes
     {
         public:
             struct iterator
             {
-                using iterator_category = std::forward_iterator_tag;
+                using iterator_category = std::bidirectional_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
                 using value_type        = MediaSize;
                 using pointer           = MediaSize*;  // or also value_type*
@@ -45,6 +43,12 @@ namespace nanaprint
                 // Postfix increment
                 iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
 
+                // Prefix decrement
+                iterator& operator--() { m_ptr--; return *this; }  
+
+                // Postfix decrement
+                iterator operator--(int) { iterator tmp = *this; --(*this); return tmp; }
+
                 friend bool operator== (const iterator& a, const iterator& b) { return a.m_ptr == b.m_ptr; };
                 friend bool operator!= (const iterator& a, const iterator& b) { return a.m_ptr != b.m_ptr; };
 
@@ -54,7 +58,7 @@ namespace nanaprint
 
             struct const_iterator
             {
-                using iterator_category = std::forward_iterator_tag;
+                using iterator_category = std::bidirectional_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
                 using value_type        = MediaSize;
                 using pointer           = MediaSize const*;  // or also value_type*
@@ -70,13 +74,18 @@ namespace nanaprint
                 // Postfix increment
                 const_iterator operator++(int) { const_iterator tmp = *this; ++(*this); return tmp; }
 
+                // Prefix decrement
+                const_iterator& operator--() { m_ptr--; return *this; }  
+
+                // Postfix decrement
+                const_iterator operator--(int) { const_iterator tmp = *this; --(*this); return tmp; }
+
                 friend bool operator== (const const_iterator& a, const const_iterator& b) { return a.m_ptr == b.m_ptr; };
                 friend bool operator!= (const const_iterator& a, const const_iterator& b) { return a.m_ptr != b.m_ptr; };
 
                 private:
                     pointer m_ptr;
             };
-
 
             MediaSizes();
             virtual ~MediaSizes();
@@ -97,6 +106,10 @@ namespace nanaprint
             iterator end() { return iterator(&m_mediaSizes[m_mediaSizes.size()]); }
             const_iterator cbegin() const { return const_iterator(&m_mediaSizes[0]); } 
             const_iterator cend() const { return const_iterator(&m_mediaSizes[m_mediaSizes.size()]); }
+            iterator rbegin() { return iterator(&m_mediaSizes[m_mediaSizes.size() - 1]); }
+            iterator rend() { return iterator(&m_mediaSizes[-1]); }
+            const_iterator crbegin() const { return const_iterator(&m_mediaSizes[m_mediaSizes.size() - 1]); }
+            const_iterator crend() const { return const_iterator(&m_mediaSizes[-1]); }
         private:
             std::vector<MediaSize> m_mediaSizes;
     };

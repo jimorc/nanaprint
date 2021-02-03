@@ -24,6 +24,7 @@ namespace nanaprint
     class MediaSize
     {
         public:
+            MediaSize() : MediaSize("", 0, 0, 0, 0, 0, 0) {}
             MediaSize(const std::string& mediaName, const int width, const int height,
                 const int bottom, const int left, const int right, const int top);
             virtual ~MediaSize();
