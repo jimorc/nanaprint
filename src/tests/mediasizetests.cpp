@@ -351,3 +351,21 @@ TEST(MediaSizesTests, testIteratorWithStdLib)
     ASSERT_EQ("jis_b5_182x257mm_borderless", sizes2[2].getMediaName());
     ASSERT_EQ("jis_b5_182x257mm_borderless", sizes2[3].getMediaName());
 }
+
+TEST(MediaSizesTests, testClear)
+{
+    MediaSizes sizes;
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    ASSERT_EQ(4, sizes.size());
+
+    sizes.clear();
+    ASSERT_EQ(0, sizes.size());
+}
