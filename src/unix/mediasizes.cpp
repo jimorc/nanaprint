@@ -27,7 +27,7 @@ namespace nanaprint
 
     }
 
-    void MediaSizes::addSize(MediaSize mediaSize)
+    void MediaSizes::push_back(MediaSize mediaSize)
     {
         m_mediaSizes.push_back(mediaSize);
     }

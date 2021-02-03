@@ -184,7 +184,7 @@ namespace nanaprint
                 for(int i = 0; i < mSizeCount; ++i)
                 {
                     int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, info, i, 0, &size);
-                    m_mediaSizes.addSize((MediaSize(
+                    m_mediaSizes.push_back((MediaSize(
                         size.media, size.width, size.length, size.bottom, size.left,
                         size.right, size.top)));
                 }

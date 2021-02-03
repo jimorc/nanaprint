@@ -91,7 +91,7 @@ namespace nanaprint
             virtual ~MediaSizes();
 
             int size() const { return m_mediaSizes.size(); }
-            void addSize(MediaSize mediaSize);
+            void push_back(MediaSize mediaSize);
             std::vector<std::string> getMediaSizeNames() const;
             size_t getMediaSizeNumber(const MediaSize& mediaSize) const;
             bool contains_borderless_paper() const;

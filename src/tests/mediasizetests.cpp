@@ -58,9 +58,9 @@ TEST(MediaSizesTests, testInsertionOperator)
 {
     stringstream ss;
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 21590, 27940,
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 21590, 27940,
             508, 610, 915, 1016));
-    sizes.addSize(MediaSize("na_letter_8.5x11in_borderless", 21590, 27940,
+    sizes.push_back(MediaSize("na_letter_8.5x11in_borderless", 21590, 27940,
             0, 0, 0, 0));
 
     ss << sizes;
@@ -88,13 +88,13 @@ TEST(MediaSizesTests, testInsertionOperatorNoSizes)
 TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     auto letterBordered =
@@ -118,13 +118,13 @@ TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
 TEST(MediaSizesTests, testAccessOperator)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
     
     const MediaSizes cSizes = sizes;
@@ -143,13 +143,13 @@ TEST(MediaSizesTests, testAccessOperator)
 TEST(MediaSizesTests, testAt)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     const MediaSizes cSizes = sizes;
@@ -168,7 +168,7 @@ TEST(MediaSizesTests, testAt)
 TEST(MediaSizesTests, testAtOutOfRange)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
 
     try
@@ -202,13 +202,13 @@ TEST(MediaSizesTests, testAtOutOfRange)
 TEST(MediaSizesTests, testIterator)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     auto begin = sizes.begin();
@@ -237,13 +237,13 @@ TEST(MediaSizesTests, testIterator)
 TEST(MediaSizesTests, testConstIterator)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     const MediaSizes cSizes = sizes;
@@ -261,13 +261,13 @@ TEST(MediaSizesTests, testConstIterator)
 TEST(MediaSizesTests, testReverseIterator)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     auto begin = sizes.rbegin();
@@ -289,13 +289,13 @@ TEST(MediaSizesTests, testReverseIterator)
 TEST(MediaSizesTests, testConstReverseIterator)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     auto begin = sizes.crbegin();
@@ -317,13 +317,13 @@ TEST(MediaSizesTests, testConstReverseIterator)
 TEST(MediaSizesTests, testIteratorWithStdLib)
 {
     MediaSizes sizes;
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
                 21590, 27940, 0, 0, 0, 0));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 318, 318, 318, 318));
-    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
                 20990, 29704, 0, 0, 0, 0));
 
     MediaSizes sizes2 = sizes;      // sizes2 is used later. This saves extra initialization
