@@ -16,14 +16,68 @@
 #include <memory>
 #include <vector>
 #include <optional>
+#include <iterator>
 #include <cups/cups.h>
 #include "mediasize.h"
 
 namespace nanaprint 
 {
+    class MediaSizesIterator;
+
     class MediaSizes
     {
         public:
+            struct iterator
+            {
+                using iterator_category = std::forward_iterator_tag;
+                using difference_type   = std::ptrdiff_t;
+                using value_type        = MediaSize;
+                using pointer           = MediaSize*;  // or also value_type*
+                using reference         = MediaSize&;  // or also value_type& 
+
+                explicit iterator(pointer ptr) : m_ptr(ptr) {}
+                reference operator*() const { return *m_ptr; }
+                pointer operator->() const { return m_ptr; }
+
+                // Prefix increment
+                iterator& operator++() { m_ptr++; return *this; }  
+
+                // Postfix increment
+                iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+
+                friend bool operator== (const iterator& a, const iterator& b) { return a.m_ptr == b.m_ptr; };
+                friend bool operator!= (const iterator& a, const iterator& b) { return a.m_ptr != b.m_ptr; };
+
+                private:
+                    pointer m_ptr;
+            };
+
+            struct const_iterator
+            {
+                using iterator_category = std::forward_iterator_tag;
+                using difference_type   = std::ptrdiff_t;
+                using value_type        = MediaSize;
+                using pointer           = MediaSize const*;  // or also value_type*
+                using reference         = MediaSize const&;  // or also value_type& 
+
+                explicit const_iterator(const pointer ptr) : m_ptr(ptr) {}
+                const reference operator*() const { return *m_ptr; }
+                pointer operator->() const { return m_ptr; }
+
+                // Prefix increment
+                const_iterator& operator++() { m_ptr++; return *this; }  
+
+                // Postfix increment
+                const_iterator operator++(int) { const_iterator tmp = *this; ++(*this); return tmp; }
+
+                friend bool operator== (const const_iterator& a, const const_iterator& b) { return a.m_ptr == b.m_ptr; };
+                friend bool operator!= (const const_iterator& a, const const_iterator& b) { return a.m_ptr != b.m_ptr; };
+
+                private:
+                    pointer m_ptr;
+            };
+
+
             MediaSizes();
             virtual ~MediaSizes();
 
@@ -38,6 +92,11 @@ namespace nanaprint
             const MediaSize& operator[](size_t pos) const;
             MediaSize& at(size_t pos);
             const MediaSize& at(size_t pos) const;
+
+            iterator begin() { return iterator(&m_mediaSizes[0]); }
+            iterator end() { return iterator(&m_mediaSizes[m_mediaSizes.size()]); }
+            const_iterator cbegin() const { return const_iterator(&m_mediaSizes[0]); } 
+            const_iterator cend() const { return const_iterator(&m_mediaSizes[m_mediaSizes.size()]); }
         private:
             std::vector<MediaSize> m_mediaSizes;
     };

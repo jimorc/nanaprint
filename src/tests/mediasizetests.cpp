@@ -197,6 +197,101 @@ TEST(MediaSizesTests, testAtOutOfRange)
     {
         FAIL() << "Expected std::out_of_range";
     }
+}
 
+TEST(MediaSizesTests, testIterator)
+{
+    MediaSizes sizes;
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    auto begin = sizes.begin();
+    ASSERT_EQ("Letter", begin->getTranslatedName());
+    ASSERT_EQ("Letter", (*begin).getTranslatedName());
+
+    std::vector<MediaSize> mSizes;
+    for (auto &size: sizes)
+    {
+        mSizes.push_back(size);
+    }
+    ASSERT_EQ("Letter", mSizes[0].getTranslatedName());
+    ASSERT_EQ("Letter", mSizes[1].getTranslatedName());
+    ASSERT_EQ("A4", mSizes[2].getTranslatedName());
+    ASSERT_EQ("A4", mSizes[3].getTranslatedName());
+
+    std::vector<MediaSize> mSizes2;
+    MediaSizes sizes2;
+    for (auto size: sizes2)
+    {
+        mSizes2.push_back(size);
+    }
+    ASSERT_EQ(0, mSizes2.size());
+}
+
+TEST(MediaSizesTests, testConstIterator)
+{
+    MediaSizes sizes;
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    const MediaSizes cSizes = sizes;
+    std::vector<MediaSize> mSizes;
+    for (const auto &size: sizes)
+    {
+        mSizes.push_back(size);
+    }
+    ASSERT_EQ("Letter", mSizes[0].getTranslatedName());
+    ASSERT_EQ("Letter", mSizes[1].getTranslatedName());
+    ASSERT_EQ("A4", mSizes[2].getTranslatedName());
+    ASSERT_EQ("A4", mSizes[3].getTranslatedName());
+}
+
+TEST(MediaSizesTests, testIteratorWithStdLib)
+{
+    MediaSizes sizes;
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.addSize(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    MediaSizes sizes2 = sizes;      // sizes2 is used later. This saves extra initialization
+
+    std::fill(sizes.begin(), sizes.end(), MediaSize("na_govt-letter_8x10in_borderless",
+                19560, 14168, 0, 0, 0, 0));
+
+    ASSERT_EQ("na_govt-letter_8x10in_borderless", sizes[0].getMediaName());
+    ASSERT_EQ("na_govt-letter_8x10in_borderless", sizes[1].getMediaName());
+    ASSERT_EQ("na_govt-letter_8x10in_borderless", sizes[2].getMediaName());
+    ASSERT_EQ("na_govt-letter_8x10in_borderless", sizes[3].getMediaName());
     
+    std::fill(begin(sizes), end(sizes), MediaSize("jis_b5_182x257mm_borderless",
+                18200, 25700, 0, 0, 0, 0));
+    
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes[0].getMediaName());
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes[1].getMediaName());
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes[2].getMediaName());
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes[3].getMediaName());
+
+    std::copy(sizes.begin(), sizes.end(), sizes2.begin());
+    
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes2[0].getMediaName());
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes2[1].getMediaName());
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes2[2].getMediaName());
+    ASSERT_EQ("jis_b5_182x257mm_borderless", sizes2[3].getMediaName());
 }
