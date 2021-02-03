@@ -46,7 +46,7 @@ namespace nanaprint
     {
         size_t mediaSizeNum = 0;
         const auto sizeNames = getMediaSizeNames();
-        for (size_t i = 0; i < getSize(); ++i)
+        for (size_t i = 0; i < size(); ++i)
         {
             if (mediaSize.getMediaName() == sizeNames[i])
             {
@@ -84,16 +84,15 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
     {
         os << "Media Sizes:\n";
-        auto numberOfSizes = sizes.getSize();
-        if (numberOfSizes == 0)
+        if (sizes.size() == 0)
         {
             os << "None\n";
         }
         else
         {
-            for (auto i = 0; i < numberOfSizes; ++i)
+            for (auto iter = sizes.cbegin(); iter != sizes.cend(); ++iter)
             {
-                os << sizes[i];
+                os << *iter;
             }
         }
         return os;

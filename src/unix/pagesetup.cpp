@@ -239,7 +239,7 @@ namespace nanaprint
         auto paperSizes = printer->getMediaSizes();
         m_paperSizeCombox.clear();
         bool borderless = m_borderlessCheckbox.checked();
-        for (size_t i = 0; i < paperSizes.getSize(); ++i)
+        for (size_t i = 0; i < paperSizes.size(); ++i)
         {
             auto mediaSize = paperSizes[i];
             if (mediaSize.isBorderless() == borderless)

@@ -176,7 +176,7 @@ namespace nanaprint
     {
         if(!m_gotMediaSizes)
         {
-            if(m_mediaSizes.getSize() == 0)
+            if(m_mediaSizes.size() == 0)
             {
                 cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
                 int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, info, 0);

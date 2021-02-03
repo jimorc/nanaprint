@@ -90,7 +90,7 @@ namespace nanaprint
             MediaSizes();
             virtual ~MediaSizes();
 
-            int getSize() const { return m_mediaSizes.size(); }
+            int size() const { return m_mediaSizes.size(); }
             void addSize(MediaSize mediaSize);
             std::vector<std::string> getMediaSizeNames() const;
             size_t getMediaSizeNumber(const MediaSize& mediaSize) const;
