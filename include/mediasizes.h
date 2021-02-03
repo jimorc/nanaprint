@@ -13,10 +13,9 @@
  *  @file unix/mediasizes.h
  */
 
-#include <memory>
 #include <vector>
+#include <string>
 #include <optional>
-#include <iterator>
 #include <cups/cups.h>
 #include "mediasize.h"
 
