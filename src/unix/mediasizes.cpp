@@ -45,17 +45,13 @@ namespace nanaprint
 
     size_t MediaSizes::getMediaSizeNumber(const MediaSize& mediaSize) const
     {
-        size_t mediaSizeNum = 0;
-        const auto sizeNames = get_media_size_names();
-        for (size_t i = 0; i < size(); ++i)
-        {
-            if (mediaSize.getMediaName() == sizeNames[i])
-            {
-                mediaSizeNum = i;
-                break;
-            }
-        }
-        return mediaSizeNum;
+        auto sizes = get_media_size_names();
+        auto iter = find_if(sizes.begin(), sizes.end(),
+            [mediaSize](const string& size){ return mediaSize.getMediaName() == size; });
+
+        // if mediaSize is not found, then return 0
+        iter = (iter!=sizes.end()) ? iter : sizes.begin();
+        return iter - sizes.begin();
     }
 
     bool MediaSizes::contains_borderless_paper() const
