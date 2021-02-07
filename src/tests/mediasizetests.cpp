@@ -107,9 +107,9 @@ TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
         sizes.get_media_size_by_translated_name_and_border("Legal", true);
 
     ASSERT_EQ("Letter", letterBordered.value().get_translated_name());
-    ASSERT_FALSE(letterBordered.value().isBorderless());
+    ASSERT_FALSE(letterBordered.value().is_borderless());
     ASSERT_EQ("A4", a4Borderless.value().get_translated_name());
-    ASSERT_TRUE(a4Borderless.value().isBorderless());
+    ASSERT_TRUE(a4Borderless.value().is_borderless());
     ASSERT_EQ(nullopt, invalidSizeBordered);
     ASSERT_EQ(nullopt, invalidSizeBorderless);
 }

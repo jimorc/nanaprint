@@ -38,7 +38,7 @@ namespace nanaprint
         return m_translatedName;
     }
 
-    bool MediaSize::isBorderless() const
+    bool MediaSize::is_borderless() const
     {
         return m_top == 0 && m_bottom == 0 && m_left == 0 && m_right == 0;
     }
@@ -46,7 +46,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaSize& size)
     {
         os << size.get_translated_name();
-        if (size.isBorderless())
+        if (size.is_borderless())
         {
             os << "    Borderless";
         }

@@ -58,7 +58,7 @@ namespace nanaprint
     {
         for (auto& mediaSize: m_mediaSizes)
         {
-            if (mediaSize.isBorderless())
+            if (mediaSize.is_borderless())
                 return true;
         }
         return false;
@@ -69,7 +69,7 @@ namespace nanaprint
         {
             auto iter = find_if(m_mediaSizes.begin(), m_mediaSizes.end(), 
                 [&](const MediaSize& size){ return ((size.get_translated_name() == translatedName) &&
-                    (size.isBorderless() == isBorderless)); });
+                    (size.is_borderless() == isBorderless)); });
             return (iter != m_mediaSizes.end()) ? std::optional<MediaSize>(*iter) : nullopt;
         }
 

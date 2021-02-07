@@ -242,7 +242,7 @@ namespace nanaprint
         for (size_t i = 0; i < paperSizes.size(); ++i)
         {
             auto mediaSize = paperSizes[i];
-            if (mediaSize.isBorderless() == borderless)
+            if (mediaSize.is_borderless() == borderless)
             {
                 m_paperSizeCombox.push_back(mediaSize.get_translated_name());
             }
