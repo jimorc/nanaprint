@@ -38,6 +38,15 @@ namespace nanaprint
         return m_sources[pos];
     }
 
+    MediaSource& MediaSources::at(size_t pos)
+    {
+        if (pos >= m_sources.size())
+        {
+            throw out_of_range("Out of range");
+        }
+        return m_sources[pos];
+    }
+
     const std::vector<MediaSource> MediaSources::getSources() const
     {
         std::vector<MediaSource> sources;

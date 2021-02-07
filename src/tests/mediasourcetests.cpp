@@ -61,11 +61,44 @@ TEST(MediaSourcesTests, testInsertionOperator)
 TEST(MediaSourcesTests, testAccessOperator)
 {
     MediaSources sources;
-sources.addSource(u8"Tray 1");
+    sources.addSource(u8"Tray 1");
     sources.addSource(u8"Tray 2");
     sources.addSource(u8"Manual Feed Tray");
 
     ASSERT_EQ(u8"Tray 1", sources[0].getSource());
     ASSERT_EQ(u8"Tray 2", sources[1].getSource());
     ASSERT_EQ(u8"Manual Feed Tray", sources[2].getSource());    
+}
+
+TEST(MediaSourcesTests, testAt)
+{
+    MediaSources sources;
+    sources.addSource(u8"Tray 1");
+    sources.addSource(u8"Tray 2");
+    sources.addSource(u8"Manual Feed Tray");
+
+    ASSERT_EQ(u8"Tray 1", sources.at(0).getSource());
+    ASSERT_EQ(u8"Tray 2", sources.at(1).getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", sources.at(2).getSource());
+}
+
+TEST(MediaSourcesTests, testAtOutOfRange)
+{
+    MediaSources sources;
+    sources.addSource(u8"Tray 1");
+
+    try
+    {
+        auto& source = sources.at(1);
+        FAIL() << "Expected std::out_of_range";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range, but threw a different exception";
+    }
+    
 }
