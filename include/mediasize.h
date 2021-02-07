@@ -32,7 +32,7 @@ namespace nanaprint
             std::string get_name() const { return m_name; }
             std::string get_translated_name() const;
             int get_width() const { return m_width; }
-            int getHeight() const { return m_height; }
+            int get_height() const { return m_height; }
             int getBottom() const { return m_bottom; }
             int getLeft() const { return m_left; }
             int getRight() const { return m_right; }
