@@ -95,7 +95,7 @@ namespace nanaprint
             void push_back(MediaSize mediaSize);
             void clear() { m_mediaSizes.clear(); }
             std::vector<std::string> get_media_size_names() const;
-            size_t getMediaSizeNumber(const MediaSize& mediaSize) const;
+            size_t get_media_size_index(const MediaSize& mediaSize) const;
             bool contains_borderless_paper() const;
             std::optional<MediaSize> get_media_size_by_translated_name_and_border(
                 const std::string& translatedName, bool isBorderless) const;

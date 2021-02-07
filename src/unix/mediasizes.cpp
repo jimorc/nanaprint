@@ -43,7 +43,7 @@ namespace nanaprint
         return mediaNames;
     }
 
-    size_t MediaSizes::getMediaSizeNumber(const MediaSize& mediaSize) const
+    size_t MediaSizes::get_media_size_index(const MediaSize& mediaSize) const
     {
         auto sizes = get_media_size_names();
         auto iter = find_if(sizes.begin(), sizes.end(),

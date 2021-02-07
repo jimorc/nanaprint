@@ -388,7 +388,7 @@ TEST(MediaSizesTests, testGetMediaSizeNames)
     ASSERT_EQ("iso_a4_210x297mm", sizes[3].getMediaName());
 }
 
-TEST(MediaSizesTests, testGetMediaSizeNumber)
+TEST(MediaSizesTests, testGetMediaSizeIndex)
 {
     MediaSize size1("na_letter_8.5x11in", 
                 21590, 27940, 318, 318, 318, 318);
@@ -401,7 +401,7 @@ TEST(MediaSizesTests, testGetMediaSizeNumber)
     sizes.push_back(size1);
     sizes.push_back(size2);
 
-    ASSERT_EQ(0, sizes.getMediaSizeNumber(size1));
-    ASSERT_EQ(1, sizes.getMediaSizeNumber(size2));
-    ASSERT_EQ(0, sizes.getMediaSizeNumber(size3));
+    ASSERT_EQ(0, sizes.get_media_size_index(size1));
+    ASSERT_EQ(1, sizes.get_media_size_index(size2));
+    ASSERT_EQ(0, sizes.get_media_size_index(size3));
 }
