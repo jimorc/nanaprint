@@ -67,7 +67,13 @@ TEST(MediaSourcesTests, testAccessOperator)
 
     ASSERT_EQ(u8"Tray 1", sources[0].getSource());
     ASSERT_EQ(u8"Tray 2", sources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", sources[2].getSource());    
+    ASSERT_EQ(u8"Manual Feed Tray", sources[2].getSource());
+
+    const MediaSources cSources = sources;
+
+    ASSERT_EQ(u8"Tray 1", cSources[0].getSource());
+    ASSERT_EQ(u8"Tray 2", cSources[1].getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", cSources[2].getSource());
 }
 
 TEST(MediaSourcesTests, testAt)
@@ -80,6 +86,12 @@ TEST(MediaSourcesTests, testAt)
     ASSERT_EQ(u8"Tray 1", sources.at(0).getSource());
     ASSERT_EQ(u8"Tray 2", sources.at(1).getSource());
     ASSERT_EQ(u8"Manual Feed Tray", sources.at(2).getSource());
+
+    const MediaSources cSources = sources;
+
+    ASSERT_EQ(u8"Tray 1", cSources.at(0).getSource());
+    ASSERT_EQ(u8"Tray 2", cSources.at(1).getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", cSources.at(2).getSource());
 }
 
 TEST(MediaSourcesTests, testAtOutOfRange)
@@ -100,5 +112,20 @@ TEST(MediaSourcesTests, testAtOutOfRange)
     {
         FAIL() << "Expected std::out_of_range, but threw a different exception";
     }
-    
+
+    const MediaSources cSources = sources;
+
+    try
+    {
+        auto& source = cSources.at(1);
+        FAIL() << "Expected std::out_of_range";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range, but threw a different exception";
+    }    
 }

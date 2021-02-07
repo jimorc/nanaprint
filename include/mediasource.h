@@ -42,7 +42,9 @@ namespace nanaprint
             void addSource(const std::string& source);
             const std::vector<MediaSource> getSources() const;
             MediaSource& operator[](size_t pos);
+            const MediaSource& operator[](size_t post) const;
             MediaSource& at(size_t pos);
+            const MediaSource& at(size_t pos) const;
         private:
             std::vector<MediaSource> m_sources;
     };
