@@ -369,3 +369,21 @@ TEST(MediaSizesTests, testClear)
     sizes.clear();
     ASSERT_EQ(0, sizes.size());
 }
+
+TEST(MediaSizesTests, testGetMediaSizeNames)
+{
+    MediaSizes sizes;
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318));
+    sizes.push_back(MediaSize("na_letter_8.5x11in", 
+                21590, 27940, 0, 0, 0, 0));
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 318, 318, 318, 318));
+    sizes.push_back(MediaSize("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0));
+
+    ASSERT_EQ("na_letter_8.5x11in", sizes[0].getMediaName());
+    ASSERT_EQ("na_letter_8.5x11in", sizes[1].getMediaName());
+    ASSERT_EQ("iso_a4_210x297mm", sizes[2].getMediaName());
+    ASSERT_EQ("iso_a4_210x297mm", sizes[3].getMediaName());
+}
