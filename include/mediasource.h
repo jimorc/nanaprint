@@ -43,7 +43,7 @@ namespace nanaprint
             const std::vector<std::shared_ptr<MediaSource>> getSources() const;
         
         private:
-            std::set<std::shared_ptr<MediaSource>> m_sources;
+            std::vector<std::shared_ptr<MediaSource>> m_sources;
     };
 
     std::ostream& operator<<(std::ostream& os, const MediaSources& sources);
