@@ -52,7 +52,7 @@ namespace nanaprint
         }
         os << "\n    width = " << size.get_width() << ", height = " << size.get_height() << ",\n";
         os << "    top = " << size. getTop() << ", bottom = " << size.get_bottom() << ",\n";
-        os << "    left = " << size.getLeft() <<", right = " << size.getRight() <<  '\n';
+        os << "    left = " << size.get_left() <<", right = " << size.getRight() <<  '\n';
         return os;
     }
 }

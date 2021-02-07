@@ -34,7 +34,7 @@ namespace nanaprint
             int get_width() const { return m_width; }
             int get_height() const { return m_height; }
             int get_bottom() const { return m_bottom; }
-            int getLeft() const { return m_left; }
+            int get_left() const { return m_left; }
             int getRight() const { return m_right; }
             int getTop() const { return m_top; }
             bool isBorderless() const;
