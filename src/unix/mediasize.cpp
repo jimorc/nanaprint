@@ -21,11 +21,11 @@ namespace nanaprint
 
     MediaSize::MediaSize(const string& mediaName, const int width, const int height,
         const int bottom, const int left, const int right, const int top)
-        : m_mediaName(mediaName), m_width(width), m_height(height),
+        : m_name(mediaName), m_width(width), m_height(height),
             m_bottom(bottom), m_left(left), m_right(right),
             m_top(top)
     {
-        m_translatedName = m_translator.getTranslatedSize(m_mediaName);
+        m_translatedName = m_translator.getTranslatedSize(m_name);
     }
 
     MediaSize::~MediaSize()

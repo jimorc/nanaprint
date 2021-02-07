@@ -38,7 +38,7 @@ namespace nanaprint
         vector<string> mediaNames;
         for (auto mediaSize: m_mediaSizes)
         {
-            mediaNames.push_back(mediaSize.getMediaName());
+            mediaNames.push_back(mediaSize.get_name());
         }
         return mediaNames;
     }
@@ -47,7 +47,7 @@ namespace nanaprint
     {
         auto sizes = get_media_size_names();
         auto iter = find_if(sizes.begin(), sizes.end(),
-            [mediaSize](const string& size){ return mediaSize.getMediaName() == size; });
+            [mediaSize](const string& size){ return mediaSize.get_name() == size; });
 
         // if mediaSize is not found, then return 0
         iter = (iter!=sizes.end()) ? iter : sizes.begin();
