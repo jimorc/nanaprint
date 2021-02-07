@@ -33,6 +33,11 @@ namespace nanaprint
         m_sources.push_back(MediaSource(source));
     }
 
+    MediaSource& MediaSources::operator[](size_t pos)
+    {
+        return m_sources[pos];
+    }
+
     const std::vector<MediaSource> MediaSources::getSources() const
     {
         std::vector<MediaSource> sources;

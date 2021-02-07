@@ -57,3 +57,15 @@ TEST(MediaSourcesTests, testInsertionOperator)
         ss.str().c_str());
     ASSERT_STREQ(u8"Media Sources:\n    None\n", ss2.str().c_str());
 } 
+
+TEST(MediaSourcesTests, testAccessOperator)
+{
+    MediaSources sources;
+sources.addSource(u8"Tray 1");
+    sources.addSource(u8"Tray 2");
+    sources.addSource(u8"Manual Feed Tray");
+
+    ASSERT_EQ(u8"Tray 1", sources[0].getSource());
+    ASSERT_EQ(u8"Tray 2", sources[1].getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", sources[2].getSource());    
+}

@@ -41,7 +41,7 @@ namespace nanaprint
             virtual ~MediaSources() {}
             void addSource(const std::string& source);
             const std::vector<MediaSource> getSources() const;
-        
+            MediaSource& operator[](size_t pos);
         private:
             std::vector<MediaSource> m_sources;
     };
