@@ -129,3 +129,33 @@ TEST(MediaSourcesTests, testAtOutOfRange)
         FAIL() << "Expected std::out_of_range, but threw a different exception";
     }    
 }
+
+TEST(MediaSourcesTests, testIterator)
+{
+    MediaSources sources;
+    sources.addSource(u8"Tray 1");
+    sources.addSource(u8"Tray 2");
+    sources.addSource(u8"Manual Feed Tray");
+
+    auto begin = sources.begin();
+    ASSERT_EQ(u8"Tray 1", begin->getSource());
+    ASSERT_EQ(u8"Tray 1", (*begin).getSource());
+
+    std::vector<MediaSource> mSources;
+    for (auto &source: sources)
+    {
+        mSources.push_back(source);
+    }
+    ASSERT_EQ(u8"Tray 1", mSources[0].getSource());
+    ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].getSource());
+
+    std::vector<MediaSource> mSources2;
+    MediaSources sources2;
+    for (auto source: sources2)
+    {
+        mSources2.push_back(source);
+    }
+    ASSERT_EQ(0, mSources2.size());
+
+}
