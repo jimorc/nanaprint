@@ -12,6 +12,7 @@
  */
 
 #include "mediasizes.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -70,15 +71,10 @@ namespace nanaprint
     std::optional<MediaSize> MediaSizes::getMediaSizeByTranslatedNameAndBorder(
         const std::string& translatedName, bool isBorderless) const
         {
-            for (auto size: m_mediaSizes)
-            {
-                if (size.getTranslatedName() == translatedName &&
-                    size.isBorderless() == isBorderless)
-                {
-                    return optional<MediaSize>(size);
-                }
-            }
-            return nullopt;
+            auto iter = find_if(m_mediaSizes.begin(), m_mediaSizes.end(), 
+                [&](const MediaSize& size){ return ((size.getTranslatedName() == translatedName) &&
+                    (size.isBorderless() == isBorderless)); });
+            return (iter != m_mediaSizes.end()) ? std::optional<MediaSize>(*iter) : nullopt;
         }
 
     std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes)
