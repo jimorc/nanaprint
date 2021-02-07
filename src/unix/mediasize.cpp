@@ -50,7 +50,7 @@ namespace nanaprint
         {
             os << "    Borderless";
         }
-        os << "\n    width = " << size.getWidth() << ", height = " << size.getHeight() << ",\n";
+        os << "\n    width = " << size.get_width() << ", height = " << size.getHeight() << ",\n";
         os << "    top = " << size. getTop() << ", bottom = " << size.getBottom() << ",\n";
         os << "    left = " << size.getLeft() <<", right = " << size.getRight() <<  '\n';
         return os;

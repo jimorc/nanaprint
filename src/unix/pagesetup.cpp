@@ -422,7 +422,7 @@ namespace nanaprint
         if(mediaSize)
         {
             stringstream ss;
-            ss << mediaSize.value().getWidth() / 100 << " x " 
+            ss << mediaSize.value().get_width() / 100 << " x " 
                 << mediaSize.value().getHeight()  / 100 << " mm";
             m_paperSize.caption(ss.str());
         }
