@@ -21,13 +21,13 @@
 
 namespace nanaprint
 {
-    class MediaSize
+    class media_size
     {
         public:
-            MediaSize() : MediaSize("", 0, 0, 0, 0, 0, 0) {}
-            MediaSize(const std::string& mediaName, const int width, const int height,
+            media_size() : media_size("", 0, 0, 0, 0, 0, 0) {}
+            media_size(const std::string& mediaName, const int width, const int height,
                 const int bottom, const int left, const int right, const int top);
-            virtual ~MediaSize();
+            virtual ~media_size();
 
             std::string get_name() const { return m_name; }
             std::string get_translated_name() const;
@@ -51,7 +51,7 @@ namespace nanaprint
             int m_top;
     };
 
-    std::ostream& operator<<(std::ostream& os, const MediaSize& size);
+    std::ostream& operator<<(std::ostream& os, const media_size& size);
 }
 
 #endif      // MEDIASIZE_H

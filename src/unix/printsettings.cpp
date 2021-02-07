@@ -71,7 +71,7 @@ namespace nanaprint
         m_borderless = borderless;
     }
 
-    void PrintSettings::set_media_size(const std::optional<MediaSize>& mediaSize)
+    void PrintSettings::set_media_size(const std::optional<media_size>& mediaSize)
     {
         m_mediaSize = mediaSize;
     }

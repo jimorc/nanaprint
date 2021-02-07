@@ -184,7 +184,7 @@ namespace nanaprint
                 for(int i = 0; i < mSizeCount; ++i)
                 {
                     int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, info, i, 0, &size);
-                    m_mediaSizes.push_back((MediaSize(
+                    m_mediaSizes.push_back((media_size(
                         size.media, size.width, size.length, size.bottom, size.left,
                         size.right, size.top)));
                 }
@@ -208,7 +208,7 @@ namespace nanaprint
             int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, info, 0, &size);
             if(result)
             {
-                m_defaultMediaSize = MediaSize(size.media, size.width, size.length,
+                m_defaultMediaSize = media_size(size.media, size.width, size.length,
                     size.bottom, size.left, size.right, size.top);
                 m_gotDefaultMediaSize = true;
             }
@@ -221,7 +221,7 @@ namespace nanaprint
         }
     }
 
-    std::optional<MediaSize>& Printer::getDefaultMediaSize()
+    std::optional<media_size>& Printer::getDefaultMediaSize()
         {
             populateDefaultMediaSize();
             return m_defaultMediaSize;

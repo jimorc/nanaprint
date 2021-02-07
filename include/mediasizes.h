@@ -28,9 +28,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = MediaSize;
-                using pointer           = MediaSize*;  // or also value_type*
-                using reference         = MediaSize&;  // or also value_type& 
+                using value_type        = media_size;
+                using pointer           = media_size*;  // or also value_type*
+                using reference         = media_size&;  // or also value_type& 
 
                 explicit iterator(pointer ptr) : m_ptr(ptr) {}
                 reference operator*() const { return *m_ptr; }
@@ -60,9 +60,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = MediaSize;
-                using pointer           = MediaSize const*;  // or also value_type*
-                using reference         = MediaSize const&;  // or also value_type& 
+                using value_type        = media_size;
+                using pointer           = media_size const*;  // or also value_type*
+                using reference         = media_size const&;  // or also value_type& 
 
                 explicit const_iterator(const pointer ptr) : m_ptr(ptr) {}
                 const reference operator*() const { return *m_ptr; }
@@ -92,17 +92,17 @@ namespace nanaprint
             virtual ~media_sizes();
 
             int size() const { return m_mediaSizes.size(); }
-            void push_back(MediaSize mediaSize);
+            void push_back(media_size mediaSize);
             void clear() { m_mediaSizes.clear(); }
             std::vector<std::string> get_media_size_names() const;
-            size_t get_media_size_index(const MediaSize& mediaSize) const;
+            size_t get_media_size_index(const media_size& mediaSize) const;
             bool contains_borderless_paper() const;
-            std::optional<MediaSize> get_media_size_by_translated_name_and_border(
+            std::optional<media_size> get_media_size_by_translated_name_and_border(
                 const std::string& translatedName, bool isBorderless) const;
-            MediaSize& operator[](size_t pos);
-            const MediaSize& operator[](size_t pos) const;
-            MediaSize& at(size_t pos);
-            const MediaSize& at(size_t pos) const;
+            media_size& operator[](size_t pos);
+            const media_size& operator[](size_t pos) const;
+            media_size& at(size_t pos);
+            const media_size& at(size_t pos) const;
 
             iterator begin() { return iterator(&m_mediaSizes[0]); }
             iterator end() { return iterator(&m_mediaSizes[m_mediaSizes.size()]); }
@@ -113,7 +113,7 @@ namespace nanaprint
             const_iterator crbegin() const { return const_iterator(&m_mediaSizes[m_mediaSizes.size() - 1]); }
             const_iterator crend() const { return const_iterator(&m_mediaSizes[-1]); }
         private:
-            std::vector<MediaSize> m_mediaSizes;
+            std::vector<media_size> m_mediaSizes;
     };
 
     std::ostream& operator<<(std::ostream& os, const media_sizes& sizes);

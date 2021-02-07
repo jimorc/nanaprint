@@ -17,9 +17,9 @@ using namespace std;
 
 namespace nanaprint
 {
-    MediaSizesTranslator MediaSize::m_translator;
+    MediaSizesTranslator media_size::m_translator;
 
-    MediaSize::MediaSize(const string& mediaName, const int width, const int height,
+    media_size::media_size(const string& mediaName, const int width, const int height,
         const int bottom, const int left, const int right, const int top)
         : m_name(mediaName), m_width(width), m_height(height),
             m_bottom(bottom), m_left(left), m_right(right),
@@ -28,22 +28,22 @@ namespace nanaprint
         m_translatedName = m_translator.getTranslatedSize(m_name);
     }
 
-    MediaSize::~MediaSize()
+    media_size::~media_size()
     {
 
     }
 
-    std::string MediaSize::get_translated_name() const
+    std::string media_size::get_translated_name() const
     {
         return m_translatedName;
     }
 
-    bool MediaSize::is_borderless() const
+    bool media_size::is_borderless() const
     {
         return m_top == 0 && m_bottom == 0 && m_left == 0 && m_right == 0;
     }
 
-    std::ostream& operator<<(std::ostream& os, const MediaSize& size)
+    std::ostream& operator<<(std::ostream& os, const media_size& size)
     {
         os << size.get_translated_name();
         if (size.is_borderless())
