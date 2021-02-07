@@ -33,7 +33,7 @@ namespace nanaprint
         m_mediaSizes.push_back(mediaSize);
     }
 
-    vector<string> MediaSizes::getMediaSizeNames() const
+    vector<string> MediaSizes::get_media_size_names() const
     {
         vector<string> mediaNames;
         for (auto mediaSize: m_mediaSizes)
@@ -46,7 +46,7 @@ namespace nanaprint
     size_t MediaSizes::getMediaSizeNumber(const MediaSize& mediaSize) const
     {
         size_t mediaSizeNum = 0;
-        const auto sizeNames = getMediaSizeNames();
+        const auto sizeNames = get_media_size_names();
         for (size_t i = 0; i < size(); ++i)
         {
             if (mediaSize.getMediaName() == sizeNames[i])
