@@ -33,7 +33,7 @@ namespace nanaprint
 
     }
 
-    std::string MediaSize::getTranslatedName() const
+    std::string MediaSize::get_translated_name() const
     {
         return m_translatedName;
     }
@@ -45,7 +45,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const MediaSize& size)
     {
-        os << size.getTranslatedName();
+        os << size.get_translated_name();
         if (size.isBorderless())
         {
             os << "    Borderless";

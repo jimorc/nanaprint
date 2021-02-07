@@ -109,7 +109,7 @@ int main()
 
         cout << "Default Media Size:\n";
         auto defaultSize = printer->getDefaultMediaSize();
-        cout << ((defaultSize) ? defaultSize.value().getTranslatedName() : "None") << "\n"; 
+        cout << ((defaultSize) ? defaultSize.value().get_translated_name() : "None") << "\n"; 
  
         cout << endl;
     }

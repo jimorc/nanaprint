@@ -14,7 +14,7 @@ TEST(MediaSizeTests, testMediaSizeTranslatedName)
 {
     MediaSize size("na_letter_8.5x11in", 21590, 27940,
                 508, 610, 915, 1016);
-    string translatedName = size.getTranslatedName();
+    string translatedName = size.get_translated_name();
     ASSERT_STREQ("Letter", translatedName.c_str());
 }
 
@@ -23,7 +23,7 @@ TEST(MediaSizeTests, testMediaSizeNoTranslatedName)
 {
     MediaSize size("no_translated_name", 21590, 27940,
                 508, 610, 915, 1016);
-    string translatedName = size.getTranslatedName();
+    string translatedName = size.get_translated_name();
     ASSERT_STREQ("no_translated_name", translatedName.c_str());
 }
 
@@ -106,9 +106,9 @@ TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
     auto invalidSizeBorderless =
         sizes.get_media_size_by_translated_name_and_border("Legal", true);
 
-    ASSERT_EQ("Letter", letterBordered.value().getTranslatedName());
+    ASSERT_EQ("Letter", letterBordered.value().get_translated_name());
     ASSERT_FALSE(letterBordered.value().isBorderless());
-    ASSERT_EQ("A4", a4Borderless.value().getTranslatedName());
+    ASSERT_EQ("A4", a4Borderless.value().get_translated_name());
     ASSERT_TRUE(a4Borderless.value().isBorderless());
     ASSERT_EQ(nullopt, invalidSizeBordered);
     ASSERT_EQ(nullopt, invalidSizeBorderless);
@@ -130,13 +130,13 @@ TEST(MediaSizesTests, testAccessOperator)
     const media_sizes cSizes = sizes;
 
     MediaSize& letter = sizes[0];
-    ASSERT_EQ("Letter", letter.getTranslatedName());
+    ASSERT_EQ("Letter", letter.get_translated_name());
     auto letter_borderless = sizes[1];
-    ASSERT_EQ("Letter", letter_borderless.getTranslatedName());
+    ASSERT_EQ("Letter", letter_borderless.get_translated_name());
     const MediaSize& a4 = cSizes[2];
-    ASSERT_EQ("A4", a4.getTranslatedName());
+    ASSERT_EQ("A4", a4.get_translated_name());
     const auto a4_borderless = cSizes[3];
-    ASSERT_EQ("A4", a4_borderless.getTranslatedName());
+    ASSERT_EQ("A4", a4_borderless.get_translated_name());
 }
 
 // Test MediaSizes::at
@@ -155,13 +155,13 @@ TEST(MediaSizesTests, testAt)
     const media_sizes cSizes = sizes;
 
     MediaSize& letter = sizes.at(0);
-    ASSERT_EQ("Letter", letter.getTranslatedName());
+    ASSERT_EQ("Letter", letter.get_translated_name());
     auto letter_borderless = sizes.at(1);
-    ASSERT_EQ("Letter", letter_borderless.getTranslatedName());
+    ASSERT_EQ("Letter", letter_borderless.get_translated_name());
     const MediaSize& a4 = cSizes.at(2);
-    ASSERT_EQ("A4", a4.getTranslatedName());
+    ASSERT_EQ("A4", a4.get_translated_name());
     const auto a4_borderless = cSizes.at(3);
-    ASSERT_EQ("A4", a4_borderless.getTranslatedName());
+    ASSERT_EQ("A4", a4_borderless.get_translated_name());
 }
 
 // Test MediaSizes::at index out_of_range
@@ -212,18 +212,18 @@ TEST(MediaSizesTests, testIterator)
                 20990, 29704, 0, 0, 0, 0));
 
     auto begin = sizes.begin();
-    ASSERT_EQ("Letter", begin->getTranslatedName());
-    ASSERT_EQ("Letter", (*begin).getTranslatedName());
+    ASSERT_EQ("Letter", begin->get_translated_name());
+    ASSERT_EQ("Letter", (*begin).get_translated_name());
 
     std::vector<MediaSize> mSizes;
     for (auto &size: sizes)
     {
         mSizes.push_back(size);
     }
-    ASSERT_EQ("Letter", mSizes[0].getTranslatedName());
-    ASSERT_EQ("Letter", mSizes[1].getTranslatedName());
-    ASSERT_EQ("A4", mSizes[2].getTranslatedName());
-    ASSERT_EQ("A4", mSizes[3].getTranslatedName());
+    ASSERT_EQ("Letter", mSizes[0].get_translated_name());
+    ASSERT_EQ("Letter", mSizes[1].get_translated_name());
+    ASSERT_EQ("A4", mSizes[2].get_translated_name());
+    ASSERT_EQ("A4", mSizes[3].get_translated_name());
 
     std::vector<MediaSize> mSizes2;
     media_sizes sizes2;
@@ -252,10 +252,10 @@ TEST(MediaSizesTests, testConstIterator)
     {
         mSizes.push_back(size);
     }
-    ASSERT_EQ("Letter", mSizes[0].getTranslatedName());
-    ASSERT_EQ("Letter", mSizes[1].getTranslatedName());
-    ASSERT_EQ("A4", mSizes[2].getTranslatedName());
-    ASSERT_EQ("A4", mSizes[3].getTranslatedName());
+    ASSERT_EQ("Letter", mSizes[0].get_translated_name());
+    ASSERT_EQ("Letter", mSizes[1].get_translated_name());
+    ASSERT_EQ("A4", mSizes[2].get_translated_name());
+    ASSERT_EQ("A4", mSizes[3].get_translated_name());
 }
 
 TEST(MediaSizesTests, testReverseIterator)

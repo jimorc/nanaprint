@@ -244,14 +244,14 @@ namespace nanaprint
             auto mediaSize = paperSizes[i];
             if (mediaSize.isBorderless() == borderless)
             {
-                m_paperSizeCombox.push_back(mediaSize.getTranslatedName());
+                m_paperSizeCombox.push_back(mediaSize.get_translated_name());
             }
         }
         size_t option = 0;
         auto mediaSize = m_settings.get_media_size();
         if(mediaSize)
         {
-            auto size = mediaSize.value().getTranslatedName();
+            auto size = mediaSize.value().get_translated_name();
             for (size_t opt = 0; m_paperSizeCombox.the_number_of_options(); ++opt)
             {
                 if (size.compare(m_paperSizeCombox.text(opt)) == 0)

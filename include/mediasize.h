@@ -30,7 +30,7 @@ namespace nanaprint
             virtual ~MediaSize();
 
             std::string get_name() const { return m_name; }
-            std::string getTranslatedName() const;
+            std::string get_translated_name() const;
             int getWidth() const { return m_width; }
             int getHeight() const { return m_height; }
             int getBottom() const { return m_bottom; }

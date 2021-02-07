@@ -373,7 +373,7 @@ namespace nanaprint
                 auto mediaSize = paperSizes[i];
                 if (mediaSize.isBorderless() == borderless)
                 {
-                    m_paperSizeCombox.push_back(mediaSize.getTranslatedName());
+                    m_paperSizeCombox.push_back(mediaSize.get_translated_name());
                 }
             }
 
@@ -381,11 +381,11 @@ namespace nanaprint
             size_t optionNumber = 0;
             for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
             {
-                auto size = paperSizes[sizeNum].getTranslatedName();
+                auto size = paperSizes[sizeNum].get_translated_name();
                 m_paperSizeCombox.push_back(size);
                 if (selectedPaperSize)
                 {
-                    if(size == selectedPaperSize.value().getTranslatedName())
+                    if(size == selectedPaperSize.value().get_translated_name())
                     {
                         optionNumber = sizeNum;
                     }
