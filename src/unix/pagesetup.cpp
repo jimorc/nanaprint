@@ -417,7 +417,7 @@ namespace nanaprint
         auto paperSizeTranslatedName = m_paperSizeCombox.text(option);
         auto mediaSizes = printer->getMediaSizes();
 
-        auto mediaSize = mediaSizes.getMediaSizeByTranslatedNameAndBorder(
+        auto mediaSize = mediaSizes.get_media_size_by_translated_name_and_border(
             paperSizeTranslatedName, m_borderlessCheckbox.checked());
         if(mediaSize)
         {
@@ -461,7 +461,7 @@ namespace nanaprint
         auto size = m_paperSizeCombox.text(sizeOption);
         auto printer = m_settings.get_printers().getPrinters()[m_printer];
         auto mediaSizes = printer->getMediaSizes();
-        auto mediaSize = mediaSizes.getMediaSizeByTranslatedNameAndBorder(size,
+        auto mediaSize = mediaSizes.get_media_size_by_translated_name_and_border(size,
             m_borderlessCheckbox.checked());
         if(mediaSize)
         {

@@ -98,13 +98,13 @@ TEST(MediaSizesTests, testGetMediaSizeByNameAndBorder)
                 20990, 29704, 0, 0, 0, 0));
 
     auto letterBordered =
-        sizes.getMediaSizeByTranslatedNameAndBorder("Letter", false);
+        sizes.get_media_size_by_translated_name_and_border("Letter", false);
     auto a4Borderless =
-        sizes.getMediaSizeByTranslatedNameAndBorder("A4", true);
+        sizes.get_media_size_by_translated_name_and_border("A4", true);
     auto invalidSizeBordered =
-        sizes.getMediaSizeByTranslatedNameAndBorder("Legal", false);
+        sizes.get_media_size_by_translated_name_and_border("Legal", false);
     auto invalidSizeBorderless =
-        sizes.getMediaSizeByTranslatedNameAndBorder("Legal", true);
+        sizes.get_media_size_by_translated_name_and_border("Legal", true);
 
     ASSERT_EQ("Letter", letterBordered.value().getTranslatedName());
     ASSERT_FALSE(letterBordered.value().isBorderless());

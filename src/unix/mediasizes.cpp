@@ -68,7 +68,7 @@ namespace nanaprint
         return false;
     }
 
-    std::optional<MediaSize> MediaSizes::getMediaSizeByTranslatedNameAndBorder(
+    std::optional<MediaSize> MediaSizes::get_media_size_by_translated_name_and_border(
         const std::string& translatedName, bool isBorderless) const
         {
             auto iter = find_if(m_mediaSizes.begin(), m_mediaSizes.end(), 
