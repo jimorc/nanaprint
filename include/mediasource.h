@@ -40,10 +40,10 @@ namespace nanaprint
         public:
             virtual ~MediaSources() {}
             void addSource(const std::string& source);
-            const std::vector<std::shared_ptr<MediaSource>> getSources() const;
+            const std::vector<MediaSource> getSources() const;
         
         private:
-            std::vector<std::shared_ptr<MediaSource>> m_sources;
+            std::vector<MediaSource> m_sources;
     };
 
     std::ostream& operator<<(std::ostream& os, const MediaSources& sources);

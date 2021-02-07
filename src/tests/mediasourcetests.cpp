@@ -36,9 +36,9 @@ TEST(MediaSourcesTests, testAddSource)
     auto srcs = sources.getSources();
 
     ASSERT_EQ(3, srcs.size());
-    ASSERT_STREQ(u8"Tray 1", srcs[0]->getSource().c_str());
-    ASSERT_STREQ(u8"Tray 2", srcs[1]->getSource().c_str());
-    ASSERT_STREQ(u8"Manual Feed Tray", srcs[2]->getSource().c_str());
+    ASSERT_STREQ(u8"Tray 1", srcs[0].getSource().c_str());
+    ASSERT_STREQ(u8"Tray 2", srcs[1].getSource().c_str());
+    ASSERT_STREQ(u8"Manual Feed Tray", srcs[2].getSource().c_str());
 } 
 
 // Test MediaSources insertion operator

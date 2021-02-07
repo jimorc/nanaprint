@@ -356,8 +356,8 @@ namespace nanaprint
             size_t source = 0;
             for (int src = 0; src < sources.size(); ++src)
             {
-                m_paperSourceCombox.push_back(sources[src]->getSource());
-                if (mediaSource.value().getSource() == sources[src]->getSource())
+                m_paperSourceCombox.push_back(sources[src].getSource());
+                if (mediaSource.value().getSource() == sources[src].getSource())
                 {
                     source = src;
                 }

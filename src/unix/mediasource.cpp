@@ -30,12 +30,12 @@ namespace nanaprint
 
     void MediaSources::addSource(const std::string& source)
     {
-        m_sources.push_back(make_shared<MediaSource>(source));
+        m_sources.push_back(MediaSource(source));
     }
 
-    const std::vector<std::shared_ptr<MediaSource>> MediaSources::getSources() const
+    const std::vector<MediaSource> MediaSources::getSources() const
     {
-        std::vector<shared_ptr<MediaSource>> sources;
+        std::vector<MediaSource> sources;
         for (auto source: m_sources)
         {
             sources.push_back(source);
@@ -55,7 +55,7 @@ namespace nanaprint
         {
             for (auto source: srcs)
             {
-                os << "    " << source->getSource() << '\n';
+                os << "    " << source.getSource() << '\n';
             }
         }
         return os;
