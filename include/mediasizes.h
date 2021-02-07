@@ -21,7 +21,7 @@
 
 namespace nanaprint 
 {
-    class MediaSizes
+    class media_sizes
     {
         public:
             struct iterator
@@ -88,8 +88,8 @@ namespace nanaprint
                     pointer m_ptr;
             };
 
-            MediaSizes();
-            virtual ~MediaSizes();
+            media_sizes();
+            virtual ~media_sizes();
 
             int size() const { return m_mediaSizes.size(); }
             void push_back(MediaSize mediaSize);
@@ -116,5 +116,5 @@ namespace nanaprint
             std::vector<MediaSize> m_mediaSizes;
     };
 
-    std::ostream& operator<<(std::ostream& os, const MediaSizes& sizes);
+    std::ostream& operator<<(std::ostream& os, const media_sizes& sizes);
 }

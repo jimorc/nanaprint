@@ -193,7 +193,7 @@ namespace nanaprint
         }
     }
 
-    MediaSizes& Printer::getMediaSizes()
+    media_sizes& Printer::getMediaSizes()
     {
         populateMediaSizes();
         return m_mediaSizes;
