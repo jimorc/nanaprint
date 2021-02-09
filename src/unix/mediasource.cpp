@@ -60,14 +60,9 @@ namespace nanaprint
         return m_sources[pos];
     }
 
-    const std::vector<media_source> media_sources::get_sources() const
+    const std::vector<media_source>& media_sources::get_sources() const
     {
-        std::vector<media_source> sources;
-        for (auto source: m_sources)
-        {
-            sources.push_back(source);
-        }
-        return sources;
+        return m_sources;
     }
 
     std::ostream& operator<<(std::ostream& os, const media_sources& sources)
