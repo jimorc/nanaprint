@@ -33,7 +33,7 @@ TEST(MediaSourcesTests, testAddSource)
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
 
-    auto srcs = sources.getSources();
+    auto srcs = sources.get_sources();
 
     ASSERT_EQ(3, srcs.size());
     ASSERT_STREQ(u8"Tray 1", srcs[0].get_source().c_str());

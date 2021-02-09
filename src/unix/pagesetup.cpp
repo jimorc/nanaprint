@@ -348,7 +348,7 @@ namespace nanaprint
     {
         auto printer = m_settings.get_printers().getPrinters()[m_printer];
         auto paperSources = printer->getMediaSources();
-        auto sources = paperSources.getSources();
+        auto sources = paperSources.get_sources();
         auto mediaSource = m_settings.get_media_source();
         m_paperSourceCombox.clear();
         if (sources.size() < 0 && mediaSource) {

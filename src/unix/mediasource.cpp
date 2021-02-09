@@ -60,7 +60,7 @@ namespace nanaprint
         return m_sources[pos];
     }
 
-    const std::vector<MediaSource> MediaSources::getSources() const
+    const std::vector<MediaSource> MediaSources::get_sources() const
     {
         std::vector<MediaSource> sources;
         for (auto source: m_sources)
@@ -73,7 +73,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaSources& sources)
     {
         os << "Media Sources:\n";
-        auto srcs = sources.getSources();
+        auto srcs = sources.get_sources();
         if(srcs.size() == 0)
         {
             os << "    None\n";
