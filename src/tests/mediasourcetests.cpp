@@ -201,3 +201,4 @@ TEST(MediaSourcesTests, testReverseIterator)
     ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
     ASSERT_EQ(u8"Manual Feed Tray", mSources[0].getSource());
 }
+

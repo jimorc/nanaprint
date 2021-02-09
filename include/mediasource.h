@@ -109,12 +109,12 @@ namespace nanaprint
             const MediaSource& operator[](size_t post) const;
             MediaSource& at(size_t pos);
             const MediaSource& at(size_t pos) const;
-            iterator begin() { return iterator(&m_sources[0]); }
-            iterator end() { return iterator(&m_sources[m_sources.size()]); }
-            const_iterator cbegin() const { return const_iterator(&m_sources[0]); }
-            const_iterator cend() const { return const_iterator(&m_sources[m_sources.size()]); }
-            iterator rbegin() { return iterator(&m_sources[m_sources.size() - 1]); }
-            iterator rend() { return iterator(&m_sources[-1]); }
+            iterator begin() noexcept { return iterator(&m_sources[0]); }
+            iterator end() noexcept { return iterator(&m_sources[m_sources.size()]); }
+            const_iterator cbegin() const noexcept { return const_iterator(&m_sources[0]); }
+            const_iterator cend() const noexcept { return const_iterator(&m_sources[m_sources.size()]); }
+            iterator rbegin() noexcept { return iterator(&m_sources[m_sources.size() - 1]); }
+            iterator rend() noexcept { return iterator(&m_sources[-1]); }
         private:
             std::vector<MediaSource> m_sources;
     };
