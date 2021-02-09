@@ -101,7 +101,7 @@ TEST(MediaTypesTests, testAt)
     }
     catch(...)
     {
-        FAIL() << "EXpected out_of_range exception";
+        FAIL() << "Expected out_of_range exception";
     }
     
     try
@@ -115,6 +115,6 @@ TEST(MediaTypesTests, testAt)
     }
     catch(...)
     {
-        FAIL() << "EXpected out_of_range exception";
+        FAIL() << "Expected out_of_range exception";
     }
  }
