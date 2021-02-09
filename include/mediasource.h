@@ -103,7 +103,7 @@ namespace nanaprint
 
             MediaSources() {}
             virtual ~MediaSources() {}
-            void addSource(const std::string& source);
+            void add_source(const std::string& source);
             const std::vector<MediaSource> getSources() const;
             MediaSource& operator[](size_t pos);
             const MediaSource& operator[](size_t post) const;

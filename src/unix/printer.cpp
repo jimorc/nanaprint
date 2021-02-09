@@ -286,7 +286,7 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *src = ippGetString(source, i, NULL);
-                    m_mediaSources.addSource(src);
+                    m_mediaSources.add_source(src);
                 }
             }
             m_gotMediaSources = true;

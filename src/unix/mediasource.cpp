@@ -28,7 +28,7 @@ namespace nanaprint
         return os;
     }
 
-    void MediaSources::addSource(const std::string& source)
+    void MediaSources::add_source(const std::string& source)
     {
         m_sources.push_back(MediaSource(source));
     }
