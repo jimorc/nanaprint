@@ -179,3 +179,25 @@ TEST(MediaSourcesTests, testConstIterator)
     ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
     ASSERT_EQ(u8"Manual Feed Tray", mSources[2].getSource());
 }
+
+TEST(MediaSourcesTests, testReverseIterator)
+{
+    MediaSources sources;
+    std::vector<MediaSource> mSources;
+
+    sources.addSource(u8"Tray 1");
+    sources.addSource(u8"Tray 2");
+    sources.addSource(u8"Manual Feed Tray");
+
+    auto begin = sources.rbegin();
+    ASSERT_EQ(u8"Manual Feed Tray", begin->getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", (*begin).getSource());
+
+    for (auto iter = sources.rbegin(); iter != sources.rend(); --iter)
+    {
+        mSources.push_back(*iter);
+    }
+    ASSERT_EQ(u8"Tray 1", mSources[2].getSource());
+    ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].getSource());
+}

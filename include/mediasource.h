@@ -113,6 +113,8 @@ namespace nanaprint
             iterator end() { return iterator(&m_sources[m_sources.size()]); }
             const_iterator cbegin() { return const_iterator(&m_sources[0]); }
             const_iterator cend() { return const_iterator(&m_sources[m_sources.size()]); }
+            iterator rbegin() { return iterator(&m_sources[m_sources.size() - 1]); }
+            iterator rend() { return iterator(&m_sources[-1]); }
         private:
             std::vector<MediaSource> m_sources;
     };
