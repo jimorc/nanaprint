@@ -15,7 +15,6 @@
  */
 
 #include <vector>
-#include <set>
 #include <string>
 #include <memory>
 #include <iostream>
@@ -70,6 +69,39 @@ namespace nanaprint
                     pointer m_ptr;
             };
 
+            struct const_iterator
+            {
+                using iterator_category = std::random_access_iterator_tag;
+                using difference_type   = std::ptrdiff_t;
+                using value_type        = MediaSource;
+                using pointer           = MediaSource*;  // or also value_type*
+                using reference         = MediaSource&;  // or also value_type& 
+
+                explicit const_iterator(pointer ptr) : m_ptr(ptr) {}
+                reference operator*() const { return *m_ptr; }
+                pointer operator->() const { return m_ptr; }
+
+                // Prefix increment
+                const_iterator& operator++() { m_ptr++; return *this; }  
+
+                // Postfix increment
+                const_iterator operator++(int) { const_iterator tmp = *this; ++(*this); return tmp; }
+
+                // Prefix decrement
+                const_iterator& operator--() { m_ptr--; return *this; }  
+
+                // Postfix decrement
+                const_iterator operator--(int) { const_iterator tmp = *this; --(*this); return tmp; }
+
+                friend bool operator== (const const_iterator& a, const const_iterator& b) { return a.m_ptr == b.m_ptr; };
+                friend bool operator!= (const const_iterator& a, const const_iterator& b) { return a.m_ptr != b.m_ptr; };
+                friend size_t operator- (const const_iterator&a, const const_iterator&b) { return a.m_ptr - b.m_ptr; };
+
+                private:
+                    pointer m_ptr;
+            };
+
+            MediaSources() {}
             virtual ~MediaSources() {}
             void addSource(const std::string& source);
             const std::vector<MediaSource> getSources() const;
@@ -79,6 +111,8 @@ namespace nanaprint
             const MediaSource& at(size_t pos) const;
             iterator begin() { return iterator(&m_sources[0]); }
             iterator end() { return iterator(&m_sources[m_sources.size()]); }
+            const_iterator cbegin() { return const_iterator(&m_sources[0]); }
+            const_iterator cend() { return const_iterator(&m_sources[m_sources.size()]); }
         private:
             std::vector<MediaSource> m_sources;
     };
