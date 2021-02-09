@@ -75,3 +75,46 @@ TEST(MediaTypesTests, testAccessOperator)
     ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, cTypes[0].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, cTypes[1].getType());
  }
+
+TEST(MediaTypesTests, testAt)
+{
+    MediaTypes types;
+    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
+
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, types.at(0).getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, types.at(1).getType());
+
+    const MediaTypes cTypes = types;
+
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, cTypes.at(0).getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, cTypes.at(1).getType());
+
+    try
+    {
+        auto t = types.at(2);
+        FAIL() << "Didn't throw out_of_range exception";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "EXpected out_of_range exception";
+    }
+    
+    try
+    {
+        auto t = cTypes.at(2);
+        FAIL() << "Didn't throw out_of_range exception";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "EXpected out_of_range exception";
+    }
+ }

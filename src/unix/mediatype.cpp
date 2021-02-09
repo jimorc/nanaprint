@@ -66,4 +66,22 @@ namespace nanaprint
     {
         return m_types[pos];
     }
+
+    MediaType& MediaTypes::at(size_t pos)
+    {
+        if (pos >= m_types.size())
+        {
+            throw out_of_range("Out of range");
+        }
+        return m_types[pos];
+    }
+
+    const MediaType& MediaTypes::at(size_t pos) const
+    {
+        if (pos >= m_types.size())
+        {
+            throw out_of_range("Out of range");
+        }
+        return m_types[pos];
+    }
 }

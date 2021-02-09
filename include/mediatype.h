@@ -42,6 +42,8 @@ namespace nanaprint
             const std::vector<MediaType>& getMediaTypes() const;
             MediaType& operator[](size_t pos);
             const MediaType& operator[](size_t pos) const;
+            MediaType& at(size_t pos);
+            const MediaType& at(size_t pos) const;
         public:
             std::vector<MediaType> m_types;
     };
