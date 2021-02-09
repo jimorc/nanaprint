@@ -37,9 +37,9 @@ TEST(MediaTypesTests, testAddMediaType)
 
     auto types = mediaTypes.getMediaTypes();
 
-    ASSERT_STREQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0]->getType().c_str());
-    ASSERT_STREQ(CUPS_MEDIA_TYPE_PLAIN, types[1]->getType().c_str());
-    ASSERT_STREQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2]->getType().c_str());
+    ASSERT_STREQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0].getType().c_str());
+    ASSERT_STREQ(CUPS_MEDIA_TYPE_PLAIN, types[1].getType().c_str());
+    ASSERT_STREQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2].getType().c_str());
 }
 
 // Test MediaTypes insertion operator

@@ -39,9 +39,9 @@ namespace nanaprint
         public:
             virtual ~MediaTypes() {}
             void addMediaType(const std::string& mediaType);
-            const std::vector<std::shared_ptr<MediaType>>& getMediaTypes() const;
+            const std::vector<MediaType>& getMediaTypes() const;
         public:
-            std::vector<std::shared_ptr<MediaType>> m_types;
+            std::vector<MediaType> m_types;
     };
 
     std::ostream& operator<<(std::ostream& os, const MediaTypes& mType);

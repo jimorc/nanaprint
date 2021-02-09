@@ -31,10 +31,10 @@ namespace nanaprint
 
     void MediaTypes::addMediaType(const std::string& mediaType)
     {
-        m_types.push_back(make_shared<MediaType>(MediaType(mediaType)));
+        m_types.push_back(MediaType(mediaType));
     }
 
-    const vector<shared_ptr<MediaType>>& MediaTypes::getMediaTypes() const
+    const vector<MediaType>& MediaTypes::getMediaTypes() const
     {
         return m_types;
     }
@@ -51,7 +51,7 @@ namespace nanaprint
         {
             for (const auto& typ: types)
             {
-                os << *typ;
+                os << typ;
             }
         }
         return os;
