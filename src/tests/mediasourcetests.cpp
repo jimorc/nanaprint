@@ -28,7 +28,7 @@ TEST(MediaSourceTests, testInsertionOperator)
 // Test MediaSources::addSource
 TEST(MediaSourcesTests, testAddSource)
 {
-    MediaSources sources;
+    media_sources sources;
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
@@ -44,7 +44,7 @@ TEST(MediaSourcesTests, testAddSource)
 // Test MediaSources insertion operator
 TEST(MediaSourcesTests, testInsertionOperator)
 {
-    MediaSources sources, sources2;
+    media_sources sources, sources2;
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
@@ -60,7 +60,7 @@ TEST(MediaSourcesTests, testInsertionOperator)
 
 TEST(MediaSourcesTests, testAccessOperator)
 {
-    MediaSources sources;
+    media_sources sources;
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
@@ -69,16 +69,16 @@ TEST(MediaSourcesTests, testAccessOperator)
     ASSERT_EQ(u8"Tray 2", sources[1].get_source());
     ASSERT_EQ(u8"Manual Feed Tray", sources[2].get_source());
 
-    const MediaSources cSources = sources;
+    const media_sources cSources = sources;
 
     ASSERT_EQ(u8"Tray 1", cSources[0].get_source());
     ASSERT_EQ(u8"Tray 2", cSources[1].get_source());
     ASSERT_EQ(u8"Manual Feed Tray", cSources[2].get_source());
 }
 
-TEST(MediaSourcesTests, testAt)
+TEST(media_sources, testAt)
 {
-    MediaSources sources;
+    media_sources sources;
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
@@ -87,7 +87,7 @@ TEST(MediaSourcesTests, testAt)
     ASSERT_EQ(u8"Tray 2", sources.at(1).get_source());
     ASSERT_EQ(u8"Manual Feed Tray", sources.at(2).get_source());
 
-    const MediaSources cSources = sources;
+    const media_sources cSources = sources;
 
     ASSERT_EQ(u8"Tray 1", cSources.at(0).get_source());
     ASSERT_EQ(u8"Tray 2", cSources.at(1).get_source());
@@ -96,7 +96,7 @@ TEST(MediaSourcesTests, testAt)
 
 TEST(MediaSourcesTests, testAtOutOfRange)
 {
-    MediaSources sources;
+    media_sources sources;
     sources.add_source(u8"Tray 1");
 
     try
@@ -113,7 +113,7 @@ TEST(MediaSourcesTests, testAtOutOfRange)
         FAIL() << "Expected std::out_of_range, but threw a different exception";
     }
 
-    const MediaSources cSources = sources;
+    const media_sources cSources = sources;
 
     try
     {
@@ -132,7 +132,7 @@ TEST(MediaSourcesTests, testAtOutOfRange)
 
 TEST(MediaSourcesTests, testIterator)
 {
-    MediaSources sources;
+    media_sources sources;
     std::vector<MediaSource> mSources;
     for (auto source: sources)
     {
@@ -159,13 +159,13 @@ TEST(MediaSourcesTests, testIterator)
 
 TEST(MediaSourcesTests, testConstIterator)
 {
-    MediaSources sources;
+    media_sources sources;
     std::vector<MediaSource> mSources;
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
 
-    const MediaSources cSources = sources;
+    const media_sources cSources = sources;
 
     auto begin = sources.cbegin();
     ASSERT_EQ(u8"Tray 1", begin->get_source());
@@ -182,7 +182,7 @@ TEST(MediaSourcesTests, testConstIterator)
 
 TEST(MediaSourcesTests, testReverseIterator)
 {
-    MediaSources sources;
+    media_sources sources;
     std::vector<MediaSource> mSources;
 
     sources.add_source(u8"Tray 1");
@@ -205,7 +205,7 @@ TEST(MediaSourcesTests, testReverseIterator)
 
 TEST(MediaSourcesTests, testConstReverseIterator)
 {
-    MediaSources sources;
+    media_sources sources;
     std::vector<MediaSource> mSources;
 
     sources.add_source(u8"Tray 1");

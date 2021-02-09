@@ -34,7 +34,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const MediaSource& source);
 
-    class MediaSources
+    class media_sources
     {
         public:
             struct iterator
@@ -101,8 +101,8 @@ namespace nanaprint
                     pointer m_ptr;
             };
 
-            MediaSources() {}
-            virtual ~MediaSources() {}
+            media_sources() {}
+            virtual ~media_sources() {}
             void add_source(const std::string& source);
             const std::vector<MediaSource> get_sources() const;
             MediaSource& operator[](size_t pos);
@@ -121,5 +121,5 @@ namespace nanaprint
             std::vector<MediaSource> m_sources;
     };
 
-    std::ostream& operator<<(std::ostream& os, const MediaSources& sources);
+    std::ostream& operator<<(std::ostream& os, const media_sources& sources);
 }

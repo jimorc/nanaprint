@@ -28,21 +28,21 @@ namespace nanaprint
         return os;
     }
 
-    void MediaSources::add_source(const std::string& source)
+    void media_sources::add_source(const std::string& source)
     {
         m_sources.push_back(MediaSource(source));
     }
 
-    MediaSource& MediaSources::operator[](size_t pos)
+    MediaSource& media_sources::operator[](size_t pos)
     {
         return m_sources[pos];
     }
-    const MediaSource& MediaSources::operator[](size_t pos) const
+    const MediaSource& media_sources::operator[](size_t pos) const
     {
         return m_sources[pos];
     }
 
-    MediaSource& MediaSources::at(size_t pos)
+    MediaSource& media_sources::at(size_t pos)
     {
         if (pos >= m_sources.size())
         {
@@ -51,7 +51,7 @@ namespace nanaprint
         return m_sources[pos];
     }
 
-    const MediaSource& MediaSources::at(size_t pos) const
+    const MediaSource& media_sources::at(size_t pos) const
     {
         if (pos >= m_sources.size())
         {
@@ -60,7 +60,7 @@ namespace nanaprint
         return m_sources[pos];
     }
 
-    const std::vector<MediaSource> MediaSources::get_sources() const
+    const std::vector<MediaSource> media_sources::get_sources() const
     {
         std::vector<MediaSource> sources;
         for (auto source: m_sources)
@@ -70,7 +70,7 @@ namespace nanaprint
         return sources;
     }
 
-    std::ostream& operator<<(std::ostream& os, const MediaSources& sources)
+    std::ostream& operator<<(std::ostream& os, const media_sources& sources)
     {
         os << "Media Sources:\n";
         auto srcs = sources.get_sources();
