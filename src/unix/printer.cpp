@@ -34,7 +34,7 @@ namespace nanaprint
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(MediaType("None")),
-            m_defaultMediaSource(MediaSource("None"))
+            m_defaultMediaSource(media_source("None"))
     {
 
     }
@@ -349,7 +349,7 @@ namespace nanaprint
                 cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
             if (defaultSource != nullptr)
             {
-                m_defaultMediaSource = MediaSource(defaultSource);
+                m_defaultMediaSource = media_source(defaultSource);
             }
             else
             {
@@ -359,7 +359,7 @@ namespace nanaprint
                 if (count != 0)
                 {
                     const char *src = ippGetString(source, 0, NULL);
-                    m_defaultMediaSource = MediaSource(src);
+                    m_defaultMediaSource = media_source(src);
                 }
                 else
                 {
@@ -370,7 +370,7 @@ namespace nanaprint
         }   
     }
 
-    std::optional<MediaSource>& Printer::getDefaultMediaSource()
+    std::optional<media_source>& Printer::getDefaultMediaSource()
     {
         populateDefaultMediaSource();
         return m_defaultMediaSource;

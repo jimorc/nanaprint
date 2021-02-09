@@ -470,7 +470,7 @@ namespace nanaprint
         if(m_paperSourceCombox.enabled())
         {
             auto source = m_paperSourceCombox.option();
-            m_settings.set_media_source(MediaSource(m_paperSourceCombox.text(source)));
+            m_settings.set_media_source(media_source(m_paperSourceCombox.text(source)));
         }
         auto orientation = m_orientationGroup.checked();
         m_settings.set_page_orientation(PageOrientation(orientation + PORTRAIT));

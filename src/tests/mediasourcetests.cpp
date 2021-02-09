@@ -10,7 +10,7 @@ using namespace std;
 // Test ctor
 TEST(MediaSourceTests, testConstructor)
 {
-    MediaSource source(u8"Tray 1");
+    media_source source(u8"Tray 1");
 
     ASSERT_STREQ(u8"Tray 1", source.get_source().c_str());
 } 
@@ -18,7 +18,7 @@ TEST(MediaSourceTests, testConstructor)
 // Test MediaSource insertion operator
 TEST(MediaSourceTests, testInsertionOperator)
 {
-    MediaSource source(u8"Tray 1");
+    media_source source(u8"Tray 1");
     stringstream ss1;
     ss1 << source;
 
@@ -133,7 +133,7 @@ TEST(MediaSourcesTests, testAtOutOfRange)
 TEST(MediaSourcesTests, testIterator)
 {
     media_sources sources;
-    std::vector<MediaSource> mSources;
+    std::vector<media_source> mSources;
     for (auto source: sources)
     {
         mSources.push_back(source);
@@ -160,7 +160,7 @@ TEST(MediaSourcesTests, testIterator)
 TEST(MediaSourcesTests, testConstIterator)
 {
     media_sources sources;
-    std::vector<MediaSource> mSources;
+    std::vector<media_source> mSources;
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
@@ -183,7 +183,7 @@ TEST(MediaSourcesTests, testConstIterator)
 TEST(MediaSourcesTests, testReverseIterator)
 {
     media_sources sources;
-    std::vector<MediaSource> mSources;
+    std::vector<media_source> mSources;
 
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");
@@ -206,7 +206,7 @@ TEST(MediaSourcesTests, testReverseIterator)
 TEST(MediaSourcesTests, testConstReverseIterator)
 {
     media_sources sources;
-    std::vector<MediaSource> mSources;
+    std::vector<media_source> mSources;
 
     sources.add_source(u8"Tray 1");
     sources.add_source(u8"Tray 2");

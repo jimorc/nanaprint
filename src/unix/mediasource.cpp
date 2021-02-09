@@ -17,12 +17,12 @@ using namespace std;
 
 namespace nanaprint
 {
-    MediaSource::MediaSource(const string& source)
+    media_source::media_source(const string& source)
     {
         m_source = source;
     }
 
-    std::ostream& operator<<(std::ostream& os, const MediaSource& source)
+    std::ostream& operator<<(std::ostream& os, const media_source& source)
     {
         os << "    " << source.get_source() << '\n';
         return os;
@@ -30,19 +30,19 @@ namespace nanaprint
 
     void media_sources::add_source(const std::string& source)
     {
-        m_sources.push_back(MediaSource(source));
+        m_sources.push_back(media_source(source));
     }
 
-    MediaSource& media_sources::operator[](size_t pos)
+    media_source& media_sources::operator[](size_t pos)
     {
         return m_sources[pos];
     }
-    const MediaSource& media_sources::operator[](size_t pos) const
+    const media_source& media_sources::operator[](size_t pos) const
     {
         return m_sources[pos];
     }
 
-    MediaSource& media_sources::at(size_t pos)
+    media_source& media_sources::at(size_t pos)
     {
         if (pos >= m_sources.size())
         {
@@ -51,7 +51,7 @@ namespace nanaprint
         return m_sources[pos];
     }
 
-    const MediaSource& media_sources::at(size_t pos) const
+    const media_source& media_sources::at(size_t pos) const
     {
         if (pos >= m_sources.size())
         {
@@ -60,9 +60,9 @@ namespace nanaprint
         return m_sources[pos];
     }
 
-    const std::vector<MediaSource> media_sources::get_sources() const
+    const std::vector<media_source> media_sources::get_sources() const
     {
-        std::vector<MediaSource> sources;
+        std::vector<media_source> sources;
         for (auto source: m_sources)
         {
             sources.push_back(source);
