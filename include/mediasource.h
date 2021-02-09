@@ -26,7 +26,7 @@ namespace nanaprint
         public:
             MediaSource(const std::string& source);
             virtual ~MediaSource() {}
-            const std::string& getSource() const { return m_source; }
+            const std::string& get_source() const { return m_source; }
 
         private:
             std::string m_source;

@@ -12,7 +12,7 @@ TEST(MediaSourceTests, testConstructor)
 {
     MediaSource source(u8"Tray 1");
 
-    ASSERT_STREQ(u8"Tray 1", source.getSource().c_str());
+    ASSERT_STREQ(u8"Tray 1", source.get_source().c_str());
 } 
 
 // Test MediaSource insertion operator
@@ -36,9 +36,9 @@ TEST(MediaSourcesTests, testAddSource)
     auto srcs = sources.getSources();
 
     ASSERT_EQ(3, srcs.size());
-    ASSERT_STREQ(u8"Tray 1", srcs[0].getSource().c_str());
-    ASSERT_STREQ(u8"Tray 2", srcs[1].getSource().c_str());
-    ASSERT_STREQ(u8"Manual Feed Tray", srcs[2].getSource().c_str());
+    ASSERT_STREQ(u8"Tray 1", srcs[0].get_source().c_str());
+    ASSERT_STREQ(u8"Tray 2", srcs[1].get_source().c_str());
+    ASSERT_STREQ(u8"Manual Feed Tray", srcs[2].get_source().c_str());
 } 
 
 // Test MediaSources insertion operator
@@ -65,15 +65,15 @@ TEST(MediaSourcesTests, testAccessOperator)
     sources.addSource(u8"Tray 2");
     sources.addSource(u8"Manual Feed Tray");
 
-    ASSERT_EQ(u8"Tray 1", sources[0].getSource());
-    ASSERT_EQ(u8"Tray 2", sources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", sources[2].getSource());
+    ASSERT_EQ(u8"Tray 1", sources[0].get_source());
+    ASSERT_EQ(u8"Tray 2", sources[1].get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", sources[2].get_source());
 
     const MediaSources cSources = sources;
 
-    ASSERT_EQ(u8"Tray 1", cSources[0].getSource());
-    ASSERT_EQ(u8"Tray 2", cSources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", cSources[2].getSource());
+    ASSERT_EQ(u8"Tray 1", cSources[0].get_source());
+    ASSERT_EQ(u8"Tray 2", cSources[1].get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", cSources[2].get_source());
 }
 
 TEST(MediaSourcesTests, testAt)
@@ -83,15 +83,15 @@ TEST(MediaSourcesTests, testAt)
     sources.addSource(u8"Tray 2");
     sources.addSource(u8"Manual Feed Tray");
 
-    ASSERT_EQ(u8"Tray 1", sources.at(0).getSource());
-    ASSERT_EQ(u8"Tray 2", sources.at(1).getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", sources.at(2).getSource());
+    ASSERT_EQ(u8"Tray 1", sources.at(0).get_source());
+    ASSERT_EQ(u8"Tray 2", sources.at(1).get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", sources.at(2).get_source());
 
     const MediaSources cSources = sources;
 
-    ASSERT_EQ(u8"Tray 1", cSources.at(0).getSource());
-    ASSERT_EQ(u8"Tray 2", cSources.at(1).getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", cSources.at(2).getSource());
+    ASSERT_EQ(u8"Tray 1", cSources.at(0).get_source());
+    ASSERT_EQ(u8"Tray 2", cSources.at(1).get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", cSources.at(2).get_source());
 }
 
 TEST(MediaSourcesTests, testAtOutOfRange)
@@ -145,16 +145,16 @@ TEST(MediaSourcesTests, testIterator)
     sources.addSource(u8"Manual Feed Tray");
 
     auto begin = sources.begin();
-    ASSERT_EQ(u8"Tray 1", begin->getSource());
-    ASSERT_EQ(u8"Tray 1", (*begin).getSource());
+    ASSERT_EQ(u8"Tray 1", begin->get_source());
+    ASSERT_EQ(u8"Tray 1", (*begin).get_source());
 
     for (auto &source: sources)
     {
         mSources.push_back(source);
     }
-    ASSERT_EQ(u8"Tray 1", mSources[0].getSource());
-    ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].getSource());
+    ASSERT_EQ(u8"Tray 1", mSources[0].get_source());
+    ASSERT_EQ(u8"Tray 2", mSources[1].get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].get_source());
 }
 
 TEST(MediaSourcesTests, testConstIterator)
@@ -168,16 +168,16 @@ TEST(MediaSourcesTests, testConstIterator)
     const MediaSources cSources = sources;
 
     auto begin = sources.cbegin();
-    ASSERT_EQ(u8"Tray 1", begin->getSource());
-    ASSERT_EQ(u8"Tray 1", (*begin).getSource());
+    ASSERT_EQ(u8"Tray 1", begin->get_source());
+    ASSERT_EQ(u8"Tray 1", (*begin).get_source());
 
     for (auto iter = sources.cbegin(); iter != sources.cend(); ++iter)
     {
         mSources.push_back(*iter);
     }
-    ASSERT_EQ(u8"Tray 1", mSources[0].getSource());
-    ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].getSource());
+    ASSERT_EQ(u8"Tray 1", mSources[0].get_source());
+    ASSERT_EQ(u8"Tray 2", mSources[1].get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].get_source());
 }
 
 TEST(MediaSourcesTests, testReverseIterator)
@@ -190,16 +190,16 @@ TEST(MediaSourcesTests, testReverseIterator)
     sources.addSource(u8"Manual Feed Tray");
 
     auto begin = sources.rbegin();
-    ASSERT_EQ(u8"Manual Feed Tray", begin->getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", (*begin).getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", begin->get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", (*begin).get_source());
 
     for (auto iter = sources.rbegin(); iter != sources.rend(); --iter)
     {
         mSources.push_back(*iter);
     }
-    ASSERT_EQ(u8"Tray 1", mSources[2].getSource());
-    ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].getSource());
+    ASSERT_EQ(u8"Tray 1", mSources[2].get_source());
+    ASSERT_EQ(u8"Tray 2", mSources[1].get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].get_source());
 }
 
 
@@ -213,14 +213,14 @@ TEST(MediaSourcesTests, testConstReverseIterator)
     sources.addSource(u8"Manual Feed Tray");
 
     auto begin = sources.crbegin();
-    ASSERT_EQ(u8"Manual Feed Tray", begin->getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", (*begin).getSource());
+    ASSERT_EQ(u8"Manual Feed Tray", begin->get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", (*begin).get_source());
 
     for (auto iter = sources.crbegin(); iter != sources.crend(); --iter)
     {
         mSources.push_back(*iter);
     }
-    ASSERT_EQ(u8"Tray 1", mSources[2].getSource());
-    ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].getSource());
+    ASSERT_EQ(u8"Tray 1", mSources[2].get_source());
+    ASSERT_EQ(u8"Tray 2", mSources[1].get_source());
+    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].get_source());
 }

@@ -24,7 +24,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const MediaSource& source)
     {
-        os << "    " << source.getSource() << '\n';
+        os << "    " << source.get_source() << '\n';
         return os;
     }
 
@@ -82,7 +82,7 @@ namespace nanaprint
         {
             for (auto source: srcs)
             {
-                os << "    " << source.getSource() << '\n';
+                os << "    " << source.get_source() << '\n';
             }
         }
         return os;
