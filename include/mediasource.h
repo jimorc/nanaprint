@@ -73,9 +73,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = MediaSource;
-                using pointer           = MediaSource*;  // or also value_type*
-                using reference         = MediaSource&;  // or also value_type& 
+                using value_type        = const MediaSource;
+                using pointer           = const MediaSource*;  // or also value_type*
+                using reference         = const MediaSource&;  // or also value_type& 
 
                 explicit const_iterator(pointer ptr) : m_ptr(ptr) {}
                 reference operator*() const { return *m_ptr; }
@@ -111,8 +111,8 @@ namespace nanaprint
             const MediaSource& at(size_t pos) const;
             iterator begin() { return iterator(&m_sources[0]); }
             iterator end() { return iterator(&m_sources[m_sources.size()]); }
-            const_iterator cbegin() { return const_iterator(&m_sources[0]); }
-            const_iterator cend() { return const_iterator(&m_sources[m_sources.size()]); }
+            const_iterator cbegin() const { return const_iterator(&m_sources[0]); }
+            const_iterator cend() const { return const_iterator(&m_sources[m_sources.size()]); }
             iterator rbegin() { return iterator(&m_sources[m_sources.size() - 1]); }
             iterator rend() { return iterator(&m_sources[-1]); }
         private:

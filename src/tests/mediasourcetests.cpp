@@ -171,9 +171,9 @@ TEST(MediaSourcesTests, testConstIterator)
     ASSERT_EQ(u8"Tray 1", begin->getSource());
     ASSERT_EQ(u8"Tray 1", (*begin).getSource());
 
-    for (const auto &source: sources)
+    for (auto iter = sources.cbegin(); iter != sources.cend(); ++iter)
     {
-        mSources.push_back(source);
+        mSources.push_back(*iter);
     }
     ASSERT_EQ(u8"Tray 1", mSources[0].getSource());
     ASSERT_EQ(u8"Tray 2", mSources[1].getSource());
