@@ -15,7 +15,6 @@
  */
 
 #include <string>
-#include <set>
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -40,9 +39,9 @@ namespace nanaprint
         public:
             virtual ~MediaTypes() {}
             void addMediaType(const std::string& mediaType);
-            std::vector<std::shared_ptr<MediaType>> getMediaTypes() const;
+            const std::vector<std::shared_ptr<MediaType>>& getMediaTypes() const;
         public:
-            std::set<std::shared_ptr<MediaType>> m_types;
+            std::vector<std::shared_ptr<MediaType>> m_types;
     };
 
     std::ostream& operator<<(std::ostream& os, const MediaTypes& mType);

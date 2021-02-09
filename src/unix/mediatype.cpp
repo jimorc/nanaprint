@@ -31,17 +31,12 @@ namespace nanaprint
 
     void MediaTypes::addMediaType(const std::string& mediaType)
     {
-        m_types.insert(make_shared<MediaType>(MediaType(mediaType)));
+        m_types.push_back(make_shared<MediaType>(MediaType(mediaType)));
     }
 
-    vector<shared_ptr<MediaType>> MediaTypes::getMediaTypes() const
+    const vector<shared_ptr<MediaType>>& MediaTypes::getMediaTypes() const
     {
-        vector<shared_ptr<MediaType>> mediaTypes;
-        for(auto& mediaType: m_types)
-        {
-            mediaTypes.push_back(mediaType);
-        }
-        return mediaTypes;
+        return m_types;
     }
 
     std::ostream& operator<<(std::ostream& os, const MediaTypes& mType)
