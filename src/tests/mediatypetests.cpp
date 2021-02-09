@@ -60,3 +60,18 @@ TEST(MediaTypesTests, testInsertionOperator)
     ASSERT_STREQ("Media Types:\n    None\n", ss2.str().c_str());
     ASSERT_STREQ(let.c_str(), ss.str().c_str());
 } 
+
+TEST(MediaTypesTests, testAccessOperator)
+{
+    MediaTypes types;
+    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
+
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, types[1].getType());
+
+    const MediaTypes cTypes = types;
+
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, cTypes[0].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, cTypes[1].getType());
+ }

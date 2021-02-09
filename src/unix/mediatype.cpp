@@ -55,6 +55,15 @@ namespace nanaprint
             }
         }
         return os;
+    }
 
+    MediaType& MediaTypes::operator[](size_t pos)
+    {
+        return m_types[pos];
+    }
+    
+    const MediaType& MediaTypes::operator[](size_t pos) const
+    {
+        return m_types[pos];
     }
 }
