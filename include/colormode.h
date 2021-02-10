@@ -115,6 +115,8 @@ namespace nanaprint
             const_iterator cend() const noexcept { return const_iterator(&m_colorModes[m_colorModes.size()]); }
             iterator rbegin() noexcept { return iterator(&m_colorModes[m_colorModes.size() - 1]); }
             iterator rend() noexcept { return iterator(&m_colorModes[-1]); }
+            const_iterator crbegin() const noexcept { return const_iterator(&m_colorModes[m_colorModes.size() - 1]); }
+            const_iterator crend() const noexcept { return const_iterator(&m_colorModes[-1]); }
         private:
             std::vector<ColorMode> m_colorModes;
     };
