@@ -38,9 +38,9 @@ namespace nanaprint
             ColorModes() {}
             virtual ~ColorModes() {}
             void addColorMode(const std::string& cmode);
-            const std::vector<std::shared_ptr<ColorMode>>& getColorModes() const;
+            const std::vector<ColorMode>& getColorModes() const;
         private:
-            std::vector<std::shared_ptr<ColorMode>> m_colorModes;
+            std::vector<ColorMode> m_colorModes;
     };
 
     std::ostream& operator<<(std::ostream& os, const ColorModes& cmode);

@@ -43,8 +43,8 @@ TEST(ColorModesTests, testConstructor)
     ASSERT_EQ(2, cmodes.size());
     for (auto& mode: cmodes)
     {
-        bool md = (mode->getColorMode() == u8"monochrome") ||
-            (mode->getColorMode() == u8"color");
+        bool md = (mode.getColorMode() == u8"monochrome") ||
+            (mode.getColorMode() == u8"color");
         ASSERT_TRUE(md);
     }
 } 
