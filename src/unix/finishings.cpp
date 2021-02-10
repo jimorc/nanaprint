@@ -25,7 +25,7 @@ namespace nanaprint
 
     }
 
-    void finishings::setFinishing(const string& finish)
+    void finishings::set_finishing(const string& finish)
     {
         if (finish == CUPS_FINISHINGS_NONE) setNone();
         else if (finish == CUPS_FINISHINGS_BIND) setBind();

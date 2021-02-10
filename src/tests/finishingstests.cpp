@@ -11,15 +11,15 @@ using namespace std;
 TEST(FinishingsTests, testNone)
 {
     finishings finishingsNone, finishingsNone2;
-    finishingsNone.setFinishing(CUPS_FINISHINGS_NONE);
+    finishingsNone.set_finishing(CUPS_FINISHINGS_NONE);
 
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_BIND);
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_COVER);
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_FOLD);
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_PUNCH);
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_STAPLE);
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_TRIM);
-    finishingsNone2.setFinishing(CUPS_FINISHINGS_NONE);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_BIND);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_COVER);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_FOLD);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_PUNCH);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_STAPLE);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_TRIM);
+    finishingsNone2.set_finishing(CUPS_FINISHINGS_NONE);
 
     ASSERT_TRUE(finishingsNone.getNone());
     ASSERT_TRUE(finishingsNone2.getNone());
@@ -35,7 +35,7 @@ TEST(FinishingsTests, testNone)
 TEST(FinishingsTests, testBind)
 {
     finishings finishingsBind;
-    finishingsBind.setFinishing(CUPS_FINISHINGS_BIND);
+    finishingsBind.set_finishing(CUPS_FINISHINGS_BIND);
 
     ASSERT_TRUE(finishingsBind.getBind());
     ASSERT_FALSE(finishingsBind.getNone());
@@ -45,7 +45,7 @@ TEST(FinishingsTests, testBind)
 TEST(FinishingsTests, testPrintCover)
 {
     finishings finishingsCover;
-    finishingsCover.setFinishing(CUPS_FINISHINGS_COVER);
+    finishingsCover.set_finishing(CUPS_FINISHINGS_COVER);
 
     ASSERT_TRUE(finishingsCover.getPrintCover());
     ASSERT_FALSE(finishingsCover.getNone());
@@ -55,7 +55,7 @@ TEST(FinishingsTests, testPrintCover)
 TEST(FinishingsTests, testFold)
 {
     finishings finishingsFold;
-    finishingsFold.setFinishing(CUPS_FINISHINGS_FOLD);
+    finishingsFold.set_finishing(CUPS_FINISHINGS_FOLD);
 
     ASSERT_TRUE(finishingsFold.getFold());
     ASSERT_FALSE(finishingsFold.getNone());
@@ -65,7 +65,7 @@ TEST(FinishingsTests, testFold)
 TEST(FinishingsTests, testPunch)
 {
     finishings finishings;
-    finishings.setFinishing(CUPS_FINISHINGS_PUNCH);
+    finishings.set_finishing(CUPS_FINISHINGS_PUNCH);
 
     ASSERT_TRUE(finishings.getPunch());
     ASSERT_FALSE(finishings.getNone());
@@ -75,7 +75,7 @@ TEST(FinishingsTests, testPunch)
 TEST(FinishingsTests, testStaple)
 {
     finishings finishings;
-    finishings.setFinishing(CUPS_FINISHINGS_STAPLE);
+    finishings.set_finishing(CUPS_FINISHINGS_STAPLE);
 
     ASSERT_TRUE(finishings.getStaple());
     ASSERT_FALSE(finishings.getNone());
@@ -85,7 +85,7 @@ TEST(FinishingsTests, testStaple)
 TEST(FinishingsTests, testTrim)
 {
     finishings finishings;
-    finishings.setFinishing(CUPS_FINISHINGS_TRIM);
+    finishings.set_finishing(CUPS_FINISHINGS_TRIM);
 
     ASSERT_TRUE(finishings.getTrim());
     ASSERT_FALSE(finishings.getNone());
@@ -95,14 +95,14 @@ TEST(FinishingsTests, testTrim)
 TEST(FinishingsTests, testInsertionOperator)
 {
     finishings trimFinishings, noFinishings, allFinishings;
-    trimFinishings.setFinishing(CUPS_FINISHINGS_TRIM);
-    noFinishings.setFinishing(CUPS_FINISHINGS_NONE);
-    allFinishings.setFinishing(CUPS_FINISHINGS_BIND);
-    allFinishings.setFinishing(CUPS_FINISHINGS_COVER);
-    allFinishings.setFinishing(CUPS_FINISHINGS_FOLD);
-    allFinishings.setFinishing(CUPS_FINISHINGS_PUNCH);
-    allFinishings.setFinishing(CUPS_FINISHINGS_STAPLE);
-    allFinishings.setFinishing(CUPS_FINISHINGS_TRIM);
+    trimFinishings.set_finishing(CUPS_FINISHINGS_TRIM);
+    noFinishings.set_finishing(CUPS_FINISHINGS_NONE);
+    allFinishings.set_finishing(CUPS_FINISHINGS_BIND);
+    allFinishings.set_finishing(CUPS_FINISHINGS_COVER);
+    allFinishings.set_finishing(CUPS_FINISHINGS_FOLD);
+    allFinishings.set_finishing(CUPS_FINISHINGS_PUNCH);
+    allFinishings.set_finishing(CUPS_FINISHINGS_STAPLE);
+    allFinishings.set_finishing(CUPS_FINISHINGS_TRIM);
 
     stringstream ssTrim, ssNone, ssAll;
     ssTrim << trimFinishings;

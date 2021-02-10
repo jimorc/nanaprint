@@ -270,7 +270,7 @@ namespace nanaprint
     {
         char fin[10];       // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
-        m_finishings.setFinishing(fin);
+        m_finishings.set_finishing(fin);
     }
 
     void Printer::populateMediaSources()
@@ -321,7 +321,7 @@ namespace nanaprint
                 {
                     for (auto m: match)
                     {
-                        m_defaultFinishings.setFinishing(m);
+                        m_defaultFinishings.set_finishing(m);
                     }
                 }
             }
@@ -333,7 +333,7 @@ namespace nanaprint
                     int finish = ippGetInteger(defaultFinishings2, i);
                     char fin[10];       // 2 or 3 would be enough
                     sprintf(fin, "%d", finish);
-                    m_defaultFinishings.setFinishing(fin);
+                    m_defaultFinishings.set_finishing(fin);
                 }
             }
         }

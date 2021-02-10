@@ -23,7 +23,7 @@ namespace nanaprint
         public:
             finishings();
             ~finishings() {}
-            void setFinishing(const std::string& finish);
+            void set_finishing(const std::string& finish);
             bool getNone() const { return m_none; }
             bool getBind() const { return m_bind; }
             bool getPrintCover() const { return m_printCover; }
