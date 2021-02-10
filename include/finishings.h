@@ -32,7 +32,7 @@ namespace nanaprint
             bool get_staple() const { return m_staple; }
             bool get_trim() const { return m_trim; }
 
-            void setNone();
+            void set_none();
             void setBind();
             void setPrintCover();
             void setFold();
