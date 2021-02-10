@@ -122,7 +122,7 @@ TEST(ColorModesTests, testAt)
     }
 }
     
-TEST(MediaTypesTests, testIterator)
+TEST(ColorModesTests, testIterator)
 {
     ColorModes modes;
     std::vector<ColorMode> vModes;
@@ -147,7 +147,7 @@ TEST(MediaTypesTests, testIterator)
     ASSERT_EQ("color", vModes[1].getColorMode());
 }
 
-TEST(MediaTypesTests, testConstIterator)
+TEST(ColorModesTests, testConstIterator)
 {
     ColorModes modes;
     std::vector<ColorMode> vModes;
@@ -173,7 +173,7 @@ TEST(MediaTypesTests, testConstIterator)
     ASSERT_EQ("color", vModes[1].getColorMode());
 }
 
-TEST(MediaTypesTests, testReverseIterator)
+TEST(ColorModesTests, testReverseIterator)
 {
     ColorModes modes;
     std::vector<ColorMode> vModes;
@@ -198,7 +198,7 @@ TEST(MediaTypesTests, testReverseIterator)
     ASSERT_EQ("color", vModes[0].getColorMode());
 }
 
-TEST(MediaTypesTests, testConstReverseIterator)
+TEST(ColorModesTests, testConstReverseIterator)
 {
     ColorModes modes;
     std::vector<ColorMode> vModes;
