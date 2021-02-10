@@ -106,6 +106,7 @@ namespace nanaprint
             void add_source(const std::string& source);
             const std::vector<media_source>& get_sources() const;
             size_t size() { return m_sources.size(); }
+            void clear() { m_sources.clear(); }
             media_source& operator[](size_t pos);
             const media_source& operator[](size_t post) const;
             media_source& at(size_t pos);

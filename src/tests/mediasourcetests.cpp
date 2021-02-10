@@ -234,4 +234,8 @@ TEST(MediaSourcesTests, testClear)
     sources.add_source(u8"Manual Feed Tray");
 
     ASSERT_EQ(3, sources.size());
+
+    sources.clear();
+
+    ASSERT_EQ(0, sources.size());
 }
