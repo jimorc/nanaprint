@@ -28,7 +28,7 @@ namespace nanaprint
     void finishings::set_finishing(const string& finish)
     {
         if (finish == CUPS_FINISHINGS_NONE) set_none();
-        else if (finish == CUPS_FINISHINGS_BIND) setBind();
+        else if (finish == CUPS_FINISHINGS_BIND) set_bind();
         else if (finish == CUPS_FINISHINGS_COVER) setPrintCover();
         else if (finish == CUPS_FINISHINGS_FOLD) setFold();
         else if (finish == CUPS_FINISHINGS_PUNCH) setPunch();
@@ -47,7 +47,7 @@ namespace nanaprint
         m_trim = false;
     }
 
-    void finishings::setBind()
+    void finishings::set_bind()
     {
         m_bind = true;
         m_none = false;

@@ -33,7 +33,7 @@ namespace nanaprint
             bool get_trim() const { return m_trim; }
 
             void set_none();
-            void setBind();
+            void set_bind();
             void setPrintCover();
             void setFold();
             void setPunch();
