@@ -35,7 +35,7 @@ namespace nanaprint
             void set_none();
             void set_bind();
             void set_print_cover();
-            void setFold();
+            void set_fold();
             void setPunch();
             void setStaple();
             void setTrim();
