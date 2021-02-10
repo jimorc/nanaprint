@@ -238,7 +238,7 @@ TEST(MediaTypesTests, testIteratorWithStdLib)
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[1].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2].getType());
 
-    std::copy(types2.begin(), types2.end(), types.cbegin());
+    std::copy(types2.begin(), types2.end(), types.begin());
     
     ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[1].getType());
