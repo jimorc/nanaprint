@@ -29,7 +29,7 @@ namespace nanaprint
         return os;
     }
 
-    void MediaTypes::addMediaType(const std::string& mediaType)
+    void MediaTypes::add_type(const std::string& mediaType)
     {
         m_types.push_back(media_type(mediaType));
     }

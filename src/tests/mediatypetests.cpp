@@ -31,9 +31,9 @@ TEST(MediaTypeTests, testInsertionOperator)
 TEST(MediaTypesTests, testAddMediaType)
 {
     MediaTypes mediaTypes;
-    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    mediaTypes.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    mediaTypes.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    mediaTypes.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     auto types = mediaTypes.getMediaTypes();
 
@@ -50,8 +50,8 @@ TEST(MediaTypesTests, testInsertionOperator)
 
     ss2 << mediaTypes;
 
-    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    mediaTypes.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
+    mediaTypes.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    mediaTypes.add_type(CUPS_MEDIA_TYPE_PHOTO);
     string let = "Media Types:\n    " + string(CUPS_MEDIA_TYPE_LETTERHEAD) + '\n' +
         "    " + string(CUPS_MEDIA_TYPE_PHOTO) + '\n';
 
@@ -64,8 +64,8 @@ TEST(MediaTypesTests, testInsertionOperator)
 TEST(MediaTypesTests, testAccessOperator)
 {
     MediaTypes types;
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PHOTO);
 
     ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0].get_type());
     ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, types[1].get_type());
@@ -79,8 +79,8 @@ TEST(MediaTypesTests, testAccessOperator)
 TEST(MediaTypesTests, testAt)
 {
     MediaTypes types;
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PHOTO);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PHOTO);
 
     ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, types.at(0).get_type());
     ASSERT_EQ(CUPS_MEDIA_TYPE_PHOTO, types.at(1).get_type());
@@ -129,9 +129,9 @@ TEST(MediaTypesTests, testIterator)
     }
     ASSERT_EQ(0, vTypes.size());
 
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    types.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     auto begin = types.begin();
     ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, begin->get_type());
@@ -156,9 +156,9 @@ TEST(MediaSourcesTests, testConstIterator)
     }
     ASSERT_EQ(0, vTypes.size());
 
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    types.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     auto begin = types.begin();
     ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, begin->get_type());
@@ -178,9 +178,9 @@ TEST(MediaTypesTests, testReverseIterator)
     MediaTypes types;
     std::vector<media_type> vTypes;
 
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    types.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     auto begin = types.rbegin();
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, begin->get_type());
@@ -200,9 +200,9 @@ TEST(MediaTypesTests, testConstReverseIterator)
     MediaTypes types;
     std::vector<media_type> vTypes;
 
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    types.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     auto begin = types.crbegin();
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, begin->get_type());
@@ -220,9 +220,9 @@ TEST(MediaTypesTests, testConstReverseIterator)
 TEST(MediaTypesTests, testIteratorWithStdLib)
 {
     MediaTypes types;
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    types.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     MediaTypes types2 = types;      // types2 is used later. This saves extra initialization
 
@@ -248,9 +248,9 @@ TEST(MediaTypesTests, testIteratorWithStdLib)
 TEST(MediaTypesTests, testClear)
 {
     MediaTypes types;
-    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
-    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
-    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+    types.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.add_type(CUPS_MEDIA_TYPE_PLAIN);
+    types.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
     ASSERT_EQ(3, types.size());
 
