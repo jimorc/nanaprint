@@ -27,7 +27,7 @@ namespace nanaprint
             bool get_none() const { return m_none; }
             bool get_bind() const { return m_bind; }
             bool get_print_cover() const { return m_printCover; }
-            bool getFold() const { return m_fold; }
+            bool get_fold() const { return m_fold; }
             bool getPunch() const { return m_punch; }
             bool getStaple() const { return m_staple; }
             bool getTrim() const { return m_trim; }

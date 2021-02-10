@@ -89,7 +89,7 @@ namespace nanaprint
         os << (finishing.get_none() ? u8"    None\n" : "");
         os << (finishing.get_bind() ? u8"    Bind\n" : "");
         os << (finishing.get_print_cover() ? u8"    Cover\n" : "");
-        os << (finishing.getFold() ? u8"    Fold\n" : "");
+        os << (finishing.get_fold() ? u8"    Fold\n" : "");
         os << (finishing.getPunch() ? u8"    Punch\n" : "");
         os << (finishing.getStaple() ? u8"    Staple\n" : "");
         os << (finishing.getTrim() ? u8"    Trim\n" : "");
