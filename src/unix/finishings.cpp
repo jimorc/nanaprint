@@ -29,7 +29,7 @@ namespace nanaprint
     {
         if (finish == CUPS_FINISHINGS_NONE) set_none();
         else if (finish == CUPS_FINISHINGS_BIND) set_bind();
-        else if (finish == CUPS_FINISHINGS_COVER) setPrintCover();
+        else if (finish == CUPS_FINISHINGS_COVER) set_print_cover();
         else if (finish == CUPS_FINISHINGS_FOLD) setFold();
         else if (finish == CUPS_FINISHINGS_PUNCH) setPunch();
         else if (finish == CUPS_FINISHINGS_STAPLE) setStaple();
@@ -53,7 +53,7 @@ namespace nanaprint
         m_none = false;
     }
 
-    void finishings::setPrintCover()
+    void finishings::set_print_cover()
     {
         m_printCover = true;
         m_none = false;
