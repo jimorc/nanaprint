@@ -224,3 +224,14 @@ TEST(MediaSourcesTests, testConstReverseIterator)
     ASSERT_EQ(u8"Tray 2", mSources[1].get_source());
     ASSERT_EQ(u8"Manual Feed Tray", mSources[0].get_source());
 }
+
+TEST(MediaSourcesTests, testClear)
+{
+    media_sources sources;
+
+    sources.add_source(u8"Tray 1");
+    sources.add_source(u8"Tray 2");
+    sources.add_source(u8"Manual Feed Tray");
+
+    ASSERT_EQ(3, sources.size());
+}
