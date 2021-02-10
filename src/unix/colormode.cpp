@@ -37,17 +37,12 @@ namespace nanaprint
 
     void ColorModes::addColorMode(const std::string& cmode)
     {
-        m_colorModes.insert(make_shared<ColorMode>(cmode));
+        m_colorModes.push_back(make_shared<ColorMode>(cmode));
     }
 
-    const std::vector<std::shared_ptr<ColorMode>> ColorModes::getColorModes() const
+    const std::vector<std::shared_ptr<ColorMode>>& ColorModes::getColorModes() const
     {
-        std::vector<std::shared_ptr<ColorMode>> modes;
-        for (auto& mode: m_colorModes)
-        {
-            modes.push_back(mode);
-        }
-        return modes;
+        return m_colorModes;
     }
 
     std::ostream& operator<<(std::ostream& os, const ColorModes& cmode)
