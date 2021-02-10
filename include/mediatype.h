@@ -26,7 +26,7 @@ namespace nanaprint
         public:
             media_type(const std::string& mediaType);
             virtual ~media_type() {}
-            const std::string& getType() const { return m_type; }
+            const std::string& get_type() const { return m_type; }
 
         private:
             std::string m_type;

@@ -25,7 +25,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const media_type& mType)
     {
-        os << "    " << mType.getType() << '\n';
+        os << "    " << mType.get_type() << '\n';
         return os;
     }
 
