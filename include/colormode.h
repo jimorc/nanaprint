@@ -41,6 +41,8 @@ namespace nanaprint
             const std::vector<ColorMode>& getColorModes() const;
             size_t size() const { return m_colorModes.size(); }
             void clear() { m_colorModes.clear(); }
+            ColorMode& operator[](size_t pos);
+            const ColorMode& operator[](size_t pos) const;
         private:
             std::vector<ColorMode> m_colorModes;
     };

@@ -54,5 +54,15 @@ namespace nanaprint
         }
         return os;
     }
+
+    ColorMode& ColorModes::operator[](size_t pos)
+    {
+        return m_colorModes[pos];
+    }
+
+    const ColorMode& ColorModes::operator[](size_t pos) const
+    {
+        return m_colorModes[pos];
+    }
 }
 

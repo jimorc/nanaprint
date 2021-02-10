@@ -77,3 +77,18 @@ TEST(ColorModeTests, testClear)
     modes.clear();
     ASSERT_EQ(0, modes.size());
 }
+
+TEST(ColorModesTests, testAccessOperator)
+{
+    ColorModes modes;
+    modes.addColorMode("b&w");
+    modes.addColorMode("color");
+
+    ASSERT_EQ("b&w", modes[0].getColorMode());
+    ASSERT_EQ("color", modes[1].getColorMode());
+
+    const ColorModes cModes = modes;
+
+    ASSERT_EQ("b&w", cModes[0].getColorMode());
+    ASSERT_EQ("color", cModes[1].getColorMode());
+}
