@@ -172,3 +172,25 @@ TEST(MediaSourcesTests, testConstIterator)
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, vTypes[1].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, vTypes[2].getType());
 }
+
+TEST(MediaTypesTests, testReverseIterator)
+{
+    MediaTypes types;
+    std::vector<MediaType> vTypes;
+
+    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
+    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+
+    auto begin = types.rbegin();
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, begin->getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, (*begin).getType());
+
+    for (auto iter = types.rbegin(); iter != types.rend(); --iter)
+    {
+        vTypes.push_back(*iter);
+    }
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, vTypes[2].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, vTypes[1].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, vTypes[0].getType());
+}
