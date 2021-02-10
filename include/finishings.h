@@ -29,7 +29,7 @@ namespace nanaprint
             bool get_print_cover() const { return m_printCover; }
             bool get_fold() const { return m_fold; }
             bool get_punch() const { return m_punch; }
-            bool getStaple() const { return m_staple; }
+            bool get_staple() const { return m_staple; }
             bool getTrim() const { return m_trim; }
 
             void setNone();
