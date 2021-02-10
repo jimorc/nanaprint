@@ -223,3 +223,25 @@ TEST(ColorModesTests, testConstReverseIterator)
     ASSERT_EQ("b&w", vModes[1].getColorMode());
     ASSERT_EQ("color", vModes[0].getColorMode());
 }
+
+TEST(ColorModesTests, testIteratorWithStdLib)
+{
+    ColorModes modes;
+    modes.addColorMode("b&w");
+    modes.addColorMode("color");
+
+
+    std::fill(modes.begin(), modes.end(), ColorMode("b&w"));
+
+    ASSERT_EQ("b&w", modes[0].getColorMode());
+    ASSERT_EQ("b&w", modes[1].getColorMode());
+   
+    modes[1] = ColorMode("color");
+    ColorModes modes2 = modes;
+    std::fill(begin(modes2), end(modes2), ColorMode(""));
+    
+    std::copy(modes.begin(), modes.end(), modes2.begin());
+    
+    ASSERT_EQ("b&w", modes2[0].getColorMode());
+    ASSERT_EQ("color", modes2[1].getColorMode());
+}
