@@ -73,4 +73,7 @@ TEST(ColorModeTests, testClear)
     modes.addColorMode("color");
 
     ASSERT_EQ(2, modes.size());
+
+    modes.clear();
+    ASSERT_EQ(0, modes.size());
 }
