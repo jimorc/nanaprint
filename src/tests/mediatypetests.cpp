@@ -216,3 +216,31 @@ TEST(MediaTypesTests, testConstReverseIterator)
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, vTypes[1].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, vTypes[0].getType());
 }
+
+TEST(MediaTypesTests, testIteratorWithStdLib)
+{
+    MediaTypes types;
+    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
+    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+
+    MediaTypes types2 = types;      // types2 is used later. This saves extra initialization
+
+    std::fill(types.begin(), types.end(), MediaType(CUPS_MEDIA_TYPE_PLAIN));
+
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[0].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[1].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[2].getType());
+   
+    std::fill(begin(types), end(types), MediaType(CUPS_MEDIA_TYPE_ENVELOPE));
+    
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[0].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[1].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2].getType());
+
+    std::copy(types2.begin(), types2.end(), types.cbegin());
+    
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[1].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2].getType());
+}
