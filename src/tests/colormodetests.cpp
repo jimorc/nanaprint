@@ -8,18 +8,18 @@ using namespace std;
 // Test constructors
 TEST(ColorModeTests, testConstructor)
 {
-    ColorMode mode;
+    color_mode mode;
 
     ASSERT_STREQ(u8"None", mode.getColorMode().c_str());
 
-    ColorMode bw("Monochrome");
+    color_mode bw("Monochrome");
     ASSERT_STREQ(u8"Monochrome", bw.getColorMode().c_str());
 } 
 
 // Test insertion operator
 TEST(ColorModeTests, testInsertionOperator)
 {
-    ColorMode mode, mode2("color");
+    color_mode mode, mode2("color");
 
 
     stringstream ss, ss2;
@@ -125,7 +125,7 @@ TEST(ColorModesTests, testAt)
 TEST(ColorModesTests, testIterator)
 {
     ColorModes modes;
-    std::vector<ColorMode> vModes;
+    std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
         vModes.push_back(mode);
@@ -150,7 +150,7 @@ TEST(ColorModesTests, testIterator)
 TEST(ColorModesTests, testConstIterator)
 {
     ColorModes modes;
-    std::vector<ColorMode> vModes;
+    std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
         vModes.push_back(mode);
@@ -176,7 +176,7 @@ TEST(ColorModesTests, testConstIterator)
 TEST(ColorModesTests, testReverseIterator)
 {
     ColorModes modes;
-    std::vector<ColorMode> vModes;
+    std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
         vModes.push_back(mode);
@@ -201,7 +201,7 @@ TEST(ColorModesTests, testReverseIterator)
 TEST(ColorModesTests, testConstReverseIterator)
 {
     ColorModes modes;
-    std::vector<ColorMode> vModes;
+    std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
         vModes.push_back(mode);
@@ -231,14 +231,14 @@ TEST(ColorModesTests, testIteratorWithStdLib)
     modes.addColorMode("color");
 
 
-    std::fill(modes.begin(), modes.end(), ColorMode("b&w"));
+    std::fill(modes.begin(), modes.end(), color_mode("b&w"));
 
     ASSERT_EQ("b&w", modes[0].getColorMode());
     ASSERT_EQ("b&w", modes[1].getColorMode());
    
-    modes[1] = ColorMode("color");
+    modes[1] = color_mode("color");
     ColorModes modes2 = modes;
-    std::fill(begin(modes2), end(modes2), ColorMode(""));
+    std::fill(begin(modes2), end(modes2), color_mode(""));
     
     std::copy(modes.begin(), modes.end(), modes2.begin());
     

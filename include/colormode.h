@@ -19,18 +19,18 @@
 
 namespace nanaprint
 {
-    class ColorMode
+    class color_mode
     {
         public:
-            ColorMode();
-            ColorMode(const std::string& colormode);
-            virtual ~ColorMode() {}
+            color_mode();
+            color_mode(const std::string& colormode);
+            virtual ~color_mode() {}
             const std::string& getColorMode() const { return m_colorMode; }
         private:
             std::string m_colorMode;
     };
 
-    std::ostream& operator<<(std::ostream& os, const ColorMode& cmode);
+    std::ostream& operator<<(std::ostream& os, const color_mode& cmode);
 
     class ColorModes
     {
@@ -39,9 +39,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = ColorMode;
-                using pointer           = ColorMode*;  // or also value_type*
-                using reference         = ColorMode&;  // or also value_type& 
+                using value_type        = color_mode;
+                using pointer           = color_mode*;  // or also value_type*
+                using reference         = color_mode&;  // or also value_type& 
 
                 explicit iterator(pointer ptr) : m_ptr(ptr) {}
                 reference operator*() const { return *m_ptr; }
@@ -71,9 +71,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = const ColorMode;
-                using pointer           = const ColorMode*;  // or also value_type*
-                using reference         = const ColorMode&;  // or also value_type& 
+                using value_type        = const color_mode;
+                using pointer           = const color_mode*;  // or also value_type*
+                using reference         = const color_mode&;  // or also value_type& 
 
                 explicit const_iterator(pointer ptr) : m_ptr(ptr) {}
                 reference operator*() const { return *m_ptr; }
@@ -102,13 +102,13 @@ namespace nanaprint
             ColorModes() {}
             virtual ~ColorModes() {}
             void addColorMode(const std::string& cmode);
-            const std::vector<ColorMode>& getColorModes() const;
+            const std::vector<color_mode>& getColorModes() const;
             size_t size() const { return m_colorModes.size(); }
             void clear() { m_colorModes.clear(); }
-            ColorMode& operator[](size_t pos);
-            const ColorMode& operator[](size_t pos) const;
-            ColorMode& at(size_t pos);
-            const ColorMode& at(size_t pos) const;
+            color_mode& operator[](size_t pos);
+            const color_mode& operator[](size_t pos) const;
+            color_mode& at(size_t pos);
+            const color_mode& at(size_t pos) const;
             iterator begin() noexcept { return iterator(&m_colorModes[0]); }
             iterator end() noexcept { return iterator(&m_colorModes[m_colorModes.size()]); }
             const_iterator cbegin() const noexcept { return const_iterator(&m_colorModes[0]); }
@@ -118,7 +118,7 @@ namespace nanaprint
             const_iterator crbegin() const noexcept { return const_iterator(&m_colorModes[m_colorModes.size() - 1]); }
             const_iterator crend() const noexcept { return const_iterator(&m_colorModes[-1]); }
         private:
-            std::vector<ColorMode> m_colorModes;
+            std::vector<color_mode> m_colorModes;
     };
 
     std::ostream& operator<<(std::ostream& os, const ColorModes& cmode);

@@ -538,7 +538,7 @@ namespace nanaprint
                 cupsGetOption(CUPS_PRINT_COLOR_MODE, m_dest->num_options, m_dest->options);
             if (defaultColorMode != nullptr)
             {
-                m_defaultColorMode = ColorMode(defaultColorMode);
+                m_defaultColorMode = color_mode(defaultColorMode);
             }
             else
             {
@@ -548,7 +548,7 @@ namespace nanaprint
                 if (count != 0)
                 {
                     const char *defaultColorMode = ippGetString(defColorMode, 0, NULL);
-                    m_defaultColorMode = ColorMode(defaultColorMode);
+                    m_defaultColorMode = color_mode(defaultColorMode);
                 }
                 else
                 {
@@ -560,7 +560,7 @@ namespace nanaprint
         }   
     }
 
-    const std::optional<ColorMode>& Printer::getDefaultColorMode()
+    const std::optional<color_mode>& Printer::getDefaultColorMode()
     {
         populateDefaultColorMode();
         return m_defaultColorMode;
