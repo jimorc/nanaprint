@@ -31,7 +31,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const color_mode& cmode)
     {
-        os << "    " << cmode.getColorMode() << '\n';
+        os << "    " << cmode.get_mode() << '\n';
         return os;
     }
 

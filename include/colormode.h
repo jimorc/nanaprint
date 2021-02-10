@@ -25,7 +25,7 @@ namespace nanaprint
             color_mode();
             color_mode(const std::string& colormode);
             virtual ~color_mode() {}
-            const std::string& getColorMode() const { return m_colorMode; }
+            const std::string& get_mode() const { return m_colorMode; }
         private:
             std::string m_colorMode;
     };
