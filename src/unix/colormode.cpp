@@ -40,7 +40,7 @@ namespace nanaprint
         m_colorModes.push_back(cmode);
     }
 
-    const std::vector<color_mode>& color_modes::getColorModes() const
+    const std::vector<color_mode>& color_modes::get_modes() const
     {
         return m_colorModes;
     }
@@ -48,7 +48,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const color_modes& cmode)
     {
         os << "Color Modes:\n";
-        for (auto& mode: cmode.getColorModes())
+        for (auto& mode: cmode.get_modes())
         {
             os << mode;
         }

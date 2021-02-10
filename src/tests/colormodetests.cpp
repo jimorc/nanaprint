@@ -38,7 +38,7 @@ TEST(ColorModesTests, testConstructor)
     modes.add_mode("monochrome");
     modes.add_mode("color");
 
-    auto cmodes = modes.getColorModes();
+    auto cmodes = modes.get_modes();
 
     ASSERT_EQ(2, cmodes.size());
     for (auto& mode: cmodes)
