@@ -114,6 +114,8 @@ namespace nanaprint
             const_iterator cend() const noexcept { return const_iterator(&m_types[m_types.size()]); }
             iterator rbegin() noexcept { return iterator(&m_types[m_types.size() - 1]); }
             iterator rend() noexcept { return iterator(&m_types[-1]); }
+            const_iterator crbegin() const noexcept { return const_iterator(&m_types[m_types.size() - 1]); }
+            const_iterator crend() const noexcept { return const_iterator(&m_types[-1]); }
         public:
             std::vector<MediaType> m_types;
     };
