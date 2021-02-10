@@ -34,7 +34,7 @@ namespace nanaprint
         m_types.push_back(media_type(mediaType));
     }
 
-    const vector<media_type>& MediaTypes::getMediaTypes() const
+    const vector<media_type>& MediaTypes::get_types() const
     {
         return m_types;
     }
@@ -42,7 +42,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const MediaTypes& mType)
     {
         os << "Media Types:\n";
-        auto types = mType.getMediaTypes();
+        auto types = mType.get_types();
         if(types.size() == 0)
         {
             os << "    None\n";

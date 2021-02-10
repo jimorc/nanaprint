@@ -35,7 +35,7 @@ TEST(MediaTypesTests, testAddMediaType)
     mediaTypes.add_type(CUPS_MEDIA_TYPE_PLAIN);
     mediaTypes.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
 
-    auto types = mediaTypes.getMediaTypes();
+    auto types = mediaTypes.get_types();
 
     ASSERT_STREQ(CUPS_MEDIA_TYPE_LETTERHEAD, types[0].get_type().c_str());
     ASSERT_STREQ(CUPS_MEDIA_TYPE_PLAIN, types[1].get_type().c_str());
