@@ -28,7 +28,7 @@ TEST(FinishingsTests, testNone)
     ASSERT_FALSE(finishingsNone2.get_fold());
     ASSERT_FALSE(finishingsNone2.get_punch());
     ASSERT_FALSE(finishingsNone2.get_staple());
-    ASSERT_FALSE(finishingsNone2.getTrim());
+    ASSERT_FALSE(finishingsNone2.get_trim());
 } 
 
 // Test Bind
@@ -87,7 +87,7 @@ TEST(FinishingsTests, testTrim)
     finishings finishings;
     finishings.set_finishing(CUPS_FINISHINGS_TRIM);
 
-    ASSERT_TRUE(finishings.getTrim());
+    ASSERT_TRUE(finishings.get_trim());
     ASSERT_FALSE(finishings.get_none());
 }
 

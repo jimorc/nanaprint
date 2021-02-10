@@ -30,7 +30,7 @@ namespace nanaprint
             bool get_fold() const { return m_fold; }
             bool get_punch() const { return m_punch; }
             bool get_staple() const { return m_staple; }
-            bool getTrim() const { return m_trim; }
+            bool get_trim() const { return m_trim; }
 
             void setNone();
             void setBind();
