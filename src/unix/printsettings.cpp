@@ -91,7 +91,7 @@ namespace nanaprint
         m_mediaSource = source;
     }
     
-    void PrintSettings::set_media_type(const std::optional<MediaType>& mediaType)
+    void PrintSettings::set_media_type(const std::optional<media_type>& mediaType)
     {
         m_mediaType = mediaType;
     }

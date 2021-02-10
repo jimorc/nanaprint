@@ -21,18 +21,18 @@
 
 namespace nanaprint
 {
-    class MediaType
+    class media_type
     {
         public:
-            MediaType(const std::string& mediaType);
-            virtual ~MediaType() {}
+            media_type(const std::string& mediaType);
+            virtual ~media_type() {}
             const std::string& getType() const { return m_type; }
 
         private:
             std::string m_type;
     };
 
-    std::ostream& operator<<(std::ostream& os, const MediaType& mType);
+    std::ostream& operator<<(std::ostream& os, const media_type& mType);
 
     class MediaTypes
     {
@@ -41,9 +41,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = MediaType;
-                using pointer           = MediaType*;  // or also value_type*
-                using reference         = MediaType&;  // or also value_type& 
+                using value_type        = media_type;
+                using pointer           = media_type*;  // or also value_type*
+                using reference         = media_type&;  // or also value_type& 
 
                 explicit iterator(pointer ptr) : m_ptr(ptr) {}
                 reference operator*() const { return *m_ptr; }
@@ -73,9 +73,9 @@ namespace nanaprint
             {
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type   = std::ptrdiff_t;
-                using value_type        = const MediaType;
-                using pointer           = const MediaType*;  // or also value_type*
-                using reference         = const MediaType&;  // or also value_type& 
+                using value_type        = const media_type;
+                using pointer           = const media_type*;  // or also value_type*
+                using reference         = const media_type&;  // or also value_type& 
 
                 explicit const_iterator(pointer ptr) : m_ptr(ptr) {}
                 reference operator*() const { return *m_ptr; }
@@ -103,13 +103,13 @@ namespace nanaprint
 
             virtual ~MediaTypes() {}
             void addMediaType(const std::string& mediaType);
-            const std::vector<MediaType>& getMediaTypes() const;
+            const std::vector<media_type>& getMediaTypes() const;
             size_t size() { return m_types.size(); }
             void clear() { m_types.clear(); }
-            MediaType& operator[](size_t pos);
-            const MediaType& operator[](size_t pos) const;
-            MediaType& at(size_t pos);
-            const MediaType& at(size_t pos) const;
+            media_type& operator[](size_t pos);
+            const media_type& operator[](size_t pos) const;
+            media_type& at(size_t pos);
+            const media_type& at(size_t pos) const;
             iterator begin() noexcept { return iterator(&m_types[0]); }
             iterator end() noexcept { return iterator(&m_types[m_types.size()]); }
             const_iterator cbegin() const noexcept { return const_iterator(&m_types[0]); }
@@ -119,7 +119,7 @@ namespace nanaprint
             const_iterator crbegin() const noexcept { return const_iterator(&m_types[m_types.size() - 1]); }
             const_iterator crend() const noexcept { return const_iterator(&m_types[-1]); }
         public:
-            std::vector<MediaType> m_types;
+            std::vector<media_type> m_types;
     };
 
     std::ostream& operator<<(std::ostream& os, const MediaTypes& mType);

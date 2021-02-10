@@ -17,13 +17,13 @@ using namespace std;
 
 namespace nanaprint
 {
-    MediaType::MediaType(const std::string& mediaType)
+    media_type::media_type(const std::string& mediaType)
         : m_type(mediaType)
     {
 
     }
 
-    std::ostream& operator<<(std::ostream& os, const MediaType& mType)
+    std::ostream& operator<<(std::ostream& os, const media_type& mType)
     {
         os << "    " << mType.getType() << '\n';
         return os;
@@ -31,10 +31,10 @@ namespace nanaprint
 
     void MediaTypes::addMediaType(const std::string& mediaType)
     {
-        m_types.push_back(MediaType(mediaType));
+        m_types.push_back(media_type(mediaType));
     }
 
-    const vector<MediaType>& MediaTypes::getMediaTypes() const
+    const vector<media_type>& MediaTypes::getMediaTypes() const
     {
         return m_types;
     }
@@ -57,17 +57,17 @@ namespace nanaprint
         return os;
     }
 
-    MediaType& MediaTypes::operator[](size_t pos)
+    media_type& MediaTypes::operator[](size_t pos)
     {
         return m_types[pos];
     }
     
-    const MediaType& MediaTypes::operator[](size_t pos) const
+    const media_type& MediaTypes::operator[](size_t pos) const
     {
         return m_types[pos];
     }
 
-    MediaType& MediaTypes::at(size_t pos)
+    media_type& MediaTypes::at(size_t pos)
     {
         if (pos >= m_types.size())
         {
@@ -76,7 +76,7 @@ namespace nanaprint
         return m_types[pos];
     }
 
-    const MediaType& MediaTypes::at(size_t pos) const
+    const media_type& MediaTypes::at(size_t pos) const
     {
         if (pos >= m_types.size())
         {

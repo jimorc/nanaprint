@@ -10,7 +10,7 @@ using namespace std;
 // Test ctor
 TEST(MediaTypeTests, testConstructor)
 {
-    MediaType mediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    media_type mediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
 
     ASSERT_STREQ(CUPS_MEDIA_TYPE_LETTERHEAD, mediaType.getType().c_str());
 } 
@@ -19,7 +19,7 @@ TEST(MediaTypeTests, testConstructor)
 TEST(MediaTypeTests, testInsertionOperator)
 {
     stringstream ss;
-    MediaType mediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    media_type mediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
     string let = "    " + string(CUPS_MEDIA_TYPE_LETTERHEAD) + '\n';
 
     ss << mediaType;
@@ -122,7 +122,7 @@ TEST(MediaTypesTests, testAt)
 TEST(MediaTypesTests, testIterator)
 {
     MediaTypes types;
-    std::vector<MediaType> vTypes;
+    std::vector<media_type> vTypes;
     for (auto &typ: types)
     {
         vTypes.push_back(typ);
@@ -149,7 +149,7 @@ TEST(MediaTypesTests, testIterator)
 TEST(MediaSourcesTests, testConstIterator)
 {
     MediaTypes types;
-    std::vector<MediaType> vTypes;
+    std::vector<media_type> vTypes;
     for (auto &typ: types)
     {
         vTypes.push_back(typ);
@@ -176,7 +176,7 @@ TEST(MediaSourcesTests, testConstIterator)
 TEST(MediaTypesTests, testReverseIterator)
 {
     MediaTypes types;
-    std::vector<MediaType> vTypes;
+    std::vector<media_type> vTypes;
 
     types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
     types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
@@ -198,7 +198,7 @@ TEST(MediaTypesTests, testReverseIterator)
 TEST(MediaTypesTests, testConstReverseIterator)
 {
     MediaTypes types;
-    std::vector<MediaType> vTypes;
+    std::vector<media_type> vTypes;
 
     types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
     types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
@@ -226,13 +226,13 @@ TEST(MediaTypesTests, testIteratorWithStdLib)
 
     MediaTypes types2 = types;      // types2 is used later. This saves extra initialization
 
-    std::fill(types.begin(), types.end(), MediaType(CUPS_MEDIA_TYPE_PLAIN));
+    std::fill(types.begin(), types.end(), media_type(CUPS_MEDIA_TYPE_PLAIN));
 
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[0].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[1].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[2].getType());
    
-    std::fill(begin(types), end(types), MediaType(CUPS_MEDIA_TYPE_ENVELOPE));
+    std::fill(begin(types), end(types), media_type(CUPS_MEDIA_TYPE_ENVELOPE));
     
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[0].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[1].getType());

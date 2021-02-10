@@ -80,7 +80,7 @@ namespace nanaprint
         m_mediaSource = source;
     }
     
-    void PrintDialogSettings::set_media_type(const std::optional<MediaType>& mediaType)
+    void PrintDialogSettings::set_media_type(const std::optional<media_type>& mediaType)
     {
         m_mediaType = mediaType;
     }
