@@ -118,3 +118,30 @@ TEST(MediaTypesTests, testAt)
         FAIL() << "Expected out_of_range exception";
     }
  }
+
+TEST(MediaTypesTests, testIterator)
+{
+    MediaTypes types;
+    std::vector<MediaType> vTypes;
+    for (auto &typ: types)
+    {
+        vTypes.push_back(typ);
+    }
+    ASSERT_EQ(0, vTypes.size());
+
+    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
+    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+
+    auto begin = types.begin();
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, begin->getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, (*begin).getType());
+
+    for (auto &typ: types)
+    {
+        vTypes.push_back(typ);
+    }
+    ASSERT_EQ(CUPS_MEDIA_TYPE_LETTERHEAD, vTypes[0].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, vTypes[1].getType());
+    ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, vTypes[2].getType());
+}
