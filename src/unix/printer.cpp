@@ -227,13 +227,13 @@ namespace nanaprint
             return m_defaultMediaSize;
         }
 
-    const Finishings& Printer::getFinishings()
+    const finishings& Printer::getFinishings()
     {
         populateFinishings();
         return m_finishings;
     }
 
-    const Finishings& Printer::getDefaultFinishings()
+    const finishings& Printer::getDefaultFinishings()
     {
         populateDefaultFinishings();
         return m_defaultFinishings;        

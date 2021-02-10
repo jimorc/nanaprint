@@ -19,13 +19,13 @@ using namespace std;
 
 namespace nanaprint
 {
-    Finishings::Finishings() : m_none(true), m_bind(false), m_printCover(false),
+    finishings::finishings() : m_none(true), m_bind(false), m_printCover(false),
         m_fold(false), m_punch(false), m_staple(false), m_trim(false)
     {
 
     }
 
-    void Finishings::setFinishing(const string& finish)
+    void finishings::setFinishing(const string& finish)
     {
         if (finish == CUPS_FINISHINGS_NONE) setNone();
         else if (finish == CUPS_FINISHINGS_BIND) setBind();
@@ -36,7 +36,7 @@ namespace nanaprint
         else if (finish == CUPS_FINISHINGS_TRIM) setTrim();
     }
 
-    void Finishings::setNone()
+    void finishings::setNone()
     {
         m_none = true;
         m_bind = false;
@@ -47,43 +47,43 @@ namespace nanaprint
         m_trim = false;
     }
 
-    void Finishings::setBind()
+    void finishings::setBind()
     {
         m_bind = true;
         m_none = false;
     }
 
-    void Finishings::setPrintCover()
+    void finishings::setPrintCover()
     {
         m_printCover = true;
         m_none = false;
     }
 
-    void Finishings::setFold()
+    void finishings::setFold()
     {
         m_fold = true;
         m_none = false;
     }
 
-    void Finishings::setPunch()
+    void finishings::setPunch()
     {
         m_punch = true;
         m_none = false;
     }
 
-    void Finishings::setStaple()
+    void finishings::setStaple()
     {
         m_staple = true;
         m_none = false;
     }
 
-    void Finishings::setTrim()
+    void finishings::setTrim()
     {
         m_trim = true;
         m_none = false;
     }
 
-    std::ostream& operator<<(std::ostream& os, const Finishings& finishing)
+    std::ostream& operator<<(std::ostream& os, const finishings& finishing)
     {
         os << u8"Finishings:\n";
         os << (finishing.getNone() ? u8"    None\n" : "");

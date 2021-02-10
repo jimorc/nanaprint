@@ -76,7 +76,7 @@ namespace nanaprint
         m_mediaSize = mediaSize;
     }
 
-    void PrintSettings::set_finishings(const Finishings finishings)
+    void PrintSettings::set_finishings(const finishings finishings)
     {
         m_finishings = finishings;
     }

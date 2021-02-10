@@ -10,7 +10,7 @@ using namespace std;
 // Test None
 TEST(FinishingsTests, testNone)
 {
-    Finishings finishingsNone, finishingsNone2;
+    finishings finishingsNone, finishingsNone2;
     finishingsNone.setFinishing(CUPS_FINISHINGS_NONE);
 
     finishingsNone2.setFinishing(CUPS_FINISHINGS_BIND);
@@ -34,7 +34,7 @@ TEST(FinishingsTests, testNone)
 // Test Bind
 TEST(FinishingsTests, testBind)
 {
-    Finishings finishingsBind;
+    finishings finishingsBind;
     finishingsBind.setFinishing(CUPS_FINISHINGS_BIND);
 
     ASSERT_TRUE(finishingsBind.getBind());
@@ -44,7 +44,7 @@ TEST(FinishingsTests, testBind)
 // Test print cover
 TEST(FinishingsTests, testPrintCover)
 {
-    Finishings finishingsCover;
+    finishings finishingsCover;
     finishingsCover.setFinishing(CUPS_FINISHINGS_COVER);
 
     ASSERT_TRUE(finishingsCover.getPrintCover());
@@ -54,7 +54,7 @@ TEST(FinishingsTests, testPrintCover)
 // Test fold
 TEST(FinishingsTests, testFold)
 {
-    Finishings finishingsFold;
+    finishings finishingsFold;
     finishingsFold.setFinishing(CUPS_FINISHINGS_FOLD);
 
     ASSERT_TRUE(finishingsFold.getFold());
@@ -64,7 +64,7 @@ TEST(FinishingsTests, testFold)
 // Test punch
 TEST(FinishingsTests, testPunch)
 {
-    Finishings finishings;
+    finishings finishings;
     finishings.setFinishing(CUPS_FINISHINGS_PUNCH);
 
     ASSERT_TRUE(finishings.getPunch());
@@ -74,7 +74,7 @@ TEST(FinishingsTests, testPunch)
 // Test staple
 TEST(FinishingsTests, testStaple)
 {
-    Finishings finishings;
+    finishings finishings;
     finishings.setFinishing(CUPS_FINISHINGS_STAPLE);
 
     ASSERT_TRUE(finishings.getStaple());
@@ -84,7 +84,7 @@ TEST(FinishingsTests, testStaple)
 // Test trim
 TEST(FinishingsTests, testTrim)
 {
-    Finishings finishings;
+    finishings finishings;
     finishings.setFinishing(CUPS_FINISHINGS_TRIM);
 
     ASSERT_TRUE(finishings.getTrim());
@@ -94,7 +94,7 @@ TEST(FinishingsTests, testTrim)
 // Test insertion operator
 TEST(FinishingsTests, testInsertionOperator)
 {
-    Finishings trimFinishings, noFinishings, allFinishings;
+    finishings trimFinishings, noFinishings, allFinishings;
     trimFinishings.setFinishing(CUPS_FINISHINGS_TRIM);
     noFinishings.setFinishing(CUPS_FINISHINGS_NONE);
     allFinishings.setFinishing(CUPS_FINISHINGS_BIND);

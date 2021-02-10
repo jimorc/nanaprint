@@ -18,11 +18,11 @@
 
 namespace nanaprint
 {
-    class Finishings
+    class finishings
     {
         public:
-            Finishings();
-            ~Finishings() {}
+            finishings();
+            ~finishings() {}
             void setFinishing(const std::string& finish);
             bool getNone() const { return m_none; }
             bool getBind() const { return m_bind; }
@@ -49,6 +49,6 @@ namespace nanaprint
             bool m_trim;
     };
 
-    std::ostream& operator<<(std::ostream& os, const Finishings& finishing);
+    std::ostream& operator<<(std::ostream& os, const finishings& finishing);
 
 }

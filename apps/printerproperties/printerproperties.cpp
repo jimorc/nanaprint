@@ -34,11 +34,11 @@ int main()
         }
 
         cout << "Supported ";
-        const Finishings& finishings = printer->getFinishings();
-        cout << finishings;
+        const finishings& finishes = printer->getFinishings();
+        cout << finishes;
 
         cout << "Default ";
-        Finishings defaultFinishings = printer->getDefaultFinishings();
+        finishings defaultFinishings = printer->getDefaultFinishings();
         cout << defaultFinishings;
 
         cout << "Supported ";

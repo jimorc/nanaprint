@@ -42,8 +42,8 @@ namespace nanaprint
             media_sizes& getMediaSizes();
             std::optional<media_size>& getDefaultMediaSize();
             bool canPrintMultipleCopies() const;
-            const Finishings& getFinishings();
-            const Finishings& getDefaultFinishings();
+            const finishings& getFinishings();
+            const finishings& getDefaultFinishings();
             const media_sources getMediaSources();
             std::optional<media_source>& getDefaultMediaSource();
             MediaTypes& getMediaTypes();
@@ -103,7 +103,7 @@ namespace nanaprint
             bool m_gotSides;
             Sides m_sides;
             bool m_gotFinishings;
-            Finishings m_finishings;
+            finishings m_finishings;
 
             bool m_gotDefaultMediaSize;
             std::optional<media_size> m_defaultMediaSize;
@@ -120,6 +120,6 @@ namespace nanaprint
             bool m_gotDefaultSide;
             std::optional<Side> m_defaultSide;
             bool m_gotDefaultFinishings;
-            Finishings m_defaultFinishings;
+            finishings m_defaultFinishings;
     };
 }
