@@ -101,7 +101,7 @@ namespace nanaprint
 
             color_modes() {}
             virtual ~color_modes() {}
-            void addColorMode(const std::string& cmode);
+            void add_mode(const std::string& cmode);
             const std::vector<color_mode>& getColorModes() const;
             size_t size() const { return m_colorModes.size(); }
             void clear() { m_colorModes.clear(); }

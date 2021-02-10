@@ -35,7 +35,7 @@ namespace nanaprint
         return os;
     }
 
-    void color_modes::addColorMode(const std::string& cmode)
+    void color_modes::add_mode(const std::string& cmode)
     {
         m_colorModes.push_back(cmode);
     }

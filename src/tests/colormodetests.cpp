@@ -35,8 +35,8 @@ TEST(ColorModeTests, testInsertionOperator)
 TEST(ColorModesTests, testConstructor)
 {
     color_modes modes;
-    modes.addColorMode("monochrome");
-    modes.addColorMode("color");
+    modes.add_mode("monochrome");
+    modes.add_mode("color");
 
     auto cmodes = modes.getColorModes();
 
@@ -53,8 +53,8 @@ TEST(ColorModesTests, testConstructor)
 TEST(ColorModesTests, testInsertionOperator)
 {
     color_modes modes;
-    modes.addColorMode("monochrome");
-    modes.addColorMode("color");
+    modes.add_mode("monochrome");
+    modes.add_mode("color");
 
     stringstream ss;
 
@@ -69,8 +69,8 @@ TEST(ColorModesTests, testInsertionOperator)
 TEST(ColorModeTests, testClear)
 {
     color_modes modes;
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     ASSERT_EQ(2, modes.size());
 
@@ -81,8 +81,8 @@ TEST(ColorModeTests, testClear)
 TEST(ColorModesTests, testAccessOperator)
 {
     color_modes modes;
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     ASSERT_EQ("b&w", modes[0].get_mode());
     ASSERT_EQ("color", modes[1].get_mode());
@@ -96,8 +96,8 @@ TEST(ColorModesTests, testAccessOperator)
 TEST(ColorModesTests, testAt)
 {
     color_modes modes;
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     ASSERT_EQ("b&w", modes.at(0).get_mode());
     ASSERT_EQ("color", modes.at(1).get_mode());
@@ -132,8 +132,8 @@ TEST(ColorModesTests, testIterator)
     }
     ASSERT_EQ(0, vModes.size());
 
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     auto begin = modes.begin();
     ASSERT_EQ("b&w", begin->get_mode());
@@ -157,8 +157,8 @@ TEST(ColorModesTests, testConstIterator)
     }
     ASSERT_EQ(0, vModes.size());
 
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     auto begin = modes.cbegin();
     ASSERT_EQ("b&w", begin->get_mode());
@@ -183,8 +183,8 @@ TEST(ColorModesTests, testReverseIterator)
     }
     ASSERT_EQ(0, vModes.size());
 
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     auto begin = modes.rbegin();
     ASSERT_EQ("color", begin->get_mode());
@@ -208,8 +208,8 @@ TEST(ColorModesTests, testConstReverseIterator)
     }
     ASSERT_EQ(0, vModes.size());
 
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
     auto begin = modes.crbegin();
     ASSERT_EQ("color", begin->get_mode());
@@ -227,8 +227,8 @@ TEST(ColorModesTests, testConstReverseIterator)
 TEST(ColorModesTests, testIteratorWithStdLib)
 {
     color_modes modes;
-    modes.addColorMode("b&w");
-    modes.addColorMode("color");
+    modes.add_mode("b&w");
+    modes.add_mode("color");
 
 
     std::fill(modes.begin(), modes.end(), color_mode("b&w"));

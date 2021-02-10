@@ -517,7 +517,7 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *colorMode = ippGetString(colorModes, i, NULL);
-                    m_colorModes.addColorMode(colorMode);
+                    m_colorModes.add_mode(colorMode);
                 }
             }
             m_gotColorModes = true;
