@@ -64,3 +64,13 @@ TEST(ColorModesTests, testInsertionOperator)
 
     ASSERT_TRUE(modesOk);
 } 
+
+
+TEST(ColorModeTests, testClear)
+{
+    ColorModes modes;
+    modes.addColorMode("b&w");
+    modes.addColorMode("color");
+
+    ASSERT_EQ(2, modes.size());
+}
