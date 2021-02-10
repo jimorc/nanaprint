@@ -25,7 +25,7 @@ namespace nanaprint
             ~finishings() {}
             void set_finishing(const std::string& finish);
             bool get_none() const { return m_none; }
-            bool getBind() const { return m_bind; }
+            bool get_bind() const { return m_bind; }
             bool getPrintCover() const { return m_printCover; }
             bool getFold() const { return m_fold; }
             bool getPunch() const { return m_punch; }
