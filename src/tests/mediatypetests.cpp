@@ -244,3 +244,16 @@ TEST(MediaTypesTests, testIteratorWithStdLib)
     ASSERT_EQ(CUPS_MEDIA_TYPE_PLAIN, types[1].getType());
     ASSERT_EQ(CUPS_MEDIA_TYPE_ENVELOPE, types[2].getType());
 }
+
+TEST(MediaTypesTests, testClear)
+{
+    MediaTypes types;
+    types.addMediaType(CUPS_MEDIA_TYPE_LETTERHEAD);
+    types.addMediaType(CUPS_MEDIA_TYPE_PLAIN);
+    types.addMediaType(CUPS_MEDIA_TYPE_ENVELOPE);
+
+    ASSERT_EQ(3, types.size());
+
+    types.clear();
+    ASSERT_EQ(0, types.size());
+}

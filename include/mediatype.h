@@ -104,6 +104,8 @@ namespace nanaprint
             virtual ~MediaTypes() {}
             void addMediaType(const std::string& mediaType);
             const std::vector<MediaType>& getMediaTypes() const;
+            size_t size() { return m_types.size(); }
+            void clear() { m_types.clear(); }
             MediaType& operator[](size_t pos);
             const MediaType& operator[](size_t pos) const;
             MediaType& at(size_t pos);
