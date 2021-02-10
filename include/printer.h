@@ -50,7 +50,7 @@ namespace nanaprint
             std::optional<media_type>& getDefaultMediaType();
             PageOrientations& getOrientations();
             const std::optional<PageOrientation>& getDefaultOrientation();
-            ColorModes& getColorModes();
+            color_modes& getColorModes();
             const std::optional<color_mode>& getDefaultColorMode();
             PrintQualities& getPrintQualities();
             const std::optional<PrintQuality>& getDefaultPrintQuality();
@@ -97,7 +97,7 @@ namespace nanaprint
             bool m_gotOrientations;
             PageOrientations m_orientations;
             bool m_gotColorModes;
-            ColorModes m_colorModes;
+            color_modes m_colorModes;
             bool m_gotPrintQualities;
             PrintQualities m_printQualities;
             bool m_gotSides;

@@ -35,17 +35,17 @@ namespace nanaprint
         return os;
     }
 
-    void ColorModes::addColorMode(const std::string& cmode)
+    void color_modes::addColorMode(const std::string& cmode)
     {
         m_colorModes.push_back(cmode);
     }
 
-    const std::vector<color_mode>& ColorModes::getColorModes() const
+    const std::vector<color_mode>& color_modes::getColorModes() const
     {
         return m_colorModes;
     }
 
-    std::ostream& operator<<(std::ostream& os, const ColorModes& cmode)
+    std::ostream& operator<<(std::ostream& os, const color_modes& cmode)
     {
         os << "Color Modes:\n";
         for (auto& mode: cmode.getColorModes())
@@ -55,17 +55,17 @@ namespace nanaprint
         return os;
     }
 
-    color_mode& ColorModes::operator[](size_t pos)
+    color_mode& color_modes::operator[](size_t pos)
     {
         return m_colorModes[pos];
     }
 
-    const color_mode& ColorModes::operator[](size_t pos) const
+    const color_mode& color_modes::operator[](size_t pos) const
     {
         return m_colorModes[pos];
     }
 
-    color_mode& ColorModes::at(size_t pos)
+    color_mode& color_modes::at(size_t pos)
     {
         if(pos >= m_colorModes.size())
         {
@@ -74,7 +74,7 @@ namespace nanaprint
         return m_colorModes[pos];
     }
 
-    const color_mode& ColorModes::at(size_t pos) const
+    const color_mode& color_modes::at(size_t pos) const
     {
         if(pos >= m_colorModes.size())
         {

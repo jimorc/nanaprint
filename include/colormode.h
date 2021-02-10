@@ -32,7 +32,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const color_mode& cmode);
 
-    class ColorModes
+    class color_modes
     {
         public:
             struct iterator
@@ -99,8 +99,8 @@ namespace nanaprint
                     pointer m_ptr;
             };
 
-            ColorModes() {}
-            virtual ~ColorModes() {}
+            color_modes() {}
+            virtual ~color_modes() {}
             void addColorMode(const std::string& cmode);
             const std::vector<color_mode>& getColorModes() const;
             size_t size() const { return m_colorModes.size(); }
@@ -121,5 +121,5 @@ namespace nanaprint
             std::vector<color_mode> m_colorModes;
     };
 
-    std::ostream& operator<<(std::ostream& os, const ColorModes& cmode);
+    std::ostream& operator<<(std::ostream& os, const color_modes& cmode);
 }

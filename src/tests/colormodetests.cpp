@@ -34,7 +34,7 @@ TEST(ColorModeTests, testInsertionOperator)
 // Test constructors
 TEST(ColorModesTests, testConstructor)
 {
-    ColorModes modes;
+    color_modes modes;
     modes.addColorMode("monochrome");
     modes.addColorMode("color");
 
@@ -52,7 +52,7 @@ TEST(ColorModesTests, testConstructor)
 // Test insertion operator
 TEST(ColorModesTests, testInsertionOperator)
 {
-    ColorModes modes;
+    color_modes modes;
     modes.addColorMode("monochrome");
     modes.addColorMode("color");
 
@@ -68,7 +68,7 @@ TEST(ColorModesTests, testInsertionOperator)
 
 TEST(ColorModeTests, testClear)
 {
-    ColorModes modes;
+    color_modes modes;
     modes.addColorMode("b&w");
     modes.addColorMode("color");
 
@@ -80,14 +80,14 @@ TEST(ColorModeTests, testClear)
 
 TEST(ColorModesTests, testAccessOperator)
 {
-    ColorModes modes;
+    color_modes modes;
     modes.addColorMode("b&w");
     modes.addColorMode("color");
 
     ASSERT_EQ("b&w", modes[0].get_mode());
     ASSERT_EQ("color", modes[1].get_mode());
 
-    const ColorModes cModes = modes;
+    const color_modes cModes = modes;
 
     ASSERT_EQ("b&w", cModes[0].get_mode());
     ASSERT_EQ("color", cModes[1].get_mode());
@@ -95,14 +95,14 @@ TEST(ColorModesTests, testAccessOperator)
 
 TEST(ColorModesTests, testAt)
 {
-    ColorModes modes;
+    color_modes modes;
     modes.addColorMode("b&w");
     modes.addColorMode("color");
 
     ASSERT_EQ("b&w", modes.at(0).get_mode());
     ASSERT_EQ("color", modes.at(1).get_mode());
 
-    const ColorModes cModes = modes;
+    const color_modes cModes = modes;
 
     ASSERT_EQ("b&w", cModes.at(0).get_mode());
     ASSERT_EQ("color", cModes.at(1).get_mode());
@@ -124,7 +124,7 @@ TEST(ColorModesTests, testAt)
     
 TEST(ColorModesTests, testIterator)
 {
-    ColorModes modes;
+    color_modes modes;
     std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
@@ -149,7 +149,7 @@ TEST(ColorModesTests, testIterator)
 
 TEST(ColorModesTests, testConstIterator)
 {
-    ColorModes modes;
+    color_modes modes;
     std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
@@ -164,7 +164,7 @@ TEST(ColorModesTests, testConstIterator)
     ASSERT_EQ("b&w", begin->get_mode());
     ASSERT_EQ("b&w", (*begin).get_mode());
 
-    const ColorModes modes2 = modes;
+    const color_modes modes2 = modes;
     for (auto iter = modes2.cbegin(); iter != modes2.cend(); ++iter)
     {
         vModes.push_back(*iter);
@@ -175,7 +175,7 @@ TEST(ColorModesTests, testConstIterator)
 
 TEST(ColorModesTests, testReverseIterator)
 {
-    ColorModes modes;
+    color_modes modes;
     std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
@@ -200,7 +200,7 @@ TEST(ColorModesTests, testReverseIterator)
 
 TEST(ColorModesTests, testConstReverseIterator)
 {
-    ColorModes modes;
+    color_modes modes;
     std::vector<color_mode> vModes;
     for (auto &mode: modes)
     {
@@ -215,7 +215,7 @@ TEST(ColorModesTests, testConstReverseIterator)
     ASSERT_EQ("color", begin->get_mode());
     ASSERT_EQ("color", (*begin).get_mode());
 
-    const ColorModes modes2 = modes;
+    const color_modes modes2 = modes;
     for (auto iter = modes2.crbegin(); iter != modes2.crend(); --iter)
     {
         vModes.push_back(*iter);
@@ -226,7 +226,7 @@ TEST(ColorModesTests, testConstReverseIterator)
 
 TEST(ColorModesTests, testIteratorWithStdLib)
 {
-    ColorModes modes;
+    color_modes modes;
     modes.addColorMode("b&w");
     modes.addColorMode("color");
 
@@ -237,7 +237,7 @@ TEST(ColorModesTests, testIteratorWithStdLib)
     ASSERT_EQ("b&w", modes[1].get_mode());
    
     modes[1] = color_mode("color");
-    ColorModes modes2 = modes;
+    color_modes modes2 = modes;
     std::fill(begin(modes2), end(modes2), color_mode(""));
     
     std::copy(modes.begin(), modes.end(), modes2.begin());
