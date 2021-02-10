@@ -86,7 +86,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const finishings& finishing)
     {
         os << u8"Finishings:\n";
-        os << (finishing.getNone() ? u8"    None\n" : "");
+        os << (finishing.get_none() ? u8"    None\n" : "");
         os << (finishing.getBind() ? u8"    Bind\n" : "");
         os << (finishing.getPrintCover() ? u8"    Cover\n" : "");
         os << (finishing.getFold() ? u8"    Fold\n" : "");

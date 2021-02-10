@@ -21,8 +21,8 @@ TEST(FinishingsTests, testNone)
     finishingsNone2.set_finishing(CUPS_FINISHINGS_TRIM);
     finishingsNone2.set_finishing(CUPS_FINISHINGS_NONE);
 
-    ASSERT_TRUE(finishingsNone.getNone());
-    ASSERT_TRUE(finishingsNone2.getNone());
+    ASSERT_TRUE(finishingsNone.get_none());
+    ASSERT_TRUE(finishingsNone2.get_none());
     ASSERT_FALSE(finishingsNone2.getBind());
     ASSERT_FALSE(finishingsNone2.getPrintCover());
     ASSERT_FALSE(finishingsNone2.getFold());
@@ -38,7 +38,7 @@ TEST(FinishingsTests, testBind)
     finishingsBind.set_finishing(CUPS_FINISHINGS_BIND);
 
     ASSERT_TRUE(finishingsBind.getBind());
-    ASSERT_FALSE(finishingsBind.getNone());
+    ASSERT_FALSE(finishingsBind.get_none());
 } 
 
 // Test print cover
@@ -48,7 +48,7 @@ TEST(FinishingsTests, testPrintCover)
     finishingsCover.set_finishing(CUPS_FINISHINGS_COVER);
 
     ASSERT_TRUE(finishingsCover.getPrintCover());
-    ASSERT_FALSE(finishingsCover.getNone());
+    ASSERT_FALSE(finishingsCover.get_none());
 }
 
 // Test fold
@@ -58,7 +58,7 @@ TEST(FinishingsTests, testFold)
     finishingsFold.set_finishing(CUPS_FINISHINGS_FOLD);
 
     ASSERT_TRUE(finishingsFold.getFold());
-    ASSERT_FALSE(finishingsFold.getNone());
+    ASSERT_FALSE(finishingsFold.get_none());
 }
 
 // Test punch
@@ -68,7 +68,7 @@ TEST(FinishingsTests, testPunch)
     finishings.set_finishing(CUPS_FINISHINGS_PUNCH);
 
     ASSERT_TRUE(finishings.getPunch());
-    ASSERT_FALSE(finishings.getNone());
+    ASSERT_FALSE(finishings.get_none());
 }
 
 // Test staple
@@ -78,7 +78,7 @@ TEST(FinishingsTests, testStaple)
     finishings.set_finishing(CUPS_FINISHINGS_STAPLE);
 
     ASSERT_TRUE(finishings.getStaple());
-    ASSERT_FALSE(finishings.getNone());
+    ASSERT_FALSE(finishings.get_none());
 }
 
 // Test trim
@@ -88,7 +88,7 @@ TEST(FinishingsTests, testTrim)
     finishings.set_finishing(CUPS_FINISHINGS_TRIM);
 
     ASSERT_TRUE(finishings.getTrim());
-    ASSERT_FALSE(finishings.getNone());
+    ASSERT_FALSE(finishings.get_none());
 }
 
 // Test insertion operator
