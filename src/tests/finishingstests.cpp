@@ -24,7 +24,7 @@ TEST(FinishingsTests, testNone)
     ASSERT_TRUE(finishingsNone.get_none());
     ASSERT_TRUE(finishingsNone2.get_none());
     ASSERT_FALSE(finishingsNone2.get_bind());
-    ASSERT_FALSE(finishingsNone2.getPrintCover());
+    ASSERT_FALSE(finishingsNone2.get_print_cover());
     ASSERT_FALSE(finishingsNone2.getFold());
     ASSERT_FALSE(finishingsNone2.getPunch());
     ASSERT_FALSE(finishingsNone2.getStaple());
@@ -47,7 +47,7 @@ TEST(FinishingsTests, testPrintCover)
     finishings finishingsCover;
     finishingsCover.set_finishing(CUPS_FINISHINGS_COVER);
 
-    ASSERT_TRUE(finishingsCover.getPrintCover());
+    ASSERT_TRUE(finishingsCover.get_print_cover());
     ASSERT_FALSE(finishingsCover.get_none());
 }
 
