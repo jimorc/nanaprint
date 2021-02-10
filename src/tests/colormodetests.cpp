@@ -146,3 +146,29 @@ TEST(MediaTypesTests, testIterator)
     ASSERT_EQ("b&w", vModes[0].getColorMode());
     ASSERT_EQ("color", vModes[1].getColorMode());
 }
+
+TEST(MediaTypesTests, testConstIterator)
+{
+    ColorModes modes;
+    std::vector<ColorMode> vModes;
+    for (auto &mode: modes)
+    {
+        vModes.push_back(mode);
+    }
+    ASSERT_EQ(0, vModes.size());
+
+    modes.addColorMode("b&w");
+    modes.addColorMode("color");
+
+    auto begin = modes.cbegin();
+    ASSERT_EQ("b&w", begin->getColorMode());
+    ASSERT_EQ("b&w", (*begin).getColorMode());
+
+    const ColorModes modes2 = modes;
+    for (auto iter = modes2.cbegin(); iter != modes2.cend(); ++iter)
+    {
+        vModes.push_back(*iter);
+    }
+    ASSERT_EQ("b&w", vModes[0].getColorMode());
+    ASSERT_EQ("color", vModes[1].getColorMode());
+}
