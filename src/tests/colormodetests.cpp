@@ -92,3 +92,57 @@ TEST(ColorModesTests, testAccessOperator)
     ASSERT_EQ("b&w", cModes[0].getColorMode());
     ASSERT_EQ("color", cModes[1].getColorMode());
 }
+
+TEST(ColorModesTests, testAt)
+{
+    ColorModes modes;
+    modes.addColorMode("b&w");
+    modes.addColorMode("color");
+
+    ASSERT_EQ("b&w", modes.at(0).getColorMode());
+    ASSERT_EQ("color", modes.at(1).getColorMode());
+
+    const ColorModes cModes = modes;
+
+    ASSERT_EQ("b&w", cModes.at(0).getColorMode());
+    ASSERT_EQ("color", cModes.at(1).getColorMode());
+
+    try
+    {
+        modes.at(2);
+        FAIL() << "Didn't throw out_of_range exception";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(std::string("Out of range"), e.what());
+    }
+    catch(...)
+    {
+        FAIL() << "Expected out_of_range exception";
+    }
+}
+    
+TEST(MediaTypesTests, testIterator)
+{
+    ColorModes modes;
+    std::vector<ColorMode> vModes;
+    for (auto &mode: modes)
+    {
+        vModes.push_back(mode);
+    }
+    ASSERT_EQ(0, vModes.size());
+
+    modes.addColorMode("b&w");
+    modes.addColorMode("color");
+
+    auto begin = modes.begin();
+    ASSERT_EQ("b&w", begin->getColorMode());
+    ASSERT_EQ("b&w", (*begin).getColorMode());
+
+    for (auto &mode: modes)
+    {
+        vModes.push_back(mode);
+    }
+    ASSERT_EQ("b&w", vModes[0].getColorMode());
+    ASSERT_EQ("color", vModes[1].getColorMode());
+}

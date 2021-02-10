@@ -35,6 +35,38 @@ namespace nanaprint
     class ColorModes
     {
         public:
+            struct iterator
+            {
+                using iterator_category = std::random_access_iterator_tag;
+                using difference_type   = std::ptrdiff_t;
+                using value_type        = ColorMode;
+                using pointer           = ColorMode*;  // or also value_type*
+                using reference         = ColorMode&;  // or also value_type& 
+
+                explicit iterator(pointer ptr) : m_ptr(ptr) {}
+                reference operator*() const { return *m_ptr; }
+                pointer operator->() const { return m_ptr; }
+
+                // Prefix increment
+                iterator& operator++() { m_ptr++; return *this; }  
+
+                // Postfix increment
+                iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
+
+                // Prefix decrement
+                iterator& operator--() { m_ptr--; return *this; }  
+
+                // Postfix decrement
+                iterator operator--(int) { iterator tmp = *this; --(*this); return tmp; }
+
+                friend bool operator== (const iterator& a, const iterator& b) { return a.m_ptr == b.m_ptr; };
+                friend bool operator!= (const iterator& a, const iterator& b) { return a.m_ptr != b.m_ptr; };
+                friend size_t operator- (const iterator&a, const iterator&b) { return a.m_ptr - b.m_ptr; };
+
+                private:
+                    pointer m_ptr;
+            };
+
             ColorModes() {}
             virtual ~ColorModes() {}
             void addColorMode(const std::string& cmode);
@@ -43,6 +75,10 @@ namespace nanaprint
             void clear() { m_colorModes.clear(); }
             ColorMode& operator[](size_t pos);
             const ColorMode& operator[](size_t pos) const;
+            ColorMode& at(size_t pos);
+            const ColorMode& at(size_t pos) const;
+            iterator begin() noexcept { return iterator(&m_colorModes[0]); }
+            iterator end() noexcept { return iterator(&m_colorModes[m_colorModes.size()]); }
         private:
             std::vector<ColorMode> m_colorModes;
     };
