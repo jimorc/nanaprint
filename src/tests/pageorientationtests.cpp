@@ -57,9 +57,9 @@ TEST(PageOrientationTests, testaddOrientation)
     page_orientations orientations;
     orientations.add_orientation(LANDSCAPE);
     orientations.add_orientation(PORTRAIT);
-    ASSERT_TRUE(orientations.containsOrientation(u8"Portrait"));
-    ASSERT_TRUE(orientations.containsOrientation(u8"Landscape"));
-    ASSERT_FALSE(orientations.containsOrientation(u8"ReverseLandscape"));
+    ASSERT_TRUE(orientations.contains_orientation(u8"Portrait"));
+    ASSERT_TRUE(orientations.contains_orientation(u8"Landscape"));
+    ASSERT_FALSE(orientations.contains_orientation(u8"ReverseLandscape"));
 }
 
 // Test PageOrientations insertion operator

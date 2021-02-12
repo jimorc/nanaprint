@@ -87,7 +87,7 @@ namespace nanaprint
         return orientations;
     }
 
-    bool page_orientations::containsOrientation(const std::string& orientation) const
+    bool page_orientations::contains_orientation(const std::string& orientation) const
     {
         for (auto iter = m_orientations.begin(); iter != m_orientations.end(); ++iter)
         {
