@@ -85,7 +85,7 @@ namespace nanaprint
         m_mediaType = mediaType;
     }
 
-    void PrintDialogSettings::set_page_orientation(const optional<PageOrientation>& orientation)
+    void PrintDialogSettings::set_page_orientation(const optional<page_orientation>& orientation)
     {
         m_orientation = orientation;
     }

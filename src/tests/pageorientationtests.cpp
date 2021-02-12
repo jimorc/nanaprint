@@ -9,10 +9,10 @@ using namespace std;
 // Test create
 TEST(PageOrientationTests, testCreate)
 {
-    auto portrait = PageOrientation(PORTRAIT);
-    auto landscape = PageOrientation(LANDSCAPE);
-    auto revLandscape = PageOrientation(REVERSE_LANDSCAPE);
-    auto revPortrait = PageOrientation(REVERSE_PORTRAIT);
+    auto portrait = page_orientation(PORTRAIT);
+    auto landscape = page_orientation(LANDSCAPE);
+    auto revLandscape = page_orientation(REVERSE_LANDSCAPE);
+    auto revPortrait = page_orientation(REVERSE_PORTRAIT);
     ASSERT_TRUE(portrait.getOrientation());
     ASSERT_STREQ(u8"Portrait", portrait.getOrientation().value().c_str());
     ASSERT_TRUE(landscape.getOrientation());
@@ -26,8 +26,8 @@ TEST(PageOrientationTests, testCreate)
 // Test create with invalid orientation argument
 TEST(PageOrientationTests, testCreateInvalidOrientation)
 {
-    PageOrientation orientation;
-    PageOrientation badValue(7);
+    page_orientation orientation;
+    page_orientation badValue(7);
 
     ASSERT_FALSE(orientation.getOrientation());
     ASSERT_FALSE(badValue.getOrientation());
@@ -36,10 +36,10 @@ TEST(PageOrientationTests, testCreateInvalidOrientation)
 // Test the insertion operator
 TEST(PageOrientationTests, testInsertionOperator)
 {
-    PageOrientation pPortOr(PORTRAIT);
-    PageOrientation pLandOr(LANDSCAPE);
-    PageOrientation pRevLandOr(REVERSE_LANDSCAPE);
-    PageOrientation pRevPortOr(REVERSE_PORTRAIT);
+    page_orientation pPortOr(PORTRAIT);
+    page_orientation pLandOr(LANDSCAPE);
+    page_orientation pRevLandOr(REVERSE_LANDSCAPE);
+    page_orientation pRevPortOr(REVERSE_PORTRAIT);
     stringstream ssPort, ssLand, ssRevLand, ssRevPort;
     ssPort << pPortOr;
     ssLand << pLandOr;

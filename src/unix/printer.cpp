@@ -474,7 +474,7 @@ namespace nanaprint
             if (defaultOrientation != nullptr)
             {
                 int orientation = stoi(defaultOrientation);
-                m_defaultOrientation = PageOrientation(orientation);
+                m_defaultOrientation = page_orientation(orientation);
             }
             else
             {
@@ -486,7 +486,7 @@ namespace nanaprint
                     int defaultOr = ippGetInteger(defOrientation, 0);
                     if(defaultOr != 0)
                     {
-                        m_defaultOrientation = PageOrientation(defaultOr);
+                        m_defaultOrientation = page_orientation(defaultOr);
                     }
                 }
                 else
@@ -498,7 +498,7 @@ namespace nanaprint
             m_gotDefaultMediaType = true;
         }   
     }
-    const optional<PageOrientation>& Printer::getDefaultOrientation()
+    const optional<page_orientation>& Printer::getDefaultOrientation()
     {
         populateDefaultOrientation();
         return m_defaultOrientation;

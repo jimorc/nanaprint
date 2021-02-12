@@ -29,12 +29,12 @@ namespace nanaprint
     constexpr int REVERSE_LANDSCAPE = 5;
     constexpr int REVERSE_PORTRAIT = 6;
     
-    class PageOrientation
+    class page_orientation
     {
         public:
-            PageOrientation();
-            PageOrientation(int orientation);
-            virtual ~PageOrientation() {}
+            page_orientation();
+            page_orientation(int orientation);
+            virtual ~page_orientation() {}
             const std::optional<std::string>& getOrientation() const;
             const int getOrientationNumber() const;
 
@@ -43,7 +43,7 @@ namespace nanaprint
             std::optional<std::string> m_orientation;
     };
 
-    std::ostream& operator<<(std::ostream& os, const PageOrientation& orientation);
+    std::ostream& operator<<(std::ostream& os, const page_orientation& orientation);
 
     class PageOrientations
     {
@@ -51,10 +51,10 @@ namespace nanaprint
             PageOrientations() {}
             virtual ~PageOrientations() {}
             void addOrientation(int orientation);
-            std::vector<std::shared_ptr<PageOrientation>> getOrientations() const;
+            std::vector<std::shared_ptr<page_orientation>> getOrientations() const;
             bool containsOrientation(const std::string& orientation) const;
         private:
-            std::set<std::shared_ptr<PageOrientation>> m_orientations;
+            std::set<std::shared_ptr<page_orientation>> m_orientations;
     };
 
     std::ostream& operator<<(std::ostream& os, const PageOrientations& orientations);

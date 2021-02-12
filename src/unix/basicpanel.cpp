@@ -419,12 +419,12 @@ namespace nanaprint
         }
         else
         {
-            selectOrientationCheckbox(PageOrientation(PORTRAIT));
+            selectOrientationCheckbox(page_orientation(PORTRAIT));
         }
         
     }
 
-    void BasicPanel::enableOrientationCheckbox(const PageOrientation& orientation)
+    void BasicPanel::enableOrientationCheckbox(const page_orientation& orientation)
     {
         auto numOrientation = orientation.getOrientationNumber();
         switch (numOrientation)
@@ -454,7 +454,7 @@ namespace nanaprint
 
     // Argument must be one of Portrait, Landscape, Reverse Portrait, or Reverse Landscape.
     // Check this before calling this method.
-    void BasicPanel::selectOrientationCheckbox(const PageOrientation& orientation)
+    void BasicPanel::selectOrientationCheckbox(const page_orientation& orientation)
     {
         auto numOrientation = orientation.getOrientationNumber();
         switch (numOrientation)
