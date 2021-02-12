@@ -16,6 +16,7 @@
  */
 
 #include <vector>
+#include <stdexcept>
 
 namespace nanaprint
 {
@@ -95,6 +96,22 @@ namespace nanaprint
             void clear() { m_values.clear(); }
             T& operator[](size_t pos) { return m_values[pos]; }
             const T& operator[](size_t pos) const { return m_values[pos]; }
+            T& at(size_t pos)
+            {
+                if(pos >= m_values.size())
+                {
+                    throw std::out_of_range("Out of range");
+                }
+                return m_values[pos];
+            }
+            const T& at(size_t pos) const
+            {
+                if(pos >= m_values.size())
+                {
+                    throw std::out_of_range("Out of range");
+                }
+                return m_values[pos];
+            }
 
         protected:
             std::vector<T> m_values;

@@ -36,23 +36,5 @@ namespace nanaprint
         }
         return os;
     }
-
-    color_mode& color_modes::at(size_t pos)
-    {
-        if(pos >= m_values.size())
-        {
-            throw out_of_range("Out of range");
-        }
-        return m_values[pos];
-    }
-
-    const color_mode& color_modes::at(size_t pos) const
-    {
-        if(pos >= m_values.size())
-        {
-            throw out_of_range("Out of range");
-        }
-        return m_values[pos];
-    }
 }
 
