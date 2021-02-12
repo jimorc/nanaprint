@@ -13,14 +13,14 @@ TEST(PageOrientationTests, testCreate)
     auto landscape = page_orientation(LANDSCAPE);
     auto revLandscape = page_orientation(REVERSE_LANDSCAPE);
     auto revPortrait = page_orientation(REVERSE_PORTRAIT);
-    ASSERT_TRUE(portrait.getOrientation());
-    ASSERT_STREQ(u8"Portrait", portrait.getOrientation().value().c_str());
-    ASSERT_TRUE(landscape.getOrientation());
-    ASSERT_STREQ(u8"Landscape", landscape.getOrientation().value().c_str());
-    ASSERT_TRUE(revLandscape.getOrientation());
-    ASSERT_STREQ(u8"Reverse Landscape", revLandscape.getOrientation().value().c_str());
-    ASSERT_TRUE(revPortrait.getOrientation());
-    ASSERT_STREQ(u8"Reverse Portrait", revPortrait.getOrientation().value().c_str());
+    ASSERT_TRUE(portrait.get_orientation());
+    ASSERT_STREQ(u8"Portrait", portrait.get_orientation().value().c_str());
+    ASSERT_TRUE(landscape.get_orientation());
+    ASSERT_STREQ(u8"Landscape", landscape.get_orientation().value().c_str());
+    ASSERT_TRUE(revLandscape.get_orientation());
+    ASSERT_STREQ(u8"Reverse Landscape", revLandscape.get_orientation().value().c_str());
+    ASSERT_TRUE(revPortrait.get_orientation());
+    ASSERT_STREQ(u8"Reverse Portrait", revPortrait.get_orientation().value().c_str());
 }
 
 // Test create with invalid orientation argument
@@ -29,8 +29,8 @@ TEST(PageOrientationTests, testCreateInvalidOrientation)
     page_orientation orientation;
     page_orientation badValue(7);
 
-    ASSERT_FALSE(orientation.getOrientation());
-    ASSERT_FALSE(badValue.getOrientation());
+    ASSERT_FALSE(orientation.get_orientation());
+    ASSERT_FALSE(badValue.get_orientation());
 }
 
 // Test the insertion operator

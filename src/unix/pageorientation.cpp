@@ -50,7 +50,7 @@ namespace nanaprint
         return m_orientationNum;
     }
 
-    const std::optional<std::string>& page_orientation::getOrientation() const
+    const std::optional<std::string>& page_orientation::get_orientation() const
     {
         return m_orientation;
     }
@@ -58,10 +58,10 @@ namespace nanaprint
     ostream& operator<<(ostream& os, const page_orientation& orientation)
     {
         os << "    ";
-        auto orient = orientation.getOrientation();
+        auto orient = orientation.get_orientation();
         if (orient)
         {
-            os << orientation.getOrientation().value() << '\n';
+            os << orientation.get_orientation().value() << '\n';
         }
         else
         {
@@ -91,7 +91,7 @@ namespace nanaprint
     {
         for (auto iter = m_orientations.begin(); iter != m_orientations.end(); ++iter)
         {
-            if ((*iter)->getOrientation() == orientation)
+            if ((*iter)->get_orientation() == orientation)
                 return true;
         }
         return false;
