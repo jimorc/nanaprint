@@ -52,6 +52,8 @@ namespace nanaprint
             void add_orientation(int orientation);
             std::vector<page_orientation> get_orientations() const;
             bool contains_orientation(const std::string& orientation) const;
+            page_orientation& operator[](size_t pos);
+            const page_orientation& operator[](size_t post) const;
         private:
             std::vector<page_orientation> m_orientations;
     };

@@ -101,4 +101,14 @@ namespace nanaprint
         }
         return os;
     }
+
+    page_orientation& page_orientations::operator[](size_t pos)
+    {
+        return m_orientations[pos];
+    }
+
+    const page_orientation& page_orientations::operator[](size_t pos) const
+    {
+        return m_orientations[pos];
+    }
 }

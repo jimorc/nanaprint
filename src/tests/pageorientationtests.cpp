@@ -75,3 +75,19 @@ TEST(PageOrientationTests, testPageOrientationsInserterOperator)
         (ss.str() == u8"Page Orientations:\n    Landscape\n    Portrait\n");
     ASSERT_TRUE(ori);
 }
+
+TEST(PageOrientationTests, testAccessOperator)
+{
+    page_orientations orientations;
+    orientations.add_orientation(LANDSCAPE);
+    orientations.add_orientation(PORTRAIT);
+
+    ASSERT_EQ("Landscape", orientations[0].get_orientation().value());
+    ASSERT_EQ("Portrait", orientations[1].get_orientation().value());
+
+    const page_orientations or2 = orientations;
+
+    ASSERT_EQ("Landscape", or2[0].get_orientation().value());
+    ASSERT_EQ("Portrait", or2[1].get_orientation().value());
+
+}
