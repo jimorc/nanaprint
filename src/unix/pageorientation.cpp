@@ -45,7 +45,7 @@ namespace nanaprint
         }
     }
 
-    const int page_orientation::getOrientationNumber() const
+    const int page_orientation::get_orientation_number() const
     {
         return m_orientationNum;
     }

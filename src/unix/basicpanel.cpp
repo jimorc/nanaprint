@@ -426,7 +426,7 @@ namespace nanaprint
 
     void BasicPanel::enableOrientationCheckbox(const page_orientation& orientation)
     {
-        auto numOrientation = orientation.getOrientationNumber();
+        auto numOrientation = orientation.get_orientation_number();
         switch (numOrientation)
         {
             case PORTRAIT:
@@ -456,7 +456,7 @@ namespace nanaprint
     // Check this before calling this method.
     void BasicPanel::selectOrientationCheckbox(const page_orientation& orientation)
     {
-        auto numOrientation = orientation.getOrientationNumber();
+        auto numOrientation = orientation.get_orientation_number();
         switch (numOrientation)
         {
             case PORTRAIT:

@@ -36,7 +36,7 @@ namespace nanaprint
             page_orientation(int orientation);
             virtual ~page_orientation() {}
             const std::optional<std::string>& get_orientation() const;
-            const int getOrientationNumber() const;
+            const int get_orientation_number() const;
 
         private:
             int m_orientationNum;
