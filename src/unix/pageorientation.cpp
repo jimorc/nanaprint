@@ -77,7 +77,7 @@ namespace nanaprint
         m_orientations.insert(make_shared<page_orientation>(page_orientation(orientation)));
     }
 
-    std::vector<std::shared_ptr<page_orientation>> page_orientations::getOrientations() const
+    std::vector<std::shared_ptr<page_orientation>> page_orientations::get_orientations() const
     {
         std::vector<std::shared_ptr<page_orientation>> orientations;
         for (auto orientation : m_orientations)
@@ -100,7 +100,7 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const page_orientations& orientations)
     {
         os << u8"Page Orientations:\n";
-        for (const auto& orientation: orientations.getOrientations())
+        for (const auto& orientation: orientations.get_orientations())
         {
             os << *orientation;
         }
