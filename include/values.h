@@ -93,6 +93,8 @@ namespace nanaprint
             const std::vector<T>& get_values() const { return m_values; }
             size_t size() const { return m_values.size(); }
             void clear() { m_values.clear(); }
+            T& operator[](size_t pos) { return m_values[pos]; }
+            const T& operator[](size_t pos) const { return m_values[pos]; }
 
         protected:
             std::vector<T> m_values;

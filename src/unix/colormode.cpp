@@ -37,16 +37,6 @@ namespace nanaprint
         return os;
     }
 
-    color_mode& color_modes::operator[](size_t pos)
-    {
-        return m_values[pos];
-    }
-
-    const color_mode& color_modes::operator[](size_t pos) const
-    {
-        return m_values[pos];
-    }
-
     color_mode& color_modes::at(size_t pos)
     {
         if(pos >= m_values.size())
