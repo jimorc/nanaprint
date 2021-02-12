@@ -55,6 +55,9 @@ namespace nanaprint
             size_t size() const noexcept { return m_orientations.size(); }
             page_orientation& operator[](size_t pos);
             const page_orientation& operator[](size_t pos) const;
+            page_orientation& at(size_t pos);
+            const page_orientation& at(size_t pos) const;
+
         private:
             std::vector<page_orientation> m_orientations;
     };

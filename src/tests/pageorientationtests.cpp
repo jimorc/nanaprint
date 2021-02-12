@@ -76,7 +76,7 @@ TEST(PageOrientationTests, testPageOrientationsInserterOperator)
     ASSERT_TRUE(ori);
 }
 
-TEST(PageOrientationTests, testAccessOperator)
+TEST(PageOrientationsTests, testAccessOperator)
 {
     page_orientations orientations;
     orientations.add_orientation(LANDSCAPE);
@@ -89,5 +89,47 @@ TEST(PageOrientationTests, testAccessOperator)
 
     ASSERT_EQ("Landscape", or2[0].get_orientation().value());
     ASSERT_EQ("Portrait", or2[1].get_orientation().value());
+}
 
+TEST(PageOrientationsTests, testAt)
+{
+    page_orientations orientations;
+    orientations.add_orientation(LANDSCAPE);
+    orientations.add_orientation(PORTRAIT);
+
+    ASSERT_EQ("Landscape", orientations.at(0).get_orientation().value());
+    ASSERT_EQ("Portrait", orientations.at(1).get_orientation().value());
+
+    const page_orientations or2 = orientations;
+
+    ASSERT_EQ("Landscape", or2.at(0).get_orientation().value());
+    ASSERT_EQ("Portrait", or2.at(1).get_orientation().value());
+
+    try
+    {
+        auto or1 = orientations.at(2);
+        FAIL() << "Expected std::out_of_range";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range, but threw a different exception";
+    }
+    
+    try
+    {
+        auto or1 = or2.at(2);
+        FAIL() << "Expected std::out_of_range";
+    }
+    catch(const std::out_of_range& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Out of range"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range, but threw a different exception";
+    }
 }

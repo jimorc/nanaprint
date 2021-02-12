@@ -111,4 +111,23 @@ namespace nanaprint
     {
         return m_orientations[pos];
     }
+
+    page_orientation& page_orientations::at(size_t pos)
+    {
+        if (pos >= m_orientations.size())
+        {
+            throw std::out_of_range("Out of range");
+        }
+        return m_orientations[pos];
+    }
+
+    const page_orientation& page_orientations::at(size_t pos) const
+    {
+        if (pos >= m_orientations.size())
+        {
+            throw std::out_of_range("Out of range");
+        }
+        return m_orientations[pos];
+    }
+
 }
