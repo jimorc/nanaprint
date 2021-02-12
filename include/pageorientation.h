@@ -50,7 +50,7 @@ namespace nanaprint
         public:
             page_orientations() {}
             virtual ~page_orientations() {}
-            void addOrientation(int orientation);
+            void add_orientation(int orientation);
             std::vector<std::shared_ptr<page_orientation>> getOrientations() const;
             bool containsOrientation(const std::string& orientation) const;
         private:

@@ -72,7 +72,7 @@ namespace nanaprint
     }
 
 
-    void page_orientations::addOrientation(int orientation)
+    void page_orientations::add_orientation(int orientation)
     {
         m_orientations.insert(make_shared<page_orientation>(page_orientation(orientation)));
     }
