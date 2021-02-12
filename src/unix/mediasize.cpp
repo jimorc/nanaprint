@@ -25,7 +25,7 @@ namespace nanaprint
             m_bottom(bottom), m_left(left), m_right(right),
             m_top(top)
     {
-        m_translatedName = m_translator.getTranslatedSize(m_name);
+        m_translatedName = m_translator.get_translated_size(m_name);
     }
 
     media_size::~media_size()

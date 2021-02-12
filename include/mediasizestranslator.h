@@ -25,7 +25,7 @@ namespace nanaprint
         public:
             media_size_translator();
             virtual ~media_size_translator();
-            const std::string getTranslatedSize(const std::string& mediaName) const;
+            const std::string get_translated_size(const std::string& mediaName) const;
 
         private:
             std::map<std::string, std::string> m_mediaMap;
