@@ -89,7 +89,7 @@ namespace nanaprint
 
             nanaprint_values() {}
             virtual ~nanaprint_values() {}
-            void add_value(const T& value) { m_values.push_back(value); }
+            void push_back(const T& value) { m_values.push_back(value); }
             const std::vector<T>& get_values() const { return m_values; }
             size_t size() const { return m_values.size(); }
 
