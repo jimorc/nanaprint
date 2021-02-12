@@ -15,6 +15,8 @@
  *
  */
 
+#include <vector>
+
 namespace nanaprint
 {
     template<typename T>
@@ -87,6 +89,9 @@ namespace nanaprint
 
             nanaprint_values() {}
             virtual ~nanaprint_values() {}
+
+            protected:
+                std::vector<T> m_values;
     };
 }
 

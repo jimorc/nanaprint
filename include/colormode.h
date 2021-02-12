@@ -37,22 +37,20 @@ namespace nanaprint
             virtual ~color_modes() {}
             void add_mode(const color_mode& cmode);
             const std::vector<color_mode>& get_modes() const;
-            size_t size() const { return m_colorModes.size(); }
-            void clear() { m_colorModes.clear(); }
+            size_t size() const { return m_values.size(); }
+            void clear() { m_values.clear(); }
             color_mode& operator[](size_t pos);
             const color_mode& operator[](size_t pos) const;
             color_mode& at(size_t pos);
             const color_mode& at(size_t pos) const;
-            iterator begin() noexcept { return iterator(&m_colorModes[0]); }
-            iterator end() noexcept { return iterator(&m_colorModes[m_colorModes.size()]); }
-            const_iterator cbegin() const noexcept { return const_iterator(&m_colorModes[0]); }
-            const_iterator cend() const noexcept { return const_iterator(&m_colorModes[m_colorModes.size()]); }
-            iterator rbegin() noexcept { return iterator(&m_colorModes[m_colorModes.size() - 1]); }
-            iterator rend() noexcept { return iterator(&m_colorModes[-1]); }
-            const_iterator crbegin() const noexcept { return const_iterator(&m_colorModes[m_colorModes.size() - 1]); }
-            const_iterator crend() const noexcept { return const_iterator(&m_colorModes[-1]); }
-        private:
-            std::vector<color_mode> m_colorModes;
+            iterator begin() noexcept { return iterator(&m_values[0]); }
+            iterator end() noexcept { return iterator(&m_values[m_values.size()]); }
+            const_iterator cbegin() const noexcept { return const_iterator(&m_values[0]); }
+            const_iterator cend() const noexcept { return const_iterator(&m_values[m_values.size()]); }
+            iterator rbegin() noexcept { return iterator(&m_values[m_values.size() - 1]); }
+            iterator rend() noexcept { return iterator(&m_values[-1]); }
+            const_iterator crbegin() const noexcept { return const_iterator(&m_values[m_values.size() - 1]); }
+            const_iterator crend() const noexcept { return const_iterator(&m_values[-1]); }
     };
 
     std::ostream& operator<<(std::ostream& os, const color_modes& cmode);

@@ -29,12 +29,12 @@ namespace nanaprint
 
     void color_modes::add_mode(const color_mode& cmode)
     {
-        m_colorModes.push_back(cmode);
+        m_values.push_back(cmode);
     }
 
     const std::vector<color_mode>& color_modes::get_modes() const
     {
-        return m_colorModes;
+        return m_values;
     }
 
     std::ostream& operator<<(std::ostream& os, const color_modes& cmode)
@@ -49,30 +49,30 @@ namespace nanaprint
 
     color_mode& color_modes::operator[](size_t pos)
     {
-        return m_colorModes[pos];
+        return m_values[pos];
     }
 
     const color_mode& color_modes::operator[](size_t pos) const
     {
-        return m_colorModes[pos];
+        return m_values[pos];
     }
 
     color_mode& color_modes::at(size_t pos)
     {
-        if(pos >= m_colorModes.size())
+        if(pos >= m_values.size())
         {
             throw out_of_range("Out of range");
         }
-        return m_colorModes[pos];
+        return m_values[pos];
     }
 
     const color_mode& color_modes::at(size_t pos) const
     {
-        if(pos >= m_colorModes.size())
+        if(pos >= m_values.size())
         {
             throw out_of_range("Out of range");
         }
-        return m_colorModes[pos];
+        return m_values[pos];
     }
 }
 
