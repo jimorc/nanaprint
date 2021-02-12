@@ -2,8 +2,8 @@
 #define NANAPRINT_VALUE_H
 
 /**
- *  \file printquality.h
- *  \brief This file provides printquality class required by nanaprint
+ *  \file value.h
+ *  \brief This file provides templated base class for various value classes.
  *
  *	This header file is used in both Unix and Win32 implementations
  *	nanaprint C++ Library(http://www.github.com/jimorc/nanaprint)
@@ -17,15 +17,18 @@
 
 #include <vector>
 
-template<typename T>
-class nanaprint_value
+namespace nanaprint
 {
-    public:
-        nanaprint_value(const T& value) : m_value(value) {}
-        virtual ~nanaprint_value() {}
-        const T& get_value() const noexcept { return m_value; }
-    private:
-        T m_value;
-};
+    template<typename T>
+    class nanaprint_value
+    {
+        public:
+            nanaprint_value(const T& value) : m_value(value) {}
+            virtual ~nanaprint_value() {}
+            const T& get_value() const noexcept { return m_value; }
+        private:
+            T m_value;
+    };
+}
 
 #endif      // NANAPRINT_VALUE_H
