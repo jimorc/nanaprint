@@ -27,11 +27,6 @@ namespace nanaprint
         return os;
     }
 
-    void color_modes::add_mode(const color_mode& cmode)
-    {
-        m_values.push_back(cmode);
-    }
-
     const std::vector<color_mode>& color_modes::get_modes() const
     {
         return m_values;

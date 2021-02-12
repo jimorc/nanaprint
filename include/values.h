@@ -89,6 +89,10 @@ namespace nanaprint
 
             nanaprint_values() {}
             virtual ~nanaprint_values() {}
+            void add_value(const T& value)
+            {
+                m_values.push_back(value);
+            }
 
             protected:
                 std::vector<T> m_values;
