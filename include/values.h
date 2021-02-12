@@ -93,6 +93,10 @@ namespace nanaprint
             {
                 m_values.push_back(value);
             }
+            const std::vector<T>& get_values() const
+            {
+                return m_values;
+            }
 
             protected:
                 std::vector<T> m_values;
