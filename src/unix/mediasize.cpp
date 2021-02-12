@@ -17,7 +17,7 @@ using namespace std;
 
 namespace nanaprint
 {
-    MediaSizesTranslator media_size::m_translator;
+    media_size_translator media_size::m_translator;
 
     media_size::media_size(const string& mediaName, const int width, const int height,
         const int bottom, const int left, const int right, const int top)

@@ -20,11 +20,11 @@
 
 namespace nanaprint
 {
-    class MediaSizesTranslator
+    class media_size_translator
     {
         public:
-            MediaSizesTranslator();
-            virtual ~MediaSizesTranslator();
+            media_size_translator();
+            virtual ~media_size_translator();
             const std::string getTranslatedSize(const std::string& mediaName) const;
 
         private:

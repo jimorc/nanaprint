@@ -40,7 +40,7 @@ namespace nanaprint
             bool is_borderless() const;
 
         private:
-            static MediaSizesTranslator m_translator;
+            static media_size_translator m_translator;
             std::string m_name;
             std::string m_translatedName;
             int m_width;

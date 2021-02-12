@@ -2,7 +2,7 @@
 
 namespace nanaprint
 {
-    MediaSizesTranslator::MediaSizesTranslator()
+    media_size_translator::media_size_translator()
     {
         m_mediaMap["oe_photo-l_3.5x5in"] = "3.5x5in";
         m_mediaMap["oe_photo-l_3.5x5in_borderless"] = "3.5x5in";
@@ -66,12 +66,12 @@ namespace nanaprint
         m_mediaMap["custom_7x10in_7x10in_borderless"] = "Custom 7x10in";
     }
 
-    MediaSizesTranslator::~MediaSizesTranslator()
+    media_size_translator::~media_size_translator()
     {
 
     }
 
-    const std::string MediaSizesTranslator::getTranslatedSize(const std::string& mediaName) const
+    const std::string media_size_translator::getTranslatedSize(const std::string& mediaName) const
     {
         auto iter = m_mediaMap.find(mediaName);
         if(iter == m_mediaMap.end())
