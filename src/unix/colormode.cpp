@@ -19,23 +19,15 @@ using namespace std;
 
 namespace nanaprint
 {
-    color_mode::color_mode() : m_colorMode("None")
-    {
-
-    }
-
-    color_mode::color_mode(const string& cmode) : m_colorMode(cmode)
-    {
-
-    }
-
     std::ostream& operator<<(std::ostream& os, const color_mode& cmode)
     {
-        os << "    " << cmode.get_mode() << '\n';
+        auto mode = cmode.get_value();
+        os << "    ";
+        os << ((mode) ? mode.value() : "None") << '\n';
         return os;
     }
 
-    void color_modes::add_mode(const std::string& cmode)
+    void color_modes::add_mode(const color_mode& cmode)
     {
         m_colorModes.push_back(cmode);
     }

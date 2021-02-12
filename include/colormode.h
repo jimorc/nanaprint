@@ -13,21 +13,18 @@
  *
  */
 
+#include "value.h"
 #include <string>
-#include <vector>
-#include <memory>
+#include <optional>
 
 namespace nanaprint
 {
-    class color_mode
+    class color_mode : public nanaprint_value<std::optional<std::string>>
     {
         public:
-            color_mode();
-            color_mode(const std::string& colormode);
+            color_mode() : nanaprint_value(std::nullopt) {}
+            color_mode(const std::optional<std::string>& colormode) : nanaprint_value(colormode) {}
             virtual ~color_mode() {}
-            const std::string& get_mode() const { return m_colorMode; }
-        private:
-            std::string m_colorMode;
     };
 
     std::ostream& operator<<(std::ostream& os, const color_mode& cmode);
@@ -101,7 +98,7 @@ namespace nanaprint
 
             color_modes() {}
             virtual ~color_modes() {}
-            void add_mode(const std::string& cmode);
+            void add_mode(const color_mode& cmode);
             const std::vector<color_mode>& get_modes() const;
             size_t size() const { return m_colorModes.size(); }
             void clear() { m_colorModes.clear(); }
