@@ -54,7 +54,7 @@ TEST(PageOrientationTests, testInsertionOperator)
 // Test PageOrientations::addOrientation
 TEST(PageOrientationTests, testaddOrientation)
 {
-    PageOrientations orientations;
+    page_orientations orientations;
     orientations.addOrientation(LANDSCAPE);
     orientations.addOrientation(PORTRAIT);
     ASSERT_TRUE(orientations.containsOrientation(u8"Portrait"));
@@ -65,7 +65,7 @@ TEST(PageOrientationTests, testaddOrientation)
 // Test PageOrientations insertion operator
 TEST(PageOrientationTests, testPageOrientationsInserterOperator)
 {
-    PageOrientations orientations;
+    page_orientations orientations;
     orientations.addOrientation(LANDSCAPE);
     orientations.addOrientation(PORTRAIT);
     stringstream ss, ss2;

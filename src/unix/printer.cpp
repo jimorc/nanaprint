@@ -458,7 +458,7 @@ namespace nanaprint
             m_gotOrientations = true;
         }   
     }
-    PageOrientations& Printer::getOrientations()
+    page_orientations& Printer::getOrientations()
     {
         populateOrientations();
         return m_orientations;

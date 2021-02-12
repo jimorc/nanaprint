@@ -45,11 +45,11 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const page_orientation& orientation);
 
-    class PageOrientations
+    class page_orientations
     {
         public:
-            PageOrientations() {}
-            virtual ~PageOrientations() {}
+            page_orientations() {}
+            virtual ~page_orientations() {}
             void addOrientation(int orientation);
             std::vector<std::shared_ptr<page_orientation>> getOrientations() const;
             bool containsOrientation(const std::string& orientation) const;
@@ -57,6 +57,6 @@ namespace nanaprint
             std::set<std::shared_ptr<page_orientation>> m_orientations;
     };
 
-    std::ostream& operator<<(std::ostream& os, const PageOrientations& orientations);
+    std::ostream& operator<<(std::ostream& os, const page_orientations& orientations);
 
 }

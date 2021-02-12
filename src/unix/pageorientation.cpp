@@ -72,12 +72,12 @@ namespace nanaprint
     }
 
 
-    void PageOrientations::addOrientation(int orientation)
+    void page_orientations::addOrientation(int orientation)
     {
         m_orientations.insert(make_shared<page_orientation>(page_orientation(orientation)));
     }
 
-    std::vector<std::shared_ptr<page_orientation>> PageOrientations::getOrientations() const
+    std::vector<std::shared_ptr<page_orientation>> page_orientations::getOrientations() const
     {
         std::vector<std::shared_ptr<page_orientation>> orientations;
         for (auto orientation : m_orientations)
@@ -87,7 +87,7 @@ namespace nanaprint
         return orientations;
     }
 
-    bool PageOrientations::containsOrientation(const std::string& orientation) const
+    bool page_orientations::containsOrientation(const std::string& orientation) const
     {
         for (auto iter = m_orientations.begin(); iter != m_orientations.end(); ++iter)
         {
@@ -97,7 +97,7 @@ namespace nanaprint
         return false;
     }
 
-    std::ostream& operator<<(std::ostream& os, const PageOrientations& orientations)
+    std::ostream& operator<<(std::ostream& os, const page_orientations& orientations)
     {
         os << u8"Page Orientations:\n";
         for (const auto& orientation: orientations.getOrientations())
