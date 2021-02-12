@@ -410,7 +410,7 @@ namespace nanaprint
         auto orientations = printer.getOrientations().get_orientations();
         for (auto orientation: orientations)
         {
-            enableOrientationCheckbox(*orientation);
+            enableOrientationCheckbox(orientation);
         }
         auto orientation = m_dialogSettings.get_page_orientation();
         if(orientation)

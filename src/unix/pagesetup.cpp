@@ -318,7 +318,7 @@ namespace nanaprint
         auto orientations = printer->getOrientations();
         for (auto orientation: orientations.get_orientations())
         {
-            auto orientationNum = orientation->get_orientation_number();
+            auto orientationNum = orientation.get_orientation_number();
             auto orientationCheckboxNum = orientationNum - PORTRAIT;
             m_orientations[orientationCheckboxNum]->enabled(true);
         }
