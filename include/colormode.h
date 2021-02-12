@@ -35,7 +35,6 @@ namespace nanaprint
         public:
             color_modes() {}
             virtual ~color_modes() {}
-            void clear() { m_values.clear(); }
             color_mode& operator[](size_t pos);
             const color_mode& operator[](size_t pos) const;
             color_mode& at(size_t pos);
