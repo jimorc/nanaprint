@@ -35,14 +35,6 @@ namespace nanaprint
         public:
             color_modes() {}
             virtual ~color_modes() {}
-            iterator begin() noexcept { return iterator(&m_values[0]); }
-            iterator end() noexcept { return iterator(&m_values[m_values.size()]); }
-            const_iterator cbegin() const noexcept { return const_iterator(&m_values[0]); }
-            const_iterator cend() const noexcept { return const_iterator(&m_values[m_values.size()]); }
-            iterator rbegin() noexcept { return iterator(&m_values[m_values.size() - 1]); }
-            iterator rend() noexcept { return iterator(&m_values[-1]); }
-            const_iterator crbegin() const noexcept { return const_iterator(&m_values[m_values.size() - 1]); }
-            const_iterator crend() const noexcept { return const_iterator(&m_values[-1]); }
     };
 
     std::ostream& operator<<(std::ostream& os, const color_modes& cmode);
