@@ -74,17 +74,12 @@ namespace nanaprint
 
     void page_orientations::add_orientation(int orientation)
     {
-        m_orientations.insert(make_shared<page_orientation>(page_orientation(orientation)));
+        m_orientations.push_back(make_shared<page_orientation>(page_orientation(orientation)));
     }
 
     std::vector<std::shared_ptr<page_orientation>> page_orientations::get_orientations() const
     {
-        std::vector<std::shared_ptr<page_orientation>> orientations;
-        for (auto orientation : m_orientations)
-        {
-            orientations.push_back(orientation);
-        }
-        return orientations;
+        return m_orientations;
     }
 
     bool page_orientations::contains_orientation(const std::string& orientation) const
