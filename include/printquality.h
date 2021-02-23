@@ -38,19 +38,15 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const print_quality& quality);
     
-    class print_qualities
+    class print_qualities : public nanaprint_values<print_quality>
     {
         public:
             print_qualities() {}
             ~print_qualities() {}
             void addPrintQuality(int quality);
             bool containsPrintQuality(const std::string& quality) const;
-            std::vector<print_quality> getPrintQualities() const;
-
-        private:
-            std::vector<print_quality> m_qualities;
     };
 
 
-    std::ostream& operator<<(std::ostream& os, const print_qualities& qualities);
+    std::ostream& operator<<(std::ostream& os, print_qualities& qualities);
 }

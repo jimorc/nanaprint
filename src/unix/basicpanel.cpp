@@ -338,7 +338,7 @@ namespace nanaprint
     void BasicPanel::updatePrintQualityCombox(Printer& printer)
     {
         m_printQualityCombox.clear();
-        auto qualities = printer.getPrintQualities().getPrintQualities();
+        auto qualities = printer.getPrintQualities().get_values();
         auto hasPrintQualities = qualities.size() > 0;
         m_printQualityCombox.enabled(hasPrintQualities);
         auto selectedPrintQuality = m_dialogSettings.get_print_quality();

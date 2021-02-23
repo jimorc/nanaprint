@@ -91,7 +91,7 @@ TEST(PrintQualitiesTests, testGetPrintQualities)
     printQualities.addPrintQuality(NORMAL);
     printQualities.addPrintQuality(HIGH);
 
-    auto qualities = printQualities.getPrintQualities();
+    auto qualities = printQualities.get_values();
     std::vector<std::string> qualitiesAsString;
     for (auto quality: qualities)
     {
@@ -115,6 +115,6 @@ TEST(PrintQualitiesTests, testInsertionOperator)
     
     stringstream ss;
     ss << qualities;
-    ASSERT_STREQ(u8"Print Qualities:\n    Plain Normal\n    Fast\n    Normal\n"
-        "    High\n    Photo\n", ss.str().c_str());
+    ASSERT_STREQ(u8"Print Qualities:\n    Fast\n    Normal\n    Plain Normal\n"
+        "    Photo\n    High\n", ss.str().c_str());
 }
