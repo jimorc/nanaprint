@@ -37,7 +37,6 @@ namespace nanaprint
            media_sources() {}
             virtual ~media_sources() {}
             void add_source(const std::string& source);
-            const std::vector<media_source>& get_sources() const;
     };
 
     std::ostream& operator<<(std::ostream& os, const media_sources& sources);
