@@ -70,14 +70,14 @@ TEST(PrintQualitiesTests, testAddPrintQuality)
     qualities.push_back(print_quality(FAST));
     qualities.push_back(print_quality(NORMAL));
 
-    ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
-    ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
+    ASSERT_TRUE(qualities.contains_quality(u8"Fast"));
+    ASSERT_TRUE(qualities.contains_quality(u8"Normal"));
 
     qualities.push_back(print_quality(HIGH));
 
-    ASSERT_TRUE(qualities.containsPrintQuality(u8"High"));
-    ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
-    ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
+    ASSERT_TRUE(qualities.contains_quality(u8"High"));
+    ASSERT_TRUE(qualities.contains_quality(u8"Normal"));
+    ASSERT_TRUE(qualities.contains_quality(u8"Fast"));
 }
 
 // Test PrintQualities::getPrintQualities

@@ -42,7 +42,7 @@ namespace nanaprint
         public:
             print_qualities() {}
             ~print_qualities() {}
-            bool containsPrintQuality(const std::string& quality) const;
+            bool contains_quality(const std::string& quality) const;
     };
 
 

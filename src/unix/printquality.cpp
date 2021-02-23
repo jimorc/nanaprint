@@ -48,7 +48,7 @@ namespace nanaprint
         return os;
     }
 
-    bool print_qualities::containsPrintQuality(const std::string& quality) const
+    bool print_qualities::contains_quality(const std::string& quality) const
     {
         vector<print_quality> qualities = get_values();
         for (auto& qual : qualities)
