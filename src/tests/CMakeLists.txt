@@ -45,6 +45,12 @@ include_directories(
     ../../include
 )
 
+package_add_test_with_libraries(IterTests
+    itertests.cpp 
+    cupsprint 
+    "${PROJECT_DIR}"
+)
+
 package_add_test_with_libraries(MediaSizesTranslatorUnixTests
     mediasizestranslatorunixtests.cpp 
     cupsprint 
