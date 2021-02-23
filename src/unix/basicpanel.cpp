@@ -42,7 +42,7 @@ namespace nanaprint
 
         build_basic_column1();
         m_basicLayout["column1"] << m_basicColumn1;
-        buildBasicColumn2();
+        build_basic_column2();
         m_basicLayout["column2"] << m_basicColumn2;
 
         m_printerCombox.option(m_dialogSettings.get_printer());
@@ -62,7 +62,7 @@ namespace nanaprint
         m_column1Layout["range"] << m_rangeGroup;
     }
 
-    void basic_panel::buildBasicColumn2()
+    void basic_panel::build_basic_column2()
     {
         m_basicColumn2.create(*this);
         m_column2Layout.bind(m_basicColumn2);

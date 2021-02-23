@@ -41,7 +41,7 @@ namespace nanaprint
 
         private:
             void build_basic_column1();
-            void buildBasicColumn2();
+            void build_basic_column2();
 
             void buildPrinterGroup();
             void buildPrinterLabel();
