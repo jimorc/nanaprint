@@ -116,7 +116,7 @@ namespace nanaprint
             build_comment_label();
             m_printerGroup["commentLabel"] << m_commentLabel;
 
-            buildPrinterComment();
+            build_printer_comment();
             m_printerGroup["printerComment"] << m_printerComment;
     }
 
@@ -190,7 +190,7 @@ namespace nanaprint
         m_commentLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPrinterComment()
+    void basic_panel::build_printer_comment()
     {
         // Caption is set when printer is selected.
         m_printerComment.create(m_printerGroup);

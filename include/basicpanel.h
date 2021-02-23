@@ -53,7 +53,7 @@ namespace nanaprint
             void build_location_label();
             void build_printer_location();
             void build_comment_label();
-            void buildPrinterComment();
+            void build_printer_comment();
 
             void buildPaperGroup();
             void buildBorderlessCheckbox();
