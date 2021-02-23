@@ -18,6 +18,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include "values.h"
 
 namespace nanaprint
 {
@@ -27,19 +28,15 @@ namespace nanaprint
     constexpr int HIGH = 5;
     constexpr int PHOTO = 6;
 
-    class PrintQuality
+    class print_quality : public nanaprint_value<std::string>
     {
         public:
-            PrintQuality();
-            PrintQuality(const int quality);
-            virtual ~PrintQuality() {}
-            virtual std::string getPrintQuality() const;
-            
-        private:
-            std::string m_quality;
+            print_quality();
+            print_quality(const int quality);
+            virtual ~print_quality() {}
     };
 
-    std::ostream& operator<<(std::ostream& os, const PrintQuality& quality);
+    std::ostream& operator<<(std::ostream& os, const print_quality& quality);
     
     class PrintQualities
     {
@@ -48,10 +45,10 @@ namespace nanaprint
             ~PrintQualities() {}
             void addPrintQuality(int quality);
             bool containsPrintQuality(const std::string& quality) const;
-            std::vector<std::shared_ptr<PrintQuality>> getPrintQualities() const;
+            std::vector<std::shared_ptr<print_quality>> getPrintQualities() const;
 
         private:
-            std::set<std::shared_ptr<PrintQuality>> m_qualities;
+            std::set<std::shared_ptr<print_quality>> m_qualities;
     };
 
 

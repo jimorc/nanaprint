@@ -26,6 +26,7 @@ namespace nanaprint
         public:
             nanaprint_value(const T& value) : m_value(value) {}
             const T& get_value() const noexcept { return m_value; }
+            void set_value(const T& value) noexcept { m_value = value; }
             virtual ~nanaprint_value() {}
         private:
             T m_value;

@@ -9,20 +9,20 @@ using namespace std;
 // Test constructor
 TEST(PrintQualityTests, testCtor)
 {
-    PrintQuality none;
+    print_quality none;
 
-    PrintQuality plainNormal(PLAIN_NORMAL);
-    PrintQuality fast(FAST);
-    PrintQuality normal(NORMAL);
-    PrintQuality high(HIGH);
-    PrintQuality photo(PHOTO);
+    print_quality plainNormal(PLAIN_NORMAL);
+    print_quality fast(FAST);
+    print_quality normal(NORMAL);
+    print_quality high(HIGH);
+    print_quality photo(PHOTO);
 
-    ASSERT_STREQ(u8"None", none.getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Plain Normal", plainNormal.getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Fast", fast.getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Normal", normal.getPrintQuality().c_str());
-    ASSERT_STREQ(u8"High", high.getPrintQuality().c_str());
-    ASSERT_STREQ(u8"Photo", photo.getPrintQuality().c_str());
+    ASSERT_STREQ(u8"None", none.get_value().c_str());
+    ASSERT_STREQ(u8"Plain Normal", plainNormal.get_value().c_str());
+    ASSERT_STREQ(u8"Fast", fast.get_value().c_str());
+    ASSERT_STREQ(u8"Normal", normal.get_value().c_str());
+    ASSERT_STREQ(u8"High", high.get_value().c_str());
+    ASSERT_STREQ(u8"Photo", photo.get_value().c_str());
 }
 
 // Test create with invalid orientation argument
@@ -30,7 +30,7 @@ TEST(PrintQualityTests, testCreateInvalidQuality)
 {
     try
     {
-        PrintQuality quality(1);
+        print_quality quality(1);
         FAIL() << "Should have thrown exception because of bad value input to PrintQuality constructor\n";
     }
     catch (invalid_argument& ex)
@@ -46,11 +46,11 @@ TEST(PrintQualityTests, testCreateInvalidQuality)
 // Test the insertion operator
 TEST(PrintQualityTests, testInsertionOperator)
 {
-    PrintQuality plainQual(PLAIN_NORMAL);
-    PrintQuality fastQual(FAST);
-    PrintQuality normalQual(NORMAL);
-    PrintQuality highQual(HIGH);
-    PrintQuality photoQual(PHOTO);
+    print_quality plainQual(PLAIN_NORMAL);
+    print_quality fastQual(FAST);
+    print_quality normalQual(NORMAL);
+    print_quality highQual(HIGH);
+    print_quality photoQual(PHOTO);
     
     stringstream ssPlQual, ssFast, ssNormal, ssHigh, ssPhoto;
     ssPlQual << plainQual;
@@ -95,7 +95,7 @@ TEST(PrintQualitiesTests, testGetPrintQualities)
     std::vector<std::string> qualitiesAsString;
     for (auto quality: qualities)
     {
-        qualitiesAsString.push_back(quality->getPrintQuality());
+        qualitiesAsString.push_back(quality->get_value());
     }
     for (auto quality: qualitiesAsString)
     {

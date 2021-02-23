@@ -17,29 +17,29 @@ using namespace std;
 
 namespace nanaprint
 {
-    PrintQuality::PrintQuality() : m_quality(u8"None")
+    print_quality::print_quality() : nanaprint_value(u8"None")
     {
 
     }
 
-    PrintQuality::PrintQuality(const int quality)
+    print_quality::print_quality(const int quality) : nanaprint_value("")
     {
         switch (quality)
         {
             case PLAIN_NORMAL:
-                m_quality = u8"Plain Normal";
+                set_value(u8"Plain Normal");
                 break;
             case FAST:
-                m_quality = u8"Fast";
+                set_value(u8"Fast");
                 break;
             case NORMAL:
-                m_quality = u8"Normal";
+                set_value(u8"Normal");
                 break;
             case HIGH:
-                m_quality = u8"High";
+                set_value(u8"High");
                 break;
             case PHOTO:
-                m_quality = u8"Photo";
+                set_value(u8"Photo");
                 break;
             default:
                 throw invalid_argument("Invalid argument value input to PrintQuality constructor");
@@ -47,27 +47,23 @@ namespace nanaprint
         
     }
 
-    std::string PrintQuality::getPrintQuality() const
+    std::ostream& operator<<(std::ostream& os, const print_quality& quality)
     {
-        return m_quality;
-    }
-
-    std::ostream& operator<<(std::ostream& os, const PrintQuality& quality)
-    {
-        os << quality.getPrintQuality();
+        os << quality.get_value();
         return os;
     }
 
     void PrintQualities::addPrintQuality(int quality)
     {
-        m_qualities.insert(make_shared<PrintQuality>(quality));
+        m_qualities.insert(make_shared<print_quality>(quality));
     }
 
     bool PrintQualities::containsPrintQuality(const std::string& quality) const
     {
-        for (auto iter = m_qualities.begin(); iter != m_qualities.end(); ++iter)
+        std::vector<shared_ptr<print_quality>> qualities = getPrintQualities();
+        for (auto& qual : qualities)
         {
-            if ((*iter)->getPrintQuality() == quality)
+            if (qual->get_value() == quality)
             {
                 return true;
             }
@@ -75,9 +71,9 @@ namespace nanaprint
         return false;
     }
 
-    std::vector<std::shared_ptr<PrintQuality>> PrintQualities::getPrintQualities() const
+    std::vector<std::shared_ptr<print_quality>> PrintQualities::getPrintQualities() const
     {
-        vector<shared_ptr<PrintQuality>> qualities;
+        vector<shared_ptr<print_quality>> qualities;
         for (auto quality: m_qualities)
         {
             qualities.push_back(quality);

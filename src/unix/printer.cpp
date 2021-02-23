@@ -601,7 +601,7 @@ namespace nanaprint
             if (defaultQuality != nullptr)
             {
                 int quality = stoi(defaultQuality);
-                m_defaultPrintQuality = PrintQuality(quality);
+                m_defaultPrintQuality = print_quality(quality);
             }
             else
             {
@@ -611,7 +611,7 @@ namespace nanaprint
                 if (count != 0)
                 {
                     int defaultQuality = ippGetInteger(defQuality, 0);
-                    m_defaultPrintQuality = PrintQuality(defaultQuality);
+                    m_defaultPrintQuality = print_quality(defaultQuality);
                 }
                 else
                 {
@@ -622,7 +622,7 @@ namespace nanaprint
             m_gotDefaultPrintQuality = true;
         }   
     }
-    const std::optional<PrintQuality>& Printer::getDefaultPrintQuality()
+    const std::optional<print_quality>& Printer::getDefaultPrintQuality()
     {
         populateDefaultPrintQuality();
         return m_defaultPrintQuality;

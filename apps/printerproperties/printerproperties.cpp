@@ -88,7 +88,7 @@ int main()
         cout << "Default Print Quality:\n";
         auto printQuality = printer->getDefaultPrintQuality();
         cout << "    ";
-        cout << ((printQuality) ? printQuality.value().getPrintQuality() : "None") << '\n';
+        cout << ((printQuality) ? printQuality.value().get_value() : "None") << '\n';
 
         cout << "Supported ";
         auto sides = printer->getSides();

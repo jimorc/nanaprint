@@ -106,7 +106,7 @@ namespace nanaprint
         m_colorMode = colorMode;
     }
 
-    void PrintSettings::set_print_quality(const std::optional<PrintQuality>& quality)
+    void PrintSettings::set_print_quality(const std::optional<print_quality>& quality)
     {
         m_printQuality = quality;
     }
