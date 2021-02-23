@@ -40,7 +40,7 @@ namespace nanaprint
             bool create(nana::form& parent);
 
         private:
-            void buildBasicColumn1();
+            void build_basic_column1();
             void buildBasicColumn2();
 
             void buildPrinterGroup();

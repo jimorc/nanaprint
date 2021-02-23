@@ -40,7 +40,7 @@ namespace nanaprint
         m_basicLayout.div(string("horizontal gap=10") +
             "<weight=10><column1 weight=48%><><column2 weight=48%><weight=10>");
 
-        buildBasicColumn1();
+        build_basic_column1();
         m_basicLayout["column1"] << m_basicColumn1;
         buildBasicColumn2();
         m_basicLayout["column2"] << m_basicColumn2;
@@ -49,7 +49,7 @@ namespace nanaprint
         return true;
     }
 
-    void basic_panel::buildBasicColumn1()
+    void basic_panel::build_basic_column1()
     {
         m_basicColumn1.create(*this);
         m_column1Layout.bind(m_basicColumn1);
