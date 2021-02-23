@@ -33,7 +33,7 @@ TEST(MediaSourcesTests, testAddSource)
     sources.add_source(u8"Tray 2");
     sources.add_source(u8"Manual Feed Tray");
 
-    auto srcs = sources.get_sources();
+    auto srcs = sources.get_values();
 
     ASSERT_EQ(3, srcs.size());
     ASSERT_STREQ(u8"Tray 1", srcs[0].get_value().c_str());
@@ -128,114 +128,4 @@ TEST(MediaSourcesTests, testAtOutOfRange)
     {
         FAIL() << "Expected std::out_of_range, but threw a different exception";
     }    
-}
-
-TEST(MediaSourcesTests, testIterator)
-{
-    media_sources sources;
-    std::vector<media_source> mSources;
-    for (auto source: sources)
-    {
-        mSources.push_back(source);
-    }
-    ASSERT_EQ(0, mSources.size());
-
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
-
-    auto begin = sources.begin();
-    ASSERT_EQ(u8"Tray 1", begin->get_value());
-    ASSERT_EQ(u8"Tray 1", (*begin).get_value());
-
-    for (auto &source: sources)
-    {
-        mSources.push_back(source);
-    }
-    ASSERT_EQ(u8"Tray 1", mSources[0].get_value());
-    ASSERT_EQ(u8"Tray 2", mSources[1].get_value());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].get_value());
-}
-
-TEST(MediaSourcesTests, testConstIterator)
-{
-    media_sources sources;
-    std::vector<media_source> mSources;
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
-
-    const media_sources cSources = sources;
-
-    auto begin = sources.cbegin();
-    ASSERT_EQ(u8"Tray 1", begin->get_value());
-    ASSERT_EQ(u8"Tray 1", (*begin).get_value());
-
-    for (auto iter = sources.cbegin(); iter != sources.cend(); ++iter)
-    {
-        mSources.push_back(*iter);
-    }
-    ASSERT_EQ(u8"Tray 1", mSources[0].get_value());
-    ASSERT_EQ(u8"Tray 2", mSources[1].get_value());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[2].get_value());
-}
-
-TEST(MediaSourcesTests, testReverseIterator)
-{
-    media_sources sources;
-    std::vector<media_source> mSources;
-
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
-
-    auto begin = sources.rbegin();
-    ASSERT_EQ(u8"Manual Feed Tray", begin->get_value());
-    ASSERT_EQ(u8"Manual Feed Tray", (*begin).get_value());
-
-    for (auto iter = sources.rbegin(); iter != sources.rend(); --iter)
-    {
-        mSources.push_back(*iter);
-    }
-    ASSERT_EQ(u8"Tray 1", mSources[2].get_value());
-    ASSERT_EQ(u8"Tray 2", mSources[1].get_value());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].get_value());
-}
-
-
-TEST(MediaSourcesTests, testConstReverseIterator)
-{
-    media_sources sources;
-    std::vector<media_source> mSources;
-
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
-
-    auto begin = sources.crbegin();
-    ASSERT_EQ(u8"Manual Feed Tray", begin->get_value());
-    ASSERT_EQ(u8"Manual Feed Tray", (*begin).get_value());
-
-    for (auto iter = sources.crbegin(); iter != sources.crend(); --iter)
-    {
-        mSources.push_back(*iter);
-    }
-    ASSERT_EQ(u8"Tray 1", mSources[2].get_value());
-    ASSERT_EQ(u8"Tray 2", mSources[1].get_value());
-    ASSERT_EQ(u8"Manual Feed Tray", mSources[0].get_value());
-}
-
-TEST(MediaSourcesTests, testClear)
-{
-    media_sources sources;
-
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
-
-    ASSERT_EQ(3, sources.size());
-
-    sources.clear();
-
-    ASSERT_EQ(0, sources.size());
 }

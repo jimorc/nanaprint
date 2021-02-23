@@ -27,45 +27,13 @@ namespace nanaprint
 
     void media_sources::add_source(const std::string& source)
     {
-        m_sources.push_back(media_source(source));
-    }
-
-    media_source& media_sources::operator[](size_t pos)
-    {
-        return m_sources[pos];
-    }
-    const media_source& media_sources::operator[](size_t pos) const
-    {
-        return m_sources[pos];
-    }
-
-    media_source& media_sources::at(size_t pos)
-    {
-        if (pos >= m_sources.size())
-        {
-            throw out_of_range("Out of range");
-        }
-        return m_sources[pos];
-    }
-
-    const media_source& media_sources::at(size_t pos) const
-    {
-        if (pos >= m_sources.size())
-        {
-            throw out_of_range("Out of range");
-        }
-        return m_sources[pos];
-    }
-
-    const std::vector<media_source>& media_sources::get_sources() const
-    {
-        return m_sources;
+        push_back(media_source(source));
     }
 
     std::ostream& operator<<(std::ostream& os, const media_sources& sources)
     {
         os << "Media Sources:\n";
-        auto srcs = sources.get_sources();
+        auto srcs = sources.get_values();
         if(srcs.size() == 0)
         {
             os << "    None\n";
