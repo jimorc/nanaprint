@@ -647,7 +647,7 @@ namespace nanaprint
             m_gotSides = true;
         }   
     }
-     Sides& Printer::getSides()
+     sides& Printer::getSides()
     {
         populateSides();
         return m_sides;

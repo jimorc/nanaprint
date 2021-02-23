@@ -31,16 +31,16 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const side& side);
 
-    class Sides
+    class sides
     {
         public:
-            Sides() {}
-            virtual ~Sides() {}
+            sides() {}
+            virtual ~sides() {}
             void addSide(const std::string& side);
             const std::vector<std::shared_ptr<side>> getSides() const;
         private:
             std::set<std::shared_ptr<side>> m_sides;
     };
 
-    std::ostream& operator<<(std::ostream& os, const Sides& side);
+    std::ostream& operator<<(std::ostream& os, const sides& sids);
 }

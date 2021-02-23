@@ -35,12 +35,12 @@ TEST(SideTests, testInsertionOperator)
 // Test addSide
 TEST(SidesTests, testAddSide)
 {
-    Sides sides;
-    sides.addSide(CUPS_SIDES_ONE_SIDED);
-    sides.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
-    sides.addSide(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
+    sides side;
+    side.addSide(CUPS_SIDES_ONE_SIDED);
+    side.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
+    side.addSide(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
 
-    auto mySides = sides.getSides();
+    auto mySides = side.getSides();
     ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, mySides[0]->get_value().c_str());
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1]->get_value().c_str());
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2]->get_value().c_str());
@@ -49,12 +49,12 @@ TEST(SidesTests, testAddSide)
 // Test insertion operator
 TEST(SidesTests, testInsertionOperator)
 {
-    Sides sides, sides2;
+    sides sides1, sides2;
     sides2.addSide(CUPS_SIDES_ONE_SIDED);
     sides2.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
 
     stringstream ss1, ss2;
-    ss1 << sides;
+    ss1 << sides1;
     ss2 << sides2;
 
     ASSERT_STREQ("Sides:\n    None\n", ss1.str().c_str());
