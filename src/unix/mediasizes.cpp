@@ -28,15 +28,10 @@ namespace nanaprint
 
     }
 
-    void media_sizes::push_back(media_size mediaSize)
-    {
-        m_mediaSizes.push_back(mediaSize);
-    }
-
     vector<string> media_sizes::get_media_size_names() const
     {
         vector<string> mediaNames;
-        for (auto mediaSize: m_mediaSizes)
+        for (auto mediaSize: get_values())
         {
             mediaNames.push_back(mediaSize.get_name());
         }
@@ -56,7 +51,7 @@ namespace nanaprint
 
     bool media_sizes::contains_borderless_paper() const
     {
-        for (auto& mediaSize: m_mediaSizes)
+        for (auto& mediaSize: get_values())
         {
             if (mediaSize.is_borderless())
                 return true;
@@ -67,10 +62,10 @@ namespace nanaprint
     std::optional<media_size> media_sizes::get_media_size_by_translated_name_and_border(
         const std::string& translatedName, bool isBorderless) const
         {
-            auto iter = find_if(m_mediaSizes.begin(), m_mediaSizes.end(), 
+            auto iter = find_if(cbegin(), cend(), 
                 [&](const media_size& size){ return ((size.get_translated_name() == translatedName) &&
                     (size.is_borderless() == isBorderless)); });
-            return (iter != m_mediaSizes.end()) ? std::optional<media_size>(*iter) : nullopt;
+            return (iter != cend()) ? std::optional<media_size>(*iter) : nullopt;
         }
 
     std::ostream& operator<<(std::ostream& os, const media_sizes& sizes)
@@ -88,29 +83,5 @@ namespace nanaprint
             }
         }
         return os;
-    }
-
-    media_size& media_sizes::operator[](size_t pos)
-    {
-        return m_mediaSizes[pos];
-    }
-
-    const media_size& media_sizes::operator[](size_t pos) const
-    {
-        return m_mediaSizes[pos];
-    }
-
-    media_size& media_sizes::at(size_t pos)
-    {
-        if(pos > m_mediaSizes.size() - 1)
-            throw std::out_of_range("Out of range");
-        return m_mediaSizes[pos];
-    }
-
-    const media_size& media_sizes::at(size_t pos) const
-    {
-        if(pos > m_mediaSizes.size() - 1)
-            throw std::out_of_range("Out of range");
-        return m_mediaSizes[pos];
     }
 }
