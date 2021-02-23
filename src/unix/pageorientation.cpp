@@ -74,19 +74,14 @@ namespace nanaprint
 
     void page_orientations::add_orientation(int orientation)
     {
-        m_orientations.push_back(page_orientation(orientation));
-    }
-
-    std::vector<page_orientation> page_orientations::get_orientations() const
-    {
-        return m_orientations;
+        push_back(page_orientation(orientation));
     }
 
     bool page_orientations::contains_orientation(const std::string& orientation) const
     {
-        for (auto iter = m_orientations.begin(); iter != m_orientations.end(); ++iter)
+        for (auto& ortn : get_values())
         {
-            if ((*iter).get_orientation() == orientation)
+            if (ortn.get_orientation() == orientation)
                 return true;
         }
         return false;
@@ -95,39 +90,10 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const page_orientations& orientations)
     {
         os << u8"Page Orientations:\n";
-        for (const auto& orientation: orientations.get_orientations())
+        for (const auto& orientation: orientations.get_values())
         {
             os << orientation;
         }
         return os;
     }
-
-    page_orientation& page_orientations::operator[](size_t pos)
-    {
-        return m_orientations[pos];
-    }
-
-    const page_orientation& page_orientations::operator[](size_t pos) const
-    {
-        return m_orientations[pos];
-    }
-
-    page_orientation& page_orientations::at(size_t pos)
-    {
-        if (pos >= m_orientations.size())
-        {
-            throw std::out_of_range("Out of range");
-        }
-        return m_orientations[pos];
-    }
-
-    const page_orientation& page_orientations::at(size_t pos) const
-    {
-        if (pos >= m_orientations.size())
-        {
-            throw std::out_of_range("Out of range");
-        }
-        return m_orientations[pos];
-    }
-
 }

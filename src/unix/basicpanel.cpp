@@ -407,7 +407,7 @@ namespace nanaprint
         disableOrientationCheckboxes();
         uncheckOrientationCheckboxes();
 
-        auto orientations = printer.getOrientations().get_orientations();
+        auto orientations = printer.getOrientations().get_values();
         for (auto orientation: orientations)
         {
             enableOrientationCheckbox(orientation);
