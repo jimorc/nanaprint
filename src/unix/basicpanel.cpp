@@ -104,7 +104,7 @@ namespace nanaprint
             build_printer_type_label();
             m_printerGroup["typeLabel"] << m_typeLabel;
 
-            buildPrinterType();
+            build_printer_type();
             m_printerGroup["printerType"] << m_printerType;
 
             buildLocationLabel();
@@ -162,7 +162,7 @@ namespace nanaprint
         m_typeLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPrinterType()
+    void basic_panel::build_printer_type()
     {
         // Caption is set when printer is selected.
         m_printerType.create(m_printerGroup);
