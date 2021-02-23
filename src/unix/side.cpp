@@ -29,11 +29,6 @@ namespace nanaprint
         return os;
     }
 
-    void sides::addSide(const std::string& sid)
-    {
-        push_back(side(sid));
-    }
-
     std::ostream& operator<<(std::ostream& os, const sides& sides)
     {
         os << "Sides:\n";

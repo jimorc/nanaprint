@@ -32,26 +32,12 @@ TEST(SideTests, testInsertionOperator)
     ASSERT_STREQ(u8"two-sided-long-edge", ss2.str().c_str());
 }
 
-// Test addSide
-TEST(SidesTests, testAddSide)
-{
-    sides side;
-    side.addSide(CUPS_SIDES_ONE_SIDED);
-    side.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
-    side.addSide(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
-
-    auto mySides = side.get_values();
-    ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, mySides[0].get_value().c_str());
-    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1].get_value().c_str());
-    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2].get_value().c_str());
-}
-
 // Test insertion operator
 TEST(SidesTests, testInsertionOperator)
 {
     sides sides1, sides2;
-    sides2.addSide(CUPS_SIDES_ONE_SIDED);
-    sides2.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
+    sides2.push_back(side(CUPS_SIDES_ONE_SIDED));
+    sides2.push_back(side(CUPS_SIDES_TWO_SIDED_PORTRAIT));
 
     stringstream ss1, ss2;
     ss1 << sides1;

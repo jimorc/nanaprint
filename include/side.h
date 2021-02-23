@@ -35,7 +35,6 @@ namespace nanaprint
         public:
             sides() {}
             virtual ~sides() {}
-            void addSide(const std::string& side);
     };
 
     std::ostream& operator<<(std::ostream& os, const sides& sids);

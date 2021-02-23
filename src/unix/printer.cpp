@@ -640,8 +640,8 @@ namespace nanaprint
                 int count = ippGetCount(sides);
                 for (int i = 0; i < count; ++i)
                 {
-                    const char *side = ippGetString(sides, i, NULL);
-                    m_sides.addSide(side);
+                    const char *sid = ippGetString(sides, i, NULL);
+                    m_sides.push_back(side(sid));
                 }
             }
             m_gotSides = true;
