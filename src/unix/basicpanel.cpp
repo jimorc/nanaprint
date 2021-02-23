@@ -324,9 +324,9 @@ namespace nanaprint
             for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
             {
                 auto mediaType = mediaTypes[mediaNum];
-                m_mediaTypeCombox.push_back(mediaType.get_type());
+                m_mediaTypeCombox.push_back(mediaType.get_value());
                 if (selectedMediaType
-                        && mediaType.get_type() == selectedMediaType.value().get_type())
+                        && mediaType.get_value() == selectedMediaType.value().get_value())
                 {
                     optionNumber = mediaNum;
                 }

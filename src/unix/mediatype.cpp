@@ -18,14 +18,14 @@ using namespace std;
 namespace nanaprint
 {
     media_type::media_type(const std::string& mediaType)
-        : m_type(mediaType)
+        : nanaprint_value(mediaType)
     {
 
     }
 
     std::ostream& operator<<(std::ostream& os, const media_type& mType)
     {
-        os << "    " << mType.get_type() << '\n';
+        os << "    " << mType.get_value() << '\n';
         return os;
     }
 

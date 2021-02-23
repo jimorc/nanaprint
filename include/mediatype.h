@@ -18,19 +18,16 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include "values.h"
 
 namespace nanaprint
 {
-    class media_type
+    class media_type : public nanaprint_value<std::string>
     {
         public:
             media_type(const std::string& mediaType);
             virtual ~media_type() {}
-            const std::string& get_type() const { return m_type; }
-
-        private:
-            std::string m_type;
-    };
+     };
 
     std::ostream& operator<<(std::ostream& os, const media_type& mType);
 
