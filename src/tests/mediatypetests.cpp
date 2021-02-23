@@ -30,7 +30,7 @@ TEST(MediaTypeTests, testInsertionOperator)
 // Test MediaSources::addMediaType
 TEST(MediaTypesTests, testAddMediaType)
 {
-    MediaTypes mediaTypes;
+    media_types mediaTypes;
     mediaTypes.add_type(CUPS_MEDIA_TYPE_LETTERHEAD);
     mediaTypes.add_type(CUPS_MEDIA_TYPE_PLAIN);
     mediaTypes.add_type(CUPS_MEDIA_TYPE_ENVELOPE);
@@ -46,7 +46,7 @@ TEST(MediaTypesTests, testAddMediaType)
 TEST(MediaTypesTests, testInsertionOperator)
 {
     stringstream ss, ss2;
-    MediaTypes mediaTypes;
+    media_types mediaTypes;
 
     ss2 << mediaTypes;
 

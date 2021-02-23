@@ -31,12 +31,12 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const media_type& mType);
 
-    class MediaTypes : public nanaprint_values<media_type>
+    class media_types : public nanaprint_values<media_type>
     {
         public:
-            virtual ~MediaTypes() {}
+            virtual ~media_types() {}
             void add_type(const std::string& mediaType);
     };
 
-    std::ostream& operator<<(std::ostream& os, const MediaTypes& mType);
+    std::ostream& operator<<(std::ostream& os, const media_types& mType);
 }

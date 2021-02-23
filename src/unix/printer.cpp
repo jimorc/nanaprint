@@ -396,7 +396,7 @@ namespace nanaprint
         }   
     }
 
-    MediaTypes& Printer::getMediaTypes()
+    media_types& Printer::getMediaTypes()
     {
         populateMediaTypes();
         return m_mediaTypes;
