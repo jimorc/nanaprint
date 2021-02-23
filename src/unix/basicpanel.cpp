@@ -89,7 +89,7 @@ namespace nanaprint
             "<<weight=10><commentLabel weight=30%><><printerComment weight=64%><> weight=120>";
         m_printerGroup.div(div.c_str());
 
-            buildPrinterLabel();
+            build_printer_label();
             m_printerGroup["printerLabel"] << m_printerLabel;
 
             buildPrinterCombox();
@@ -120,7 +120,7 @@ namespace nanaprint
             m_printerGroup["printerComment"] << m_printerComment;
     }
 
-    void basic_panel::buildPrinterLabel()
+    void basic_panel::build_printer_label()
     {
         m_printerLabel.create(m_printerGroup);
         m_printerLabel.caption(u8"Printer:");
