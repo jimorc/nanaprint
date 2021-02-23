@@ -43,7 +43,7 @@ namespace nanaprint
             void build_basic_column1();
             void build_basic_column2();
 
-            void buildPrinterGroup();
+            void build_printer_group();
             void buildPrinterLabel();
             void buildPrinterCombox();
             void buildStatusLabel();

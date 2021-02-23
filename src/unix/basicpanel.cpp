@@ -56,7 +56,7 @@ namespace nanaprint
         m_column1Layout.div(string("vertical gap=10") +
             "<printerGroup weight=67%><weight=10><range weight=28%>");
 
-        buildPrinterGroup();
+        build_printer_group();
         m_column1Layout["printerGroup"] << m_printerGroup;
         buildRangeGroup();
         m_column1Layout["range"] << m_rangeGroup;
@@ -75,7 +75,7 @@ namespace nanaprint
         m_column2Layout["misc"] << m_miscGroup;
     }
 
-    void basic_panel::buildPrinterGroup()
+    void basic_panel::build_printer_group()
     {
         m_printerGroup.create(m_basicColumn1);
         m_printerGroup.caption(u8"Printer");
