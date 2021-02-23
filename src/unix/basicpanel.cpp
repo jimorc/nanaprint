@@ -98,7 +98,7 @@ namespace nanaprint
             build_printer_status_label();
             m_printerGroup["statusLabel"] << m_statusLabel;
 
-            buildPrinterStatus();
+            build_printer_status();
             m_printerGroup["printerStatus"] << m_printerStatus;
 
             buildPrinterTypeLabel();
@@ -148,7 +148,7 @@ namespace nanaprint
         m_statusLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPrinterStatus()
+    void basic_panel::build_printer_status()
     {
         // Caption is set when printer is selected.
         m_printerStatus.create(m_printerGroup);
