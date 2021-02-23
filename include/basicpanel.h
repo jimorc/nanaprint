@@ -51,7 +51,7 @@ namespace nanaprint
             void build_printer_type_label();
             void build_printer_type();
             void build_location_label();
-            void buildPrinterLocation();
+            void build_printer_location();
             void buildCommentLabel();
             void buildPrinterComment();
 
