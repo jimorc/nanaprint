@@ -51,23 +51,12 @@ TEST(PageOrientationTests, testInsertionOperator)
     ASSERT_STREQ(u8"    Reverse Portrait\n", ssRevPort.str().c_str());
 }
 
-// Test PageOrientations::addOrientation
-TEST(PageOrientationTests, testaddOrientation)
-{
-    page_orientations orientations;
-    orientations.add_orientation(LANDSCAPE);
-    orientations.add_orientation(PORTRAIT);
-    ASSERT_TRUE(orientations.contains_orientation(u8"Portrait"));
-    ASSERT_TRUE(orientations.contains_orientation(u8"Landscape"));
-    ASSERT_FALSE(orientations.contains_orientation(u8"ReverseLandscape"));
-}
-
-// Test PageOrientations insertion operator
+/// Test PageOrientations insertion operator
 TEST(PageOrientationTests, testPageOrientationsInserterOperator)
 {
     page_orientations orientations;
-    orientations.add_orientation(LANDSCAPE);
-    orientations.add_orientation(PORTRAIT);
+    orientations.push_back(page_orientation(LANDSCAPE));
+    orientations.push_back(page_orientation(PORTRAIT));
     stringstream ss, ss2;
     ss << orientations;
     string s = ss.str();
@@ -79,8 +68,8 @@ TEST(PageOrientationTests, testPageOrientationsInserterOperator)
 TEST(PageOrientationsTests, testAccessOperator)
 {
     page_orientations orientations;
-    orientations.add_orientation(LANDSCAPE);
-    orientations.add_orientation(PORTRAIT);
+    orientations.push_back(page_orientation(LANDSCAPE));
+    orientations.push_back(page_orientation(PORTRAIT));
 
     ASSERT_EQ("Landscape", orientations[0].get_orientation().value());
     ASSERT_EQ("Portrait", orientations[1].get_orientation().value());
@@ -94,8 +83,8 @@ TEST(PageOrientationsTests, testAccessOperator)
 TEST(PageOrientationsTests, testAt)
 {
     page_orientations orientations;
-    orientations.add_orientation(LANDSCAPE);
-    orientations.add_orientation(PORTRAIT);
+    orientations.push_back(page_orientation(LANDSCAPE));
+    orientations.push_back(page_orientation(PORTRAIT));
 
     ASSERT_EQ("Landscape", orientations.at(0).get_orientation().value());
     ASSERT_EQ("Portrait", orientations.at(1).get_orientation().value());

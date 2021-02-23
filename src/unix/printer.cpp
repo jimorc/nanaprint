@@ -452,7 +452,7 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     int orientation = ippGetInteger(orientations, i);
-                    m_orientations.add_orientation(orientation);
+                    m_orientations.push_back(page_orientation(orientation));
                 }
             }
             m_gotOrientations = true;
