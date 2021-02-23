@@ -101,7 +101,7 @@ namespace nanaprint
             build_printer_status();
             m_printerGroup["printerStatus"] << m_printerStatus;
 
-            buildPrinterTypeLabel();
+            build_printer_type_label();
             m_printerGroup["typeLabel"] << m_typeLabel;
 
             buildPrinterType();
@@ -155,7 +155,7 @@ namespace nanaprint
         m_printerStatus.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPrinterTypeLabel()
+    void basic_panel::build_printer_type_label()
     {
         m_typeLabel.create(m_printerGroup);
         m_typeLabel.caption("Type:");
