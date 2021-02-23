@@ -62,44 +62,6 @@ TEST(PrintQualityTests, testInsertionOperator)
     ASSERT_STREQ(u8"High", ssHigh.str().c_str());
     ASSERT_STREQ(u8"Photo", ssPhoto.str().c_str());
 }
-
-// Test PrintQualities::addPrintQuality
-TEST(PrintQualitiesTests, testAddPrintQuality)
-{
-    print_qualities qualities;
-    qualities.push_back(print_quality(FAST));
-    qualities.push_back(print_quality(NORMAL));
-
-    ASSERT_TRUE(qualities.contains_quality(u8"Fast"));
-    ASSERT_TRUE(qualities.contains_quality(u8"Normal"));
-
-    qualities.push_back(print_quality(HIGH));
-
-    ASSERT_TRUE(qualities.contains_quality(u8"High"));
-    ASSERT_TRUE(qualities.contains_quality(u8"Normal"));
-    ASSERT_TRUE(qualities.contains_quality(u8"Fast"));
-}
-
-// Test PrintQualities::getPrintQualities
-TEST(PrintQualitiesTests, testGetPrintQualities)
-{
-    print_qualities printQualities;
-    printQualities.push_back(print_quality(FAST));
-    printQualities.push_back(print_quality(NORMAL));
-    printQualities.push_back(print_quality(HIGH));
-
-    auto qualities = printQualities.get_values();
-    std::vector<std::string> qualitiesAsString;
-    for (auto quality: qualities)
-    {
-        qualitiesAsString.push_back(quality.get_value());
-    }
-    for (auto quality: qualitiesAsString)
-    {
-        ASSERT_TRUE(quality == u8"Fast" || quality == u8"Normal" || quality == u8"High");
-    }
-}
-
 // Test the insertion operator
 TEST(PrintQualitiesTests, testInsertionOperator)
 {
