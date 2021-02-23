@@ -95,7 +95,7 @@ TEST(PrintQualitiesTests, testGetPrintQualities)
     std::vector<std::string> qualitiesAsString;
     for (auto quality: qualities)
     {
-        qualitiesAsString.push_back(quality->get_value());
+        qualitiesAsString.push_back(quality.get_value());
     }
     for (auto quality: qualitiesAsString)
     {

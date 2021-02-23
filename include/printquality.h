@@ -45,10 +45,10 @@ namespace nanaprint
             ~print_qualities() {}
             void addPrintQuality(int quality);
             bool containsPrintQuality(const std::string& quality) const;
-            std::vector<std::shared_ptr<print_quality>> getPrintQualities() const;
+            std::vector<print_quality> getPrintQualities() const;
 
         private:
-            std::vector<std::shared_ptr<print_quality>> m_qualities;
+            std::vector<print_quality> m_qualities;
     };
 
 
