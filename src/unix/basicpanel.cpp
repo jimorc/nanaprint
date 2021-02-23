@@ -107,7 +107,7 @@ namespace nanaprint
             build_printer_type();
             m_printerGroup["printerType"] << m_printerType;
 
-            buildLocationLabel();
+            build_location_label();
             m_printerGroup["locationLabel"] << m_locationLabel;
 
             buildPrinterLocation();
@@ -169,7 +169,7 @@ namespace nanaprint
         m_printerType.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildLocationLabel()
+    void basic_panel::build_location_label()
     {
         m_locationLabel.create(m_printerGroup);
         m_locationLabel.caption(u8"Location:");
