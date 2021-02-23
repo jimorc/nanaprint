@@ -69,7 +69,7 @@ TEST(PrintQualityTests, testInsertionOperator)
 // Test PrintQualities::addPrintQuality
 TEST(PrintQualitiesTests, testAddPrintQuality)
 {
-    PrintQualities qualities;
+    print_qualities qualities;
     qualities.addPrintQuality(FAST);
     qualities.addPrintQuality(NORMAL);
 
@@ -86,7 +86,7 @@ TEST(PrintQualitiesTests, testAddPrintQuality)
 // Test PrintQualities::getPrintQualities
 TEST(PrintQualitiesTests, testGetPrintQualities)
 {
-    PrintQualities printQualities;
+    print_qualities printQualities;
     printQualities.addPrintQuality(FAST);
     printQualities.addPrintQuality(NORMAL);
     printQualities.addPrintQuality(HIGH);
@@ -106,7 +106,7 @@ TEST(PrintQualitiesTests, testGetPrintQualities)
 // Test the insertion operator
 TEST(PrintQualitiesTests, testInsertionOperator)
 {
-    PrintQualities qualities;
+    print_qualities qualities;
     qualities.addPrintQuality(FAST);
     qualities.addPrintQuality(NORMAL);
     qualities.addPrintQuality(PLAIN_NORMAL);

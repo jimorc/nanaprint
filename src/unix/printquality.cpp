@@ -53,12 +53,12 @@ namespace nanaprint
         return os;
     }
 
-    void PrintQualities::addPrintQuality(int quality)
+    void print_qualities::addPrintQuality(int quality)
     {
         m_qualities.insert(make_shared<print_quality>(quality));
     }
 
-    bool PrintQualities::containsPrintQuality(const std::string& quality) const
+    bool print_qualities::containsPrintQuality(const std::string& quality) const
     {
         std::vector<shared_ptr<print_quality>> qualities = getPrintQualities();
         for (auto& qual : qualities)
@@ -71,7 +71,7 @@ namespace nanaprint
         return false;
     }
 
-    std::vector<std::shared_ptr<print_quality>> PrintQualities::getPrintQualities() const
+    std::vector<std::shared_ptr<print_quality>> print_qualities::getPrintQualities() const
     {
         vector<shared_ptr<print_quality>> qualities;
         for (auto quality: m_qualities)
@@ -81,7 +81,7 @@ namespace nanaprint
         return qualities;
     }
 
-    std::ostream& operator<<(std::ostream& os, const PrintQualities& qualities)
+    std::ostream& operator<<(std::ostream& os, const print_qualities& qualities)
     {
         os << "Print Qualities:\n";
         if (qualities.containsPrintQuality(u8"Plain Normal"))
