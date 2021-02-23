@@ -389,7 +389,7 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     const char *mediaType = ippGetString(type, i, NULL);
-                    m_mediaTypes.add_type(mediaType);
+                    m_mediaTypes.push_back(media_type(mediaType));
                 }
             }
             m_gotMediaTypes = true;

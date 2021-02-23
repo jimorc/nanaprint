@@ -35,7 +35,6 @@ namespace nanaprint
     {
         public:
             virtual ~media_types() {}
-            void add_type(const std::string& mediaType);
     };
 
     std::ostream& operator<<(std::ostream& os, const media_types& mType);

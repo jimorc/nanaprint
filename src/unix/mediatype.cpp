@@ -29,11 +29,6 @@ namespace nanaprint
         return os;
     }
 
-    void media_types::add_type(const std::string& mediaType)
-    {
-        push_back(media_type(mediaType));
-    }
-
     std::ostream& operator<<(std::ostream& os, const media_types& mType)
     {
         os << "Media Types:\n";
