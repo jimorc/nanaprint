@@ -55,7 +55,7 @@ namespace nanaprint
             print_qualities& getPrintQualities();
             const std::optional<print_quality>& getDefaultPrintQuality();
             Sides& getSides();
-            const std::optional<Side>& getDefaultSide();
+            const std::optional<side>& getDefaultSide();
 
             std::string get_printer_state() const;
             std::string get_printer_make_and_model();
@@ -118,7 +118,7 @@ namespace nanaprint
             bool m_gotDefaultPrintQuality;
             std::optional<print_quality> m_defaultPrintQuality;
             bool m_gotDefaultSide;
-            std::optional<Side> m_defaultSide;
+            std::optional<side> m_defaultSide;
             bool m_gotDefaultFinishings;
             finishings m_defaultFinishings;
     };

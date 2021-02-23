@@ -100,8 +100,8 @@ namespace nanaprint
         m_printQuality = quality;
     }
 
-    void PrintDialogSettings::set_side(const std::optional<Side>& side)
+    void PrintDialogSettings::set_side(const std::optional<side>& sid)
     {
-        m_side = side;
+        m_side = sid;
     }
 }

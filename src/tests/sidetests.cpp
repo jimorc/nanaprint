@@ -9,9 +9,9 @@ using namespace std;
 // Test ctor
 TEST(SideTests, testConstructor)
 {
-    Side oneSide(CUPS_SIDES_ONE_SIDED);
-    Side twoSidesP(CUPS_SIDES_TWO_SIDED_PORTRAIT);
-    Side twoSidesL(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
+    side oneSide(CUPS_SIDES_ONE_SIDED);
+    side twoSidesP(CUPS_SIDES_TWO_SIDED_PORTRAIT);
+    side twoSidesL(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
 
     ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, oneSide.getSide().c_str());
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, twoSidesP.getSide().c_str());
@@ -21,8 +21,8 @@ TEST(SideTests, testConstructor)
 // Test insertion operator
 TEST(SideTests, testInsertionOperator)
 {
-    Side oneSide(CUPS_SIDES_ONE_SIDED);
-    Side twoSidesP(CUPS_SIDES_TWO_SIDED_PORTRAIT);
+    side oneSide(CUPS_SIDES_ONE_SIDED);
+    side twoSidesP(CUPS_SIDES_TWO_SIDED_PORTRAIT);
     stringstream ss1, ss2;
 
     ss1 << oneSide;

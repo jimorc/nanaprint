@@ -21,18 +21,18 @@
 
 namespace nanaprint
 {
-    class Side
+    class side
     {
         public:
-            Side();
-            Side(const std::string& side);
-            virtual ~Side() {}
+            side();
+            side(const std::string& side);
+            virtual ~side() {}
             const std::string& getSide() const { return m_side; }
         private:
             std::string m_side;
     };
 
-    std::ostream& operator<<(std::ostream& os, const Side& side);
+    std::ostream& operator<<(std::ostream& os, const side& side);
 
     class Sides
     {
@@ -40,9 +40,9 @@ namespace nanaprint
             Sides() {}
             virtual ~Sides() {}
             void addSide(const std::string& side);
-            const std::vector<std::shared_ptr<Side>> getSides() const;
+            const std::vector<std::shared_ptr<side>> getSides() const;
         private:
-            std::set<std::shared_ptr<Side>> m_sides;
+            std::set<std::shared_ptr<side>> m_sides;
     };
 
     std::ostream& operator<<(std::ostream& os, const Sides& side);

@@ -18,30 +18,30 @@ using namespace std;
 
 namespace nanaprint
 {
-    Side::Side() : m_side(u8"None")
+    side::side() : m_side(u8"None")
     {
 
     }
     
-    Side::Side(const std::string& side) : m_side(side)
+    side::side(const std::string& sid) : m_side(sid)
     {
 
     }
 
-    std::ostream& operator<<(std::ostream& os, const Side& side)
+    std::ostream& operator<<(std::ostream& os, const side& side)
     {
         os << side.getSide();
         return os;
     }
 
-    void Sides::addSide(const std::string& side)
+    void Sides::addSide(const std::string& sid)
     {
-        m_sides.insert(make_shared<Side>(Side(side)));
+        m_sides.insert(make_shared<side>(side(sid)));
     }
 
-    const std::vector<std::shared_ptr<Side>> Sides::getSides() const
+    const std::vector<std::shared_ptr<side>> Sides::getSides() const
     {
-        vector<shared_ptr<Side>> sides;
+        vector<shared_ptr<side>> sides;
         for (auto& side: m_sides)
         {
             sides.push_back(side);
