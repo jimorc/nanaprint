@@ -19,7 +19,7 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-    PrintDialogSettings::PrintDialogSettings(PrintSettings& settings)
+    PrintDialogSettings::PrintDialogSettings(print_settings& settings)
         :   m_settings(settings),
             m_printer(settings.get_printer()), m_borderless(settings.get_borderless()),
             m_mediaSize(settings.get_media_size()), m_finishings(settings.get_finishings()),

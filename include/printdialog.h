@@ -29,12 +29,12 @@ namespace nanaprint
     class PrintDialog : nana::form
     {
         public:
-            PrintDialog(nana::form& parent, PrintSettings& settings);
+            PrintDialog(nana::form& parent, print_settings& settings);
             virtual ~PrintDialog() {}
             void run();
         private:
             void buildBasicTab();
-            PrintSettings& m_settings;
+            print_settings& m_settings;
             PrintDialogSettings m_dialogSettings;
 
             nana::place m_layout;

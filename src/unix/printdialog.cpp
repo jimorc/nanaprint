@@ -27,7 +27,7 @@ namespace nanaprint
     constexpr int MINIMUMCOPIES = 1;
     constexpr int MAXIMUMCOPIES = 100;
 
-    PrintDialog::PrintDialog(form& parent, PrintSettings& settings)
+    PrintDialog::PrintDialog(form& parent, print_settings& settings)
         : form(parent, {750, 500}, appear::decorate<>()), m_settings(settings),
              m_dialogSettings(m_settings), m_layout(*this), m_basic(m_settings, m_dialogSettings),
              m_tabbar(*this)

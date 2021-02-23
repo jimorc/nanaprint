@@ -19,7 +19,7 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-    PrintSettings::PrintSettings()
+    print_settings::print_settings()
         : m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
             m_mediaType("None"), m_borderless(false)
     {
@@ -27,7 +27,7 @@ namespace nanaprint
         set_default_settings(m_printer);
     }
 
-    void PrintSettings::set_printer(int printer)
+    void print_settings::set_printer(int printer)
     {
         if(printer == m_printer)
             return;
@@ -35,7 +35,7 @@ namespace nanaprint
     }
 
     // get the index of the default printer, or return 0 if there is no default
-    int PrintSettings::get_default_printer_number() const
+    int print_settings::get_default_printer_number() const
     {
         int printerNum = 0;
         auto printers = m_printers.getPrinters();
@@ -50,7 +50,7 @@ namespace nanaprint
     }
 
     // fill the print settings with the printer's defaults
-    void PrintSettings::set_default_settings(int printerNum)
+    void print_settings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
         auto printers = m_printers.getPrinters();
@@ -66,52 +66,52 @@ namespace nanaprint
         m_canPrintMultipleCopies = printers[m_printer]->canPrintMultipleCopies();
     }
 
-    void PrintSettings::set_borderless(bool borderless)
+    void print_settings::set_borderless(bool borderless)
     {
         m_borderless = borderless;
     }
 
-    void PrintSettings::set_media_size(const std::optional<media_size>& mediaSize)
+    void print_settings::set_media_size(const std::optional<media_size>& mediaSize)
     {
         m_mediaSize = mediaSize;
     }
 
-    void PrintSettings::set_finishings(const finishings finishings)
+    void print_settings::set_finishings(const finishings finishings)
     {
         m_finishings = finishings;
     }
 
-    void PrintSettings::set_media_source(const std::optional<media_source>& source)
+    void print_settings::set_media_source(const std::optional<media_source>& source)
     {
         m_mediaSource = source;
     }
 
-    void PrintSettings::set_media_source(const std::string& source)
+    void print_settings::set_media_source(const std::string& source)
     {
         m_mediaSource = source;
     }
     
-    void PrintSettings::set_media_type(const std::optional<media_type>& mediaType)
+    void print_settings::set_media_type(const std::optional<media_type>& mediaType)
     {
         m_mediaType = mediaType;
     }
 
-    void PrintSettings::set_page_orientation(const optional<page_orientation>& orientation)
+    void print_settings::set_page_orientation(const optional<page_orientation>& orientation)
     {
         m_orientation = orientation;
     }
 
-    void PrintSettings::set_color_mode(const std::optional<color_mode>& colorMode)
+    void print_settings::set_color_mode(const std::optional<color_mode>& colorMode)
     {
         m_colorMode = colorMode;
     }
 
-    void PrintSettings::set_print_quality(const std::optional<print_quality>& quality)
+    void print_settings::set_print_quality(const std::optional<print_quality>& quality)
     {
         m_printQuality = quality;
     }
 
-    void PrintSettings::set_side(const std::optional<side>& sid)
+    void print_settings::set_side(const std::optional<side>& sid)
     {
         m_side = sid;
     }

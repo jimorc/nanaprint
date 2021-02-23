@@ -26,14 +26,14 @@ namespace nanaprint
     class PrintOperation
     {
         public:
-            PrintOperation(nana::form& parent, PrintSettings& settings);
+            PrintOperation(nana::form& parent, print_settings& settings);
             virtual ~PrintOperation() {}
             DialogStatus run_page_setup();
             void run_print();
 
         private:
             nana::form& m_parentForm;
-            PrintSettings& m_printSettings;
+            print_settings& m_printSettings;
     };
 }
 #endif      // NANAPRINT_PRINTOPERATION_H

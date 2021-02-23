@@ -29,7 +29,7 @@ namespace nanaprint
     class PageSetup : public nana::form
     {
         public:
-            PageSetup(nana::form& parent, PrintSettings& settings);
+            PageSetup(nana::form& parent, print_settings& settings);
             virtual ~PageSetup() {}
             nanaprint::DialogStatus run();
         private:
@@ -71,8 +71,7 @@ namespace nanaprint
             void paper_source_selected(const nana::arg_combox &ar_cbx);
             void apply_clicked();
 
-//            Printers m_printers;
-            PrintSettings& m_settings;
+            print_settings& m_settings;
             size_t m_printer;
             nana::place m_layout;
             nana::group m_printerGroup;

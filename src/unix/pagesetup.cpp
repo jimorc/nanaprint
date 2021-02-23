@@ -23,7 +23,7 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-    PageSetup::PageSetup(nana::form& parent, PrintSettings& settings) 
+    PageSetup::PageSetup(nana::form& parent, print_settings& settings) 
         : form(parent, {500, 500}, appear::decorate<>()), m_settings(settings),
             m_printer(m_settings.get_printer()), m_layout(*this),
             m_printerGroup(*this), m_printerNameLabel(m_printerGroup), m_printerCombox(m_printerGroup),
