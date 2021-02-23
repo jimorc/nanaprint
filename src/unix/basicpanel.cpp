@@ -30,10 +30,10 @@ namespace nanaprint
     constexpr int MINIMUMCOPIES = 1;
     constexpr int MAXIMUMCOPIES = 100;
 
-    BasicPanel::BasicPanel(print_settings& settings, PrintDialogSettings& dialogSettings)
+    basic_panel::basic_panel(print_settings& settings, PrintDialogSettings& dialogSettings)
         : m_settings(settings), m_dialogSettings(dialogSettings) {}
 
-    bool BasicPanel::create(nana::form& parent)
+    bool basic_panel::create(nana::form& parent)
     {
         panel::create(parent);
         m_basicLayout.bind(*this);
@@ -49,7 +49,7 @@ namespace nanaprint
         return true;
     }
 
-    void BasicPanel::buildBasicColumn1()
+    void basic_panel::buildBasicColumn1()
     {
         m_basicColumn1.create(*this);
         m_column1Layout.bind(m_basicColumn1);
@@ -62,7 +62,7 @@ namespace nanaprint
         m_column1Layout["range"] << m_rangeGroup;
     }
 
-    void BasicPanel::buildBasicColumn2()
+    void basic_panel::buildBasicColumn2()
     {
         m_basicColumn2.create(*this);
         m_column2Layout.bind(m_basicColumn2);
@@ -75,7 +75,7 @@ namespace nanaprint
         m_column2Layout["misc"] << m_miscGroup;
     }
 
-    void BasicPanel::buildPrinterGroup()
+    void basic_panel::buildPrinterGroup()
     {
         m_printerGroup.create(m_basicColumn1);
         m_printerGroup.caption(u8"Printer");
@@ -120,13 +120,13 @@ namespace nanaprint
             m_printerGroup["printerComment"] << m_printerComment;
     }
 
-    void BasicPanel::buildPrinterLabel()
+    void basic_panel::buildPrinterLabel()
     {
         m_printerLabel.create(m_printerGroup);
         m_printerLabel.caption(u8"Printer:");
     }
 
-    void BasicPanel::buildPrinterCombox()
+    void basic_panel::buildPrinterCombox()
     {
         m_printerCombox.create(m_printerGroup);
         m_printerCombox.editable(false);
@@ -141,63 +141,63 @@ namespace nanaprint
         });
    }
 
-    void BasicPanel::buildStatusLabel()
+    void basic_panel::buildStatusLabel()
     {
         m_statusLabel.create(m_printerGroup);
         m_statusLabel.caption(u8"Status:");
         m_statusLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPrinterStatus()
+    void basic_panel::buildPrinterStatus()
     {
         // Caption is set when printer is selected.
         m_printerStatus.create(m_printerGroup);
         m_printerStatus.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPrinterTypeLabel()
+    void basic_panel::buildPrinterTypeLabel()
     {
         m_typeLabel.create(m_printerGroup);
         m_typeLabel.caption("Type:");
         m_typeLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPrinterType()
+    void basic_panel::buildPrinterType()
     {
         // Caption is set when printer is selected.
         m_printerType.create(m_printerGroup);
         m_printerType.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildLocationLabel()
+    void basic_panel::buildLocationLabel()
     {
         m_locationLabel.create(m_printerGroup);
         m_locationLabel.caption(u8"Location:");
         m_locationLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPrinterLocation()
+    void basic_panel::buildPrinterLocation()
     {
         // Caption is set when printer is selected.
         m_printerLocation.create(m_printerGroup);
         m_printerLocation.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildCommentLabel()
+    void basic_panel::buildCommentLabel()
     {
         m_commentLabel.create(m_printerGroup);
         m_commentLabel.caption(u8"Comment:");
         m_commentLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPrinterComment()
+    void basic_panel::buildPrinterComment()
     {
         // Caption is set when printer is selected.
         m_printerComment.create(m_printerGroup);
         m_printerComment.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPaperGroup()
+    void basic_panel::buildPaperGroup()
     {
         m_paperGroup.create(m_basicColumn2);
         m_paperGroup.caption(u8"Paper");
@@ -235,49 +235,49 @@ namespace nanaprint
         m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
     }
 
-    void BasicPanel::buildBorderlessCheckbox()
+    void basic_panel::buildBorderlessCheckbox()
     {
         m_borderlessCheckbox.create(m_paperGroup);
         m_borderlessCheckbox.caption(u8"Borderless papers");
         // checkbox is enabled/disabled when printer is selected.
     }
 
-    void BasicPanel::buildMediaTypeLabel()
+    void basic_panel::buildMediaTypeLabel()
     {
         m_mediaTypeLabel.create(m_paperGroup);
         m_mediaTypeLabel.caption(u8"Media Type:");
         m_mediaTypeLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildMediaTypeCombox()
+    void basic_panel::buildMediaTypeCombox()
     {
         m_mediaTypeCombox.create(m_paperGroup);
         m_mediaTypeCombox.editable(false);
         // Media types loaded when printer is selected.
     }
 
-    void BasicPanel::buildPrintQualityLabel()
+    void basic_panel::buildPrintQualityLabel()
     {
         m_printQualityLabel.create(m_paperGroup);
         m_printQualityLabel.caption(u8"Print Quality:");
         m_printQualityLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPrintQualityCombox()
+    void basic_panel::buildPrintQualityCombox()
     {
         m_printQualityCombox.create(m_paperGroup);
         m_printQualityCombox.editable(false);
         // Print qualitys loaded when printer is selected
     }
 
-    void BasicPanel::buildPaperSizeLabel()
+    void basic_panel::buildPaperSizeLabel()
     {
         m_paperSizeLabel.create(m_paperGroup);
         m_paperSizeLabel.caption(u8"Paper Size:");
         m_paperSizeLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildPaperSizeCombox()
+    void basic_panel::buildPaperSizeCombox()
     {
         m_paperSizeCombox.create(m_paperGroup);
         m_paperSizeCombox.editable(false);
@@ -285,7 +285,7 @@ namespace nanaprint
     }
 
 
-    void BasicPanel::printer_selected(size_t pos)
+    void basic_panel::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
         auto printers = m_settings.get_printers().getPrinters();
@@ -295,7 +295,7 @@ namespace nanaprint
         updateMiscGroup(*printer);
     }
 
-    void BasicPanel::updatePrinterGroup(Printer& printer)
+    void basic_panel::updatePrinterGroup(Printer& printer)
     {
         m_printerStatus.caption(printer.get_printer_state());
         m_printerType.caption(printer.get_printer_make_and_model());
@@ -303,7 +303,7 @@ namespace nanaprint
         m_printerComment.caption(printer.get_printer_info());
     }
 
-    void BasicPanel::updatePaperGroup(Printer& printer)
+    void basic_panel::updatePaperGroup(Printer& printer)
     {
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
         updateMediaTypeCombox(printer);
@@ -311,7 +311,7 @@ namespace nanaprint
         updatePaperSizeCombox(printer);
     }
 
-    void BasicPanel::updateMediaTypeCombox(Printer& printer)
+    void basic_panel::updateMediaTypeCombox(Printer& printer)
     {
         m_mediaTypeCombox.clear();
         auto mediaTypes = printer.getMediaTypes().get_values();
@@ -335,7 +335,7 @@ namespace nanaprint
         }
     }
 
-    void BasicPanel::updatePrintQualityCombox(Printer& printer)
+    void basic_panel::updatePrintQualityCombox(Printer& printer)
     {
         m_printQualityCombox.clear();
         auto qualities = printer.getPrintQualities().get_values();
@@ -358,7 +358,7 @@ namespace nanaprint
         }
     }
 
-    void BasicPanel::updatePaperSizeCombox(Printer& printer)
+    void basic_panel::updatePaperSizeCombox(Printer& printer)
     {
         m_paperSizeCombox.clear();
 
@@ -396,13 +396,13 @@ namespace nanaprint
         }
     }
 
-    void BasicPanel::updateMiscGroup(Printer& printer)
+    void basic_panel::updateMiscGroup(Printer& printer)
     {
         updateOrientationGroup(printer);
         update2SidedCombox(printer);
     }
 
-    void BasicPanel::updateOrientationGroup(Printer& printer)
+    void basic_panel::updateOrientationGroup(Printer& printer)
     {
         disableOrientationCheckboxes();
         uncheckOrientationCheckboxes();
@@ -424,7 +424,7 @@ namespace nanaprint
         
     }
 
-    void BasicPanel::enableOrientationCheckbox(const page_orientation& orientation)
+    void basic_panel::enableOrientationCheckbox(const page_orientation& orientation)
     {
         auto numOrientation = orientation.get_orientation_number();
         switch (numOrientation)
@@ -444,7 +444,7 @@ namespace nanaprint
         }
     }
 
-    void BasicPanel::disableOrientationCheckboxes()
+    void basic_panel::disableOrientationCheckboxes()
     {
         m_portrait.enabled(false);
         m_landscape.enabled(false);
@@ -454,7 +454,7 @@ namespace nanaprint
 
     // Argument must be one of Portrait, Landscape, Reverse Portrait, or Reverse Landscape.
     // Check this before calling this method.
-    void BasicPanel::selectOrientationCheckbox(const page_orientation& orientation)
+    void basic_panel::selectOrientationCheckbox(const page_orientation& orientation)
     {
         auto numOrientation = orientation.get_orientation_number();
         switch (numOrientation)
@@ -474,7 +474,7 @@ namespace nanaprint
         }
     }
 
-    void BasicPanel::uncheckOrientationCheckboxes()
+    void basic_panel::uncheckOrientationCheckboxes()
     {
         m_portrait.check(false);
         m_landscape.check(false);
@@ -482,7 +482,7 @@ namespace nanaprint
         m_revPortrait.check(false);
     }
 
-    void BasicPanel::update2SidedCombox(Printer& printer)
+    void basic_panel::update2SidedCombox(Printer& printer)
     {
         m_2SidedCombox.clear();
         auto sides = printer.getSides().get_values();
@@ -504,7 +504,7 @@ namespace nanaprint
         
     }
 
-    void BasicPanel::buildRangeGroup()
+    void basic_panel::buildRangeGroup()
     {
         m_rangeGroup.create(m_basicColumn1);
         m_rangeLayout.bind(m_rangeGroup);
@@ -529,7 +529,7 @@ namespace nanaprint
         m_rangeLayout["pagesList"] << m_pagesBox;
     }
 
-    void BasicPanel::buildAllPagesCheckbox()
+    void basic_panel::buildAllPagesCheckbox()
     {
         m_allPages.create(m_rangeGroup);
         m_allPages.caption(u8"All Pages");
@@ -537,7 +537,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_allPages);
     }
 
-    void BasicPanel::buildCurrentPageCheckbox()
+    void basic_panel::buildCurrentPageCheckbox()
     {
         m_currentPage.create(m_rangeGroup);
         m_currentPage.caption(u8"Current Page");
@@ -545,7 +545,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_currentPage);
     }
 
-    void BasicPanel::buildSelectionCheckbox()
+    void basic_panel::buildSelectionCheckbox()
     {
         m_selection.create(m_rangeGroup);
         m_selection.caption(u8"Selection");
@@ -553,7 +553,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_selection);
     }
 
-    void BasicPanel::buildPagesCheckbox()
+    void basic_panel::buildPagesCheckbox()
     {
         m_pages.create(m_rangeGroup);
         m_pages.caption(u8"Pages:");
@@ -561,7 +561,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_pages);
     }
 
-    void BasicPanel::buildPagesBox()
+    void basic_panel::buildPagesBox()
     {
         m_pagesBox.create(m_rangeGroup);
         m_pagesBox.editable(true);
@@ -569,7 +569,7 @@ namespace nanaprint
         m_pagesBox.indention(false);
     }
 
-    void BasicPanel::buildMiscGroup()
+    void basic_panel::buildMiscGroup()
     {
         m_miscGroup.create(m_basicColumn2);
 
@@ -602,7 +602,7 @@ namespace nanaprint
         m_miscGroup["twosidedCombox"] << m_2SidedCombox;
     }
 
-    void BasicPanel::buildOrientationGroup()
+    void basic_panel::buildOrientationGroup()
     {
         m_orientationGroup.create(m_miscGroup);
         m_orientationGroup.caption(u8"Orientation");
@@ -627,42 +627,42 @@ namespace nanaprint
         m_orientationGroup["landscapeReverse"] << m_revLandscape;
     }
 
-    void BasicPanel::buildPortraitCheckbox()
+    void basic_panel::buildPortraitCheckbox()
     {
         m_portrait.create(m_orientationGroup);
         m_portrait.caption(u8"Portrait");
         m_orientationRadioGroup.add(m_portrait);
     }
 
-    void BasicPanel::buildLandscapeCheckbox()
+    void basic_panel::buildLandscapeCheckbox()
     {
         m_landscape.create(m_orientationGroup);
         m_landscape.caption(u8"Landscape");
         m_orientationRadioGroup.add(m_landscape);
     }
 
-    void BasicPanel::buildReversePortraitCheckbox()
+    void basic_panel::buildReversePortraitCheckbox()
     {
         m_revPortrait.create(m_orientationGroup);
         m_revPortrait.caption(u8"Reverse Portrait");
         m_orientationRadioGroup.add(m_revPortrait);
     }
 
-    void BasicPanel::buildReverseLandscapeCheckbox()
+    void basic_panel::buildReverseLandscapeCheckbox()
     {
         m_revLandscape.create(m_orientationGroup);
         m_revLandscape.caption(u8"Reverse Landscape");
         m_orientationRadioGroup.add(m_revLandscape);
     }
 
-    void BasicPanel::buildCopiesLabel()
+    void basic_panel::buildCopiesLabel()
     {
         m_copiesLabel.create(m_miscGroup);
         m_copiesLabel.caption(u8"Copies:");
         m_copiesLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::buildCopiesSpinbox()
+    void basic_panel::buildCopiesSpinbox()
     {
         m_copiesSpinbox.create(m_miscGroup);
         m_copiesSpinbox.range(MINIMUMCOPIES, MAXIMUMCOPIES, 1);
@@ -679,34 +679,34 @@ namespace nanaprint
         });
     }
 
-    void BasicPanel::buildCollateCheckbox()
+    void basic_panel::buildCollateCheckbox()
     {
         m_collateCheckbox.create(m_miscGroup);
         m_collateCheckbox.caption(u8"Collate");
         m_collateCheckbox.enabled(false);
     }
 
-    void BasicPanel::buildReverseOrderCheckbox()
+    void basic_panel::buildReverseOrderCheckbox()
     {
         m_reverseOrderCheckbox.create(m_miscGroup);
         m_reverseOrderCheckbox.caption(u8"Reverse Order");
     }
 
-    void BasicPanel::build2SidedLabel()
+    void basic_panel::build2SidedLabel()
     {
         m_2SidedLabel.create(m_miscGroup);
         m_2SidedLabel.caption(u8"2-sided/Booklet:");
         m_2SidedLabel.text_align(align::left, align_v::center);
     }
 
-    void BasicPanel::build2SidedCombox()
+    void basic_panel::build2SidedCombox()
     {
         m_2SidedCombox.create(m_miscGroup);
         m_2SidedCombox.editable(false);
         // contents of combox added when a printer is selected.
     }
 
-    void BasicPanel::validateCopies()
+    void basic_panel::validateCopies()
     {
         // This code is needed because of a bug in nana::spinbox. If a value is entered in
         // the spinbox's edit box that is larger than the maximum value, or smaller than

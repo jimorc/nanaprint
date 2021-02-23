@@ -32,11 +32,11 @@
 
 namespace nanaprint
 {
-    class BasicPanel : public nana::panel<false>
+    class basic_panel : public nana::panel<false>
     {
         public:
-            BasicPanel(print_settings& settings, PrintDialogSettings& dialogSettings);
-            virtual ~BasicPanel() {}
+            basic_panel(print_settings& settings, PrintDialogSettings& dialogSettings);
+            virtual ~basic_panel() {}
             bool create(nana::form& parent);
 
         private:

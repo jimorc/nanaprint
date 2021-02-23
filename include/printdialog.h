@@ -39,7 +39,7 @@ namespace nanaprint
 
             nana::place m_layout;
             nana::tabbar<std::string> m_tabbar;
-            BasicPanel m_basic;
+            basic_panel m_basic;
     };
 }
 
