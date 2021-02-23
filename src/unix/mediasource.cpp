@@ -17,14 +17,11 @@ using namespace std;
 
 namespace nanaprint
 {
-    media_source::media_source(const string& source)
-    {
-        m_source = source;
-    }
+    media_source::media_source(const string& source) : nanaprint_value(source) {}
 
     std::ostream& operator<<(std::ostream& os, const media_source& source)
     {
-        os << "    " << source.get_source() << '\n';
+        os << "    " << source.get_value() << '\n';
         return os;
     }
 
@@ -77,7 +74,7 @@ namespace nanaprint
         {
             for (auto source: srcs)
             {
-                os << "    " << source.get_source() << '\n';
+                os << "    " << source.get_value() << '\n';
             }
         }
         return os;

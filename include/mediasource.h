@@ -18,18 +18,15 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include "values.h"
 
 namespace nanaprint
 {
-    class media_source
+    class media_source : public nanaprint_value<std::string>
     {
         public:
             media_source(const std::string& source);
             virtual ~media_source() {}
-            const std::string& get_source() const { return m_source; }
-
-        private:
-            std::string m_source;
     };
 
     std::ostream& operator<<(std::ostream& os, const media_source& source);
