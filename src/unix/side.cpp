@@ -31,17 +31,12 @@ namespace nanaprint
 
     void sides::addSide(const std::string& sid)
     {
-        m_sides.insert(make_shared<side>(side(sid)));
+        m_sides.push_back(side(sid));
     }
 
-    const std::vector<std::shared_ptr<side>> sides::getSides() const
+    const std::vector<side>& sides::getSides() const
     {
-        vector<shared_ptr<side>> sides;
-        for (auto& side: m_sides)
-        {
-            sides.push_back(side);
-        }
-        return sides;
+        return m_sides;
     }
 
     std::ostream& operator<<(std::ostream& os, const sides& sides)
@@ -56,7 +51,7 @@ namespace nanaprint
         {
             for (auto& side: sids)
             {
-                os << "    " << *side << '\n';
+                os << "    " << side << '\n';
             }
         }
         return os;

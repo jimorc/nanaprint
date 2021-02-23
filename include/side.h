@@ -14,7 +14,6 @@
  */
 
 #include <string>
-#include <set>
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -37,9 +36,9 @@ namespace nanaprint
             sides() {}
             virtual ~sides() {}
             void addSide(const std::string& side);
-            const std::vector<std::shared_ptr<side>> getSides() const;
+            const std::vector<side>& getSides() const;
         private:
-            std::set<std::shared_ptr<side>> m_sides;
+            std::vector<side> m_sides;
     };
 
     std::ostream& operator<<(std::ostream& os, const sides& sids);
