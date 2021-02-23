@@ -46,7 +46,7 @@ namespace nanaprint
             void build_printer_group();
             void build_printer_label();
             void build_printer_combox();
-            void buildStatusLabel();
+            void build_printer_status_label();
             void buildPrinterStatus();
             void buildPrinterTypeLabel();
             void buildPrinterType();

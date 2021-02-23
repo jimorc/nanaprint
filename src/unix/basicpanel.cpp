@@ -95,7 +95,7 @@ namespace nanaprint
             build_printer_combox();
             m_printerGroup["printerCombox"] << m_printerCombox;
 
-            buildStatusLabel();
+            build_printer_status_label();
             m_printerGroup["statusLabel"] << m_statusLabel;
 
             buildPrinterStatus();
@@ -141,7 +141,7 @@ namespace nanaprint
         });
    }
 
-    void basic_panel::buildStatusLabel()
+    void basic_panel::build_printer_status_label()
     {
         m_statusLabel.create(m_printerGroup);
         m_statusLabel.caption(u8"Status:");
