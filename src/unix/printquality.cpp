@@ -17,11 +17,6 @@ using namespace std;
 
 namespace nanaprint
 {
-    print_quality::print_quality() : nanaprint_value(u8"None")
-    {
-
-    }
-
     print_quality::print_quality(const int quality) : nanaprint_value("")
     {
         switch (quality)
@@ -53,11 +48,6 @@ namespace nanaprint
         return os;
     }
 
-    void print_qualities::addPrintQuality(int quality)
-    {
-        push_back(print_quality(quality));
-    }
-
     bool print_qualities::containsPrintQuality(const std::string& quality) const
     {
         vector<print_quality> qualities = get_values();
@@ -73,10 +63,17 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, print_qualities& qualities)
     {
-        os << "Print Qualities:\n";
-        for (const auto& quality : qualities)
+        os << u8"Print Qualities:\n";
+        if (qualities.size() == 0)
         {
-           os << "    " << quality.get_value() << '\n';
+            os << u8"    None\n";
+        }
+        else
+        {
+            for (const auto& quality : qualities)
+            {
+            os << "    " << quality.get_value() << '\n';
+            }
         }
         return os;
     }

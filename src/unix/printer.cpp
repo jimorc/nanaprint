@@ -579,7 +579,7 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     int quality = ippGetInteger(qualities, i);
-                    m_printQualities.addPrintQuality(quality);
+                    m_printQualities.push_back(print_quality(quality));
                 }
             }
             m_gotPrintQualities = true;

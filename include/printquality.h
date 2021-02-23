@@ -31,7 +31,6 @@ namespace nanaprint
     class print_quality : public nanaprint_value<std::string>
     {
         public:
-            print_quality();
             print_quality(const int quality);
             virtual ~print_quality() {}
     };
@@ -43,7 +42,6 @@ namespace nanaprint
         public:
             print_qualities() {}
             ~print_qualities() {}
-            void addPrintQuality(int quality);
             bool containsPrintQuality(const std::string& quality) const;
     };
 

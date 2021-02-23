@@ -9,15 +9,12 @@ using namespace std;
 // Test constructor
 TEST(PrintQualityTests, testCtor)
 {
-    print_quality none;
-
     print_quality plainNormal(PLAIN_NORMAL);
     print_quality fast(FAST);
     print_quality normal(NORMAL);
     print_quality high(HIGH);
     print_quality photo(PHOTO);
 
-    ASSERT_STREQ(u8"None", none.get_value().c_str());
     ASSERT_STREQ(u8"Plain Normal", plainNormal.get_value().c_str());
     ASSERT_STREQ(u8"Fast", fast.get_value().c_str());
     ASSERT_STREQ(u8"Normal", normal.get_value().c_str());
@@ -70,13 +67,13 @@ TEST(PrintQualityTests, testInsertionOperator)
 TEST(PrintQualitiesTests, testAddPrintQuality)
 {
     print_qualities qualities;
-    qualities.addPrintQuality(FAST);
-    qualities.addPrintQuality(NORMAL);
+    qualities.push_back(print_quality(FAST));
+    qualities.push_back(print_quality(NORMAL));
 
     ASSERT_TRUE(qualities.containsPrintQuality(u8"Fast"));
     ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
 
-    qualities.addPrintQuality(HIGH);
+    qualities.push_back(print_quality(HIGH));
 
     ASSERT_TRUE(qualities.containsPrintQuality(u8"High"));
     ASSERT_TRUE(qualities.containsPrintQuality(u8"Normal"));
@@ -87,9 +84,9 @@ TEST(PrintQualitiesTests, testAddPrintQuality)
 TEST(PrintQualitiesTests, testGetPrintQualities)
 {
     print_qualities printQualities;
-    printQualities.addPrintQuality(FAST);
-    printQualities.addPrintQuality(NORMAL);
-    printQualities.addPrintQuality(HIGH);
+    printQualities.push_back(print_quality(FAST));
+    printQualities.push_back(print_quality(NORMAL));
+    printQualities.push_back(print_quality(HIGH));
 
     auto qualities = printQualities.get_values();
     std::vector<std::string> qualitiesAsString;
@@ -107,14 +104,19 @@ TEST(PrintQualitiesTests, testGetPrintQualities)
 TEST(PrintQualitiesTests, testInsertionOperator)
 {
     print_qualities qualities;
-    qualities.addPrintQuality(FAST);
-    qualities.addPrintQuality(NORMAL);
-    qualities.addPrintQuality(PLAIN_NORMAL);
-    qualities.addPrintQuality(PHOTO);
-    qualities.addPrintQuality(HIGH);
+    qualities.push_back(print_quality(FAST));
+    qualities.push_back(print_quality(NORMAL));
+    qualities.push_back(print_quality(PLAIN_NORMAL));
+    qualities.push_back(print_quality(PHOTO));
+    qualities.push_back(print_quality(HIGH));
     
     stringstream ss;
     ss << qualities;
     ASSERT_STREQ(u8"Print Qualities:\n    Fast\n    Normal\n    Plain Normal\n"
         "    Photo\n    High\n", ss.str().c_str());
+
+    print_qualities q2;
+    stringstream ss2;
+    ss2 << q2;
+    ASSERT_STREQ(u8"Print Qualities:\n    None\n", ss2.str().c_str());
 }
