@@ -48,7 +48,7 @@ namespace nanaprint
             std::vector<std::shared_ptr<print_quality>> getPrintQualities() const;
 
         private:
-            std::set<std::shared_ptr<print_quality>> m_qualities;
+            std::vector<std::shared_ptr<print_quality>> m_qualities;
     };
 
 

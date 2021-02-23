@@ -55,7 +55,7 @@ namespace nanaprint
 
     void print_qualities::addPrintQuality(int quality)
     {
-        m_qualities.insert(make_shared<print_quality>(quality));
+        m_qualities.push_back(make_shared<print_quality>(quality));
     }
 
     bool print_qualities::containsPrintQuality(const std::string& quality) const
@@ -73,12 +73,7 @@ namespace nanaprint
 
     std::vector<std::shared_ptr<print_quality>> print_qualities::getPrintQualities() const
     {
-        vector<shared_ptr<print_quality>> qualities;
-        for (auto quality: m_qualities)
-        {
-            qualities.push_back(quality);
-        }
-        return qualities;
+        return m_qualities;
     }
 
     std::ostream& operator<<(std::ostream& os, const print_qualities& qualities)
