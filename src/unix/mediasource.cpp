@@ -25,11 +25,6 @@ namespace nanaprint
         return os;
     }
 
-    void media_sources::add_source(const std::string& source)
-    {
-        push_back(media_source(source));
-    }
-
     std::ostream& operator<<(std::ostream& os, const media_sources& sources)
     {
         os << "Media Sources:\n";

@@ -25,29 +25,13 @@ TEST(MediaSourceTests, testInsertionOperator)
     ASSERT_STREQ(u8"    Tray 1\n", ss1.str().c_str());
 } 
 
-// Test MediaSources::addSource
-TEST(MediaSourcesTests, testAddSource)
-{
-    media_sources sources;
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
-
-    auto srcs = sources.get_values();
-
-    ASSERT_EQ(3, srcs.size());
-    ASSERT_STREQ(u8"Tray 1", srcs[0].get_value().c_str());
-    ASSERT_STREQ(u8"Tray 2", srcs[1].get_value().c_str());
-    ASSERT_STREQ(u8"Manual Feed Tray", srcs[2].get_value().c_str());
-} 
-
 // Test MediaSources insertion operator
 TEST(MediaSourcesTests, testInsertionOperator)
 {
     media_sources sources, sources2;
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
+    sources.push_back(media_source(u8"Tray 1"));
+    sources.push_back(media_source(u8"Tray 2"));
+    sources.push_back(media_source(u8"Manual Feed Tray"));
 
     stringstream ss, ss2;
     ss << sources;
@@ -61,9 +45,9 @@ TEST(MediaSourcesTests, testInsertionOperator)
 TEST(MediaSourcesTests, testAccessOperator)
 {
     media_sources sources;
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
+    sources.push_back(media_source(u8"Tray 1"));
+    sources.push_back(media_source(u8"Tray 2"));
+    sources.push_back(media_source(u8"Manual Feed Tray"));
 
     ASSERT_EQ(u8"Tray 1", sources[0].get_value());
     ASSERT_EQ(u8"Tray 2", sources[1].get_value());
@@ -79,9 +63,9 @@ TEST(MediaSourcesTests, testAccessOperator)
 TEST(media_sources, testAt)
 {
     media_sources sources;
-    sources.add_source(u8"Tray 1");
-    sources.add_source(u8"Tray 2");
-    sources.add_source(u8"Manual Feed Tray");
+    sources.push_back(media_source(u8"Tray 1"));
+    sources.push_back(media_source(u8"Tray 2"));
+    sources.push_back(media_source(u8"Manual Feed Tray"));
 
     ASSERT_EQ(u8"Tray 1", sources.at(0).get_value());
     ASSERT_EQ(u8"Tray 2", sources.at(1).get_value());
@@ -97,7 +81,7 @@ TEST(media_sources, testAt)
 TEST(MediaSourcesTests, testAtOutOfRange)
 {
     media_sources sources;
-    sources.add_source(u8"Tray 1");
+    sources.push_back(media_source(u8"Tray 1"));
 
     try
     {
