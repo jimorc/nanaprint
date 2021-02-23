@@ -113,7 +113,7 @@ namespace nanaprint
             build_printer_location();
             m_printerGroup["printerLocation"] << m_printerLocation;
 
-            buildCommentLabel();
+            build_comment_label();
             m_printerGroup["commentLabel"] << m_commentLabel;
 
             buildPrinterComment();
@@ -183,7 +183,7 @@ namespace nanaprint
         m_printerLocation.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildCommentLabel()
+    void basic_panel::build_comment_label()
     {
         m_commentLabel.create(m_printerGroup);
         m_commentLabel.caption(u8"Comment:");
