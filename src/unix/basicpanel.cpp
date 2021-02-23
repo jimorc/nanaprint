@@ -92,7 +92,7 @@ namespace nanaprint
             build_printer_label();
             m_printerGroup["printerLabel"] << m_printerLabel;
 
-            buildPrinterCombox();
+            build_printer_combox();
             m_printerGroup["printerCombox"] << m_printerCombox;
 
             buildStatusLabel();
@@ -126,7 +126,7 @@ namespace nanaprint
         m_printerLabel.caption(u8"Printer:");
     }
 
-    void basic_panel::buildPrinterCombox()
+    void basic_panel::build_printer_combox()
     {
         m_printerCombox.create(m_printerGroup);
         m_printerCombox.editable(false);
