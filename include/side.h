@@ -18,18 +18,15 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include "values.h"
 
 namespace nanaprint
 {
-    class side
+    class side : public nanaprint_value<std::string>
     {
         public:
-            side();
             side(const std::string& side);
             virtual ~side() {}
-            const std::string& getSide() const { return m_side; }
-        private:
-            std::string m_side;
     };
 
     std::ostream& operator<<(std::ostream& os, const side& side);

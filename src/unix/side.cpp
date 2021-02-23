@@ -18,19 +18,14 @@ using namespace std;
 
 namespace nanaprint
 {
-    side::side() : m_side(u8"None")
-    {
-
-    }
-    
-    side::side(const std::string& sid) : m_side(sid)
+    side::side(const std::string& sid) : nanaprint_value(sid)
     {
 
     }
 
     std::ostream& operator<<(std::ostream& os, const side& side)
     {
-        os << side.getSide();
+        os << side.get_value();
         return os;
     }
 

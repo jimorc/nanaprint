@@ -492,9 +492,9 @@ namespace nanaprint
         {
             for (size_t side = 0; side < sides.size(); ++side)
             {
-                auto text = sides[side]->getSide();
+                auto text = sides[side]->get_value();
                 m_2SidedCombox.push_back(text);
-                if (text.compare(defaultSide.value().getSide().c_str()) == 0)
+                if (text.compare(defaultSide.value().get_value().c_str()) == 0)
                 {
                     opt = side;
                 }

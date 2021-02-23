@@ -97,7 +97,7 @@ int main()
         cout << "Default Side\n";
         auto side = printer->getDefaultSide();
         cout << "    ";
-        cout << ((side) ? side.value().getSide() : "None") << '\n';
+        cout << ((side) ? side.value().get_value() : "None") << '\n';
 
         cout << "    Options: " << '\n';
         for (auto option : printer->getOptions())

@@ -13,9 +13,9 @@ TEST(SideTests, testConstructor)
     side twoSidesP(CUPS_SIDES_TWO_SIDED_PORTRAIT);
     side twoSidesL(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
 
-    ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, oneSide.getSide().c_str());
-    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, twoSidesP.getSide().c_str());
-    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, twoSidesL.getSide().c_str());
+    ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, oneSide.get_value().c_str());
+    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, twoSidesP.get_value().c_str());
+    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, twoSidesL.get_value().c_str());
 } 
 
 // Test insertion operator
@@ -41,9 +41,9 @@ TEST(SidesTests, testAddSide)
     sides.addSide(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
 
     auto mySides = sides.getSides();
-    ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, mySides[0]->getSide().c_str());
-    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1]->getSide().c_str());
-    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2]->getSide().c_str());
+    ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, mySides[0]->get_value().c_str());
+    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1]->get_value().c_str());
+    ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2]->get_value().c_str());
 }
 
 // Test insertion operator
