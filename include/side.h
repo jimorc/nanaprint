@@ -30,15 +30,12 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const side& side);
 
-    class sides
+    class sides : public nanaprint_values<side>
     {
         public:
             sides() {}
             virtual ~sides() {}
             void addSide(const std::string& side);
-            const std::vector<side>& getSides() const;
-        private:
-            std::vector<side> m_sides;
     };
 
     std::ostream& operator<<(std::ostream& os, const sides& sids);

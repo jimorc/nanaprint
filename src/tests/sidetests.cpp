@@ -40,7 +40,7 @@ TEST(SidesTests, testAddSide)
     side.addSide(CUPS_SIDES_TWO_SIDED_PORTRAIT);
     side.addSide(CUPS_SIDES_TWO_SIDED_LANDSCAPE);
 
-    auto mySides = side.getSides();
+    auto mySides = side.get_values();
     ASSERT_STREQ(CUPS_SIDES_ONE_SIDED, mySides[0].get_value().c_str());
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_PORTRAIT, mySides[1].get_value().c_str());
     ASSERT_STREQ(CUPS_SIDES_TWO_SIDED_LANDSCAPE, mySides[2].get_value().c_str());

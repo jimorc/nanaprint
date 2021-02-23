@@ -31,18 +31,13 @@ namespace nanaprint
 
     void sides::addSide(const std::string& sid)
     {
-        m_sides.push_back(side(sid));
-    }
-
-    const std::vector<side>& sides::getSides() const
-    {
-        return m_sides;
+        push_back(side(sid));
     }
 
     std::ostream& operator<<(std::ostream& os, const sides& sides)
     {
         os << "Sides:\n";
-        auto sids = sides.getSides();
+        auto sids = sides.get_values();
         if(sids.empty())
         {
             os << "    None\n";
