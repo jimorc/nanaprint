@@ -31,18 +31,13 @@ namespace nanaprint
 
     void MediaTypes::add_type(const std::string& mediaType)
     {
-        m_types.push_back(media_type(mediaType));
-    }
-
-    const vector<media_type>& MediaTypes::get_types() const
-    {
-        return m_types;
+        push_back(media_type(mediaType));
     }
 
     std::ostream& operator<<(std::ostream& os, const MediaTypes& mType)
     {
         os << "Media Types:\n";
-        auto types = mType.get_types();
+        auto types = mType.get_values();
         if(types.size() == 0)
         {
             os << "    None\n";
@@ -55,33 +50,5 @@ namespace nanaprint
             }
         }
         return os;
-    }
-
-    media_type& MediaTypes::operator[](size_t pos)
-    {
-        return m_types[pos];
-    }
-    
-    const media_type& MediaTypes::operator[](size_t pos) const
-    {
-        return m_types[pos];
-    }
-
-    media_type& MediaTypes::at(size_t pos)
-    {
-        if (pos >= m_types.size())
-        {
-            throw out_of_range("Out of range");
-        }
-        return m_types[pos];
-    }
-
-    const media_type& MediaTypes::at(size_t pos) const
-    {
-        if (pos >= m_types.size())
-        {
-            throw out_of_range("Out of range");
-        }
-        return m_types[pos];
     }
 }
