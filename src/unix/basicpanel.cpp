@@ -306,12 +306,12 @@ namespace nanaprint
     void basic_panel::update_paper_group(Printer& printer)
     {
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
-        updateMediaTypeCombox(printer);
+        update_media_type_combox(printer);
         updatePrintQualityCombox(printer);
         updatePaperSizeCombox(printer);
     }
 
-    void basic_panel::updateMediaTypeCombox(Printer& printer)
+    void basic_panel::update_media_type_combox(Printer& printer)
     {
         m_mediaTypeCombox.clear();
         auto mediaTypes = printer.getMediaTypes().get_values();
