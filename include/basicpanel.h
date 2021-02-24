@@ -64,7 +64,7 @@ namespace nanaprint
             void build_paper_size_label();
             void build_paper_size_combox();
 
-            void buildRangeGroup();
+            void build_range_group();
             void select_printer();
             void printer_selected(size_t pos);
             void updatePrinterGroup(Printer& printer);

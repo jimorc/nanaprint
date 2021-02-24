@@ -58,7 +58,7 @@ namespace nanaprint
 
         build_printer_group();
         m_column1Layout["printerGroup"] << m_printerGroup;
-        buildRangeGroup();
+        build_range_group();
         m_column1Layout["range"] << m_rangeGroup;
     }
 
@@ -504,7 +504,7 @@ namespace nanaprint
         
     }
 
-    void basic_panel::buildRangeGroup()
+    void basic_panel::build_range_group()
     {
         m_rangeGroup.create(m_basicColumn1);
         m_rangeLayout.bind(m_rangeGroup);
