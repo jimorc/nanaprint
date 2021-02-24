@@ -291,7 +291,7 @@ namespace nanaprint
         auto printers = m_settings.get_printers().getPrinters();
         auto printer = printers[m_dialogSettings.get_printer()];
         update_printer_group(*printer);
-        updatePaperGroup(*printer);
+        update_paper_group(*printer);
         updateMiscGroup(*printer);
     }
 
@@ -303,7 +303,7 @@ namespace nanaprint
         m_printerComment.caption(printer.get_printer_info());
     }
 
-    void basic_panel::updatePaperGroup(Printer& printer)
+    void basic_panel::update_paper_group(Printer& printer)
     {
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
         updateMediaTypeCombox(printer);
