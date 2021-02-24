@@ -216,7 +216,7 @@ namespace nanaprint
         build_media_type_label();
         m_paperGroup["mediaTypeLabel"] << m_mediaTypeLabel;
 
-        buildMediaTypeCombox();
+        build_media_type_combox();
         m_paperGroup["mediaTypeCombox"] << m_mediaTypeCombox;
 
         buildPrintQualityLabel();
@@ -249,7 +249,7 @@ namespace nanaprint
         m_mediaTypeLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildMediaTypeCombox()
+    void basic_panel::build_media_type_combox()
     {
         m_mediaTypeCombox.create(m_paperGroup);
         m_mediaTypeCombox.editable(false);
