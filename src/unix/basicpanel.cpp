@@ -225,7 +225,7 @@ namespace nanaprint
         build_print_quality_combox();
         m_paperGroup["qualityCombox"] << m_printQualityCombox;
 
-        buildPaperSizeLabel();
+        build_paper_size_label();
         m_paperGroup["sizeLabel"] << m_paperSizeLabel;
 
         buildPaperSizeCombox();
@@ -270,7 +270,7 @@ namespace nanaprint
         // Print qualitys loaded when printer is selected
     }
 
-    void basic_panel::buildPaperSizeLabel()
+    void basic_panel::build_paper_size_label()
     {
         m_paperSizeLabel.create(m_paperGroup);
         m_paperSizeLabel.caption(u8"Paper Size:");
