@@ -290,12 +290,12 @@ namespace nanaprint
         m_dialogSettings.set_printer(pos);
         auto printers = m_settings.get_printers().getPrinters();
         auto printer = printers[m_dialogSettings.get_printer()];
-        updatePrinterGroup(*printer);
+        update_printer_group(*printer);
         updatePaperGroup(*printer);
         updateMiscGroup(*printer);
     }
 
-    void basic_panel::updatePrinterGroup(Printer& printer)
+    void basic_panel::update_printer_group(Printer& printer)
     {
         m_printerStatus.caption(printer.get_printer_state());
         m_printerType.caption(printer.get_printer_make_and_model());

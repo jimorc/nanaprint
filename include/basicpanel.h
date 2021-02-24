@@ -66,7 +66,7 @@ namespace nanaprint
 
             void build_range_group();
             void printer_selected(size_t pos);
-            void updatePrinterGroup(Printer& printer);
+            void update_printer_group(Printer& printer);
             void updatePaperGroup(Printer& printer);
             void updateMediaTypeCombox(Printer& printer);
             void updatePrintQualityCombox(Printer& printer);
