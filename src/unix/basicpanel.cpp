@@ -292,7 +292,7 @@ namespace nanaprint
         auto printer = printers[m_dialogSettings.get_printer()];
         update_printer_group(*printer);
         update_paper_group(*printer);
-        updateMiscGroup(*printer);
+        update_misc_group(*printer);
     }
 
     void basic_panel::update_printer_group(Printer& printer)
@@ -396,7 +396,7 @@ namespace nanaprint
         }
     }
 
-    void basic_panel::updateMiscGroup(Printer& printer)
+    void basic_panel::update_misc_group(Printer& printer)
     {
         updateOrientationGroup(printer);
         update2SidedCombox(printer);
