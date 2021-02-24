@@ -69,7 +69,7 @@ namespace nanaprint
         m_column2Layout.div(string("vertical gap=10") +
             "<paperGroup weight=38%><weight=10><misc weight=57%>");
 
-        buildPaperGroup();
+        build_paper_group();
         m_column2Layout["paperGroup"] << m_paperGroup;
         buildMiscGroup();
         m_column2Layout["misc"] << m_miscGroup;
@@ -197,7 +197,7 @@ namespace nanaprint
         m_printerComment.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPaperGroup()
+    void basic_panel::build_paper_group()
     {
         m_paperGroup.create(m_basicColumn2);
         m_paperGroup.caption(u8"Paper");
