@@ -62,7 +62,7 @@ namespace nanaprint
             void build_print_quality_label();
             void build_print_quality_combox();
             void build_paper_size_label();
-            void buildPaperSizeCombox();
+            void build_paper_size_combox();
 
             void buildRangeGroup();
             void select_printer();

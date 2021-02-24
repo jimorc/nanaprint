@@ -228,7 +228,7 @@ namespace nanaprint
         build_paper_size_label();
         m_paperGroup["sizeLabel"] << m_paperSizeLabel;
 
-        buildPaperSizeCombox();
+        build_paper_size_combox();
         m_paperGroup["sizeCombox"] << m_paperSizeCombox;
         
         build_borderless_checkbox();
@@ -277,7 +277,7 @@ namespace nanaprint
         m_paperSizeLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPaperSizeCombox()
+    void basic_panel::build_paper_size_combox()
     {
         m_paperSizeCombox.create(m_paperGroup);
         m_paperSizeCombox.editable(false);
