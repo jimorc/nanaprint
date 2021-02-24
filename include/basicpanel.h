@@ -60,7 +60,7 @@ namespace nanaprint
             void build_media_type_label();
             void build_media_type_combox();
             void build_print_quality_label();
-            void buildPrintQualityCombox();
+            void build_print_quality_combox();
             void buildPaperSizeLabel();
             void buildPaperSizeCombox();
 

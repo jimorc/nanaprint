@@ -222,7 +222,7 @@ namespace nanaprint
         build_print_quality_label();
         m_paperGroup["qualityLabel"] << m_printQualityLabel;
 
-        buildPrintQualityCombox();
+        build_print_quality_combox();
         m_paperGroup["qualityCombox"] << m_printQualityCombox;
 
         buildPaperSizeLabel();
@@ -263,7 +263,7 @@ namespace nanaprint
         m_printQualityLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildPrintQualityCombox()
+    void basic_panel::build_print_quality_combox()
     {
         m_printQualityCombox.create(m_paperGroup);
         m_printQualityCombox.editable(false);
