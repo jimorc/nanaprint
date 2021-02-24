@@ -219,7 +219,7 @@ namespace nanaprint
         build_media_type_combox();
         m_paperGroup["mediaTypeCombox"] << m_mediaTypeCombox;
 
-        buildPrintQualityLabel();
+        build_print_quality_label();
         m_paperGroup["qualityLabel"] << m_printQualityLabel;
 
         buildPrintQualityCombox();
@@ -256,7 +256,7 @@ namespace nanaprint
         // Media types loaded when printer is selected.
     }
 
-    void basic_panel::buildPrintQualityLabel()
+    void basic_panel::build_print_quality_label()
     {
         m_printQualityLabel.create(m_paperGroup);
         m_printQualityLabel.caption(u8"Print Quality:");
