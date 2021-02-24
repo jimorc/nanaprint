@@ -213,7 +213,7 @@ namespace nanaprint
             "<<weight=10><weight=35%><><borderlessCheckbox weight=60%><> weight=20>";
         m_paperGroup.div(div.c_str());
 
-        buildMediaTypeLabel();
+        build_media_type_label();
         m_paperGroup["mediaTypeLabel"] << m_mediaTypeLabel;
 
         buildMediaTypeCombox();
@@ -242,7 +242,7 @@ namespace nanaprint
         // checkbox is enabled/disabled when printer is selected.
     }
 
-    void basic_panel::buildMediaTypeLabel()
+    void basic_panel::build_media_type_label()
     {
         m_mediaTypeLabel.create(m_paperGroup);
         m_mediaTypeLabel.caption(u8"Media Type:");
