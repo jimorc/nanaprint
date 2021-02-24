@@ -69,7 +69,7 @@ namespace nanaprint
             void update_printer_group(Printer& printer);
             void update_paper_group(Printer& printer);
             void update_media_type_combox(Printer& printer);
-            void updatePrintQualityCombox(Printer& printer);
+            void update_print_quality_combox(Printer& printer);
             void updatePaperSizeCombox(Printer& printer);
             void updateMiscGroup(Printer& printer);
             void updateOrientationGroup(Printer& printer);

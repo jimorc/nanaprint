@@ -307,7 +307,7 @@ namespace nanaprint
     {
         m_borderlessCheckbox.enabled(printer.getMediaSizes().contains_borderless_paper());
         update_media_type_combox(printer);
-        updatePrintQualityCombox(printer);
+        update_print_quality_combox(printer);
         updatePaperSizeCombox(printer);
     }
 
@@ -335,7 +335,7 @@ namespace nanaprint
         }
     }
 
-    void basic_panel::updatePrintQualityCombox(Printer& printer)
+    void basic_panel::update_print_quality_combox(Printer& printer)
     {
         m_printQualityCombox.clear();
         auto qualities = printer.getPrintQualities().get_values();
