@@ -56,7 +56,7 @@ namespace nanaprint
             void build_printer_comment();
 
             void build_paper_group();
-            void buildBorderlessCheckbox();
+            void build_borderless_checkbox();
             void buildMediaTypeLabel();
             void buildMediaTypeCombox();
             void buildPrintQualityLabel();

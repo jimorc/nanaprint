@@ -231,11 +231,11 @@ namespace nanaprint
         buildPaperSizeCombox();
         m_paperGroup["sizeCombox"] << m_paperSizeCombox;
         
-        buildBorderlessCheckbox();
+        build_borderless_checkbox();
         m_paperGroup["borderlessCheckbox"] << m_borderlessCheckbox;
     }
 
-    void basic_panel::buildBorderlessCheckbox()
+    void basic_panel::build_borderless_checkbox()
     {
         m_borderlessCheckbox.create(m_paperGroup);
         m_borderlessCheckbox.caption(u8"Borderless papers");
