@@ -42,7 +42,7 @@ namespace nanaprint
             const media_sizes& get_media_sizes() const noexcept;
             const std::optional<media_size>& get_default_media_size() const noexcept;
             bool canPrintMultipleCopies() const;
-            const finishings& get_finishings();
+            const finishings& get_finishings() const noexcept;
             const finishings& getDefaultFinishings();
             const media_sources getMediaSources();
             std::optional<media_source>& getDefaultMediaSource();
@@ -101,7 +101,6 @@ namespace nanaprint
             print_qualities m_printQualities;
             bool m_gotSides;
             sides m_sides;
-            bool m_gotFinishings;
             finishings m_finishings;
 
             std::optional<media_size> m_defaultMediaSize;

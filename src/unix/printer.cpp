@@ -27,7 +27,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false),
+        : m_dest(dest),
             m_defaultMediaSize(nullopt),
             m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
@@ -38,6 +38,7 @@ namespace nanaprint
     {
         populate_media_sizes();
         populate_default_media_size();
+        populate_finishings();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -216,9 +217,8 @@ namespace nanaprint
             return m_defaultMediaSize;
         }
 
-    const finishings& Printer::get_finishings()
+    const finishings& Printer::get_finishings() const noexcept
     {
-        populate_finishings();
         return m_finishings;
     }
 
@@ -237,21 +237,17 @@ namespace nanaprint
 
     void Printer::populate_finishings()
     {
-        if (!m_gotFinishings)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
+            ipp_attribute_t *finishings = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_FINISHINGS);
+            int count = ippGetCount(finishings);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *finishings = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_FINISHINGS);
-                int count = ippGetCount(finishings);
-                for (int i = 0; i < count; ++i)
-                {
-                    int finish = ippGetInteger(finishings, i);
-                    set_finishing(finish);
-                }
+                int finish = ippGetInteger(finishings, i);
+                set_finishing(finish);
             }
-            m_gotFinishings = true;
         }
     }
 
