@@ -252,3 +252,28 @@ TEST(MediaSizesTests, testGetMediaSizeIndex)
     ASSERT_EQ(1, sizes.get_media_size_index(size2));
     ASSERT_EQ(0, sizes.get_media_size_index(size3));
 }
+
+TEST(MediaSizesTests, testGetMediaSizeTranslatedNamesByBorder)
+{
+    media_size size1("na_letter_8.5x11in", 
+                21590, 27940, 318, 318, 318, 318);
+    media_size size2("iso_a4_210x297mm", 
+                20990, 29704, 0, 0, 0, 0);
+    media_size size3("custom_100x148mm",
+                10000, 14800, 0, 0, 0, 0);
+
+    media_sizes sizes;
+    sizes.push_back(size1);
+    sizes.push_back(size2);
+    sizes.push_back(size3);
+    auto bordered = sizes.get_media_size_translated_names_by_border(false);
+
+    ASSERT_EQ(1, bordered.size());
+    ASSERT_EQ(u8"Letter", bordered[0]);
+
+    auto borderless = sizes.get_media_size_translated_names_by_border(true);
+
+    ASSERT_EQ(2, borderless.size());
+    ASSERT_EQ(u8"A4", borderless[0]);
+    ASSERT_EQ(u8"custom_100x148mm", borderless[1]);
+}
