@@ -81,7 +81,7 @@ namespace nanaprint
             void update_2_sided_combox(Printer& printer);
 
             void build_all_pages_checkbox();
-            void buildCurrentPageCheckbox();
+            void build_current_page_checkbox();
             void buildSelectionCheckbox();
             void buildPagesCheckbox();
             void buildPagesBox();
