@@ -517,7 +517,7 @@ namespace nanaprint
             "<<weight=30><selection weight=35%><> weight=25>" +
             "<<weight=30><pages weight=35%><weight=10><pagesList weight=50%><> weight=25>");
         m_rangeLayout.div(layout.c_str());
-        buildAllPagesCheckbox();
+        build_all_pages_checkbox();
         m_rangeLayout["allPages"] << m_allPages;
         buildCurrentPageCheckbox();
         m_rangeLayout["currentPage"] << m_currentPage;
@@ -529,7 +529,7 @@ namespace nanaprint
         m_rangeLayout["pagesList"] << m_pagesBox;
     }
 
-    void basic_panel::buildAllPagesCheckbox()
+    void basic_panel::build_all_pages_checkbox()
     {
         m_allPages.create(m_rangeGroup);
         m_allPages.caption(u8"All Pages");

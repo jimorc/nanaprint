@@ -80,7 +80,7 @@ namespace nanaprint
             void validate_copies();
             void update_2_sided_combox(Printer& printer);
 
-            void buildAllPagesCheckbox();
+            void build_all_pages_checkbox();
             void buildCurrentPageCheckbox();
             void buildSelectionCheckbox();
             void buildPagesCheckbox();
