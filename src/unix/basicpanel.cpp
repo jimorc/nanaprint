@@ -362,30 +362,30 @@ namespace nanaprint
     {
         m_paperSizeCombox.clear();
 
-        auto paperSizes = printer.getMediaSizes();
+        auto allPaperSizes = printer.getMediaSizes();
+        bool borderless = m_borderlessCheckbox.checked();
+        auto paperSizes = allPaperSizes.get_media_size_translated_names_by_border(
+                borderless);
         auto hasPaperSizes = paperSizes.size() > 0;
         m_paperSizeCombox.enabled(hasPaperSizes);
         if (hasPaperSizes)
         {
-            bool borderless = m_borderlessCheckbox.checked();
-            for (size_t i = 0; i < paperSizes.size(); ++i)
+            
+            for (auto& size : paperSizes)
             {
-                auto mediaSize = paperSizes[i];
-                if (mediaSize.is_borderless() == borderless)
-                {
-                    m_paperSizeCombox.push_back(mediaSize.get_translated_name());
-                }
+                m_paperSizeCombox.push_back(size);
             }
 
-            auto selectedPaperSize = m_dialogSettings.get_media_size();
             size_t optionNumber = 0;
-            for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
+            auto selectedPaperSize = m_dialogSettings.get_media_size();
+            if (selectedPaperSize)
             {
-                auto size = paperSizes[sizeNum].get_translated_name();
-                m_paperSizeCombox.push_back(size);
-                if (selectedPaperSize)
+                auto translatedSelectedPaperSizeName = 
+                    selectedPaperSize.value().get_translated_name();
+                for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
                 {
-                    if(size == selectedPaperSize.value().get_translated_name())
+                    auto size = paperSizes[sizeNum];
+                    if(size == translatedSelectedPaperSizeName)
                     {
                         optionNumber = sizeNum;
                     }
