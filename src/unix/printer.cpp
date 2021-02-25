@@ -57,7 +57,7 @@ namespace nanaprint
             string value = string(m_dest->options[i].value);
             if (option == "printer-state")
             {
-                opts[option] = getPrinterStateString(value);
+                opts[option] = get_printer_state_string(value);
             }
             else if (option == "printer-type")
             {
@@ -71,7 +71,7 @@ namespace nanaprint
         return opts;
     }
 
-    string Printer::getPrinterStateString(string value)
+    const string Printer::get_printer_state_string(string value) const
     {
         int intState = atoi(value.c_str());
         string state;

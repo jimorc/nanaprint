@@ -66,7 +66,7 @@ namespace nanaprint
             Printer(cups_dest_t* dest);
 
         private:
-            std::string getPrinterStateString(std::string value);
+            const std::string get_printer_state_string(std::string value) const;
             std::string getPrinterTypeString(const std::string value) const;
             void populate_media_sizes();
             void populate_default_media_size();
