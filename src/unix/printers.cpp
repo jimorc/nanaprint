@@ -28,7 +28,7 @@ namespace nanaprint
         std::vector<cups_dest_t*> dests;
         for (size_t i = 0; i < m_printers.size(); ++i)
         {
-            cups_dest_t* dest = m_printers[i]->getDest();
+            cups_dest_t* dest = m_printers[i]->get_dest();
             dests.push_back(dest);
         }
         cupsFreeDests(dests.size(), *dests.data());

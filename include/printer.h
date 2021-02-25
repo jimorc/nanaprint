@@ -35,7 +35,7 @@ namespace nanaprint
             virtual ~Printer() {}
             static std::shared_ptr<Printer> create(cups_dest_t* dest);
 
-            cups_dest_t* getDest() { return m_dest; }
+            cups_dest_t* get_dest() { return m_dest; }
             std::string getName() { return std::string(m_dest->name); }
             bool isDefault() { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
