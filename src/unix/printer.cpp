@@ -39,6 +39,7 @@ namespace nanaprint
         populate_media_sizes();
         populate_default_media_size();
         populate_finishings();
+        populate_default_finishings();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -222,9 +223,8 @@ namespace nanaprint
         return m_finishings;
     }
 
-    const finishings& Printer::get_default_finishings()
+    const finishings& Printer::get_default_finishings() const noexcept
     {
-        populate_default_finishings();
         return m_defaultFinishings;        
     }
 
@@ -286,43 +286,39 @@ namespace nanaprint
 
     void Printer::populate_default_finishings()
     {
-        if (!m_gotDefaultFinishings)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+
+        const char *defaultFinishings =
+            cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
+                m_dest->options);
+        ipp_attribute_t *defaultFinishings2 =
+            cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS);
+        
+        if(defaultFinishings != NULL)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            regex rgx("[0-9]*");
+            smatch match;
 
-            const char *defaultFinishings =
-                cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
-                    m_dest->options);
-            ipp_attribute_t *defaultFinishings2 =
-                cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS);
-            
-            if(defaultFinishings != NULL)
+            string finishings = defaultFinishings;
+            if( regex_search(finishings, match, rgx))
             {
-                regex rgx("[0-9]*");
-                smatch match;
-
-                string finishings = defaultFinishings;
-                if( regex_search(finishings, match, rgx))
+                for (auto m: match)
                 {
-                    for (auto m: match)
-                    {
-                        m_defaultFinishings.set_finishing(m);
-                    }
-                }
-            }
-            else
-            {
-                int count = ippGetCount(defaultFinishings2);
-                for (int i = 0; i < count; ++i)
-                {
-                    int finish = ippGetInteger(defaultFinishings2, i);
-                    char fin[10];       // 2 or 3 would be enough
-                    sprintf(fin, "%d", finish);
-                    m_defaultFinishings.set_finishing(fin);
+                    m_defaultFinishings.set_finishing(m);
                 }
             }
         }
-        m_gotDefaultFinishings = true;
+        else
+        {
+            int count = ippGetCount(defaultFinishings2);
+            for (int i = 0; i < count; ++i)
+            {
+                int finish = ippGetInteger(defaultFinishings2, i);
+                char fin[10];       // 2 or 3 would be enough
+                sprintf(fin, "%d", finish);
+                m_defaultFinishings.set_finishing(fin);
+            }
+        }
     }
 
     void Printer::populateDefaultMediaSource()
