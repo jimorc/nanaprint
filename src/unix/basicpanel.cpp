@@ -404,7 +404,7 @@ namespace nanaprint
 
     void basic_panel::update_orientation_group(Printer& printer)
     {
-        disableOrientationCheckboxes();
+        disable_orientation_checkboxes();
         uncheckOrientationCheckboxes();
 
         auto orientations = printer.getOrientations().get_values();
@@ -444,7 +444,7 @@ namespace nanaprint
         }
     }
 
-    void basic_panel::disableOrientationCheckboxes()
+    void basic_panel::disable_orientation_checkboxes()
     {
         m_portrait.enabled(false);
         m_landscape.enabled(false);
