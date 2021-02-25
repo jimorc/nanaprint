@@ -89,7 +89,7 @@ namespace nanaprint
             void build_misc_group();
             void build_orientation_group();
             void build_portrait_checkbox();
-            void buildLandscapeCheckbox();
+            void build_landscape_checkbox();
             void buildReversePortraitCheckbox();
             void buildReverseLandscapeCheckbox();
             void buildCopiesLabel();
