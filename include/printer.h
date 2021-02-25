@@ -36,7 +36,7 @@ namespace nanaprint
             static std::shared_ptr<Printer> create(cups_dest_t* dest);
 
             cups_dest_t* get_dest() { return m_dest; }
-            std::string getName() { return std::string(m_dest->name); }
+            std::string get_name() { return std::string(m_dest->name); }
             bool isDefault() { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
             const media_sizes& get_media_sizes() const noexcept;

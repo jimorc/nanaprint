@@ -25,8 +25,8 @@ int main()
     for(auto printer : pPrinters)
     {
         string s = printer->get_printer_state();
-        cout << "Printer: " << printer->getName() << '\n';
-        cout << "    Name = " << printer->getName() << '\n';
+        cout << "Printer: " << printer->get_name() << '\n';
+        cout << "    Name = " << printer->get_name() << '\n';
         cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';
         if (printer->canPrintMultipleCopies())
         {

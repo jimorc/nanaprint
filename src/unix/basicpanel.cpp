@@ -133,7 +133,7 @@ namespace nanaprint
         auto printers = m_settings.get_printers().getPrinters();
         for (auto& printer: printers)
         {
-            m_printerCombox.push_back(printer->getName());
+            m_printerCombox.push_back(printer->get_name());
         }
 
         m_printerCombox.events().selected( [this](const arg_combox& ar_cbx) {

@@ -66,7 +66,7 @@ namespace nanaprint
         size_t printerNum = 0;
         for( size_t i = 0; i < m_printers.size(); ++i)
         {
-            if (m_printers[i]->getName() == printerName)
+            if (m_printers[i]->get_name() == printerName)
                 printerNum = i;
         }
         return printerNum;
