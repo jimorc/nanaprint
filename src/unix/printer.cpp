@@ -36,7 +36,7 @@ namespace nanaprint
             m_gotDefaultSide(false), m_defaultMediaType(media_type("None")),
             m_defaultMediaSource(media_source("None"))
     {
-        populateMediaSizes();
+        populate_media_sizes();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -172,7 +172,7 @@ namespace nanaprint
         return type;
     }
 
-    void Printer::populateMediaSizes()
+    void Printer::populate_media_sizes()
     {
         if(!m_gotMediaSizes)
         {
