@@ -70,7 +70,7 @@ namespace nanaprint
             const std::string get_printer_type_string(const std::string& value) const;
             void populate_media_sizes();
             void populate_default_media_size();
-            void populateFinishings();
+            void populate_finishings();
             void set_finishing(int finishing);
             void populateDefaultFinishings();
             void populateMediaSources();

@@ -218,7 +218,7 @@ namespace nanaprint
 
     const finishings& Printer::getFinishings()
     {
-        populateFinishings();
+        populate_finishings();
         return m_finishings;
     }
 
@@ -235,7 +235,7 @@ namespace nanaprint
             info, CUPS_COPIES, NULL);
     }
 
-    void Printer::populateFinishings()
+    void Printer::populate_finishings()
     {
         if (!m_gotFinishings)
         {
