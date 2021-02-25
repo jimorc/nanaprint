@@ -592,7 +592,7 @@ namespace nanaprint
         m_miscGroup["copies"] << m_copiesLabel;
         build_copies_spinbox();
         m_miscGroup["copiesBox"] << m_copiesSpinbox;
-        buildCollateCheckbox();
+        build_collate_checkbox();
         m_miscGroup["collate"] << m_collateCheckbox;
         buildReverseOrderCheckbox();
         m_miscGroup["reverseOrder"] << m_reverseOrderCheckbox;
@@ -679,7 +679,7 @@ namespace nanaprint
         });
     }
 
-    void basic_panel::buildCollateCheckbox()
+    void basic_panel::build_collate_checkbox()
     {
         m_collateCheckbox.create(m_miscGroup);
         m_collateCheckbox.caption(u8"Collate");
