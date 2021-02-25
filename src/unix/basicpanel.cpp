@@ -398,11 +398,11 @@ namespace nanaprint
 
     void basic_panel::update_misc_group(Printer& printer)
     {
-        updateOrientationGroup(printer);
+        update_orientation_group(printer);
         update2SidedCombox(printer);
     }
 
-    void basic_panel::updateOrientationGroup(Printer& printer)
+    void basic_panel::update_orientation_group(Printer& printer)
     {
         disableOrientationCheckboxes();
         uncheckOrientationCheckboxes();
