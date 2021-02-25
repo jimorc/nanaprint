@@ -248,14 +248,14 @@ namespace nanaprint
                 for (int i = 0; i < count; ++i)
                 {
                     int finish = ippGetInteger(finishings, i);
-                    setFinishing(finish);
+                    set_finishing(finish);
                 }
             }
             m_gotFinishings = true;
         }
     }
 
-    void Printer::setFinishing(int finish)
+    void Printer::set_finishing(int finish)
     {
         char fin[10];       // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
