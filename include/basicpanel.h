@@ -78,7 +78,7 @@ namespace nanaprint
             void disable_orientation_checkboxes();
             void uncheck_orientation_checkboxes();
             void validate_copies();
-            void update2SidedCombox(Printer& printer);
+            void update_2_sided_combox(Printer& printer);
 
             void buildAllPagesCheckbox();
             void buildCurrentPageCheckbox();

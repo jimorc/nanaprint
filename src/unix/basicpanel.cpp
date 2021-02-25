@@ -399,7 +399,7 @@ namespace nanaprint
     void basic_panel::update_misc_group(Printer& printer)
     {
         update_orientation_group(printer);
-        update2SidedCombox(printer);
+        update_2_sided_combox(printer);
     }
 
     void basic_panel::update_orientation_group(Printer& printer)
@@ -482,7 +482,7 @@ namespace nanaprint
         m_revPortrait.check(false);
     }
 
-    void basic_panel::update2SidedCombox(Printer& printer)
+    void basic_panel::update_2_sided_combox(Printer& printer)
     {
         m_2SidedCombox.clear();
         auto sides = printer.getSides().get_values();
