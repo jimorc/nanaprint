@@ -74,7 +74,7 @@ namespace nanaprint
             void update_misc_group(Printer& printer);
             void update_orientation_group(Printer& printer);
             void enable_orientation_checkbox(const page_orientation& orientation);
-            void selectOrientationCheckbox(const page_orientation& orientation);
+            void select_orientation_checkbox(const page_orientation& orientation);
             void disableOrientationCheckboxes();
             void uncheckOrientationCheckboxes();
             void validateCopies();

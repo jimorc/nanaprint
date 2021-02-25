@@ -415,11 +415,11 @@ namespace nanaprint
         auto orientation = m_dialogSettings.get_page_orientation();
         if(orientation)
         {
-            selectOrientationCheckbox(*orientation);
+            select_orientation_checkbox(*orientation);
         }
         else
         {
-            selectOrientationCheckbox(page_orientation(PORTRAIT));
+            select_orientation_checkbox(page_orientation(PORTRAIT));
         }
         
     }
@@ -454,7 +454,7 @@ namespace nanaprint
 
     // Argument must be one of Portrait, Landscape, Reverse Portrait, or Reverse Landscape.
     // Check this before calling this method.
-    void basic_panel::selectOrientationCheckbox(const page_orientation& orientation)
+    void basic_panel::select_orientation_checkbox(const page_orientation& orientation)
     {
         auto numOrientation = orientation.get_orientation_number();
         switch (numOrientation)
