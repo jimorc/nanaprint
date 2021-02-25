@@ -220,7 +220,7 @@ namespace nanaprint
         }
     }
 
-    std::optional<media_size>& Printer::getDefaultMediaSize()
+    std::optional<media_size>& Printer::get_default_media_size()
         {
             populate_default_media_size();
             return m_defaultMediaSize;

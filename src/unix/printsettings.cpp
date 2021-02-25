@@ -55,7 +55,7 @@ namespace nanaprint
         m_printer = printerNum;
         auto printers = m_printers.getPrinters();
         set_borderless(false);
-        set_media_size(printers[m_printer]->getDefaultMediaSize());
+        set_media_size(printers[m_printer]->get_default_media_size());
         set_finishings(printers[m_printer]->getDefaultFinishings());
         set_media_source(printers[m_printer]->getDefaultMediaSource());
         set_media_type(printers[m_printer]->getDefaultMediaType()),
