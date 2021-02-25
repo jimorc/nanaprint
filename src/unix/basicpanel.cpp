@@ -598,7 +598,7 @@ namespace nanaprint
         m_miscGroup["reverseOrder"] << m_reverseOrderCheckbox;
         build_2_sided_label();
         m_miscGroup["twosidedLabel"] << m_2SidedLabel;
-        build2SidedCombox();
+        build_2_sided_combox();
         m_miscGroup["twosidedCombox"] << m_2SidedCombox;
     }
 
@@ -699,7 +699,7 @@ namespace nanaprint
         m_2SidedLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::build2SidedCombox()
+    void basic_panel::build_2_sided_combox()
     {
         m_2SidedCombox.create(m_miscGroup);
         m_2SidedCombox.editable(false);

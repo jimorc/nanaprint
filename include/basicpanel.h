@@ -97,7 +97,7 @@ namespace nanaprint
             void build_collate_checkbox();
             void build_reverse_order_checkbox();
             void build_2_sided_label();
-            void build2SidedCombox();
+            void build_2_sided_combox();
 
             print_settings& m_settings;
             PrintDialogSettings& m_dialogSettings;
