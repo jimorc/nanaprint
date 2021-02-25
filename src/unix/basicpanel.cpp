@@ -671,7 +671,7 @@ namespace nanaprint
         ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
         m_copiesSpinbox.tooltip(ss.str());
         m_copiesSpinbox.events().key_release( [&](const arg_keyboard& arg) {
-            validateCopies(); });
+            validate_copies(); });
         m_copiesSpinbox.events().mouse_enter( [&]() {
             stringstream ss;
             ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
@@ -706,7 +706,7 @@ namespace nanaprint
         // contents of combox added when a printer is selected.
     }
 
-    void basic_panel::validateCopies()
+    void basic_panel::validate_copies()
     {
         // This code is needed because of a bug in nana::spinbox. If a value is entered in
         // the spinbox's edit box that is larger than the maximum value, or smaller than
