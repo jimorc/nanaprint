@@ -523,7 +523,7 @@ namespace nanaprint
         m_rangeLayout["currentPage"] << m_currentPage;
         build_selection_checkbox();
         m_rangeLayout["selection"] << m_selection;
-        buildPagesCheckbox();
+        build_pages_checkbox();
         m_rangeLayout["pages"] << m_pages;
         buildPagesBox();
         m_rangeLayout["pagesList"] << m_pagesBox;
@@ -553,7 +553,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_selection);
     }
 
-    void basic_panel::buildPagesCheckbox()
+    void basic_panel::build_pages_checkbox()
     {
         m_pages.create(m_rangeGroup);
         m_pages.caption(u8"Pages:");
