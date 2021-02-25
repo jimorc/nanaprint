@@ -27,7 +27,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false), m_gotMediaSizes(false),
+        : m_dest(dest), m_gotFinishings(false),
             m_defaultMediaSize(nullopt),
             m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
@@ -175,22 +175,18 @@ namespace nanaprint
 
     void Printer::populate_media_sizes()
     {
-        if(!m_gotMediaSizes)
+        if(m_mediaSizes.size() == 0)
         {
-            if(m_mediaSizes.size() == 0)
+            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+            int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, info, 0);
+            cups_size_t size;
+            for(int i = 0; i < mSizeCount; ++i)
             {
-                cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-                int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, info, 0);
-                cups_size_t size;
-                for(int i = 0; i < mSizeCount; ++i)
-                {
-                    int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, info, i, 0, &size);
-                    m_mediaSizes.push_back((media_size(
-                        size.media, size.width, size.length, size.bottom, size.left,
-                        size.right, size.top)));
-                }
+                int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, info, i, 0, &size);
+                m_mediaSizes.push_back((media_size(
+                    size.media, size.width, size.length, size.bottom, size.left,
+                    size.right, size.top)));
             }
-            m_gotMediaSizes = true;
         }
     }
 

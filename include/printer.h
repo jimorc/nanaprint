@@ -89,7 +89,6 @@ namespace nanaprint
             cups_dest_t* m_dest;
             media_sizes m_mediaSizes;
 
-            bool m_gotMediaSizes;
             bool m_gotMediaSources;
             media_sources m_mediaSources;
             bool m_gotMediaTypes;
