@@ -586,7 +586,7 @@ namespace nanaprint
             "<<weight=10><twosidedLabel weight=35%><2twosidedCombox weight=60%><> weight=25>");
         m_miscGroup.div(layout.c_str());
 
-        buildOrientationGroup();
+        build_orientation_group();
         m_miscGroup["orientationGroup"] << m_orientationGroup;
         buildCopiesLabel();
         m_miscGroup["copies"] << m_copiesLabel;
@@ -602,7 +602,7 @@ namespace nanaprint
         m_miscGroup["twosidedCombox"] << m_2SidedCombox;
     }
 
-    void basic_panel::buildOrientationGroup()
+    void basic_panel::build_orientation_group()
     {
         m_orientationGroup.create(m_miscGroup);
         m_orientationGroup.caption(u8"Orientation");
