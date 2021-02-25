@@ -105,7 +105,7 @@ int main()
             cout << "        " << option.first <<  ":  " << option.second << '\n';
         }
 
-        cout << printer->getMediaSizes();
+        cout << printer->get_media_sizes();
 
         cout << "Default Media Size:\n";
         auto defaultSize = printer->getDefaultMediaSize();

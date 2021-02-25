@@ -193,7 +193,7 @@ namespace nanaprint
         }
     }
 
-    const media_sizes& Printer::getMediaSizes() const noexcept
+    const media_sizes& Printer::get_media_sizes() const noexcept
     {
         return m_mediaSizes;
     }
