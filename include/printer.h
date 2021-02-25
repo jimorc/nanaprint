@@ -39,7 +39,7 @@ namespace nanaprint
             std::string getName() { return std::string(m_dest->name); }
             bool isDefault() { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
-            media_sizes& getMediaSizes();
+            const media_sizes& getMediaSizes() const noexcept;
             std::optional<media_size>& getDefaultMediaSize();
             bool canPrintMultipleCopies() const;
             const finishings& getFinishings();
