@@ -590,7 +590,7 @@ namespace nanaprint
         m_miscGroup["orientationGroup"] << m_orientationGroup;
         build_copies_label();
         m_miscGroup["copies"] << m_copiesLabel;
-        buildCopiesSpinbox();
+        build_copies_spinbox();
         m_miscGroup["copiesBox"] << m_copiesSpinbox;
         buildCollateCheckbox();
         m_miscGroup["collate"] << m_collateCheckbox;
@@ -662,7 +662,7 @@ namespace nanaprint
         m_copiesLabel.text_align(align::left, align_v::center);
     }
 
-    void basic_panel::buildCopiesSpinbox()
+    void basic_panel::build_copies_spinbox()
     {
         m_copiesSpinbox.create(m_miscGroup);
         m_copiesSpinbox.range(MINIMUMCOPIES, MAXIMUMCOPIES, 1);

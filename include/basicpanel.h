@@ -93,7 +93,7 @@ namespace nanaprint
             void build_reverse_portrait_checkbox();
             void build_reverse_landscape_checkbox();
             void build_copies_label();
-            void buildCopiesSpinbox();
+            void build_copies_spinbox();
             void buildCollateCheckbox();
             void buildReverseOrderCheckbox();
             void build2SidedLabel();
