@@ -18,9 +18,6 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-
-    constexpr int MAX_ENUM_TIME = 5000;     // max allowed time for printer enumeration in ms
-
     Printers::Printers()
     {
         enumeratePrinters();
