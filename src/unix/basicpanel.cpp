@@ -71,7 +71,7 @@ namespace nanaprint
 
         build_paper_group();
         m_column2Layout["paperGroup"] << m_paperGroup;
-        buildMiscGroup();
+        build_misc_group();
         m_column2Layout["misc"] << m_miscGroup;
     }
 
@@ -569,7 +569,7 @@ namespace nanaprint
         m_pagesBox.indention(false);
     }
 
-    void basic_panel::buildMiscGroup()
+    void basic_panel::build_misc_group()
     {
         m_miscGroup.create(m_basicColumn2);
 

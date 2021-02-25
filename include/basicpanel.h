@@ -86,7 +86,7 @@ namespace nanaprint
             void build_pages_checkbox();
             void build_pages_box();
 
-            void buildMiscGroup();
+            void build_misc_group();
             void buildOrientationGroup();
             void buildPortraitCheckbox();
             void buildLandscapeCheckbox();
