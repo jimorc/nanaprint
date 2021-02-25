@@ -525,7 +525,7 @@ namespace nanaprint
         m_rangeLayout["selection"] << m_selection;
         build_pages_checkbox();
         m_rangeLayout["pages"] << m_pages;
-        buildPagesBox();
+        build_pages_box();
         m_rangeLayout["pagesList"] << m_pagesBox;
     }
 
@@ -561,7 +561,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_pages);
     }
 
-    void basic_panel::buildPagesBox()
+    void basic_panel::build_pages_box()
     {
         m_pagesBox.create(m_rangeGroup);
         m_pagesBox.editable(true);

@@ -84,7 +84,7 @@ namespace nanaprint
             void build_current_page_checkbox();
             void build_selection_checkbox();
             void build_pages_checkbox();
-            void buildPagesBox();
+            void build_pages_box();
 
             void buildMiscGroup();
             void buildOrientationGroup();
