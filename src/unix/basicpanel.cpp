@@ -594,7 +594,7 @@ namespace nanaprint
         m_miscGroup["copiesBox"] << m_copiesSpinbox;
         build_collate_checkbox();
         m_miscGroup["collate"] << m_collateCheckbox;
-        buildReverseOrderCheckbox();
+        build_reverse_order_checkbox();
         m_miscGroup["reverseOrder"] << m_reverseOrderCheckbox;
         build2SidedLabel();
         m_miscGroup["twosidedLabel"] << m_2SidedLabel;
@@ -686,7 +686,7 @@ namespace nanaprint
         m_collateCheckbox.enabled(false);
     }
 
-    void basic_panel::buildReverseOrderCheckbox()
+    void basic_panel::build_reverse_order_checkbox()
     {
         m_reverseOrderCheckbox.create(m_miscGroup);
         m_reverseOrderCheckbox.caption(u8"Reverse Order");
