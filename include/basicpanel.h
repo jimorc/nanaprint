@@ -82,7 +82,7 @@ namespace nanaprint
 
             void build_all_pages_checkbox();
             void build_current_page_checkbox();
-            void buildSelectionCheckbox();
+            void build_selection_checkbox();
             void buildPagesCheckbox();
             void buildPagesBox();
 

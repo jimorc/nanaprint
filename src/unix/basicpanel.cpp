@@ -521,7 +521,7 @@ namespace nanaprint
         m_rangeLayout["allPages"] << m_allPages;
         build_current_page_checkbox();
         m_rangeLayout["currentPage"] << m_currentPage;
-        buildSelectionCheckbox();
+        build_selection_checkbox();
         m_rangeLayout["selection"] << m_selection;
         buildPagesCheckbox();
         m_rangeLayout["pages"] << m_pages;
@@ -545,7 +545,7 @@ namespace nanaprint
         m_rangeRadioGroup.add(m_currentPage);
     }
 
-    void basic_panel::buildSelectionCheckbox()
+    void basic_panel::build_selection_checkbox()
     {
         m_selection.create(m_rangeGroup);
         m_selection.caption(u8"Selection");
