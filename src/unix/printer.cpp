@@ -224,7 +224,7 @@ namespace nanaprint
 
     const finishings& Printer::getDefaultFinishings()
     {
-        populateDefaultFinishings();
+        populate_default_finishings();
         return m_defaultFinishings;        
     }
 
@@ -284,7 +284,7 @@ namespace nanaprint
         return m_mediaSources;
     }
 
-    void Printer::populateDefaultFinishings()
+    void Printer::populate_default_finishings()
     {
         if (!m_gotDefaultFinishings)
         {

@@ -72,7 +72,7 @@ namespace nanaprint
             void populate_default_media_size();
             void populate_finishings();
             void set_finishing(int finishing);
-            void populateDefaultFinishings();
+            void populate_default_finishings();
             void populateMediaSources();
             void populateDefaultMediaSource();
             void populateMediaTypes();
