@@ -588,7 +588,7 @@ namespace nanaprint
 
         build_orientation_group();
         m_miscGroup["orientationGroup"] << m_orientationGroup;
-        buildCopiesLabel();
+        build_copies_label();
         m_miscGroup["copies"] << m_copiesLabel;
         buildCopiesSpinbox();
         m_miscGroup["copiesBox"] << m_copiesSpinbox;
@@ -655,7 +655,7 @@ namespace nanaprint
         m_orientationRadioGroup.add(m_revLandscape);
     }
 
-    void basic_panel::buildCopiesLabel()
+    void basic_panel::build_copies_label()
     {
         m_copiesLabel.create(m_miscGroup);
         m_copiesLabel.caption(u8"Copies:");
