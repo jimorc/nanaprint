@@ -614,7 +614,7 @@ namespace nanaprint
             "<weight=10>");
         m_orientationGroup.div(layout.c_str());
 
-        buildPortraitCheckbox();
+        build_portrait_checkbox();
         m_orientationGroup["portrait"] << m_portrait;
 
         buildLandscapeCheckbox();
@@ -627,7 +627,7 @@ namespace nanaprint
         m_orientationGroup["landscapeReverse"] << m_revLandscape;
     }
 
-    void basic_panel::buildPortraitCheckbox()
+    void basic_panel::build_portrait_checkbox()
     {
         m_portrait.create(m_orientationGroup);
         m_portrait.caption(u8"Portrait");
