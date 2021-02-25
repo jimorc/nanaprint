@@ -61,7 +61,7 @@ namespace nanaprint
             }
             else if (option == "printer-type")
             {
-                opts[option] = getPrinterTypeString(value);
+                opts[option] = get_printer_type_string(value);
             }
             else
             {
@@ -93,7 +93,7 @@ namespace nanaprint
         return state;
     }
 
-    string Printer::getPrinterTypeString(const string value) const
+    const string Printer::get_printer_type_string(const string& value) const
     {
         vector<string> types;
         int intValue = atoi(value.c_str());
