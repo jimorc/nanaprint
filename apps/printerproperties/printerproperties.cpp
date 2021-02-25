@@ -27,7 +27,7 @@ int main()
         string s = printer->get_printer_state();
         cout << "Printer: " << printer->get_name() << '\n';
         cout << "    Name = " << printer->get_name() << '\n';
-        cout << "    Is default: " << (printer->isDefault() ? "true" : "false") << '\n';
+        cout << "    Is default: " << (printer->is_default() ? "true" : "false") << '\n';
         if (printer->canPrintMultipleCopies())
         {
             cout << "    Can print multiple copies\n";

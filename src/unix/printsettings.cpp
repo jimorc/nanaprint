@@ -41,7 +41,7 @@ namespace nanaprint
         auto printers = m_printers.getPrinters();
         for (printerNum = 0; printerNum < printers.size(); ++printerNum)
         {
-            if (printers[printerNum]->isDefault())
+            if (printers[printerNum]->is_default())
             {
                 return printerNum;
             }

@@ -37,7 +37,7 @@ namespace nanaprint
 
             cups_dest_t* get_dest() const noexcept { return m_dest; }
             const std::string get_name() const { return std::string(m_dest->name); }
-            bool isDefault() { return m_dest->is_default; }
+            bool is_default() const noexcept { return m_dest->is_default; }
             std::map<std::string, std::string> getOptions();
             const media_sizes& get_media_sizes() const noexcept;
             const std::optional<media_size>& get_default_media_size() const noexcept;

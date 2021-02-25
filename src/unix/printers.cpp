@@ -52,7 +52,7 @@ namespace nanaprint
         size_t printerNum = 0;
         for(size_t i = 0; i < m_printers.size(); ++i)
         {
-            if (m_printers[i]->isDefault())
+            if (m_printers[i]->is_default())
             {
                 printerNum = i;
                 break;
