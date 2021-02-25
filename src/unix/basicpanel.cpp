@@ -620,7 +620,7 @@ namespace nanaprint
         build_landscape_checkbox();
         m_orientationGroup["landscape"] << m_landscape;
 
-        buildReversePortraitCheckbox();
+        build_reverse_portrait_checkbox();
         m_orientationGroup["portraitReverse"] << m_revPortrait;
 
         buildReverseLandscapeCheckbox();
@@ -641,7 +641,7 @@ namespace nanaprint
         m_orientationRadioGroup.add(m_landscape);
     }
 
-    void basic_panel::buildReversePortraitCheckbox()
+    void basic_panel::build_reverse_portrait_checkbox()
     {
         m_revPortrait.create(m_orientationGroup);
         m_revPortrait.caption(u8"Reverse Portrait");
