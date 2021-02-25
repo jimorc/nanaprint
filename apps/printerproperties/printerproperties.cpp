@@ -38,7 +38,7 @@ int main()
         cout << finishes;
 
         cout << "Default ";
-        finishings defaultFinishings = printer->getDefaultFinishings();
+        finishings defaultFinishings = printer->get_default_finishings();
         cout << defaultFinishings;
 
         cout << "Supported ";

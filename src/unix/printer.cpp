@@ -222,7 +222,7 @@ namespace nanaprint
         return m_finishings;
     }
 
-    const finishings& Printer::getDefaultFinishings()
+    const finishings& Printer::get_default_finishings()
     {
         populate_default_finishings();
         return m_defaultFinishings;        
