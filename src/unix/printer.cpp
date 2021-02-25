@@ -27,7 +27,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     Printer::Printer(cups_dest_t* dest)
-        : m_dest(dest), m_gotFinishings(false), m_gotMediaSizes(false), m_gotDefaultMediaSize(false),
+        : m_dest(dest), m_gotFinishings(false), m_gotMediaSizes(false),
             m_defaultMediaSize(nullopt),
             m_gotMediaSources(false), m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
@@ -37,6 +37,7 @@ namespace nanaprint
             m_defaultMediaSource(media_source("None"))
     {
         populate_media_sizes();
+        populate_default_media_size();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -200,29 +201,22 @@ namespace nanaprint
 
     void Printer::populate_default_media_size()
     {
-        if(!m_gotDefaultMediaSize)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        cups_size_t size;
+        int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, info, 0, &size);
+        if(result)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            cups_size_t size;
-            int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, info, 0, &size);
-            if(result)
-            {
-                m_defaultMediaSize = media_size(size.media, size.width, size.length,
-                    size.bottom, size.left, size.right, size.top);
-                m_gotDefaultMediaSize = true;
-            }
-            else
-            {
-                m_defaultMediaSize = nullopt;
-            }
-            
-            m_gotDefaultMediaSize = true;
+            m_defaultMediaSize = media_size(size.media, size.width, size.length,
+                size.bottom, size.left, size.right, size.top);
+        }
+        else
+        {
+            m_defaultMediaSize = nullopt;
         }
     }
 
-    std::optional<media_size>& Printer::get_default_media_size()
+    const std::optional<media_size>& Printer::get_default_media_size() const noexcept
         {
-            populate_default_media_size();
             return m_defaultMediaSize;
         }
 
