@@ -236,7 +236,7 @@ namespace nanaprint
         return m_defaultFinishings;        
     }
 
-    bool Printer::canPrintMultipleCopies() const
+    bool Printer::can_print_multiple_copies() const
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest,

@@ -52,7 +52,7 @@ namespace nanaprint
         set_color_mode(printer->get_default_color_mode());
         set_print_quality(printer->get_default_print_quality());
         set_side(printer->get_default_side());
-        m_canPrintMultipleCopies = printer->canPrintMultipleCopies();
+        m_canPrintMultipleCopies = printer->can_print_multiple_copies();
     }
 
     void PrintDialogSettings::set_borderless(bool borderless)

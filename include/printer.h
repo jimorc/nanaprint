@@ -41,7 +41,7 @@ namespace nanaprint
             std::map<std::string, std::string> get_options() const;
             const media_sizes& get_media_sizes() const noexcept;
             const std::optional<media_size>& get_default_media_size() const noexcept;
-            bool canPrintMultipleCopies() const;
+            bool can_print_multiple_copies() const;
             const finishings& get_finishings() const noexcept;
             const finishings& get_default_finishings() const noexcept;
             const media_sources get_media_sources() const noexcept;
