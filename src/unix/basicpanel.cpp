@@ -314,7 +314,7 @@ namespace nanaprint
     void basic_panel::update_media_type_combox(Printer& printer)
     {
         m_mediaTypeCombox.clear();
-        auto mediaTypes = printer.getMediaTypes().get_values();
+        auto mediaTypes = printer.get_media_types().get_values();
         auto hasMediaTypes = mediaTypes.size() > 0;
         m_mediaTypeCombox.enabled(hasMediaTypes);
         auto selectedMediaType = m_dialogSettings.get_media_type();

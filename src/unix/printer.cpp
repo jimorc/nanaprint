@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
+            m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(media_type("None")),
@@ -41,6 +41,7 @@ namespace nanaprint
         populate_default_finishings();
         populate_media_sources();
         populate_default_media_source();
+        populate_media_types();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -350,27 +351,22 @@ namespace nanaprint
 
     void Printer::populate_media_types()
     {
-        if (!m_gotMediaTypes)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_MEDIA_TYPE, NULL))
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_MEDIA_TYPE, NULL))
+            ipp_attribute_t *type = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_MEDIA_TYPE);
+            int count = ippGetCount(type);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *type = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_MEDIA_TYPE);
-                int count = ippGetCount(type);
-                for (int i = 0; i < count; ++i)
-                {
-                    const char *mediaType = ippGetString(type, i, NULL);
-                    m_mediaTypes.push_back(media_type(mediaType));
-                }
+                const char *mediaType = ippGetString(type, i, NULL);
+                m_mediaTypes.push_back(media_type(mediaType));
             }
-            m_gotMediaTypes = true;
-        }   
+        }
     }
 
-    media_types& Printer::getMediaTypes()
+    const media_types& Printer::get_media_types() const noexcept
     {
-        populate_media_types();
         return m_mediaTypes;
     }
 
