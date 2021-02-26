@@ -403,7 +403,7 @@ namespace nanaprint
         return m_defaultMediaType;
     }
 
-    void Printer::populateOrientations()
+    void Printer::populate_orientations()
     {
         if (!m_gotOrientations)
         {
@@ -424,7 +424,7 @@ namespace nanaprint
     }
     page_orientations& Printer::getOrientations()
     {
-        populateOrientations();
+        populate_orientations();
         return m_orientations;
     }
 
