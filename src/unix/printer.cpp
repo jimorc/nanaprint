@@ -347,7 +347,7 @@ namespace nanaprint
         }   
     }
 
-    std::optional<media_source>& Printer::getDefaultMediaSource()
+    std::optional<media_source>& Printer::get_default_media_source()
     {
         populate_default_media_source();
         return m_defaultMediaSource;

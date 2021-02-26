@@ -45,7 +45,7 @@ namespace nanaprint
             const finishings& get_finishings() const noexcept;
             const finishings& get_default_finishings() const noexcept;
             const media_sources get_media_sources() const noexcept;
-            std::optional<media_source>& getDefaultMediaSource();
+            std::optional<media_source>& get_default_media_source();
             media_types& getMediaTypes();
             std::optional<media_type>& getDefaultMediaType();
             page_orientations& getOrientations();

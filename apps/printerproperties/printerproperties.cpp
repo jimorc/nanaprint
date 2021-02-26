@@ -46,7 +46,7 @@ int main()
         cout << mediaSources;
 
         cout << "Default Media Source:\n";
-        auto defaultMediaSource = printer->getDefaultMediaSource();
+        auto defaultMediaSource = printer->get_default_media_source();
         cout << "    ";
         cout << ((defaultMediaSource) ? defaultMediaSource.value().get_value() : "None") << "\n";
 

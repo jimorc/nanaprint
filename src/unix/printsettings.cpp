@@ -57,7 +57,7 @@ namespace nanaprint
         set_borderless(false);
         set_media_size(printers[m_printer]->get_default_media_size());
         set_finishings(printers[m_printer]->get_default_finishings());
-        set_media_source(printers[m_printer]->getDefaultMediaSource());
+        set_media_source(printers[m_printer]->get_default_media_source());
         set_media_type(printers[m_printer]->getDefaultMediaType()),
         set_page_orientation(printers[m_printer]->getDefaultOrientation());
         set_color_mode(printers[m_printer]->getDefaultColorMode());
