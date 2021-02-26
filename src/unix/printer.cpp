@@ -29,7 +29,6 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
@@ -41,6 +40,7 @@ namespace nanaprint
         populate_finishings();
         populate_default_finishings();
         populate_media_sources();
+        populate_default_media_source();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -319,37 +319,32 @@ namespace nanaprint
 
     void Printer::populate_default_media_source()
     {
-        if (!m_gotDefaultMediaSource)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        const char *defaultSource =
+            cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
+        if (defaultSource != nullptr)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            const char *defaultSource =
-                cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
-            if (defaultSource != nullptr)
+            m_defaultMediaSource = media_source(defaultSource);
+        }
+        else
+        {
+            ipp_attribute_t *source = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_MEDIA_SOURCE);
+            int count = ippGetCount(source);
+            if (count != 0)
             {
-                m_defaultMediaSource = media_source(defaultSource);
+                const char *src = ippGetString(source, 0, NULL);
+                m_defaultMediaSource = media_source(src);
             }
             else
             {
-                ipp_attribute_t *source = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_MEDIA_SOURCE);
-                int count = ippGetCount(source);
-                if (count != 0)
-                {
-                    const char *src = ippGetString(source, 0, NULL);
-                    m_defaultMediaSource = media_source(src);
-                }
-                else
-                {
-                    m_defaultMediaSource = nullopt;
-                }
+                m_defaultMediaSource = nullopt;
             }
-            m_gotDefaultMediaSource = true;
-        }   
+        }
     }
 
-    std::optional<media_source>& Printer::get_default_media_source()
+    const std::optional<media_source>& Printer::get_default_media_source() const noexcept
     {
-        populate_default_media_source();
         return m_defaultMediaSource;
     }
 
