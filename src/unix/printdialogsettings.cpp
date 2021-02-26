@@ -49,7 +49,7 @@ namespace nanaprint
         set_media_source(printer->get_default_media_source());
         set_media_type(printer->get_default_media_type()),
         set_page_orientation(printer->get_default_orientation());
-        set_color_mode(printer->getDefaultColorMode());
+        set_color_mode(printer->get_default_color_mode());
         set_print_quality(printer->getDefaultPrintQuality());
         set_side(printer->getDefaultSide());
         m_canPrintMultipleCopies = printer->canPrintMultipleCopies();

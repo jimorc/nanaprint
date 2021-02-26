@@ -51,7 +51,7 @@ namespace nanaprint
             const page_orientations& get_orientations() const noexcept;
             const std::optional<page_orientation>& get_default_orientation() const noexcept;
             const color_modes& get_color_modes() const noexcept;
-            const std::optional<color_mode>& getDefaultColorMode();
+            const std::optional<color_mode>& get_default_color_mode();
             print_qualities& getPrintQualities();
             const std::optional<print_quality>& getDefaultPrintQuality();
             sides& getSides();

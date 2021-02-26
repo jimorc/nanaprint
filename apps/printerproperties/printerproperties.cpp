@@ -78,7 +78,7 @@ int main()
         cout << colorModes;
        
         cout << "Default Color Mode:\n";
-        auto defaultColorMode = printer->getDefaultColorMode();
+        auto defaultColorMode = printer->get_default_color_mode();
         cout << "    ";
         cout << ((defaultColorMode) ? defaultColorMode.value().get_value() : "None") << "\n";
 
