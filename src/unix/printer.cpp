@@ -478,7 +478,7 @@ namespace nanaprint
             m_gotColorModes = true;
         }   
     }
-    color_modes& Printer::getColorModes()
+    color_modes& Printer::get_color_modes()
     {
         populate_color_modes();
         return m_colorModes;

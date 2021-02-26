@@ -74,7 +74,7 @@ int main()
         }
 
         cout << "Supported ";
-        auto colorModes = printer->getColorModes();
+        auto colorModes = printer->get_color_modes();
         cout << colorModes;
        
         cout << "Default Color Mode:\n";
