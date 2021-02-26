@@ -258,7 +258,7 @@ namespace nanaprint
         m_finishings.set_finishing(fin);
     }
 
-    void Printer::populateMediaSources()
+    void Printer::populate_media_sources()
     {
         if (!m_gotMediaSources)
         {
@@ -280,7 +280,7 @@ namespace nanaprint
 
     const media_sources Printer::getMediaSources()
     {
-        populateMediaSources();
+        populate_media_sources();
         return m_mediaSources;
     }
 

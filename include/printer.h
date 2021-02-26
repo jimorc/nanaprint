@@ -73,7 +73,7 @@ namespace nanaprint
             void populate_finishings();
             void set_finishing(int finishing);
             void populate_default_finishings();
-            void populateMediaSources();
+            void populate_media_sources();
             void populateDefaultMediaSource();
             void populateMediaTypes();
             void populateDefaultMediaType();
