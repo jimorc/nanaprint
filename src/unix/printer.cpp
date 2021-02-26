@@ -510,7 +510,7 @@ namespace nanaprint
         return m_defaultColorMode;
     }
 
-    void Printer::populatePrintQualities()
+    void Printer::populate_print_qualities()
     {
         if (!m_gotPrintQualities)
         {
@@ -531,7 +531,7 @@ namespace nanaprint
     }
     print_qualities& Printer::getPrintQualities()
     {
-        populatePrintQualities();
+        populate_print_qualities();
         return m_printQualities;
     }
 
