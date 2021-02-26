@@ -348,7 +348,7 @@ namespace nanaprint
         return m_defaultMediaSource;
     }
 
-    void Printer::populateMediaTypes()
+    void Printer::populate_media_types()
     {
         if (!m_gotMediaTypes)
         {
@@ -370,7 +370,7 @@ namespace nanaprint
 
     media_types& Printer::getMediaTypes()
     {
-        populateMediaTypes();
+        populate_media_types();
         return m_mediaTypes;
     }
 
