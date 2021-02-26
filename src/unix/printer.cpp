@@ -532,7 +532,7 @@ namespace nanaprint
         return m_printQualities;
     }
 
-    void Printer::populateDefaultPrintQuality()
+    void Printer::populate_default_print_quality()
     {
         if (!m_gotDefaultPrintQuality)
         {
@@ -565,7 +565,7 @@ namespace nanaprint
     }
     const std::optional<print_quality>& Printer::getDefaultPrintQuality()
     {
-        populateDefaultPrintQuality();
+        populate_default_print_quality();
         return m_defaultPrintQuality;
     }
 
