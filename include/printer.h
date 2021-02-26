@@ -47,7 +47,7 @@ namespace nanaprint
             const media_sources get_media_sources() const noexcept;
             const std::optional<media_source>& get_default_media_source() const noexcept;
             const media_types& get_media_types() const noexcept;
-            std::optional<media_type>& getDefaultMediaType();
+            std::optional<media_type>& get_default_media_type();
             page_orientations& getOrientations();
             const std::optional<page_orientation>& getDefaultOrientation();
             color_modes& getColorModes();

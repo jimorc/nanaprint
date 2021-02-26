@@ -47,7 +47,7 @@ namespace nanaprint
         set_media_size(printer->get_default_media_size());
         set_finishings(printer->get_default_finishings());
         set_media_source(printer->get_default_media_source());
-        set_media_type(printer->getDefaultMediaType()),
+        set_media_type(printer->get_default_media_type()),
         set_page_orientation(printer->getDefaultOrientation());
         set_color_mode(printer->getDefaultColorMode());
         set_print_quality(printer->getDefaultPrintQuality());
