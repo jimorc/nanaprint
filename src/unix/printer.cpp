@@ -317,7 +317,7 @@ namespace nanaprint
         }
     }
 
-    void Printer::populateDefaultMediaSource()
+    void Printer::populate_default_media_source()
     {
         if (!m_gotDefaultMediaSource)
         {
@@ -349,7 +349,7 @@ namespace nanaprint
 
     std::optional<media_source>& Printer::getDefaultMediaSource()
     {
-        populateDefaultMediaSource();
+        populate_default_media_source();
         return m_defaultMediaSource;
     }
 
