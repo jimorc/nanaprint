@@ -29,7 +29,6 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
@@ -43,6 +42,7 @@ namespace nanaprint
         populate_default_media_source();
         populate_media_types();
         populate_default_media_type();
+        populate_orientations();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -405,26 +405,21 @@ namespace nanaprint
 
     void Printer::populate_orientations()
     {
-        if (!m_gotOrientations)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_ORIENTATION, NULL))
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_ORIENTATION, NULL))
+            ipp_attribute_t *orientations = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_ORIENTATION);
+            int count = ippGetCount(orientations);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *orientations = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_ORIENTATION);
-                int count = ippGetCount(orientations);
-                for (int i = 0; i < count; ++i)
-                {
-                    int orientation = ippGetInteger(orientations, i);
-                    m_orientations.push_back(page_orientation(orientation));
-                }
+                int orientation = ippGetInteger(orientations, i);
+                m_orientations.push_back(page_orientation(orientation));
             }
-            m_gotOrientations = true;
-        }   
+        }
     }
-    page_orientations& Printer::get_orientations()
+    const page_orientations& Printer::get_orientations() const noexcept
     {
-        populate_orientations();
         return m_orientations;
     }
 
