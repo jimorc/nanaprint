@@ -44,7 +44,7 @@ namespace nanaprint
             bool canPrintMultipleCopies() const;
             const finishings& get_finishings() const noexcept;
             const finishings& get_default_finishings() const noexcept;
-            const media_sources get_media_sources();
+            const media_sources get_media_sources() const noexcept;
             std::optional<media_source>& getDefaultMediaSource();
             media_types& getMediaTypes();
             std::optional<media_type>& getDefaultMediaType();
@@ -89,7 +89,6 @@ namespace nanaprint
             cups_dest_t* m_dest;
             media_sizes m_mediaSizes;
 
-            bool m_gotMediaSources;
             media_sources m_mediaSources;
             bool m_gotMediaTypes;
             media_types m_mediaTypes;

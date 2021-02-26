@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotMediaSources(false), m_gotDefaultMediaSource(false),
+            m_gotDefaultMediaSource(false),
             m_gotMediaTypes(false), m_gotDefaultMediaType(false), m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
@@ -40,6 +40,7 @@ namespace nanaprint
         populate_default_media_size();
         populate_finishings();
         populate_default_finishings();
+        populate_media_sources();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -260,27 +261,22 @@ namespace nanaprint
 
     void Printer::populate_media_sources()
     {
-        if (!m_gotMediaSources)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
+            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_MEDIA_SOURCE);
+            int count = ippGetCount(source);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_MEDIA_SOURCE);
-                int count = ippGetCount(source);
-                for (int i = 0; i < count; ++i)
-                {
-                    const char *src = ippGetString(source, i, NULL);
-                    m_mediaSources.push_back(media_source(src));
-                }
+                const char *src = ippGetString(source, i, NULL);
+                m_mediaSources.push_back(media_source(src));
             }
-            m_gotMediaSources = true;
         }   
     }
 
-    const media_sources Printer::get_media_sources()
+    const media_sources Printer::get_media_sources() const noexcept
     {
-        populate_media_sources();
         return m_mediaSources;
     }
 
