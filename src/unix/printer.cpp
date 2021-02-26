@@ -44,6 +44,7 @@ namespace nanaprint
         populate_orientations();
         populate_default_orientation();
         populate_color_modes();
+        populate_default_color_mode();
         populate_print_qualities();
     }
 
