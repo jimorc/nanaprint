@@ -78,7 +78,7 @@ namespace nanaprint
             void populate_media_types();
             void populate_default_media_type();
             void populate_orientations();
-            void populateDefaultOrientation();
+            void populate_default_orientation();
             void populateColorModes();
             void populateDefaultColorMode();
             void populatePrintQualities();

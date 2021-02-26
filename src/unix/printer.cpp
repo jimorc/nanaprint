@@ -423,7 +423,7 @@ namespace nanaprint
         return m_orientations;
     }
 
-    void Printer::populateDefaultOrientation()
+    void Printer::populate_default_orientation()
     {
         if (!m_gotDefaultOrientation)
         {
@@ -459,7 +459,7 @@ namespace nanaprint
     }
     const optional<page_orientation>& Printer::getDefaultOrientation()
     {
-        populateDefaultOrientation();
+        populate_default_orientation();
         return m_defaultOrientation;
     }
 
