@@ -29,10 +29,10 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotDefaultMediaType(false), m_gotOrientations(false),
+            m_gotOrientations(false),
             m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
-            m_gotDefaultSide(false), m_defaultMediaType(media_type("None")),
+            m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
     {
         populate_media_sizes();
@@ -42,6 +42,7 @@ namespace nanaprint
         populate_media_sources();
         populate_default_media_source();
         populate_media_types();
+        populate_default_media_type();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -372,38 +373,33 @@ namespace nanaprint
 
     void Printer::populate_default_media_type()
     {
-        if (!m_gotDefaultMediaType)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        const char *defaultType =
+            cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
+        if(defaultType != nullptr)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            const char *defaultType =
-                cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
-            if(defaultType != nullptr)
+            m_defaultMediaType = media_type(defaultType);
+        }
+        else
+        {
+            ipp_attribute_t *type = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_MEDIA_TYPE);
+            int count = ippGetCount(type);
+            if (count != 0)
             {
+                const char *defaultType = ippGetString(type, 0, NULL);
                 m_defaultMediaType = media_type(defaultType);
             }
             else
             {
-                ipp_attribute_t *type = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_MEDIA_TYPE);
-                int count = ippGetCount(type);
-                if (count != 0)
-                {
-                    const char *defaultType = ippGetString(type, 0, NULL);
-                    m_defaultMediaType = media_type(defaultType);
-                }
-                else
-                {
-                    m_defaultMediaType = nullopt;
-                }
-                
+                m_defaultMediaType = nullopt;
             }
-            m_gotDefaultMediaType = true;
-        }   
+            
+        }
     }
 
-    std::optional<media_type>& Printer::get_default_media_type()
+    const std::optional<media_type>& Printer::get_default_media_type() const noexcept
     {
-        populate_default_media_type();
         return m_defaultMediaType;
     }
 
@@ -463,7 +459,7 @@ namespace nanaprint
                 }
                 
             }
-            m_gotDefaultMediaType = true;
+            m_gotDefaultOrientation = true;
         }   
     }
     const optional<page_orientation>& Printer::getDefaultOrientation()
