@@ -480,7 +480,7 @@ namespace nanaprint
         return m_colorModes;
     }
 
-    void Printer::populateDefaultColorMode()
+    void Printer::populate_default_color_mode()
     {
         if (!m_gotDefaultColorMode)
         {
@@ -513,7 +513,7 @@ namespace nanaprint
 
     const std::optional<color_mode>& Printer::getDefaultColorMode()
     {
-        populateDefaultColorMode();
+        populate_default_color_mode();
         return m_defaultColorMode;
     }
 
