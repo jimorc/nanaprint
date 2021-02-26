@@ -59,7 +59,7 @@ int main()
         cout << "    ";
         cout << ((defaultMediaType) ? defaultMediaType.value().get_value() : "None") << "\n";
 
-        auto orientations = printer->getOrientations();
+        auto orientations = printer->get_orientations();
         cout << orientations;
                  
         cout << "Default Orientation:\n";

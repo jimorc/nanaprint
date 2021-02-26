@@ -315,7 +315,7 @@ namespace nanaprint
         }
         // enable orientations supported by the printer
         auto printer = m_settings.get_printers().getPrinters()[m_printer];
-        auto orientations = printer->getOrientations();
+        auto orientations = printer->get_orientations();
         for (auto orientation: orientations.get_values())
         {
             auto orientationNum = orientation.get_orientation_number();

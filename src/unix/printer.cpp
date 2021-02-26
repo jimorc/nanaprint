@@ -422,7 +422,7 @@ namespace nanaprint
             m_gotOrientations = true;
         }   
     }
-    page_orientations& Printer::getOrientations()
+    page_orientations& Printer::get_orientations()
     {
         populate_orientations();
         return m_orientations;
