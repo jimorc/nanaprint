@@ -83,7 +83,7 @@ namespace nanaprint
             void populate_default_color_mode();
             void populate_print_qualities();
             void populate_default_print_quality();
-            void populateSides();
+            void populate_sides();
             void populateDefaultSide();
 
             cups_dest_t* m_dest;

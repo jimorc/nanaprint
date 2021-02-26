@@ -564,7 +564,7 @@ namespace nanaprint
         return m_defaultPrintQuality;
     }
 
-    void Printer::populateSides()
+    void Printer::populate_sides()
     {
         if (!m_gotSides)
         {
@@ -585,7 +585,7 @@ namespace nanaprint
     }
      sides& Printer::getSides()
     {
-        populateSides();
+        populate_sides();
         return m_sides;
     }
 
