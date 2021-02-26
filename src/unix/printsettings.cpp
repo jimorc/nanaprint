@@ -61,7 +61,7 @@ namespace nanaprint
         set_media_type(printers[m_printer]->get_default_media_type()),
         set_page_orientation(printers[m_printer]->get_default_orientation());
         set_color_mode(printers[m_printer]->get_default_color_mode());
-        set_print_quality(printers[m_printer]->getDefaultPrintQuality());
+        set_print_quality(printers[m_printer]->get_default_print_quality());
         set_side(printers[m_printer]->getDefaultSide());
         m_canPrintMultipleCopies = printers[m_printer]->canPrintMultipleCopies();
     }

@@ -86,7 +86,7 @@ int main()
         cout << printQualities;
 
         cout << "Default Print Quality:\n";
-        auto printQuality = printer->getDefaultPrintQuality();
+        auto printQuality = printer->get_default_print_quality();
         cout << "    ";
         cout << ((printQuality) ? printQuality.value().get_value() : "None") << '\n';
 

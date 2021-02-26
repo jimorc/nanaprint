@@ -563,7 +563,7 @@ namespace nanaprint
             m_gotDefaultPrintQuality = true;
         }   
     }
-    const std::optional<print_quality>& Printer::getDefaultPrintQuality()
+    const std::optional<print_quality>& Printer::get_default_print_quality()
     {
         populate_default_print_quality();
         return m_defaultPrintQuality;

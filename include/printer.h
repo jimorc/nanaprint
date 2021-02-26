@@ -53,7 +53,7 @@ namespace nanaprint
             const color_modes& get_color_modes() const noexcept;
             const std::optional<color_mode>& get_default_color_mode() const noexcept;
             const print_qualities& get_print_qualities() const noexcept;
-            const std::optional<print_quality>& getDefaultPrintQuality();
+            const std::optional<print_quality>& get_default_print_quality();
             sides& getSides();
             const std::optional<side>& getDefaultSide();
 
