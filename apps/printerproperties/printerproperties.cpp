@@ -63,7 +63,7 @@ int main()
         cout << orientations;
                  
         cout << "Default Orientation:\n";
-        auto defOrientation = printer->getDefaultOrientation();
+        auto defOrientation = printer->get_default_orientation();
         if (defOrientation)
         {
             cout << defOrientation.value();

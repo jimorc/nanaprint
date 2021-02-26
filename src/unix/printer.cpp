@@ -457,7 +457,7 @@ namespace nanaprint
             m_gotDefaultOrientation = true;
         }   
     }
-    const optional<page_orientation>& Printer::getDefaultOrientation()
+    const optional<page_orientation>& Printer::get_default_orientation()
     {
         populate_default_orientation();
         return m_defaultOrientation;
