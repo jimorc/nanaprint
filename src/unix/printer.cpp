@@ -459,7 +459,7 @@ namespace nanaprint
         return m_defaultOrientation;
     }
 
-    void Printer::populateColorModes()
+    void Printer::populate_color_modes()
     {
         if (!m_gotColorModes)
         {
@@ -480,7 +480,7 @@ namespace nanaprint
     }
     color_modes& Printer::getColorModes()
     {
-        populateColorModes();
+        populate_color_modes();
         return m_colorModes;
     }
 
