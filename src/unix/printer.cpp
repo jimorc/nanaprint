@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotDefaultSide(false), m_defaultMediaType(nullopt),
+            m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
     {
         populate_media_sizes();
@@ -47,6 +47,7 @@ namespace nanaprint
         populate_print_qualities();
         populate_default_print_quality();
         populate_sides();
+        populate_default_side();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -587,37 +588,32 @@ namespace nanaprint
 
     void Printer::populate_default_side()
     {
-        if (!m_gotDefaultSide)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        const char *defaultSide =
+            cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
+        if (defaultSide != nullptr)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            const char *defaultSide =
-                cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
-            if (defaultSide != nullptr)
+            m_defaultSide = side(defaultSide);
+        }
+        else
+        {
+            ipp_attribute_t *defSide = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_SIDES);
+            int count = ippGetCount(defSide);
+            if (count != 0)
             {
-                m_defaultSide = side(defaultSide);
+                const char *defaultSide = ippGetString(defSide, 0, NULL);
+                    m_defaultSide = side(defaultSide);
             }
             else
             {
-                ipp_attribute_t *defSide = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_SIDES);
-                int count = ippGetCount(defSide);
-                if (count != 0)
-                {
-                    const char *defaultSide = ippGetString(defSide, 0, NULL);
-                     m_defaultSide = side(defaultSide);
-                }
-                else
-                {
-                    m_defaultSide = nullopt;
-                }
-                
+                m_defaultSide = nullopt;
             }
-            m_gotDefaultSide = true;
         }   
     }
-    const std::optional<side>& Printer::getDefaultSide()
+    
+    const std::optional<side>& Printer::get_default_side() const noexcept
     {
-        populate_default_side();
         return m_defaultSide;
     }
 
