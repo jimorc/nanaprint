@@ -585,7 +585,7 @@ namespace nanaprint
         return m_sides;
     }
 
-    void Printer::populateDefaultSide()
+    void Printer::populate_default_side()
     {
         if (!m_gotDefaultSide)
         {
@@ -617,7 +617,7 @@ namespace nanaprint
     }
     const std::optional<side>& Printer::getDefaultSide()
     {
-        populateDefaultSide();
+        populate_default_side();
         return m_defaultSide;
     }
 

@@ -84,7 +84,7 @@ namespace nanaprint
             void populate_print_qualities();
             void populate_default_print_quality();
             void populate_sides();
-            void populateDefaultSide();
+            void populate_default_side();
 
             cups_dest_t* m_dest;
             media_sizes m_mediaSizes;
