@@ -37,5 +37,7 @@ namespace nanaprint
 
             std::vector<std::shared_ptr<Printer>> m_printers;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Printers& prtrs);
 }
 #endif      // PRINTERS_H

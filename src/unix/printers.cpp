@@ -71,4 +71,20 @@ namespace nanaprint
         }
         return printerNum;
     }
+
+    std::ostream& operator<<(std::ostream& os, const Printers& prtrs)
+    {
+        auto prntrs = prtrs.getPrinters();
+        if (prntrs.size() == 0)
+        {
+            os << "No printers found.\n";
+        }
+        else
+        {
+            for(auto prntr : prntrs)
+            {
+                os << *prntr;
+            }
+        }
+    }
 }

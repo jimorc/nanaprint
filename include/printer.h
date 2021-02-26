@@ -13,6 +13,7 @@
  *
  */
 
+#include <iostream>
 #include <memory>
 #include <string>
 #include <map>
@@ -106,4 +107,6 @@ namespace nanaprint
             std::optional<side> m_defaultSide;
             finishings m_defaultFinishings;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Printer& prtr);
 }

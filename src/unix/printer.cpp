@@ -705,4 +705,97 @@ namespace nanaprint
     {
         return get_options()["printer-type"];
     }
+
+    std::ostream& operator<<(std::ostream& os, const Printer& prtr)
+    {
+        string s = prtr.get_printer_state();
+        os << "Printer: " << prtr.get_name() << '\n';
+        os << "    Name = " << prtr.get_name() << '\n';
+        os << "    Is default: " << (prtr.is_default() ? "true" : "false") << '\n';
+        if (prtr.can_print_multiple_copies())
+        {
+            os << "    Can print multiple copies\n";
+        }
+
+        os << "Supported ";
+        const finishings& finishes = prtr.get_finishings();
+        os << finishes;
+
+        os << "Default ";
+        finishings defaultFinishings = prtr.get_default_finishings();
+        os << defaultFinishings;
+
+        os << "Supported ";
+        auto mediaSources = prtr.get_media_sources();
+        os << mediaSources;
+
+        os << "Default Media Source:\n";
+        auto defaultMediaSource = prtr.get_default_media_source();
+        os << "    ";
+        os << ((defaultMediaSource) ? defaultMediaSource.value().get_value() : "None") << "\n";
+
+        os << "Supported ";
+        auto mediaTypes = prtr.get_media_types();
+        os << mediaTypes;
+
+        os << "Default Media Type:\n";
+        auto defaultMediaType = prtr.get_default_media_type();
+        os << "    ";
+        os << ((defaultMediaType) ? defaultMediaType.value().get_value() : "None") << "\n";
+
+        auto orientations = prtr.get_orientations();
+        os << orientations;
+                 
+        os << "Default Orientation:\n";
+        auto defOrientation = prtr.get_default_orientation();
+        if (defOrientation)
+        {
+            os << defOrientation.value();
+        }
+        else
+        {
+            os << "    None\n";
+        }
+
+        os << "Supported ";
+        auto colorModes = prtr.get_color_modes();
+        os << colorModes;
+       
+        os << "Default Color Mode:\n";
+        auto defaultColorMode = prtr.get_default_color_mode();
+        os << "    ";
+        os << ((defaultColorMode) ? defaultColorMode.value().get_value() : "None") << "\n";
+
+        auto printQualities = prtr.get_print_qualities();
+        os << printQualities;
+
+        os << "Default Print Quality:\n";
+        auto printQuality = prtr.get_default_print_quality();
+        os << "    ";
+        os << ((printQuality) ? printQuality.value().get_value() : "None") << '\n';
+
+        os << "Supported ";
+        auto sides = prtr.get_sides();
+        os << sides;
+
+        os << "Default Side\n";
+        auto side = prtr.get_default_side();
+        os << "    ";
+        os << ((side) ? side.value().get_value() : "None") << '\n';
+
+        os << "    Options: " << '\n';
+        for (auto option : prtr.get_options())
+        {
+            os << "        " << option.first <<  ":  " << option.second << '\n';
+        }
+
+        os << prtr.get_media_sizes();
+
+        os << "Default Media Size:\n";
+        auto defaultSize = prtr.get_default_media_size();
+        os << ((defaultSize) ? defaultSize.value().get_translated_name() : "None") << "\n"; 
+ 
+        os << endl;
+        return os;
+    }
 }       
