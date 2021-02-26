@@ -529,7 +529,7 @@ namespace nanaprint
             m_gotPrintQualities = true;
         }   
     }
-    print_qualities& Printer::getPrintQualities()
+    print_qualities& Printer::get_print_qualities()
     {
         populate_print_qualities();
         return m_printQualities;
