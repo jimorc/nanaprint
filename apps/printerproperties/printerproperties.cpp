@@ -42,7 +42,7 @@ int main()
         cout << defaultFinishings;
 
         cout << "Supported ";
-        auto mediaSources = printer->getMediaSources();
+        auto mediaSources = printer->get_media_sources();
         cout << mediaSources;
 
         cout << "Default Media Source:\n";

@@ -278,7 +278,7 @@ namespace nanaprint
         }   
     }
 
-    const media_sources Printer::getMediaSources()
+    const media_sources Printer::get_media_sources()
     {
         populate_media_sources();
         return m_mediaSources;

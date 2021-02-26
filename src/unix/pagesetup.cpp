@@ -347,7 +347,7 @@ namespace nanaprint
     void PageSetup::populatePaperSourceCombox()
     {
         auto printer = m_settings.get_printers().getPrinters()[m_printer];
-        auto paperSources = printer->getMediaSources();
+        auto paperSources = printer->get_media_sources();
         auto sources = paperSources.get_values();
         auto mediaSource = m_settings.get_media_source();
         m_paperSourceCombox.clear();
