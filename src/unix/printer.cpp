@@ -29,7 +29,6 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
@@ -482,38 +481,32 @@ namespace nanaprint
 
     void Printer::populate_default_color_mode()
     {
-        if (!m_gotDefaultColorMode)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        const char *defaultColorMode =
+            cupsGetOption(CUPS_PRINT_COLOR_MODE, m_dest->num_options, m_dest->options);
+        if (defaultColorMode != nullptr)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            const char *defaultColorMode =
-                cupsGetOption(CUPS_PRINT_COLOR_MODE, m_dest->num_options, m_dest->options);
-            if (defaultColorMode != nullptr)
+            m_defaultColorMode = color_mode(defaultColorMode);
+        }
+        else
+        {
+            ipp_attribute_t *defColorMode = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_PRINT_COLOR_MODE);
+            int count = ippGetCount(defColorMode);
+            if (count != 0)
             {
+                const char *defaultColorMode = ippGetString(defColorMode, 0, NULL);
                 m_defaultColorMode = color_mode(defaultColorMode);
             }
             else
             {
-                ipp_attribute_t *defColorMode = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_PRINT_COLOR_MODE);
-                int count = ippGetCount(defColorMode);
-                if (count != 0)
-                {
-                    const char *defaultColorMode = ippGetString(defColorMode, 0, NULL);
-                    m_defaultColorMode = color_mode(defaultColorMode);
-                }
-                else
-                {
-                    m_defaultColorMode = nullopt;
-                }
-                
+                m_defaultColorMode = nullopt;
             }
-            m_gotDefaultColorMode = true;
-        }   
+        }
     }
 
-    const std::optional<color_mode>& Printer::get_default_color_mode()
+    const std::optional<color_mode>& Printer::get_default_color_mode() const noexcept
     {
-        populate_default_color_mode();
         return m_defaultColorMode;
     }
 
