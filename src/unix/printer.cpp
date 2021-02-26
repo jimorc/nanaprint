@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotDefaultPrintQuality(false), m_gotSides(false),
+            m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
     {
@@ -46,6 +46,7 @@ namespace nanaprint
         populate_color_modes();
         populate_default_color_mode();
         populate_print_qualities();
+        populate_default_print_quality();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -534,38 +535,32 @@ namespace nanaprint
 
     void Printer::populate_default_print_quality()
     {
-        if (!m_gotDefaultPrintQuality)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        const char *defaultQuality =
+            cupsGetOption(CUPS_PRINT_QUALITY, m_dest->num_options, m_dest->options);
+        if (defaultQuality != nullptr)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            const char *defaultQuality =
-                cupsGetOption(CUPS_PRINT_QUALITY, m_dest->num_options, m_dest->options);
-            if (defaultQuality != nullptr)
+            int quality = stoi(defaultQuality);
+            m_defaultPrintQuality = print_quality(quality);
+        }
+        else
+        {
+            ipp_attribute_t *defQuality = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_PRINT_QUALITY);
+            int count = ippGetCount(defQuality);
+            if (count != 0)
             {
-                int quality = stoi(defaultQuality);
-                m_defaultPrintQuality = print_quality(quality);
+                int defaultQuality = ippGetInteger(defQuality, 0);
+                m_defaultPrintQuality = print_quality(defaultQuality);
             }
             else
             {
-                ipp_attribute_t *defQuality = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_PRINT_QUALITY);
-                int count = ippGetCount(defQuality);
-                if (count != 0)
-                {
-                    int defaultQuality = ippGetInteger(defQuality, 0);
-                    m_defaultPrintQuality = print_quality(defaultQuality);
-                }
-                else
-                {
-                    m_defaultPrintQuality = nullopt;
-                }
-                
+                m_defaultPrintQuality = nullopt;
             }
-            m_gotDefaultPrintQuality = true;
         }   
     }
-    const std::optional<print_quality>& Printer::get_default_print_quality()
+    const std::optional<print_quality>& Printer::get_default_print_quality() const noexcept
     {
-        populate_default_print_quality();
         return m_defaultPrintQuality;
     }
 
