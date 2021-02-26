@@ -29,7 +29,6 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
     {
@@ -47,6 +46,7 @@ namespace nanaprint
         populate_default_color_mode();
         populate_print_qualities();
         populate_default_print_quality();
+        populate_sides();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -566,26 +566,22 @@ namespace nanaprint
 
     void Printer::populate_sides()
     {
-        if (!m_gotSides)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_SIDES, NULL))
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_SIDES, NULL))
+            ipp_attribute_t *sides = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_SIDES);
+            int count = ippGetCount(sides);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *sides = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_SIDES);
-                int count = ippGetCount(sides);
-                for (int i = 0; i < count; ++i)
-                {
-                    const char *sid = ippGetString(sides, i, NULL);
-                    m_sides.push_back(side(sid));
-                }
+                const char *sid = ippGetString(sides, i, NULL);
+                m_sides.push_back(side(sid));
             }
-            m_gotSides = true;
-        }   
+        }
     }
-     sides& Printer::getSides()
+    
+    const sides& Printer::get_sides() const noexcept
     {
-        populate_sides();
         return m_sides;
     }
 

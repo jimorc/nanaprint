@@ -485,7 +485,7 @@ namespace nanaprint
     void basic_panel::update_2_sided_combox(Printer& printer)
     {
         m_2SidedCombox.clear();
-        auto sides = printer.getSides().get_values();
+        auto sides = printer.get_sides().get_values();
         auto defaultSide = m_dialogSettings.get_side();
         size_t opt = 0;
         if (defaultSide)
