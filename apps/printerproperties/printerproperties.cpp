@@ -100,7 +100,7 @@ int main()
         cout << ((side) ? side.value().get_value() : "None") << '\n';
 
         cout << "    Options: " << '\n';
-        for (auto option : printer->getOptions())
+        for (auto option : printer->get_options())
         {
             cout << "        " << option.first <<  ":  " << option.second << '\n';
         }

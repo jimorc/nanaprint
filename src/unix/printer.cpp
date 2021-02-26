@@ -58,7 +58,7 @@ namespace nanaprint
         return std::make_shared<Printer>(Printer(dest));
     }
 
-    std::map<std::string, std::string> Printer::getOptions()
+    std::map<std::string, std::string> Printer::get_options()
     {
         map<string, string> opts;
         for (int i = 0; i < m_dest->num_options; ++i)
@@ -611,7 +611,7 @@ namespace nanaprint
             }
         }   
     }
-    
+
     const std::optional<side>& Printer::get_default_side() const noexcept
     {
         return m_defaultSide;
@@ -694,16 +694,16 @@ namespace nanaprint
 
     std::string Printer::get_printer_make_and_model()
     {
-        return getOptions()["printer-make-and-model"];
+        return get_options()["printer-make-and-model"];
     }
 
     std::string Printer::get_printer_location()
     {
-        return getOptions()["printer-location"];
+        return get_options()["printer-location"];
     }
 
     std::string Printer::get_printer_info()
     {
-        return getOptions()["printer-type"];
+        return get_options()["printer-type"];
     }
 }       
