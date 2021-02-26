@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
+            m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
     {
@@ -44,6 +44,7 @@ namespace nanaprint
         populate_orientations();
         populate_default_orientation();
         populate_color_modes();
+        populate_print_qualities();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -512,26 +513,21 @@ namespace nanaprint
 
     void Printer::populate_print_qualities()
     {
-        if (!m_gotPrintQualities)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_QUALITY, NULL))
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_QUALITY, NULL))
+            ipp_attribute_t *qualities = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_PRINT_QUALITY);
+            int count = ippGetCount(qualities);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *qualities = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_PRINT_QUALITY);
-                int count = ippGetCount(qualities);
-                for (int i = 0; i < count; ++i)
-                {
-                    int quality = ippGetInteger(qualities, i);
-                    m_printQualities.push_back(print_quality(quality));
-                }
+                int quality = ippGetInteger(qualities, i);
+                m_printQualities.push_back(print_quality(quality));
             }
-            m_gotPrintQualities = true;
-        }   
+        }
     }
-    print_qualities& Printer::get_print_qualities()
+    const print_qualities& Printer::get_print_qualities() const noexcept
     {
-        populate_print_qualities();
         return m_printQualities;
     }
 
