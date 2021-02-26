@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotColorModes(false), m_gotDefaultColorMode(false),
+            m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
@@ -44,6 +44,7 @@ namespace nanaprint
         populate_default_media_type();
         populate_orientations();
         populate_default_orientation();
+        populate_color_modes();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -461,26 +462,21 @@ namespace nanaprint
 
     void Printer::populate_color_modes()
     {
-        if (!m_gotColorModes)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
         {
-           cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
+            ipp_attribute_t *colorModes = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_PRINT_COLOR_MODE);
+            int count = ippGetCount(colorModes);
+            for (int i = 0; i < count; ++i)
             {
-                ipp_attribute_t *colorModes = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_PRINT_COLOR_MODE);
-                int count = ippGetCount(colorModes);
-                for (int i = 0; i < count; ++i)
-                {
-                    const char *colorMode = ippGetString(colorModes, i, NULL);
-                    m_colorModes.push_back(color_mode(colorMode));
-                }
+                const char *colorMode = ippGetString(colorModes, i, NULL);
+                m_colorModes.push_back(color_mode(colorMode));
             }
-            m_gotColorModes = true;
-        }   
+        }
     }
-    color_modes& Printer::get_color_modes()
+    const color_modes& Printer::get_color_modes() const noexcept
     {
-        populate_color_modes();
         return m_colorModes;
     }
 
