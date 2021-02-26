@@ -38,7 +38,7 @@ namespace nanaprint
             cups_dest_t* get_dest() const noexcept { return m_dest; }
             const std::string get_name() const { return std::string(m_dest->name); }
             bool is_default() const noexcept { return m_dest->is_default; }
-            std::map<std::string, std::string> get_options();
+            std::map<std::string, std::string> get_options() const;
             const media_sizes& get_media_sizes() const noexcept;
             const std::optional<media_size>& get_default_media_size() const noexcept;
             bool canPrintMultipleCopies() const;
@@ -57,10 +57,10 @@ namespace nanaprint
             const sides& get_sides() const noexcept;
             const std::optional<side>& get_default_side() const noexcept;
 
-            std::string get_printer_state() const;
-            std::string get_printer_make_and_model();
-            std::string get_printer_location();
-            std::string get_printer_info();
+            const std::string get_printer_state() const;
+            const std::string get_printer_make_and_model() const;
+            const std::string get_printer_location() const;
+            const std::string get_printer_info() const;
 
         protected:
             Printer(cups_dest_t* dest);

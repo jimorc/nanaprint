@@ -58,7 +58,7 @@ namespace nanaprint
         return std::make_shared<Printer>(Printer(dest));
     }
 
-    std::map<std::string, std::string> Printer::get_options()
+    std::map<std::string, std::string> Printer::get_options() const
     {
         map<string, string> opts;
         for (int i = 0; i < m_dest->num_options; ++i)
@@ -617,7 +617,7 @@ namespace nanaprint
         return m_defaultSide;
     }
 
-    std::string Printer::get_printer_state() const
+    const std::string Printer::get_printer_state() const
     {
         string printerState;
         const char* printerUri = cupsGetOption("device-uri", m_dest->num_options, m_dest->options);
@@ -688,21 +688,20 @@ namespace nanaprint
                 printerState += ", not shared";
             }
         }
-        
         return printerState;
     }
 
-    std::string Printer::get_printer_make_and_model()
+    const std::string Printer::get_printer_make_and_model() const
     {
         return get_options()["printer-make-and-model"];
     }
 
-    std::string Printer::get_printer_location()
+    const std::string Printer::get_printer_location() const
     {
         return get_options()["printer-location"];
     }
 
-    std::string Printer::get_printer_info()
+    const std::string Printer::get_printer_info() const
     {
         return get_options()["printer-type"];
     }
