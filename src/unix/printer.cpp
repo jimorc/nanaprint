@@ -29,7 +29,7 @@ namespace nanaprint
     Printer::Printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
-            m_gotDefaultOrientation(false), m_gotColorModes(false), m_gotDefaultColorMode(false),
+            m_gotColorModes(false), m_gotDefaultColorMode(false),
             m_gotPrintQualities(false), m_gotDefaultPrintQuality(false), m_gotSides(false),
             m_gotDefaultSide(false), m_defaultMediaType(nullopt),
             m_defaultMediaSource(media_source("None"))
@@ -43,6 +43,7 @@ namespace nanaprint
         populate_media_types();
         populate_default_media_type();
         populate_orientations();
+        populate_default_orientation();
     }
 
     std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
@@ -425,41 +426,36 @@ namespace nanaprint
 
     void Printer::populate_default_orientation()
     {
-        if (!m_gotDefaultOrientation)
+        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        const char *defaultOrientation =
+            cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
+        if (defaultOrientation != nullptr)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            const char *defaultOrientation =
-                cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
-            if (defaultOrientation != nullptr)
+            int orientation = stoi(defaultOrientation);
+            m_defaultOrientation = page_orientation(orientation);
+        }
+        else
+        {
+            ipp_attribute_t *defOrientation = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                info, CUPS_ORIENTATION);
+            int count = ippGetCount(defOrientation);
+            if (count != 0)
             {
-                int orientation = stoi(defaultOrientation);
-                m_defaultOrientation = page_orientation(orientation);
+                int defaultOr = ippGetInteger(defOrientation, 0);
+                if(defaultOr != 0)
+                {
+                    m_defaultOrientation = page_orientation(defaultOr);
+                }
             }
             else
             {
-                ipp_attribute_t *defOrientation = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                    info, CUPS_ORIENTATION);
-                int count = ippGetCount(defOrientation);
-                if (count != 0)
-                {
-                    int defaultOr = ippGetInteger(defOrientation, 0);
-                    if(defaultOr != 0)
-                    {
-                        m_defaultOrientation = page_orientation(defaultOr);
-                    }
-                }
-                else
-                {
-                    m_defaultOrientation = nullopt;
-                }
-                
+                m_defaultOrientation = nullopt;
             }
-            m_gotDefaultOrientation = true;
-        }   
+            
+        }
     }
-    const optional<page_orientation>& Printer::get_default_orientation()
+    const optional<page_orientation>& Printer::get_default_orientation() const noexcept
     {
-        populate_default_orientation();
         return m_defaultOrientation;
     }
 
