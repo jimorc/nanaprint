@@ -92,6 +92,7 @@ namespace nanaprint
             void populate_default_side();
 
             cups_dest_t* m_dest;
+            cups_dinfo_t* m_info;
             media_sizes m_mediaSizes;
 
             media_sources m_mediaSources;

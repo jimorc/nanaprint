@@ -29,6 +29,7 @@ namespace nanaprint
     printer::printer(cups_dest_t* dest)
         : m_dest(dest)
     {
+        m_info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         populate_media_sizes();
         populate_default_media_size();
         populate_finishings();
@@ -181,12 +182,11 @@ namespace nanaprint
     {
         if(m_mediaSizes.size() == 0)
         {
-            cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-            int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, info, 0);
+            int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, m_info, 0);
             cups_size_t size;
             for(int i = 0; i < mSizeCount; ++i)
             {
-                int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, info, i, 0, &size);
+                int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, m_info, i, 0, &size);
                 m_mediaSizes.push_back((media_size(
                     size.media, size.width, size.length, size.bottom, size.left,
                     size.right, size.top)));
@@ -201,9 +201,8 @@ namespace nanaprint
 
     void printer::populate_default_media_size()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         cups_size_t size;
-        int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, info, 0, &size);
+        int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, 0, &size);
         if(result)
         {
             m_defaultMediaSize = media_size(size.media, size.width, size.length,
@@ -232,18 +231,16 @@ namespace nanaprint
 
     bool printer::can_print_multiple_copies() const
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-            info, CUPS_COPIES, NULL);
+            m_info, CUPS_COPIES, NULL);
     }
 
     void printer::populate_finishings()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS, NULL))
         {
             ipp_attribute_t *finishings = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_FINISHINGS);
+                m_info, CUPS_FINISHINGS);
             int count = ippGetCount(finishings);
             for (int i = 0; i < count; ++i)
             {
@@ -262,11 +259,10 @@ namespace nanaprint
 
     void printer::populate_media_sources()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS, NULL))
         {
             ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_MEDIA_SOURCE);
+                m_info, CUPS_MEDIA_SOURCE);
             int count = ippGetCount(source);
             for (int i = 0; i < count; ++i)
             {
@@ -283,13 +279,11 @@ namespace nanaprint
 
     void printer::populate_default_finishings()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-
         const char *defaultFinishings =
             cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
                 m_dest->options);
         ipp_attribute_t *defaultFinishings2 =
-            cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS);
+            cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS);
         
         if(defaultFinishings != NULL)
         {
@@ -320,7 +314,6 @@ namespace nanaprint
 
     void printer::populate_default_media_source()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultSource =
             cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
         if (defaultSource != nullptr)
@@ -330,7 +323,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *source = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_MEDIA_SOURCE);
+                m_info, CUPS_MEDIA_SOURCE);
             int count = ippGetCount(source);
             if (count != 0)
             {
@@ -351,11 +344,10 @@ namespace nanaprint
 
     void printer::populate_media_types()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_MEDIA_TYPE, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_MEDIA_TYPE, NULL))
         {
             ipp_attribute_t *type = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_MEDIA_TYPE);
+                m_info, CUPS_MEDIA_TYPE);
             int count = ippGetCount(type);
             for (int i = 0; i < count; ++i)
             {
@@ -372,7 +364,6 @@ namespace nanaprint
 
     void printer::populate_default_media_type()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultType =
             cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
         if(defaultType != nullptr)
@@ -382,7 +373,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *type = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_MEDIA_TYPE);
+                m_info, CUPS_MEDIA_TYPE);
             int count = ippGetCount(type);
             if (count != 0)
             {
@@ -404,11 +395,10 @@ namespace nanaprint
 
     void printer::populate_orientations()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_ORIENTATION, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_ORIENTATION, NULL))
         {
             ipp_attribute_t *orientations = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_ORIENTATION);
+                m_info, CUPS_ORIENTATION);
             int count = ippGetCount(orientations);
             for (int i = 0; i < count; ++i)
             {
@@ -424,7 +414,6 @@ namespace nanaprint
 
     void printer::populate_default_orientation()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultOrientation =
             cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
         if (defaultOrientation != nullptr)
@@ -435,7 +424,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defOrientation = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_ORIENTATION);
+                m_info, CUPS_ORIENTATION);
             int count = ippGetCount(defOrientation);
             if (count != 0)
             {
@@ -459,11 +448,10 @@ namespace nanaprint
 
     void printer::populate_color_modes()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_PRINT_COLOR_MODE, NULL))
         {
             ipp_attribute_t *colorModes = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_PRINT_COLOR_MODE);
+                m_info, CUPS_PRINT_COLOR_MODE);
             int count = ippGetCount(colorModes);
             for (int i = 0; i < count; ++i)
             {
@@ -479,7 +467,6 @@ namespace nanaprint
 
     void printer::populate_default_color_mode()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultColorMode =
             cupsGetOption(CUPS_PRINT_COLOR_MODE, m_dest->num_options, m_dest->options);
         if (defaultColorMode != nullptr)
@@ -489,7 +476,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defColorMode = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_PRINT_COLOR_MODE);
+                m_info, CUPS_PRINT_COLOR_MODE);
             int count = ippGetCount(defColorMode);
             if (count != 0)
             {
@@ -510,11 +497,10 @@ namespace nanaprint
 
     void printer::populate_print_qualities()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_QUALITY, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_PRINT_QUALITY, NULL))
         {
             ipp_attribute_t *qualities = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_PRINT_QUALITY);
+                m_info, CUPS_PRINT_QUALITY);
             int count = ippGetCount(qualities);
             for (int i = 0; i < count; ++i)
             {
@@ -530,7 +516,6 @@ namespace nanaprint
 
     void printer::populate_default_print_quality()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultQuality =
             cupsGetOption(CUPS_PRINT_QUALITY, m_dest->num_options, m_dest->options);
         if (defaultQuality != nullptr)
@@ -541,7 +526,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defQuality = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_PRINT_QUALITY);
+                m_info, CUPS_PRINT_QUALITY);
             int count = ippGetCount(defQuality);
             if (count != 0)
             {
@@ -561,11 +546,10 @@ namespace nanaprint
 
     void printer::populate_sides()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_SIDES, NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_SIDES, NULL))
         {
             ipp_attribute_t *sides = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_SIDES);
+                m_info, CUPS_SIDES);
             int count = ippGetCount(sides);
             for (int i = 0; i < count; ++i)
             {
@@ -582,7 +566,6 @@ namespace nanaprint
 
     void printer::populate_default_side()
     {
-        cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultSide =
             cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
         if (defaultSide != nullptr)
@@ -592,7 +575,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defSide = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                info, CUPS_SIDES);
+                m_info, CUPS_SIDES);
             int count = ippGetCount(defSide);
             if (count != 0)
             {
