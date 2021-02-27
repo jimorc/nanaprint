@@ -542,16 +542,10 @@ namespace nanaprint
 
     void printer::populate_sides()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_SIDES, NULL))
+        vector<string> cupsSides = get_cups_string_values(CUPS_SIDES);
+        for(const auto& cupsSide : cupsSides)
         {
-            ipp_attribute_t *sides = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                                                           m_info, CUPS_SIDES);
-            int count = ippGetCount(sides);
-            for (int i = 0; i < count; ++i)
-            {
-                const char *sid = ippGetString(sides, i, NULL);
-                m_sides.push_back(side(sid));
-            }
+            m_sides.push_back(side(cupsSide));
         }
     }
 
