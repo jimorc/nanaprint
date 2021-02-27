@@ -93,7 +93,7 @@ namespace nanaprint
 
             std::vector<std::string> get_cups_string_values(const std::string& cupsValues);
             std::vector<int> get_cups_integer_values(const std::string& cupsValues);
-
+            std::optional<std::string> get_cups_default_string_value(const std::string& cupsValue);
             cups_dest_t* m_dest;
             cups_dinfo_t* m_info;
             media_sizes m_mediaSizes;

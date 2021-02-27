@@ -88,6 +88,33 @@ namespace nanaprint
         return intValues;
     }
 
+    optional<string> printer::get_cups_default_string_value(const std::string& cupsValue)
+    {
+        optional<string> value(nullopt);
+        const char *optionValue =
+            cupsGetOption(cupsValue.c_str(), m_dest->num_options, m_dest->options);
+        if (optionValue != nullptr)
+        {
+            value = string(optionValue);
+        }
+        else
+        {
+            ipp_attribute_t *defaultAttr = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                                                           m_info, cupsValue.c_str());
+            int count = ippGetCount(defaultAttr);
+            if (count != 0)
+            {
+                const char *defaultValue = ippGetString(defaultAttr, 0, NULL);
+                value = string(defaultValue);
+            }
+            else
+            {
+                m_defaultSide = nullopt;
+            }
+        }
+        return value;
+    }
+
     std::map<std::string, std::string> printer::get_options() const
     {
         map<string, string> opts;
@@ -504,7 +531,7 @@ namespace nanaprint
             m_printQualities.push_back(print_quality(quality));
         }
     }
-    
+
     const print_qualities &printer::get_print_qualities() const noexcept
     {
         return m_printQualities;
@@ -556,27 +583,8 @@ namespace nanaprint
 
     void printer::populate_default_side()
     {
-        const char *defaultSide =
-            cupsGetOption(CUPS_SIDES, m_dest->num_options, m_dest->options);
-        if (defaultSide != nullptr)
-        {
-            m_defaultSide = side(defaultSide);
-        }
-        else
-        {
-            ipp_attribute_t *defSide = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                                                           m_info, CUPS_SIDES);
-            int count = ippGetCount(defSide);
-            if (count != 0)
-            {
-                const char *defaultSide = ippGetString(defSide, 0, NULL);
-                m_defaultSide = side(defaultSide);
-            }
-            else
-            {
-                m_defaultSide = nullopt;
-            }
-        }
+        optional<string> defaultSide = get_cups_default_string_value(CUPS_SIDES);
+        m_defaultSide = (defaultSide) ? optional<side>(side(*defaultSide)) : nullopt;
     }
 
     const std::optional<side> &printer::get_default_side() const noexcept
