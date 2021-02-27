@@ -49,9 +49,6 @@ namespace nanaprint
 
     std::shared_ptr<printer> printer::create(cups_dest_t *dest)
     {
-        char resource[RESOURCE_SIZE];
-        http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE, MAX_CONNECT_ATTEMPT_TIME,
-                                        NULL, resource, RESOURCE_SIZE, NULL, NULL);
         return std::make_shared<printer>(printer(dest));
     }
 
