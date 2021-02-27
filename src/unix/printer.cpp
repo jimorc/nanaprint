@@ -498,18 +498,13 @@ namespace nanaprint
 
     void printer::populate_print_qualities()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_PRINT_QUALITY, NULL))
+        vector<int> qualities = get_cups_integer_values(CUPS_PRINT_QUALITY);
+        for (const auto quality : qualities)
         {
-            ipp_attribute_t *qualities = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                                                               m_info, CUPS_PRINT_QUALITY);
-            int count = ippGetCount(qualities);
-            for (int i = 0; i < count; ++i)
-            {
-                int quality = ippGetInteger(qualities, i);
-                m_printQualities.push_back(print_quality(quality));
-            }
+            m_printQualities.push_back(print_quality(quality));
         }
     }
+    
     const print_qualities &printer::get_print_qualities() const noexcept
     {
         return m_printQualities;
