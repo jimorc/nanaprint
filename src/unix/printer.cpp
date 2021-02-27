@@ -17,6 +17,7 @@
 #include <regex>
 #include <memory>
 #include "printer.h"
+#include "values.h"
 
 using namespace std;
 using namespace nanaprint;
@@ -26,7 +27,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 
 namespace nanaprint
 {
-    printer::printer(cups_dest_t* dest)
+    printer::printer(cups_dest_t *dest)
         : m_dest(dest)
     {
         m_info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
@@ -51,6 +52,23 @@ namespace nanaprint
     std::shared_ptr<printer> printer::create(cups_dest_t *dest)
     {
         return std::make_shared<printer>(printer(dest));
+    }
+
+    std::vector<std::string> printer::get_cups_string_values(const std::string &cupsValues)
+    {
+        vector<string> values;
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, cupsValues.c_str(), NULL))
+        {
+            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                                                            m_info, cupsValues.c_str());
+            int count = ippGetCount(source);
+            for (int i = 0; i < count; ++i)
+            {
+                const char *src = ippGetString(source, i, NULL);
+                values.push_back(src);
+            }
+        }
+        return values;
     }
 
     std::map<std::string, std::string> printer::get_options() const
@@ -98,7 +116,7 @@ namespace nanaprint
         return state;
     }
 
-    const string printer::get_printer_type_string(const string& value) const
+    const string printer::get_printer_type_string(const string &value) const
     {
         vector<string> types;
         int intValue = atoi(value.c_str());
@@ -169,7 +187,7 @@ namespace nanaprint
         string type;
         for (auto printerType : types)
         {
-            if(type.size() != 0)
+            if (type.size() != 0)
             {
                 type += ", ";
             }
@@ -180,11 +198,11 @@ namespace nanaprint
 
     void printer::populate_media_sizes()
     {
-        if(m_mediaSizes.size() == 0)
+        if (m_mediaSizes.size() == 0)
         {
             int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, m_info, 0);
             cups_size_t size;
-            for(int i = 0; i < mSizeCount; ++i)
+            for (int i = 0; i < mSizeCount; ++i)
             {
                 int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, m_info, i, 0, &size);
                 m_mediaSizes.push_back((media_size(
@@ -194,7 +212,7 @@ namespace nanaprint
         }
     }
 
-    const media_sizes& printer::get_media_sizes() const noexcept
+    const media_sizes &printer::get_media_sizes() const noexcept
     {
         return m_mediaSizes;
     }
@@ -203,10 +221,10 @@ namespace nanaprint
     {
         cups_size_t size;
         int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, 0, &size);
-        if(result)
+        if (result)
         {
             m_defaultMediaSize = media_size(size.media, size.width, size.length,
-                size.bottom, size.left, size.right, size.top);
+                                            size.bottom, size.left, size.right, size.top);
         }
         else
         {
@@ -214,25 +232,25 @@ namespace nanaprint
         }
     }
 
-    const std::optional<media_size>& printer::get_default_media_size() const noexcept
-        {
-            return m_defaultMediaSize;
-        }
+    const std::optional<media_size> &printer::get_default_media_size() const noexcept
+    {
+        return m_defaultMediaSize;
+    }
 
-    const finishings& printer::get_finishings() const noexcept
+    const finishings &printer::get_finishings() const noexcept
     {
         return m_finishings;
     }
 
-    const finishings& printer::get_default_finishings() const noexcept
+    const finishings &printer::get_default_finishings() const noexcept
     {
-        return m_defaultFinishings;        
+        return m_defaultFinishings;
     }
 
     bool printer::can_print_multiple_copies() const
     {
         return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-            m_info, CUPS_COPIES, NULL);
+                                      m_info, CUPS_COPIES, NULL);
     }
 
     void printer::populate_finishings()
@@ -240,7 +258,7 @@ namespace nanaprint
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS, NULL))
         {
             ipp_attribute_t *finishings = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_FINISHINGS);
+                                                                m_info, CUPS_FINISHINGS);
             int count = ippGetCount(finishings);
             for (int i = 0; i < count; ++i)
             {
@@ -252,24 +270,16 @@ namespace nanaprint
 
     void printer::set_finishing(int finish)
     {
-        char fin[10];       // should only need to be 2 or 3 characters long
+        char fin[10]; // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
         m_finishings.set_finishing(fin);
     }
 
     void printer::populate_media_sources()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS, NULL))
-        {
-            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_MEDIA_SOURCE);
-            int count = ippGetCount(source);
-            for (int i = 0; i < count; ++i)
-            {
-                const char *src = ippGetString(source, i, NULL);
-                m_mediaSources.push_back(media_source(src));
-            }
-        }   
+        vector<string> sources = get_cups_string_values(CUPS_MEDIA_SOURCE);
+        for (const auto &source : sources)
+            m_mediaSources.push_back(media_source(source));
     }
 
     const media_sources printer::get_media_sources() const noexcept
@@ -281,19 +291,19 @@ namespace nanaprint
     {
         const char *defaultFinishings =
             cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
-                m_dest->options);
+                          m_dest->options);
         ipp_attribute_t *defaultFinishings2 =
             cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS);
-        
-        if(defaultFinishings != NULL)
+
+        if (defaultFinishings != NULL)
         {
             regex rgx("[0-9]*");
             smatch match;
 
             string finishings = defaultFinishings;
-            if( regex_search(finishings, match, rgx))
+            if (regex_search(finishings, match, rgx))
             {
-                for (auto m: match)
+                for (auto m : match)
                 {
                     m_defaultFinishings.set_finishing(m);
                 }
@@ -305,7 +315,7 @@ namespace nanaprint
             for (int i = 0; i < count; ++i)
             {
                 int finish = ippGetInteger(defaultFinishings2, i);
-                char fin[10];       // 2 or 3 would be enough
+                char fin[10]; // 2 or 3 would be enough
                 sprintf(fin, "%d", finish);
                 m_defaultFinishings.set_finishing(fin);
             }
@@ -323,7 +333,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *source = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_MEDIA_SOURCE);
+                                                          m_info, CUPS_MEDIA_SOURCE);
             int count = ippGetCount(source);
             if (count != 0)
             {
@@ -337,7 +347,7 @@ namespace nanaprint
         }
     }
 
-    const std::optional<media_source>& printer::get_default_media_source() const noexcept
+    const std::optional<media_source> &printer::get_default_media_source() const noexcept
     {
         return m_defaultMediaSource;
     }
@@ -347,7 +357,7 @@ namespace nanaprint
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_MEDIA_TYPE, NULL))
         {
             ipp_attribute_t *type = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_MEDIA_TYPE);
+                                                          m_info, CUPS_MEDIA_TYPE);
             int count = ippGetCount(type);
             for (int i = 0; i < count; ++i)
             {
@@ -357,7 +367,7 @@ namespace nanaprint
         }
     }
 
-    const media_types& printer::get_media_types() const noexcept
+    const media_types &printer::get_media_types() const noexcept
     {
         return m_mediaTypes;
     }
@@ -366,14 +376,14 @@ namespace nanaprint
     {
         const char *defaultType =
             cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
-        if(defaultType != nullptr)
+        if (defaultType != nullptr)
         {
             m_defaultMediaType = media_type(defaultType);
         }
         else
         {
             ipp_attribute_t *type = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_MEDIA_TYPE);
+                                                        m_info, CUPS_MEDIA_TYPE);
             int count = ippGetCount(type);
             if (count != 0)
             {
@@ -384,11 +394,10 @@ namespace nanaprint
             {
                 m_defaultMediaType = nullopt;
             }
-            
         }
     }
 
-    const std::optional<media_type>& printer::get_default_media_type() const noexcept
+    const std::optional<media_type> &printer::get_default_media_type() const noexcept
     {
         return m_defaultMediaType;
     }
@@ -398,7 +407,7 @@ namespace nanaprint
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_ORIENTATION, NULL))
         {
             ipp_attribute_t *orientations = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_ORIENTATION);
+                                                                  m_info, CUPS_ORIENTATION);
             int count = ippGetCount(orientations);
             for (int i = 0; i < count; ++i)
             {
@@ -407,7 +416,7 @@ namespace nanaprint
             }
         }
     }
-    const page_orientations& printer::get_orientations() const noexcept
+    const page_orientations &printer::get_orientations() const noexcept
     {
         return m_orientations;
     }
@@ -424,12 +433,12 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defOrientation = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_ORIENTATION);
+                                                                  m_info, CUPS_ORIENTATION);
             int count = ippGetCount(defOrientation);
             if (count != 0)
             {
                 int defaultOr = ippGetInteger(defOrientation, 0);
-                if(defaultOr != 0)
+                if (defaultOr != 0)
                 {
                     m_defaultOrientation = page_orientation(defaultOr);
                 }
@@ -438,10 +447,9 @@ namespace nanaprint
             {
                 m_defaultOrientation = nullopt;
             }
-            
         }
     }
-    const optional<page_orientation>& printer::get_default_orientation() const noexcept
+    const optional<page_orientation> &printer::get_default_orientation() const noexcept
     {
         return m_defaultOrientation;
     }
@@ -451,7 +459,7 @@ namespace nanaprint
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_PRINT_COLOR_MODE, NULL))
         {
             ipp_attribute_t *colorModes = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_PRINT_COLOR_MODE);
+                                                                m_info, CUPS_PRINT_COLOR_MODE);
             int count = ippGetCount(colorModes);
             for (int i = 0; i < count; ++i)
             {
@@ -460,7 +468,7 @@ namespace nanaprint
             }
         }
     }
-    const color_modes& printer::get_color_modes() const noexcept
+    const color_modes &printer::get_color_modes() const noexcept
     {
         return m_colorModes;
     }
@@ -476,7 +484,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defColorMode = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_PRINT_COLOR_MODE);
+                                                                m_info, CUPS_PRINT_COLOR_MODE);
             int count = ippGetCount(defColorMode);
             if (count != 0)
             {
@@ -490,7 +498,7 @@ namespace nanaprint
         }
     }
 
-    const std::optional<color_mode>& printer::get_default_color_mode() const noexcept
+    const std::optional<color_mode> &printer::get_default_color_mode() const noexcept
     {
         return m_defaultColorMode;
     }
@@ -500,7 +508,7 @@ namespace nanaprint
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_PRINT_QUALITY, NULL))
         {
             ipp_attribute_t *qualities = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_PRINT_QUALITY);
+                                                               m_info, CUPS_PRINT_QUALITY);
             int count = ippGetCount(qualities);
             for (int i = 0; i < count; ++i)
             {
@@ -509,7 +517,7 @@ namespace nanaprint
             }
         }
     }
-    const print_qualities& printer::get_print_qualities() const noexcept
+    const print_qualities &printer::get_print_qualities() const noexcept
     {
         return m_printQualities;
     }
@@ -526,7 +534,7 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defQuality = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_PRINT_QUALITY);
+                                                              m_info, CUPS_PRINT_QUALITY);
             int count = ippGetCount(defQuality);
             if (count != 0)
             {
@@ -537,9 +545,9 @@ namespace nanaprint
             {
                 m_defaultPrintQuality = nullopt;
             }
-        }   
+        }
     }
-    const std::optional<print_quality>& printer::get_default_print_quality() const noexcept
+    const std::optional<print_quality> &printer::get_default_print_quality() const noexcept
     {
         return m_defaultPrintQuality;
     }
@@ -549,7 +557,7 @@ namespace nanaprint
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_SIDES, NULL))
         {
             ipp_attribute_t *sides = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_SIDES);
+                                                           m_info, CUPS_SIDES);
             int count = ippGetCount(sides);
             for (int i = 0; i < count; ++i)
             {
@@ -558,8 +566,8 @@ namespace nanaprint
             }
         }
     }
-    
-    const sides& printer::get_sides() const noexcept
+
+    const sides &printer::get_sides() const noexcept
     {
         return m_sides;
     }
@@ -575,21 +583,21 @@ namespace nanaprint
         else
         {
             ipp_attribute_t *defSide = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                m_info, CUPS_SIDES);
+                                                           m_info, CUPS_SIDES);
             int count = ippGetCount(defSide);
             if (count != 0)
             {
                 const char *defaultSide = ippGetString(defSide, 0, NULL);
-                    m_defaultSide = side(defaultSide);
+                m_defaultSide = side(defaultSide);
             }
             else
             {
                 m_defaultSide = nullopt;
             }
-        }   
+        }
     }
 
-    const std::optional<side>& printer::get_default_side() const noexcept
+    const std::optional<side> &printer::get_default_side() const noexcept
     {
         return m_defaultSide;
     }
@@ -597,7 +605,7 @@ namespace nanaprint
     const std::string printer::get_printer_state() const
     {
         string printerState;
-        const char* printerUri = cupsGetOption("device-uri", m_dest->num_options, m_dest->options);
+        const char *printerUri = cupsGetOption("device-uri", m_dest->num_options, m_dest->options);
         regex hostRegex("^[a-zA-Z]+://([0-9a-zA-Z]+(\\.[0-9a-zA-Z]+)*)");
         string uri(printerUri);
         smatch match;
@@ -605,13 +613,12 @@ namespace nanaprint
         {
             string host = match.str(1);
             ipp_t *request, *response;
-            static const char * const requested_attributes[] =
-            {
-                "printer-state",
-                "printer-state-reasons",
-                "printer-is-accepting-jobs",
-                "printer-is-shared"
-            };
+            static const char *const requested_attributes[] =
+                {
+                    "printer-state",
+                    "printer-state-reasons",
+                    "printer-is-accepting-jobs",
+                    "printer-is-shared"};
 
             http_t *http = httpConnect2(host.c_str(), 631, NULL, AF_UNSPEC, HTTP_ENCRYPTION_IF_REQUESTED, 1, 30000, NULL);
 
@@ -683,7 +690,7 @@ namespace nanaprint
         return get_options()["printer-type"];
     }
 
-    std::ostream& operator<<(std::ostream& os, const printer& prtr)
+    std::ostream &operator<<(std::ostream &os, const printer &prtr)
     {
         string s = prtr.get_printer_state();
         os << "Printer: " << prtr.get_name() << '\n';
@@ -695,7 +702,7 @@ namespace nanaprint
         }
 
         os << "Supported ";
-        const finishings& finishes = prtr.get_finishings();
+        const finishings &finishes = prtr.get_finishings();
         os << finishes;
 
         os << "Default ";
@@ -722,7 +729,7 @@ namespace nanaprint
 
         auto orientations = prtr.get_orientations();
         os << orientations;
-                 
+
         os << "Default Orientation:\n";
         auto defOrientation = prtr.get_default_orientation();
         if (defOrientation)
@@ -737,7 +744,7 @@ namespace nanaprint
         os << "Supported ";
         auto colorModes = prtr.get_color_modes();
         os << colorModes;
-       
+
         os << "Default Color Mode:\n";
         auto defaultColorMode = prtr.get_default_color_mode();
         os << "    ";
@@ -763,16 +770,16 @@ namespace nanaprint
         os << "    Options: " << '\n';
         for (auto option : prtr.get_options())
         {
-            os << "        " << option.first <<  ":  " << option.second << '\n';
+            os << "        " << option.first << ":  " << option.second << '\n';
         }
 
         os << prtr.get_media_sizes();
 
         os << "Default Media Size:\n";
         auto defaultSize = prtr.get_default_media_size();
-        os << ((defaultSize) ? defaultSize.value().get_translated_name() : "None") << "\n"; 
- 
+        os << ((defaultSize) ? defaultSize.value().get_translated_name() : "None") << "\n";
+
         os << endl;
         return os;
     }
-}       
+}

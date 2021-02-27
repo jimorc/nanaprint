@@ -91,6 +91,8 @@ namespace nanaprint
             void populate_sides();
             void populate_default_side();
 
+            std::vector<std::string> get_cups_string_values(const std::string& cupsValues);
+
             cups_dest_t* m_dest;
             cups_dinfo_t* m_info;
             media_sizes m_mediaSizes;
