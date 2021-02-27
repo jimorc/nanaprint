@@ -450,16 +450,10 @@ namespace nanaprint
 
     void printer::populate_color_modes()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_PRINT_COLOR_MODE, NULL))
+        vector<string> colorModes = get_cups_string_values(CUPS_PRINT_COLOR_MODE);
+        for (const auto& colorMode : colorModes)
         {
-            ipp_attribute_t *colorModes = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                                                                m_info, CUPS_PRINT_COLOR_MODE);
-            int count = ippGetCount(colorModes);
-            for (int i = 0; i < count; ++i)
-            {
-                const char *colorMode = ippGetString(colorModes, i, NULL);
-                m_colorModes.push_back(color_mode(colorMode));
-            }
+            m_colorModes.push_back(color_mode(colorMode));
         }
     }
     const color_modes &printer::get_color_modes() const noexcept
