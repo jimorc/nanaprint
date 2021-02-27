@@ -92,6 +92,7 @@ namespace nanaprint
             void populate_default_side();
 
             std::vector<std::string> get_cups_string_values(const std::string& cupsValues);
+            std::vector<int> get_cups_integer_values(const std::string& cupsValues);
 
             cups_dest_t* m_dest;
             cups_dinfo_t* m_info;

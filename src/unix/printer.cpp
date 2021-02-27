@@ -71,6 +71,23 @@ namespace nanaprint
         return values;
     }
 
+    std::vector<int> printer::get_cups_integer_values(const std::string& cupsValues)
+    {
+        vector<int> intValues;
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, cupsValues.c_str(), NULL))
+        {
+            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+                                                                m_info, cupsValues.c_str());
+            int count = ippGetCount(source);
+            for (int i = 0; i < count; ++i)
+            {
+                int value = ippGetInteger(source, i);
+                intValues.push_back(value);
+            }
+        }
+        return intValues;
+    }
+
     std::map<std::string, std::string> printer::get_options() const
     {
         map<string, string> opts;
@@ -255,16 +272,10 @@ namespace nanaprint
 
     void printer::populate_finishings()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS, NULL))
+        vector<int> finishings = get_cups_integer_values(CUPS_FINISHINGS);
+        for (const auto finishing : finishings)
         {
-            ipp_attribute_t *finishings = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                                                                m_info, CUPS_FINISHINGS);
-            int count = ippGetCount(finishings);
-            for (int i = 0; i < count; ++i)
-            {
-                int finish = ippGetInteger(finishings, i);
-                set_finishing(finish);
-            }
+            set_finishing(finishing);
         }
     }
 
