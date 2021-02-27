@@ -42,8 +42,8 @@ namespace nanaprint
         m_printers.clear();
         for(int i = 0; i < destinations; ++i)
         {
-            auto printer = Printer::create(&dests[i]);
-            m_printers.push_back(printer);
+            auto prtr = printer::create(&dests[i]);
+            m_printers.push_back(prtr);
         }
     }
 
@@ -86,5 +86,6 @@ namespace nanaprint
                 os << *prntr;
             }
         }
+        return os;
     }
 }

@@ -66,19 +66,19 @@ namespace nanaprint
 
             void build_range_group();
             void printer_selected(size_t pos);
-            void update_printer_group(Printer& printer);
-            void update_paper_group(Printer& printer);
-            void update_media_type_combox(Printer& printer);
-            void update_print_quality_combox(Printer& printer);
-            void update_paper_size_combox(Printer& printer);
-            void update_misc_group(Printer& printer);
-            void update_orientation_group(Printer& printer);
+            void update_printer_group(printer& prtr);
+            void update_paper_group(printer& prtr);
+            void update_media_type_combox(printer& prtr);
+            void update_print_quality_combox(printer& prtr);
+            void update_paper_size_combox(printer& prtr);
+            void update_misc_group(printer& prtr);
+            void update_orientation_group(printer& prtr);
             void enable_orientation_checkbox(const page_orientation& orientation);
             void select_orientation_checkbox(const page_orientation& orientation);
             void disable_orientation_checkboxes();
             void uncheck_orientation_checkboxes();
             void validate_copies();
-            void update_2_sided_combox(Printer& printer);
+            void update_2_sided_combox(printer& prtr);
 
             void build_all_pages_checkbox();
             void build_current_page_checkbox();

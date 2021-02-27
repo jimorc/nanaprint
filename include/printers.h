@@ -28,14 +28,14 @@ namespace nanaprint
         public:
             Printers();
             virtual ~Printers();
-            std::vector<std::shared_ptr<Printer>> getPrinters() const { return m_printers; }
+            std::vector<std::shared_ptr<printer>> getPrinters() const { return m_printers; }
             size_t getDefaultPrinterNumber() const;
             size_t get_printer_number(const std::string& printerName) const;
 
         private:
             void enumeratePrinters();
 
-            std::vector<std::shared_ptr<Printer>> m_printers;
+            std::vector<std::shared_ptr<printer>> m_printers;
     };
 
     std::ostream& operator<<(std::ostream& os, const Printers& prtrs);

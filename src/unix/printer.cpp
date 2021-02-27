@@ -26,7 +26,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 
 namespace nanaprint
 {
-    Printer::Printer(cups_dest_t* dest)
+    printer::printer(cups_dest_t* dest)
         : m_dest(dest),
             m_defaultMediaSize(nullopt),
             m_defaultMediaType(nullopt),
@@ -50,15 +50,15 @@ namespace nanaprint
         populate_default_side();
     }
 
-    std::shared_ptr<Printer> Printer::create(cups_dest_t *dest)
+    std::shared_ptr<printer> printer::create(cups_dest_t *dest)
     {
         char resource[RESOURCE_SIZE];
         http_t *http = cupsConnectDest(dest, CUPS_DEST_FLAGS_DEVICE, MAX_CONNECT_ATTEMPT_TIME,
                                         NULL, resource, RESOURCE_SIZE, NULL, NULL);
-        return std::make_shared<Printer>(Printer(dest));
+        return std::make_shared<printer>(printer(dest));
     }
 
-    std::map<std::string, std::string> Printer::get_options() const
+    std::map<std::string, std::string> printer::get_options() const
     {
         map<string, string> opts;
         for (int i = 0; i < m_dest->num_options; ++i)
@@ -81,7 +81,7 @@ namespace nanaprint
         return opts;
     }
 
-    const string Printer::get_printer_state_string(string value) const
+    const string printer::get_printer_state_string(string value) const
     {
         int intState = atoi(value.c_str());
         string state;
@@ -103,7 +103,7 @@ namespace nanaprint
         return state;
     }
 
-    const string Printer::get_printer_type_string(const string& value) const
+    const string printer::get_printer_type_string(const string& value) const
     {
         vector<string> types;
         int intValue = atoi(value.c_str());
@@ -183,7 +183,7 @@ namespace nanaprint
         return type;
     }
 
-    void Printer::populate_media_sizes()
+    void printer::populate_media_sizes()
     {
         if(m_mediaSizes.size() == 0)
         {
@@ -200,12 +200,12 @@ namespace nanaprint
         }
     }
 
-    const media_sizes& Printer::get_media_sizes() const noexcept
+    const media_sizes& printer::get_media_sizes() const noexcept
     {
         return m_mediaSizes;
     }
 
-    void Printer::populate_default_media_size()
+    void printer::populate_default_media_size()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         cups_size_t size;
@@ -221,29 +221,29 @@ namespace nanaprint
         }
     }
 
-    const std::optional<media_size>& Printer::get_default_media_size() const noexcept
+    const std::optional<media_size>& printer::get_default_media_size() const noexcept
         {
             return m_defaultMediaSize;
         }
 
-    const finishings& Printer::get_finishings() const noexcept
+    const finishings& printer::get_finishings() const noexcept
     {
         return m_finishings;
     }
 
-    const finishings& Printer::get_default_finishings() const noexcept
+    const finishings& printer::get_default_finishings() const noexcept
     {
         return m_defaultFinishings;        
     }
 
-    bool Printer::can_print_multiple_copies() const
+    bool printer::can_print_multiple_copies() const
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest,
             info, CUPS_COPIES, NULL);
     }
 
-    void Printer::populate_finishings()
+    void printer::populate_finishings()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
@@ -259,14 +259,14 @@ namespace nanaprint
         }
     }
 
-    void Printer::set_finishing(int finish)
+    void printer::set_finishing(int finish)
     {
         char fin[10];       // should only need to be 2 or 3 characters long
         sprintf(fin, "%d", finish);
         m_finishings.set_finishing(fin);
     }
 
-    void Printer::populate_media_sources()
+    void printer::populate_media_sources()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_FINISHINGS, NULL))
@@ -282,12 +282,12 @@ namespace nanaprint
         }   
     }
 
-    const media_sources Printer::get_media_sources() const noexcept
+    const media_sources printer::get_media_sources() const noexcept
     {
         return m_mediaSources;
     }
 
-    void Printer::populate_default_finishings()
+    void printer::populate_default_finishings()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
 
@@ -324,7 +324,7 @@ namespace nanaprint
         }
     }
 
-    void Printer::populate_default_media_source()
+    void printer::populate_default_media_source()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultSource =
@@ -350,12 +350,12 @@ namespace nanaprint
         }
     }
 
-    const std::optional<media_source>& Printer::get_default_media_source() const noexcept
+    const std::optional<media_source>& printer::get_default_media_source() const noexcept
     {
         return m_defaultMediaSource;
     }
 
-    void Printer::populate_media_types()
+    void printer::populate_media_types()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_MEDIA_TYPE, NULL))
@@ -371,12 +371,12 @@ namespace nanaprint
         }
     }
 
-    const media_types& Printer::get_media_types() const noexcept
+    const media_types& printer::get_media_types() const noexcept
     {
         return m_mediaTypes;
     }
 
-    void Printer::populate_default_media_type()
+    void printer::populate_default_media_type()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultType =
@@ -403,12 +403,12 @@ namespace nanaprint
         }
     }
 
-    const std::optional<media_type>& Printer::get_default_media_type() const noexcept
+    const std::optional<media_type>& printer::get_default_media_type() const noexcept
     {
         return m_defaultMediaType;
     }
 
-    void Printer::populate_orientations()
+    void printer::populate_orientations()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_ORIENTATION, NULL))
@@ -423,12 +423,12 @@ namespace nanaprint
             }
         }
     }
-    const page_orientations& Printer::get_orientations() const noexcept
+    const page_orientations& printer::get_orientations() const noexcept
     {
         return m_orientations;
     }
 
-    void Printer::populate_default_orientation()
+    void printer::populate_default_orientation()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultOrientation =
@@ -458,12 +458,12 @@ namespace nanaprint
             
         }
     }
-    const optional<page_orientation>& Printer::get_default_orientation() const noexcept
+    const optional<page_orientation>& printer::get_default_orientation() const noexcept
     {
         return m_defaultOrientation;
     }
 
-    void Printer::populate_color_modes()
+    void printer::populate_color_modes()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_COLOR_MODE, NULL))
@@ -478,12 +478,12 @@ namespace nanaprint
             }
         }
     }
-    const color_modes& Printer::get_color_modes() const noexcept
+    const color_modes& printer::get_color_modes() const noexcept
     {
         return m_colorModes;
     }
 
-    void Printer::populate_default_color_mode()
+    void printer::populate_default_color_mode()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultColorMode =
@@ -509,12 +509,12 @@ namespace nanaprint
         }
     }
 
-    const std::optional<color_mode>& Printer::get_default_color_mode() const noexcept
+    const std::optional<color_mode>& printer::get_default_color_mode() const noexcept
     {
         return m_defaultColorMode;
     }
 
-    void Printer::populate_print_qualities()
+    void printer::populate_print_qualities()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_PRINT_QUALITY, NULL))
@@ -529,12 +529,12 @@ namespace nanaprint
             }
         }
     }
-    const print_qualities& Printer::get_print_qualities() const noexcept
+    const print_qualities& printer::get_print_qualities() const noexcept
     {
         return m_printQualities;
     }
 
-    void Printer::populate_default_print_quality()
+    void printer::populate_default_print_quality()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultQuality =
@@ -560,12 +560,12 @@ namespace nanaprint
             }
         }   
     }
-    const std::optional<print_quality>& Printer::get_default_print_quality() const noexcept
+    const std::optional<print_quality>& printer::get_default_print_quality() const noexcept
     {
         return m_defaultPrintQuality;
     }
 
-    void Printer::populate_sides()
+    void printer::populate_sides()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, info, CUPS_SIDES, NULL))
@@ -581,12 +581,12 @@ namespace nanaprint
         }
     }
     
-    const sides& Printer::get_sides() const noexcept
+    const sides& printer::get_sides() const noexcept
     {
         return m_sides;
     }
 
-    void Printer::populate_default_side()
+    void printer::populate_default_side()
     {
         cups_dinfo_t *info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         const char *defaultSide =
@@ -612,12 +612,12 @@ namespace nanaprint
         }   
     }
 
-    const std::optional<side>& Printer::get_default_side() const noexcept
+    const std::optional<side>& printer::get_default_side() const noexcept
     {
         return m_defaultSide;
     }
 
-    const std::string Printer::get_printer_state() const
+    const std::string printer::get_printer_state() const
     {
         string printerState;
         const char* printerUri = cupsGetOption("device-uri", m_dest->num_options, m_dest->options);
@@ -691,22 +691,22 @@ namespace nanaprint
         return printerState;
     }
 
-    const std::string Printer::get_printer_make_and_model() const
+    const std::string printer::get_printer_make_and_model() const
     {
         return get_options()["printer-make-and-model"];
     }
 
-    const std::string Printer::get_printer_location() const
+    const std::string printer::get_printer_location() const
     {
         return get_options()["printer-location"];
     }
 
-    const std::string Printer::get_printer_info() const
+    const std::string printer::get_printer_info() const
     {
         return get_options()["printer-type"];
     }
 
-    std::ostream& operator<<(std::ostream& os, const Printer& prtr)
+    std::ostream& operator<<(std::ostream& os, const printer& prtr)
     {
         string s = prtr.get_printer_state();
         os << "Printer: " << prtr.get_name() << '\n';

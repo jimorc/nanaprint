@@ -289,32 +289,32 @@ namespace nanaprint
     {
         m_dialogSettings.set_printer(pos);
         auto printers = m_settings.get_printers().getPrinters();
-        auto printer = printers[m_dialogSettings.get_printer()];
-        update_printer_group(*printer);
-        update_paper_group(*printer);
-        update_misc_group(*printer);
+        auto prtr = printers[m_dialogSettings.get_printer()];
+        update_printer_group(*prtr);
+        update_paper_group(*prtr);
+        update_misc_group(*prtr);
     }
 
-    void basic_panel::update_printer_group(Printer& printer)
+    void basic_panel::update_printer_group(printer& prtr)
     {
-        m_printerStatus.caption(printer.get_printer_state());
-        m_printerType.caption(printer.get_printer_make_and_model());
-        m_printerLocation.caption(printer.get_printer_location());
-        m_printerComment.caption(printer.get_printer_info());
+        m_printerStatus.caption(prtr.get_printer_state());
+        m_printerType.caption(prtr.get_printer_make_and_model());
+        m_printerLocation.caption(prtr.get_printer_location());
+        m_printerComment.caption(prtr.get_printer_info());
     }
 
-    void basic_panel::update_paper_group(Printer& printer)
+    void basic_panel::update_paper_group(printer& prtr)
     {
-        m_borderlessCheckbox.enabled(printer.get_media_sizes().contains_borderless_paper());
-        update_media_type_combox(printer);
-        update_print_quality_combox(printer);
-        update_paper_size_combox(printer);
+        m_borderlessCheckbox.enabled(prtr.get_media_sizes().contains_borderless_paper());
+        update_media_type_combox(prtr);
+        update_print_quality_combox(prtr);
+        update_paper_size_combox(prtr);
     }
 
-    void basic_panel::update_media_type_combox(Printer& printer)
+    void basic_panel::update_media_type_combox(printer& prtr)
     {
         m_mediaTypeCombox.clear();
-        auto mediaTypes = printer.get_media_types().get_values();
+        auto mediaTypes = prtr.get_media_types().get_values();
         auto hasMediaTypes = mediaTypes.size() > 0;
         m_mediaTypeCombox.enabled(hasMediaTypes);
         auto selectedMediaType = m_dialogSettings.get_media_type();
@@ -335,10 +335,10 @@ namespace nanaprint
         }
     }
 
-    void basic_panel::update_print_quality_combox(Printer& printer)
+    void basic_panel::update_print_quality_combox(printer& prtr)
     {
         m_printQualityCombox.clear();
-        auto qualities = printer.get_print_qualities().get_values();
+        auto qualities = prtr.get_print_qualities().get_values();
         auto hasPrintQualities = qualities.size() > 0;
         m_printQualityCombox.enabled(hasPrintQualities);
         auto selectedPrintQuality = m_dialogSettings.get_print_quality();
@@ -358,11 +358,11 @@ namespace nanaprint
         }
     }
 
-    void basic_panel::update_paper_size_combox(Printer& printer)
+    void basic_panel::update_paper_size_combox(printer& prtr)
     {
         m_paperSizeCombox.clear();
 
-        auto allPaperSizes = printer.get_media_sizes();
+        auto allPaperSizes = prtr.get_media_sizes();
         bool borderless = m_borderlessCheckbox.checked();
         auto paperSizes = allPaperSizes.get_media_size_translated_names_by_border(
                 borderless);
@@ -396,18 +396,18 @@ namespace nanaprint
         }
     }
 
-    void basic_panel::update_misc_group(Printer& printer)
+    void basic_panel::update_misc_group(printer& prtr)
     {
-        update_orientation_group(printer);
-        update_2_sided_combox(printer);
+        update_orientation_group(prtr);
+        update_2_sided_combox(prtr);
     }
 
-    void basic_panel::update_orientation_group(Printer& printer)
+    void basic_panel::update_orientation_group(printer& prtr)
     {
         disable_orientation_checkboxes();
         uncheck_orientation_checkboxes();
 
-        auto orientations = printer.get_orientations().get_values();
+        auto orientations = prtr.get_orientations().get_values();
         for (auto orientation: orientations)
         {
             enable_orientation_checkbox(orientation);
@@ -482,10 +482,10 @@ namespace nanaprint
         m_revPortrait.check(false);
     }
 
-    void basic_panel::update_2_sided_combox(Printer& printer)
+    void basic_panel::update_2_sided_combox(printer& prtr)
     {
         m_2SidedCombox.clear();
-        auto sides = printer.get_sides().get_values();
+        auto sides = prtr.get_sides().get_values();
         auto defaultSide = m_dialogSettings.get_side();
         size_t opt = 0;
         if (defaultSide)

@@ -30,11 +30,11 @@
 
 namespace nanaprint
 {
-    class Printer
+    class printer
     {
         public:
-            virtual ~Printer() {}
-            static std::shared_ptr<Printer> create(cups_dest_t* dest);
+            virtual ~printer() {}
+            static std::shared_ptr<printer> create(cups_dest_t* dest);
 
             cups_dest_t* get_dest() const noexcept { return m_dest; }
             const std::string get_name() const { return std::string(m_dest->name); }
@@ -64,7 +64,7 @@ namespace nanaprint
             const std::string get_printer_info() const;
 
         protected:
-            Printer(cups_dest_t* dest);
+            printer(cups_dest_t* dest);
 
         private:
             const std::string get_printer_state_string(std::string value) const;
@@ -108,5 +108,5 @@ namespace nanaprint
             finishings m_defaultFinishings;
     };
 
-    std::ostream& operator<<(std::ostream& os, const Printer& prtr);
+    std::ostream& operator<<(std::ostream& os, const printer& prtr);
 }
