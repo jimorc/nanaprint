@@ -27,10 +27,7 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 namespace nanaprint
 {
     printer::printer(cups_dest_t* dest)
-        : m_dest(dest),
-            m_defaultMediaSize(nullopt),
-            m_defaultMediaType(nullopt),
-            m_defaultMediaSource(media_source("None"))
+        : m_dest(dest)
     {
         populate_media_sizes();
         populate_default_media_size();
