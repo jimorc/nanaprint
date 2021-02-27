@@ -378,27 +378,9 @@ namespace nanaprint
 
     void printer::populate_default_media_type()
     {
-        const char *defaultType =
-            cupsGetOption(CUPS_MEDIA_TYPE, m_dest->num_options, m_dest->options);
-        if (defaultType != nullptr)
-        {
-            m_defaultMediaType = media_type(defaultType);
-        }
-        else
-        {
-            ipp_attribute_t *type = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                                                        m_info, CUPS_MEDIA_TYPE);
-            int count = ippGetCount(type);
-            if (count != 0)
-            {
-                const char *defaultType = ippGetString(type, 0, NULL);
-                m_defaultMediaType = media_type(defaultType);
-            }
-            else
-            {
-                m_defaultMediaType = nullopt;
-            }
-        }
+        optional<string> defaultType = get_cups_default_string_value(CUPS_MEDIA_TYPE);
+        m_defaultMediaType = (defaultType) ? 
+            optional<media_type>(media_type(*defaultType)) : nullopt;
     }
 
     const std::optional<media_type> &printer::get_default_media_type() const noexcept
