@@ -33,6 +33,10 @@ namespace nanaprint
     class printer
     {
         public:
+            printer(const printer&) = delete;
+            printer(printer&&) = default;
+            printer& operator=(const printer&) = delete;
+            printer& operator=(printer&&) = delete;
             virtual ~printer() {}
             static std::shared_ptr<printer> create(cups_dest_t* dest);
 
