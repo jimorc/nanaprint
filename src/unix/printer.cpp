@@ -105,11 +105,11 @@ namespace nanaprint
             if (count != 0)
             {
                 const char *defaultValue = ippGetString(defaultAttr, 0, NULL);
-                value = string(defaultValue);
+                value = (defaultValue) ? optional<string>(string(defaultValue)) : nullopt;
             }
             else
             {
-                m_defaultSide = nullopt;
+                value = nullopt;
             }
         }
         return value;
@@ -327,35 +327,18 @@ namespace nanaprint
 
     void printer::populate_default_finishings()
     {
-        const char *defaultFinishings =
-            cupsGetOption(CUPS_FINISHINGS, m_dest->num_options,
-                          m_dest->options);
-        ipp_attribute_t *defaultFinishings2 =
-            cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_FINISHINGS);
-
-        if (defaultFinishings != NULL)
+        optional<string> defFinishings = get_cups_default_string_value(CUPS_FINISHINGS);
+        if (defFinishings)
         {
+            m_defaultFinishings.set_none();
             regex rgx("[0-9]*");
             smatch match;
-
-            string finishings = defaultFinishings;
-            if (regex_search(finishings, match, rgx))
+            if (regex_search(*defFinishings, match, rgx))
             {
                 for (auto m : match)
                 {
                     m_defaultFinishings.set_finishing(m);
                 }
-            }
-        }
-        else
-        {
-            int count = ippGetCount(defaultFinishings2);
-            for (int i = 0; i < count; ++i)
-            {
-                int finish = ippGetInteger(defaultFinishings2, i);
-                char fin[10]; // 2 or 3 would be enough
-                sprintf(fin, "%d", finish);
-                m_defaultFinishings.set_finishing(fin);
             }
         }
     }
