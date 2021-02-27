@@ -409,16 +409,10 @@ namespace nanaprint
 
     void printer::populate_orientations()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_ORIENTATION, NULL))
+        vector<int> orientations = get_cups_integer_values(CUPS_ORIENTATION);
+        for (const auto orientation : orientations)
         {
-            ipp_attribute_t *orientations = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                                                                  m_info, CUPS_ORIENTATION);
-            int count = ippGetCount(orientations);
-            for (int i = 0; i < count; ++i)
-            {
-                int orientation = ippGetInteger(orientations, i);
-                m_orientations.push_back(page_orientation(orientation));
-            }
+            m_orientations.push_back(page_orientation(orientation));
         }
     }
     const page_orientations &printer::get_orientations() const noexcept
