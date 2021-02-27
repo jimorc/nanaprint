@@ -105,6 +105,7 @@ namespace nanaprint
             if (count != 0)
             {
                 const char *defaultValue = ippGetString(defaultAttr, 0, NULL);
+                // found one case where count=1, but defaultValue=nullptr
                 value = (defaultValue) ? optional<string>(string(defaultValue)) : nullopt;
             }
             else
@@ -345,26 +346,14 @@ namespace nanaprint
 
     void printer::populate_default_media_source()
     {
-        const char *defaultSource =
-            cupsGetOption(CUPS_MEDIA_SOURCE, m_dest->num_options, m_dest->options);
-        if (defaultSource != nullptr)
+        optional<string> defaultSource = get_cups_default_string_value(CUPS_MEDIA_SOURCE);
+        if (defaultSource)
         {
-            m_defaultMediaSource = media_source(defaultSource);
+            m_defaultMediaSource = optional<media_source>(media_source(*defaultSource));
         }
         else
         {
-            ipp_attribute_t *source = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                                                          m_info, CUPS_MEDIA_SOURCE);
-            int count = ippGetCount(source);
-            if (count != 0)
-            {
-                const char *src = ippGetString(source, 0, NULL);
-                m_defaultMediaSource = media_source(src);
-            }
-            else
-            {
-                m_defaultMediaSource = nullopt;
-            }
+            m_defaultMediaSource = nullopt;
         }
     }
 
