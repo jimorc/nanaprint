@@ -354,16 +354,10 @@ namespace nanaprint
 
     void printer::populate_media_types()
     {
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, CUPS_MEDIA_TYPE, NULL))
+        vector<string> types = get_cups_string_values(CUPS_MEDIA_TYPE);
+        for (const auto& mediaType : types)
         {
-            ipp_attribute_t *type = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
-                                                          m_info, CUPS_MEDIA_TYPE);
-            int count = ippGetCount(type);
-            for (int i = 0; i < count; ++i)
-            {
-                const char *mediaType = ippGetString(type, i, NULL);
-                m_mediaTypes.push_back(media_type(mediaType));
-            }
+            m_mediaTypes.push_back(media_type(mediaType));
         }
     }
 
