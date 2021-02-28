@@ -136,7 +136,7 @@ namespace nanaprint
                 int defaultValue = ippGetInteger(defaultAttr, 0);
                 if (defaultValue != 0)
                 {
-                    m_defaultOrientation = defaultValue;
+                    value = defaultValue;
                 }
             }
         }
@@ -422,7 +422,7 @@ namespace nanaprint
     {
         m_defaultOrientation = get_cups_default_integer_value(CUPS_ORIENTATION);
     }
-    
+
     const optional<page_orientation> &printer::get_default_orientation() const noexcept
     {
         return m_defaultOrientation;
@@ -467,29 +467,9 @@ namespace nanaprint
 
     void printer::populate_default_print_quality()
     {
-        const char *defaultQuality =
-            cupsGetOption(CUPS_PRINT_QUALITY, m_dest->num_options, m_dest->options);
-        if (defaultQuality != nullptr)
-        {
-            int quality = stoi(defaultQuality);
-            m_defaultPrintQuality = print_quality(quality);
-        }
-        else
-        {
-            ipp_attribute_t *defQuality = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                                                              m_info, CUPS_PRINT_QUALITY);
-            int count = ippGetCount(defQuality);
-            if (count != 0)
-            {
-                int defaultQuality = ippGetInteger(defQuality, 0);
-                m_defaultPrintQuality = print_quality(defaultQuality);
-            }
-            else
-            {
-                m_defaultPrintQuality = nullopt;
-            }
-        }
+        m_defaultPrintQuality = get_cups_default_integer_value(CUPS_PRINT_QUALITY);
     }
+
     const std::optional<print_quality> &printer::get_default_print_quality() const noexcept
     {
         return m_defaultPrintQuality;
