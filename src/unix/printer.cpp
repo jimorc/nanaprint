@@ -507,8 +507,7 @@ namespace nanaprint
 
     void printer::populate_default_side()
     {
-        optional<string> defaultSide = get_cups_default_string_value(CUPS_SIDES);
-        m_defaultSide = (defaultSide) ? optional<side>(side(*defaultSide)) : nullopt;
+        m_defaultSide = get_cups_default_string_value(CUPS_SIDES);
     }
 
     const std::optional<side> &printer::get_default_side() const noexcept
