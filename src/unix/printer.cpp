@@ -119,12 +119,11 @@ namespace nanaprint
     optional<int> printer::get_cups_default_integer_value(const std::string& cupsValue)
     {
         optional<int> value;
-        const char *optionValue =
-            cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
-        if (optionValue)
+        int optionValue =
+            cupsGetIntegerOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
+        if (optionValue != INT32_MIN)
         {
-            int intValue = stoi(optionValue);
-            value = intValue;
+           value = optionValue;
         }
         else
         {
