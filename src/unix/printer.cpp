@@ -346,15 +346,7 @@ namespace nanaprint
 
     void printer::populate_default_media_source()
     {
-        optional<string> defaultSource = get_cups_default_string_value(CUPS_MEDIA_SOURCE);
-        if (defaultSource)
-        {
-            m_defaultMediaSource = optional<media_source>(media_source(*defaultSource));
-        }
-        else
-        {
-            m_defaultMediaSource = nullopt;
-        }
+        m_defaultMediaSource = get_cups_default_string_value(CUPS_MEDIA_SOURCE);
     }
 
     const std::optional<media_source> &printer::get_default_media_source() const noexcept
