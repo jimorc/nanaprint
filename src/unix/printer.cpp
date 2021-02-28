@@ -116,6 +116,33 @@ namespace nanaprint
         return value;
     }
 
+    optional<int> printer::get_cups_default_integer_value(const std::string& cupsValue)
+    {
+        optional<int> value;
+        const char *optionValue =
+            cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
+        if (optionValue)
+        {
+            int intValue = stoi(optionValue);
+            value = intValue;
+        }
+        else
+        {
+            ipp_attribute_t *defaultAttr = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+                m_info, cupsValue.c_str());
+            int count = ippGetCount(defaultAttr);
+            if (count != 0)
+            {
+                int defaultValue = ippGetInteger(defaultAttr, 0);
+                if (defaultValue != 0)
+                {
+                    m_defaultOrientation = defaultValue;
+                }
+            }
+        }
+        return value;
+    }
+
     std::map<std::string, std::string> printer::get_options() const
     {
         map<string, string> opts;
@@ -393,32 +420,9 @@ namespace nanaprint
 
     void printer::populate_default_orientation()
     {
-        const char *defaultOrientation =
-            cupsGetOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
-        if (defaultOrientation != nullptr)
-        {
-            int orientation = stoi(defaultOrientation);
-            m_defaultOrientation = page_orientation(orientation);
-        }
-        else
-        {
-            ipp_attribute_t *defOrientation = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
-                                                                  m_info, CUPS_ORIENTATION);
-            int count = ippGetCount(defOrientation);
-            if (count != 0)
-            {
-                int defaultOr = ippGetInteger(defOrientation, 0);
-                if (defaultOr != 0)
-                {
-                    m_defaultOrientation = page_orientation(defaultOr);
-                }
-            }
-            else
-            {
-                m_defaultOrientation = nullopt;
-            }
-        }
+        m_defaultOrientation = get_cups_default_integer_value(CUPS_ORIENTATION);
     }
+    
     const optional<page_orientation> &printer::get_default_orientation() const noexcept
     {
         return m_defaultOrientation;
