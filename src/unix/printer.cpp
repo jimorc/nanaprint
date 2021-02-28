@@ -644,8 +644,14 @@ namespace nanaprint
 
         os << "Default Color Mode:\n";
         auto defaultColorMode = prtr.get_default_color_mode();
-        os << "    ";
-        os << ((defaultColorMode) ? defaultColorMode.value().get_value() : "None") << "\n";
+        if (defaultColorMode)
+        {
+            os << defaultColorMode.value();
+        }
+        else
+        {
+            os << "    None/n";
+        }
 
         auto printQualities = prtr.get_print_qualities();
         os << printQualities;
