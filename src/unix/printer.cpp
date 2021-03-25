@@ -16,6 +16,8 @@
 #include <string>
 #include <regex>
 #include <memory>
+#include "cups/cups.h"
+#include "cups/ppd.h"
 #include "printer.h"
 #include "values.h"
 
@@ -27,9 +29,72 @@ constexpr int MAX_CONNECT_ATTEMPT_TIME = 5000; // max allowed time for printer c
 
 namespace nanaprint
 {
+    class printer::ppd
+    {
+        private:
+            ppd_file_t* m_ppd;
+        public:
+            ppd(const char* fileName) : m_ppd(nullptr)
+            {
+                #pragma GCC diagnostic push
+                #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+                const char *fname = cupsGetPPD(fileName);
+                if (fname)
+                {
+                    m_ppd = ppdOpenFile(fname);
+                }
+                #pragma GCC diagnostic pop
+            }
+
+            ~ppd() noexcept
+            {
+                if (m_ppd)
+                {
+                    #pragma GCC diagnostic push
+                    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+                    ppdClose(m_ppd);
+                    m_ppd = nullptr;
+                    #pragma GCC diagnostic pop
+                }
+            }
+
+            ppd(ppd&& other)
+            {
+                m_ppd = other.m_ppd;
+                other.m_ppd = nullptr;
+            }
+
+            ppd(const ppd&) = delete;
+            ppd& operator=(const ppd&) = delete;
+            printer::ppd& operator=(ppd&&) = delete;
+
+            std::vector<std::string> get_option(const char* optionName)
+            {
+                vector<string> optionValues;
+                if (m_ppd)
+                {
+                    #pragma GCC diagnostic push
+                    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+                    ppd_option_t *option = ppdFindOption(m_ppd, "cupsPrintQuality");
+                    if (option)
+                    {
+                        int num_choices = option->num_choices;
+                        ppd_choice_t *choices = option->choices;
+                        for (int i = 0; i < num_choices; ++i)
+                        {
+                            optionValues.push_back(string(choices[i].text));
+                        }
+                    }
+                    #pragma GCC diagnostic pop
+                }
+                return optionValues;
+            }
+    };
+
     printer::printer(cups_dest_t *dest)
         : m_dest(dest)
     {
+        m_pPpd = make_unique<ppd>(ppd(dest->name));
         m_info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         populate_media_sizes();
         populate_default_media_size();
@@ -48,6 +113,8 @@ namespace nanaprint
         populate_sides();
         populate_default_side();
     }
+
+    printer::~printer() {}
 
     std::shared_ptr<printer> printer::create(cups_dest_t *dest)
     {
@@ -452,10 +519,18 @@ namespace nanaprint
 
     void printer::populate_print_qualities()
     {
-        vector<int> qualities = get_cups_integer_values(CUPS_PRINT_QUALITY);
-        for (const auto quality : qualities)
+        // use ppd functions to get print qualities. This is necessary because the ipp_attributes
+        // always return either Normal or None.
+        m_printQualities.clear();
+        if (m_pPpd)
         {
-            m_printQualities.push_back(print_quality(quality));
+            vector<string> qualities = m_pPpd->get_option("cupsPrintQuality");
+            // this can probably be done using transform algorithm, but would require a number
+            // of constructors and operator= methods for print_quality.
+            for(auto& quality: qualities)
+            {
+                m_printQualities.push_back(print_quality(quality));
+            }
         }
     }
 

@@ -17,6 +17,9 @@ using namespace std;
 
 namespace nanaprint
 {
+    print_quality::print_quality(const string& quality): nanaprint_value(quality)
+    {}
+    
     print_quality::print_quality(const int quality) : nanaprint_value("")
     {
         switch (quality)

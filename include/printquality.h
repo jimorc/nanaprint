@@ -18,6 +18,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <string>
 #include "values.h"
 
 namespace nanaprint
@@ -31,6 +32,7 @@ namespace nanaprint
     class print_quality : public nanaprint_value<std::string>
     {
         public:
+            print_quality(const std::string& quality);
             print_quality(const int quality);
             virtual ~print_quality() {}
     };

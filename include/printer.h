@@ -37,7 +37,7 @@ namespace nanaprint
             printer(printer&&) = default;
             printer& operator=(const printer&) = delete;
             printer& operator=(printer&&) = delete;
-            virtual ~printer() {}
+            virtual ~printer();
             static std::shared_ptr<printer> create(cups_dest_t* dest);
 
             cups_dest_t* get_dest() const noexcept { return m_dest; }
@@ -115,6 +115,9 @@ namespace nanaprint
             std::optional<print_quality> m_defaultPrintQuality;
             std::optional<side> m_defaultSide;
             finishings m_defaultFinishings;
+
+            class ppd;
+            std::unique_ptr<ppd> m_pPpd;
     };
 
     std::ostream& operator<<(std::ostream& os, const printer& prtr);
