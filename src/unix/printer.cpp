@@ -16,6 +16,7 @@
 #include <string>
 #include <regex>
 #include <memory>
+#include <tuple>
 #include "cups/cups.h"
 #include "cups/ppd.h"
 #include "printer.h"
@@ -68,15 +69,16 @@ namespace nanaprint
             ppd& operator=(const ppd&) = delete;
             printer::ppd& operator=(ppd&&) = delete;
 
-            std::vector<std::string> get_option(const char* optionName)
+            std::tuple<optional<std::string>, std::vector<std::string>> get_option(const char* optionName)
             {
                 vector<string> optionValues;
+                optional<string> defChoice = nullopt;
                 if (m_ppd)
                 {
                     #pragma GCC diagnostic push
                     #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-                    ppd_option_t *option = ppdFindOption(m_ppd, "cupsPrintQuality");
-                    if (option)
+                    ppd_option_t *option = ppdFindOption(m_ppd, optionName);
+                   if (option)
                     {
                         int num_choices = option->num_choices;
                         ppd_choice_t *choices = option->choices;
@@ -84,10 +86,11 @@ namespace nanaprint
                         {
                             optionValues.push_back(string(choices[i].text));
                         }
+                        defChoice = option->defchoice;
                     }
                     #pragma GCC diagnostic pop
                 }
-                return optionValues;
+                return make_tuple(defChoice, optionValues);
             }
     };
 
@@ -109,7 +112,6 @@ namespace nanaprint
         populate_color_modes();
         populate_default_color_mode();
         populate_print_qualities();
-        populate_default_print_quality();
         populate_sides();
         populate_default_side();
     }
@@ -524,34 +526,20 @@ namespace nanaprint
         m_printQualities.clear();
         if (m_pPpd)
         {
-            vector<string> qualities = m_pPpd->get_option("cupsPrintQuality");
+            auto [defQuality, qualities] = m_pPpd->get_option("cupsPrintQuality");
             // this can probably be done using transform algorithm, but would require a number
             // of constructors and operator= methods for print_quality.
             for(auto& quality: qualities)
             {
                 m_printQualities.push_back(print_quality(quality));
             }
+            m_defaultPrintQuality = defQuality;
         }
     }
 
     const print_qualities &printer::get_print_qualities() const noexcept
     {
         return m_printQualities;
-    }
-
-    void printer::populate_default_print_quality()
-    {
-        // use ppd functions to get print qualities. This is necessary because the ipp_attributes
-        // always return either Normal or None.
-        m_defaultPrintQuality = nullopt;
-        if (m_pPpd)
-        {
-            vector<string> defaultQuality = m_pPpd->get_option("DefaultcupsPrintQuality");
-            if (defaultQuality.size() > 0)
-            {
-                m_defaultPrintQuality = defaultQuality[0];
-            }
-        }
     }
 
     const std::optional<print_quality> &printer::get_default_print_quality() const noexcept
