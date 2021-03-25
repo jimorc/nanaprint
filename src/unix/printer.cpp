@@ -541,7 +541,17 @@ namespace nanaprint
 
     void printer::populate_default_print_quality()
     {
-        m_defaultPrintQuality = get_cups_default_integer_value(CUPS_PRINT_QUALITY);
+        // use ppd functions to get print qualities. This is necessary because the ipp_attributes
+        // always return either Normal or None.
+        m_defaultPrintQuality = nullopt;
+        if (m_pPpd)
+        {
+            vector<string> defaultQuality = m_pPpd->get_option("DefaultcupsPrintQuality");
+            if (defaultQuality.size() > 0)
+            {
+                m_defaultPrintQuality = defaultQuality[0];
+            }
+        }
     }
 
     const std::optional<print_quality> &printer::get_default_print_quality() const noexcept
