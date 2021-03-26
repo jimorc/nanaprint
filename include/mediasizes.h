@@ -34,6 +34,8 @@ namespace nanaprint
             std::optional<media_size> get_media_size_by_translated_name_and_border(
                 const std::string& translatedName, bool isBorderless) const;
             std::vector<std::string> get_media_size_translated_names_by_border(bool isBorderless) const;
+            std::optional<media_size> get_default_media_size_from_name_and_border(
+                const std::string& defaultSize);
     };
 
     std::ostream& operator<<(std::ostream& os, const media_sizes& sizes);

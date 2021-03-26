@@ -359,16 +359,15 @@ namespace nanaprint
 
     void printer::populate_default_media_size()
     {
-        cups_size_t size;
-        int result = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, 0, &size);
-        if (result)
+        m_defaultMediaSize = nullopt;
+        if(m_pPpd)
         {
-            m_defaultMediaSize = media_size(size.media, size.width, size.length,
-                                            size.bottom, size.left, size.right, size.top);
-        }
-        else
-        {
-            m_defaultMediaSize = nullopt;
+            auto [defaultMediaSize, mediaSizes] = m_pPpd->get_option("PageSize");
+            if(defaultMediaSize)
+            {
+                m_defaultMediaSize = m_mediaSizes.get_default_media_size_from_name_and_border(
+                    *defaultMediaSize);
+            }
         }
     }
 
@@ -752,8 +751,14 @@ namespace nanaprint
 
         os << "Default Media Size:\n";
         auto defaultSize = prtr.get_default_media_size();
-        os << ((defaultSize) ? defaultSize.value().get_translated_name() : "None") << "\n";
-
+        if (defaultSize)
+        {
+            os << defaultSize.value() << '\n';
+        }
+        else
+        {
+            os << "None\n";
+        }
         os << endl;
         return os;
     }

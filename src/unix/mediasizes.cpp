@@ -82,6 +82,32 @@ namespace nanaprint
         return sizes;
     }
 
+    
+    optional<media_size> media_sizes::get_default_media_size_from_name_and_border(
+        const string& defaultSize)
+    {
+        string defSize(defaultSize);
+        // default paper size for Canon printers is of form size.Borderless for borderless papers
+        // e.g. A4.Borderless, just size (e.g. A4) for bordered papers.
+        size_t pos = defSize.find(".Borderless");
+        bool borderless = pos != defSize.npos;
+        if (borderless)
+        {
+            defSize = defSize.substr(0, pos);
+        }
+        else
+        {
+            // default paper size for Brother printers is of form Brsize_B (e.g. BrA4-B) for
+            // borderless papers and size (e.g. A4) for bordered papers.
+            pos = defSize.find("_B");
+            if (pos != defSize.npos)
+            {
+                defSize = defSize.substr(2, pos - 2);
+            }
+        }
+        return get_media_size_by_translated_name_and_border(defSize, borderless);
+    }
+
     std::ostream& operator<<(std::ostream& os, const media_sizes& sizes)
     {
         os << "Media Sizes:\n";
