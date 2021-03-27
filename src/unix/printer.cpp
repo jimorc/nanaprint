@@ -100,7 +100,8 @@ namespace nanaprint
         m_pPpd = make_unique<ppd>(ppd(dest->name));
         m_info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
         populate_media_sizes();
-        populate_default_media_size();
+// call commented out for now. May be reserected later.
+//        populate_default_media_size();
         populate_finishings();
         populate_default_finishings();
         populate_media_sources();
@@ -338,6 +339,8 @@ namespace nanaprint
 
     void printer::populate_media_sizes()
     {
+        int count = 0;
+        m_defaultMediaSize = nullopt;
         if (m_mediaSizes.size() == 0)
         {
             int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, m_info, 0);
@@ -349,18 +352,16 @@ namespace nanaprint
                     size.media, size.width, size.length, size.bottom, size.left,
                     size.right, size.top)));
             }
+
+            count = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, 0, &size);
+            if (count >0)
+            {
+                m_defaultMediaSize = media_size(
+                    size.media, size.width, size.length, size.bottom, size.left,
+                    size.right, size.top);
+            }
         }
-    }
-
-    const media_sizes &printer::get_media_sizes() const noexcept
-    {
-        return m_mediaSizes;
-    }
-
-    void printer::populate_default_media_size()
-    {
-        m_defaultMediaSize = nullopt;
-        if(m_pPpd)
+        if(m_pPpd && (count == 0))
         {
             auto [defaultMediaSize, mediaSizes] = m_pPpd->get_option("PageSize");
             if(defaultMediaSize)
@@ -369,7 +370,18 @@ namespace nanaprint
                     *defaultMediaSize);
             }
         }
+     }
+
+    const media_sizes &printer::get_media_sizes() const noexcept
+    {
+        return m_mediaSizes;
     }
+
+// commented out for now. May be reserected later
+/*    void printer::populate_default_media_size()
+    {
+        m_defaultMediaSize = nullopt;
+   }*/
 
     const std::optional<media_size> &printer::get_default_media_size() const noexcept
     {
