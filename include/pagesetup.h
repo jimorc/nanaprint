@@ -1,4 +1,6 @@
-#pragma(once)
+#ifndef NANAPRINT_PAGESETUP_H
+#define NANAPRINT_PAGESETUP_H
+
 /**
  *  \file pagesetup.h
  *  \brief This file provides a page setup dialog required by nanaprint
@@ -102,3 +104,4 @@ namespace nanaprint
     };
 }
 
+#endif      // NANAPRINT_PAGESETUP_H

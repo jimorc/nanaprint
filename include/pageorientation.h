@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_PAGEORIENTATION_H
+#define NANAPRINT_PAGEORIENTATION_H
 
 /**
  *  \file pageorientation.h
@@ -56,3 +57,5 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const page_orientations& orientations);
 
 }
+
+#endif      // NANAPRINT_PAGEORIENTATION_H

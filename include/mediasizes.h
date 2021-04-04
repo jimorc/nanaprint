@@ -1,4 +1,6 @@
-#pragma(once)
+#ifndef NANAPRINT_MEDIASIZES_H
+#define NANAPRINT_MEDIASIZES_H
+
 /**
  *  \brief A MediaSizes class
  *
@@ -40,3 +42,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const media_sizes& sizes);
 }
+
+#endif      // NANAPRINT_MEDIASIZES_H

@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_MEDIATYPE_H
+#define NANAPRINT_MEDIATYPE_H
 
 /**
  *  \file mediatype.h
@@ -39,3 +40,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const media_types& mType);
 }
+
+#endif      // NANAPRINT_MEDIATYPE_H

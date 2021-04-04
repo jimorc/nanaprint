@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_FINISHINGS_H
+#define NANAPRINT_FINISHINGS_H
 
 /**
  *  \file finishing.h
@@ -52,3 +53,5 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const finishings& finishing);
 
 }
+
+#endif      // NANAPRINT_FINISHINGS_H

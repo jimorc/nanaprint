@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_PRINTQUALITY_H
+#define NANAPRINT_PRINTQUALITY_H
 
 /**
  *  \file printquality.h
@@ -50,3 +51,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, print_qualities& qualities);
 }
+
+#endif      // NANAPRINT_PRINTQUALITY_H

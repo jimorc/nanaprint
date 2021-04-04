@@ -1,5 +1,5 @@
-#ifndef MEDIASIZETRANSLATOR_H
-#define MEDIASIZETRANSLATOR_H
+#ifndef NANAPRINT_MEDIASIZETRANSLATOR_H
+#define NANAPRINT_MEDIASIZETRANSLATOR_H
 
 /**
  *  \brief A MediaSizesTranslator class
@@ -32,4 +32,4 @@ namespace nanaprint
    };
 }
 
-#endif      // MEDIASIZETRANSLATOR_H
+#endif      // NANAPRINT_MEDIASIZETRANSLATOR_H

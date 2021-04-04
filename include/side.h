@@ -1,4 +1,6 @@
-#pragma(once)
+#ifndef NANAPRINT_SIDE_H
+#define NANAPRINT_SIDE_H
+
 /**
  *  \file side.h
  *  \brief This file provides Side and Sides classes required by nanaprint
@@ -39,3 +41,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const sides& sids);
 }
+
+#endif      // NANAPRINT_SIDE_H

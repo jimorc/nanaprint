@@ -1,5 +1,5 @@
-#ifndef BASICPANEL_H
-#define BASICPANEL_H
+#ifndef NANAPRINT_BASICPANEL_H
+#define NANAPRINT_BASICPANEL_H
 
 /**
  *  \file basicpanel.h
@@ -157,4 +157,4 @@ namespace nanaprint
         };
     }
 
-    #endif  // BASICPANEL_H
+    #endif  // NANAPRINT_BASICPANEL_H

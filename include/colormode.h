@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_COLORMODE_H
+#define NANAPRINT_COLORMODE_H
 /**
  *  \file colormode.h
  *  \brief This file provides ColorMode and ColorModes classes required by nanaprint
@@ -38,3 +39,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const color_modes& cmode);
 }
+
+#endif      // NANAPRINT_COLORMODE_H

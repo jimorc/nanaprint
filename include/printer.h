@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_PRINTER_H
+#define NANAPRINT_PRINTER_H
 /**
  *  \file printer.h
  *  \brief This file provides printer class and data structures required by nanaprint
@@ -122,3 +123,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const printer& prtr);
 }
+
+#endif      // NANAPRINT_PRINTER_H

@@ -1,5 +1,5 @@
-#ifndef PRINTDIALOG_H
-#define PRINTDIALOG_H
+#ifndef NANAPRINT_PRINTDIALOG_H
+#define NANAPRINT_PRINTDIALOG_H
 
 /**
  *  \file printdialog.h
@@ -43,4 +43,4 @@ namespace nanaprint
     };
 }
 
-#endif  // PRINTDIALOG_H
+#endif  // NANAPRINT_PRINTDIALOG_H

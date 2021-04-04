@@ -1,4 +1,5 @@
-#pragma(once)
+#ifndef NANAPRINT_MEDIASOURCE_H
+#define NANAPRINT_MEDIASOURCE_H
 
 /**
  *  \file mediasources.h
@@ -40,3 +41,5 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const media_sources& sources);
 }
+
+#endif      // NANAPRINT_MEDIASOURCE_H
