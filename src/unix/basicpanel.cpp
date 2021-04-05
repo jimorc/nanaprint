@@ -130,7 +130,7 @@ namespace nanaprint
     {
         m_printerCombox.create(m_printerGroup);
         m_printerCombox.editable(false);
-        auto printers = m_settings.get_printers().getPrinters();
+        auto printers = m_settings.get_printers().get_printers();
         for (auto& printer: printers)
         {
             m_printerCombox.push_back(printer->get_name());
@@ -288,7 +288,7 @@ namespace nanaprint
     void basic_panel::printer_selected(size_t pos)
     {
         m_dialogSettings.set_printer(pos);
-        auto printers = m_settings.get_printers().getPrinters();
+        auto printers = m_settings.get_printers().get_printers();
         auto prtr = printers[m_dialogSettings.get_printer()];
         update_printer_group(*prtr);
         update_paper_group(*prtr);

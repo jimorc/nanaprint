@@ -38,7 +38,7 @@ namespace nanaprint
     int print_settings::get_default_printer_number() const
     {
         int printerNum = 0;
-        auto printers = m_printers.getPrinters();
+        auto printers = m_printers.get_printers();
         for (printerNum = 0; printerNum < printers.size(); ++printerNum)
         {
             if (printers[printerNum]->is_default())
@@ -53,7 +53,7 @@ namespace nanaprint
     void print_settings::set_default_settings(int printerNum)
     {
         m_printer = printerNum;
-        auto printers = m_printers.getPrinters();
+        auto printers = m_printers.get_printers();
         set_borderless(false);
         set_media_size(printers[m_printer]->get_default_media_size());
         set_finishings(printers[m_printer]->get_default_finishings());
