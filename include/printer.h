@@ -31,6 +31,10 @@
 
 namespace nanaprint
 {
+#ifdef WIN32
+#else       // WIN32
+    typedef cups_dest_t* handle;
+#endif      // WIN32
     class printer
     {
         public:
@@ -39,11 +43,11 @@ namespace nanaprint
             printer& operator=(const printer&) = delete;
             printer& operator=(printer&&) = delete;
             virtual ~printer();
-            static std::shared_ptr<printer> create(cups_dest_t* dest);
+            static std::shared_ptr<printer> create(handle handle);
 
-            cups_dest_t* get_dest() const noexcept { return m_dest; }
-            const std::string get_name() const { return std::string(m_dest->name); }
-            bool is_default() const noexcept { return m_dest->is_default; }
+            handle get_handle() const noexcept { return m_handle; }
+            const std::string get_name() const { return std::string(m_handle->name); }
+            bool is_default() const noexcept { return m_handle->is_default; }
             std::map<std::string, std::string> get_options() const;
             const media_sizes& get_media_sizes() const noexcept;
             const std::optional<media_size>& get_default_media_size() const noexcept;
@@ -69,7 +73,7 @@ namespace nanaprint
             const std::string get_printer_info() const;
 
         protected:
-            printer(cups_dest_t* dest);
+            printer(handle dest);
 
         private:
             const std::string get_printer_state_string(std::string value) const;
@@ -96,7 +100,7 @@ namespace nanaprint
             std::vector<int> get_cups_integer_values(const std::string& cupsValues);
             std::optional<std::string> get_cups_default_string_value(const std::string& cupsValue);
             std::optional<int> get_cups_default_integer_value(const std::string& cupsValue);
-            cups_dest_t* m_dest;
+            handle m_handle;
             cups_dinfo_t* m_info;
             media_sizes m_mediaSizes;
 

@@ -25,24 +25,24 @@ namespace nanaprint
 
     Printers::~Printers() 
     {
-        std::vector<cups_dest_t*> dests;
+        std::vector<handle> handles;
         for (size_t i = 0; i < m_printers.size(); ++i)
         {
-            cups_dest_t* dest = m_printers[i]->get_dest();
-            dests.push_back(dest);
+            handle handle = m_printers[i]->get_handle();
+            handles.push_back(handle);
         }
-        cupsFreeDests(dests.size(), *dests.data());
+        cupsFreeDests(handles.size(), *handles.data());
     }
 
     void Printers::enumeratePrinters()
     {
-        cups_dest_t* dests;
-        int destinations = cupsGetDests2(CUPS_HTTP_DEFAULT, &dests);
+        handle handles;
+        int destinations = cupsGetDests2(CUPS_HTTP_DEFAULT, &handles);
         // return printers array
         m_printers.clear();
         for(int i = 0; i < destinations; ++i)
         {
-            auto prtr = printer::create(&dests[i]);
+            auto prtr = printer::create(&handles[i]);
             m_printers.push_back(prtr);
         }
     }

@@ -94,11 +94,11 @@ namespace nanaprint
             }
     };
 
-    printer::printer(cups_dest_t *dest)
-        : m_dest(dest)
+    printer::printer(handle handle)
+        : m_handle(handle)
     {
-        m_pPpd = make_unique<ppd>(ppd(dest->name));
-        m_info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_dest);
+        m_pPpd = make_unique<ppd>(ppd(handle->name));
+        m_info = cupsCopyDestInfo(CUPS_HTTP_DEFAULT, m_handle);
         populate_media_sizes();
 // call commented out for now. May be reserected later.
 //        populate_default_media_size();
@@ -127,9 +127,9 @@ namespace nanaprint
     std::vector<std::string> printer::get_cups_string_values(const std::string &cupsValues)
     {
         vector<string> values;
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, cupsValues.c_str(), NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_handle, m_info, cupsValues.c_str(), NULL))
         {
-            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_handle,
                                                             m_info, cupsValues.c_str());
             int count = ippGetCount(source);
             for (int i = 0; i < count; ++i)
@@ -144,9 +144,9 @@ namespace nanaprint
     std::vector<int> printer::get_cups_integer_values(const std::string& cupsValues)
     {
         vector<int> intValues;
-        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest, m_info, cupsValues.c_str(), NULL))
+        if (cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_handle, m_info, cupsValues.c_str(), NULL))
         {
-            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+            ipp_attribute_t *source = cupsFindDestSupported(CUPS_HTTP_DEFAULT, m_handle,
                                                                 m_info, cupsValues.c_str());
             int count = ippGetCount(source);
             for (int i = 0; i < count; ++i)
@@ -162,14 +162,14 @@ namespace nanaprint
     {
         optional<string> value(nullopt);
         const char *optionValue =
-            cupsGetOption(cupsValue.c_str(), m_dest->num_options, m_dest->options);
+            cupsGetOption(cupsValue.c_str(), m_handle->num_options, m_handle->options);
         if (optionValue != nullptr)
         {
             value = string(optionValue);
         }
         else
         {
-            ipp_attribute_t *defaultAttr = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+            ipp_attribute_t *defaultAttr = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_handle,
                                                            m_info, cupsValue.c_str());
             int count = ippGetCount(defaultAttr);
             if (count != 0)
@@ -190,14 +190,14 @@ namespace nanaprint
     {
         optional<int> value;
         int optionValue =
-            cupsGetIntegerOption(CUPS_ORIENTATION, m_dest->num_options, m_dest->options);
+            cupsGetIntegerOption(CUPS_ORIENTATION, m_handle->num_options, m_handle->options);
         if (optionValue != INT32_MIN)
         {
            value = optionValue;
         }
         else
         {
-            ipp_attribute_t *defaultAttr = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_dest,
+            ipp_attribute_t *defaultAttr = cupsFindDestDefault(CUPS_HTTP_DEFAULT, m_handle,
                 m_info, cupsValue.c_str());
             int count = ippGetCount(defaultAttr);
             if (count != 0)
@@ -215,10 +215,10 @@ namespace nanaprint
     std::map<std::string, std::string> printer::get_options() const
     {
         map<string, string> opts;
-        for (int i = 0; i < m_dest->num_options; ++i)
+        for (int i = 0; i < m_handle->num_options; ++i)
         {
-            string option = string(m_dest->options[i].name);
-            string value = string(m_dest->options[i].value);
+            string option = string(m_handle->options[i].name);
+            string value = string(m_handle->options[i].value);
             if (option == "printer-state")
             {
                 opts[option] = get_printer_state_string(value);
@@ -229,7 +229,7 @@ namespace nanaprint
             }
             else
             {
-                opts[string(m_dest->options[i].name)] = value;
+                opts[string(m_handle->options[i].name)] = value;
             }
         }
         return opts;
@@ -343,17 +343,17 @@ namespace nanaprint
         m_defaultMediaSize = nullopt;
         if (m_mediaSizes.size() == 0)
         {
-            int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_dest, m_info, 0);
+            int mSizeCount = cupsGetDestMediaCount(CUPS_HTTP_DEFAULT, m_handle, m_info, 0);
             cups_size_t size;
             for (int i = 0; i < mSizeCount; ++i)
             {
-                int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_dest, m_info, i, 0, &size);
+                int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_handle, m_info, i, 0, &size);
                 m_mediaSizes.push_back((media_size(
                     size.media, size.width, size.length, size.bottom, size.left,
                     size.right, size.top)));
             }
 
-            count = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_dest, m_info, 0, &size);
+            count = cupsGetDestMediaDefault(CUPS_HTTP_DEFAULT, m_handle, m_info, 0, &size);
             if (count >0)
             {
                 m_defaultMediaSize = media_size(
@@ -400,7 +400,7 @@ namespace nanaprint
 
     bool printer::can_print_multiple_copies() const
     {
-        return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_dest,
+        return cupsCheckDestSupported(CUPS_HTTP_DEFAULT, m_handle,
                                       m_info, CUPS_COPIES, NULL);
     }
 
@@ -585,7 +585,7 @@ namespace nanaprint
     const std::string printer::get_printer_state() const
     {
         string printerState;
-        const char *printerUri = cupsGetOption("device-uri", m_dest->num_options, m_dest->options);
+        const char *printerUri = cupsGetOption("device-uri", m_handle->num_options, m_handle->options);
         regex hostRegex("^[a-zA-Z]+://([0-9a-zA-Z]+(\\.[0-9a-zA-Z]+)*)");
         string uri(printerUri);
         smatch match;
