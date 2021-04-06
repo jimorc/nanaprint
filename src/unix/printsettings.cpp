@@ -23,7 +23,7 @@ namespace nanaprint
         : m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
             m_mediaType("None"), m_borderless(false)
     {
-        m_printer = m_printers.getDefaultPrinterNumber();
+        m_printer = m_printers.get_default_printer_number();
         set_default_settings(m_printer);
     }
 

@@ -47,7 +47,7 @@ namespace nanaprint
         }
     }
 
-    size_t Printers::getDefaultPrinterNumber() const
+    size_t Printers::get_default_printer_number() const
     {
         size_t printerNum = 0;
         for(size_t i = 0; i < m_printers.size(); ++i)
