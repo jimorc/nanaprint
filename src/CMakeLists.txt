@@ -5,19 +5,11 @@ include(FindCups)
 
 include(FetchContent)
 
-if(MSVC)
-  FetchContent_Declare(
+FetchContent_Declare(
     nana
     GIT_REPOSITORY https://github.com/cnjinhao/nana.git
     GIT_TAG        develop-1.8
-  )
-else()
-  FetchContent_Declare(
-    nana
-    GIT_REPOSITORY https://github.com/cnjinhao/nana.git
-    GIT_TAG        develop-1.8
-  )
-endif()
+)
 
 FetchContent_GetProperties(nana)
 if(NOT nana_POPULATED)
