@@ -17,6 +17,12 @@ if(NOT nana_POPULATED)
   add_subdirectory(${nana_SOURCE_DIR} ${nana_BINARY_DIR})
 endif()
 
+if (WIN32)
+    set(PRINT_LIBRARIES "")
+else ()
+    set(PRINT_LIBRARIES ${CUPS_LIBRARIES})
+endif ()
+
 add_library(nana_print
     unix/printers.cpp
     unix/printer.cpp
@@ -65,7 +71,7 @@ else()
 endif()
 
 target_link_libraries(nana_print
-    ${CUPS_LIBRARIES}
+    ${PRINT_LIBRARIES}
     nana
 )
 
