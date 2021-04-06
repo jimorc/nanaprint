@@ -11,7 +11,6 @@
  *  @file unix/pageorientation.cpp
  */
 
-#include <stdexcept>
 #include "pageorientation.h"
 
 using namespace std;
