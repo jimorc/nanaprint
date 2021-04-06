@@ -45,12 +45,18 @@ add_library(nana_print
 )
 
 link_directories(
-    ${CUPS_LIBRARY_DIRS}
+    if (WIN32)
+    else ()
+        ${CUPS_LIBRARY_DIRS}
+    endif ()
 )
 
 
 include_directories(
-    ${CUPS_INCLUDE_DIRS}
+    if (WIN32)
+    else ()
+        ${CUPS_INCLUDE_DIRS}
+    endif ()
     ../include
 )
 
