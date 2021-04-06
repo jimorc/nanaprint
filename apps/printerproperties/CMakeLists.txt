@@ -10,7 +10,7 @@ include_directories(
 )
 
 target_link_libraries(printerproperties
-    cupsprint
+    nana_print
 )
 
 if (MSVC)

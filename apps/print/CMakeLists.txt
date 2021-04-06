@@ -41,7 +41,7 @@ endif()
 
 
 target_link_libraries(print
-    cupsprint
+    nana_print
     nana
 )
 

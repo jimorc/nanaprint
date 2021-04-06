@@ -47,61 +47,61 @@ include_directories(
 
 package_add_test_with_libraries(IterTests
     itertests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(MediaSizesTranslatorUnixTests
     mediasizestranslatorunixtests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(MediaSizeTests
     mediasizetests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(PageOrientationTests
     pageorientationtests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(PrintQualityTests
     printqualitytests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(PrintFinishingsTests
     finishingstests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(MediaSourceTests
     mediasourcetests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(MediaTypeTests
     mediatypetests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(ColorModeTests
     colormodetests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 
 package_add_test_with_libraries(SideTests
     sidetests.cpp 
-    cupsprint 
+    nana_print 
     "${PROJECT_DIR}"
 )
 

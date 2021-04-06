@@ -25,7 +25,7 @@ if(NOT nana_POPULATED)
   add_subdirectory(${nana_SOURCE_DIR} ${nana_BINARY_DIR})
 endif()
 
-add_library(cupsprint
+add_library(nana_print
     printers.cpp
     printer.cpp
     mediasizes.cpp
@@ -58,13 +58,13 @@ include_directories(
 
 if (MSVC)
     # warning level 4 and all warnings as errors
-    target_compile_options(cupsprint
+    target_compile_options(nana_print
         PRIVATE
         /Wall
         /WX)
 else()
     # lots of warnings and all warnings as errors
-    target_compile_options(cupsprint
+    target_compile_options(nana_print
         PRIVATE
         -Wall 
         -Wextra 
@@ -72,12 +72,12 @@ else()
         -Werror)
 endif()
 
-target_link_libraries(cupsprint
+target_link_libraries(nana_print
     ${CUPS_LIBRARIES}
     nana
 )
 
-target_compile_features(cupsprint
+target_compile_features(nana_print
     PUBLIC
     cxx_std_17
 )
