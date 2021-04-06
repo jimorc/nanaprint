@@ -20,7 +20,7 @@ namespace nanaprint
 {
     printers::printers()
     {
-        enumeratePrinters();
+        enumerate_printers();
     }
 
     printers::~printers() 
@@ -34,7 +34,7 @@ namespace nanaprint
         cupsFreeDests(handles.size(), *handles.data());
     }
 
-    void printers::enumeratePrinters()
+    void printers::enumerate_printers()
     {
         handle handles;
         int destinations = cupsGetDests2(CUPS_HTTP_DEFAULT, &handles);

@@ -33,7 +33,7 @@ namespace nanaprint
             size_t get_printer_number(const std::string& printerName) const;
 
         private:
-            void enumeratePrinters();
+            void enumerate_printers();
 
             std::vector<std::shared_ptr<printer>> m_printers;
     };
