@@ -87,6 +87,8 @@ TEST(MediaSourcesTests, testAtOutOfRange)
     {
         auto& source = sources.at(1);
         FAIL() << "Expected std::out_of_range";
+        // the following line is never reached. It is added to prevent compilation error
+        source.get_value();
     }
     catch(const std::out_of_range& e)
     {
@@ -103,6 +105,8 @@ TEST(MediaSourcesTests, testAtOutOfRange)
     {
         auto& source = cSources.at(1);
         FAIL() << "Expected std::out_of_range";
+        // the following line is never reached. It is added to prevent compile error
+        source.get_value();
     }
     catch(const std::out_of_range& e)
     {

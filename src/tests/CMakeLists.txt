@@ -110,7 +110,66 @@ if (MSVC)
     add_compile_options(/Wall /WX)
 else()
     # lots of warnings and all warnings as errors
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+    target_compile_options(IterTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(MediaSizesTranslatorUnixTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(MediaSizeTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(PageOrientationTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(PrintQualityTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(PrintFinishingsTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(MediaSourceTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(MediaTypeTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(ColorModeTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
+        target_compile_options(SideTests
+        PRIVATE
+        -Wall
+        -Wextra
+        -pedantic
+        -Werror)
 endif()
 
 target_compile_features(printerproperties

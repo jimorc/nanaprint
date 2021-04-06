@@ -188,6 +188,8 @@ TEST(MediaSizesTests, testAtOutOfRange)
     {
         const media_size& ms = sizes.at(2);
         FAIL() << "Expected std::out_of_range";
+        // the following line is never reached. It is added to prevent compile error.
+        ms.get_bottom();
     }
     catch(const std::out_of_range& e)
     {
