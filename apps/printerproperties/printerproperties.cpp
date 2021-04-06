@@ -19,7 +19,7 @@ using namespace nanaprint;
 
 int main()
 {
-    Printers printers;
+    printers printers;
     cout << printers;
 
     return 0;

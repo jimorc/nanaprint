@@ -18,12 +18,12 @@ using namespace nanaprint;
 
 namespace nanaprint
 {
-    Printers::Printers()
+    printers::printers()
     {
         enumeratePrinters();
     }
 
-    Printers::~Printers() 
+    printers::~printers() 
     {
         std::vector<handle> handles;
         for (size_t i = 0; i < m_printers.size(); ++i)
@@ -34,7 +34,7 @@ namespace nanaprint
         cupsFreeDests(handles.size(), *handles.data());
     }
 
-    void Printers::enumeratePrinters()
+    void printers::enumeratePrinters()
     {
         handle handles;
         int destinations = cupsGetDests2(CUPS_HTTP_DEFAULT, &handles);
@@ -47,7 +47,7 @@ namespace nanaprint
         }
     }
 
-    size_t Printers::get_default_printer_number() const
+    size_t printers::get_default_printer_number() const
     {
         size_t printerNum = 0;
         for(size_t i = 0; i < m_printers.size(); ++i)
@@ -61,7 +61,7 @@ namespace nanaprint
         return printerNum;
     }
 
-    size_t Printers::get_printer_number(const std::string& printerName) const
+    size_t printers::get_printer_number(const std::string& printerName) const
     {
         size_t printerNum = 0;
         for( size_t i = 0; i < m_printers.size(); ++i)
@@ -72,7 +72,7 @@ namespace nanaprint
         return printerNum;
     }
 
-    std::ostream& operator<<(std::ostream& os, const Printers& prtrs)
+    std::ostream& operator<<(std::ostream& os, const printers& prtrs)
     {
         auto prntrs = prtrs.get_printers();
         if (prntrs.size() == 0)

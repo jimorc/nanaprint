@@ -23,11 +23,11 @@
 
 namespace nanaprint
 {
-   class Printers
+   class printers
     {
         public:
-            Printers();
-            virtual ~Printers();
+            printers();
+            virtual ~printers();
             std::vector<std::shared_ptr<printer>> get_printers() const { return m_printers; }
             size_t get_default_printer_number() const;
             size_t get_printer_number(const std::string& printerName) const;
@@ -38,6 +38,6 @@ namespace nanaprint
             std::vector<std::shared_ptr<printer>> m_printers;
     };
 
-    std::ostream& operator<<(std::ostream& os, const Printers& prtrs);
+    std::ostream& operator<<(std::ostream& os, const printers& prtrs);
 }
 #endif      // PRINTERS_H

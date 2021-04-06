@@ -29,7 +29,7 @@ namespace nanaprint
             // PrintSettings set up for default printer (or first printer if no default)
             print_settings();
             virtual ~print_settings() {}
-            const Printers& get_printers() const
+            const printers& get_printers() const
                 { return m_printers; }
             void set_printer(int printer);
             int get_printer() const { return m_printer; }
@@ -57,7 +57,7 @@ namespace nanaprint
             int get_default_printer_number() const;
             void set_default_settings(int printerNum);
 
-            Printers m_printers;
+            printers m_printers;
             int m_printer;
             bool m_borderless;
             std::optional<media_size> m_mediaSize;
