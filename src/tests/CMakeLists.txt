@@ -115,64 +115,119 @@ else()
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(MediaSizesTranslatorUnixTests
+        -Werror
+    )
+    target_compile_features(IterTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(MediaSizesTranslatorUnixTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(MediaSizeTests
+        -Werror
+    )
+    target_compile_features(MediaSizesTranslatorUnixTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(MediaSizeTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(PageOrientationTests
+        -Werror
+    )
+    target_compile_features(MediaSizeTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(PageOrientationTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(PrintQualityTests
+        -Werror
+    )
+    target_compile_features(PageOrientationTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(PrintQualityTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(PrintFinishingsTests
+        -Werror
+    )
+    target_compile_features(PrintQualityTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(PrintFinishingsTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(MediaSourceTests
+        -Werror
+    )
+    target_compile_features(PrintFinishingsTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(MediaSourceTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(MediaTypeTests
+        -Werror
+    )
+    target_compile_features(MediaSourceTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(MediaTypeTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
+        -Werror
+    )
+    target_compile_features(MediaTypeTests
+        PUBLIC
+        cxx_std_17
+    )
+    
         target_compile_options(ColorModeTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
-        target_compile_options(SideTests
+        -Werror
+    )
+    target_compile_features(ColorModeTests
+        PUBLIC
+        cxx_std_17
+    )
+    
+    target_compile_options(SideTests
         PRIVATE
         -Wall
         -Wextra
         -pedantic
-        -Werror)
+        -Werror
+    )
+    target_compile_features(SideTests
+        PUBLIC
+        cxx_std_17
+    )
+    
 endif()
-
-target_compile_features(printerproperties
-    PUBLIC
-    cxx_std_17
-)
