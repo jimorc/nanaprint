@@ -351,10 +351,10 @@ namespace nanaprint
         auto sources = paperSources.get_values();
         auto mediaSource = m_settings.get_media_source();
         m_paperSourceCombox.clear();
-        if (sources.size() < 0 && mediaSource) {
+        if (sources.size() > 0 && mediaSource) {
             m_paperSourceCombox.enabled(true);
             size_t source = 0;
-            for (int src = 0; src < sources.size(); ++src)
+            for (size_t src = 0; src < sources.size(); ++src)
             {
                 m_paperSourceCombox.push_back(sources[src].get_value());
                 if (mediaSource.value().get_value() == sources[src].get_value())
@@ -370,7 +370,7 @@ namespace nanaprint
         }
     }
 
-    void PageSetup::printer_selected(const arg_combox &ar_cbx)
+    void PageSetup::printer_selected(const arg_combox &)
     {
         m_printer = m_printerCombox.option();
         updatePrinterGroup();
@@ -405,12 +405,12 @@ namespace nanaprint
 
     }
 
-    void PageSetup::on_borderlessChecked(const arg_checkbox& arg)
+    void PageSetup::on_borderlessChecked(const arg_checkbox&)
     {
         populatePaperSizeCombox();
     }
 
-    void PageSetup::paper_size_selected(const nana::arg_combox &arg)
+    void PageSetup::paper_size_selected(const nana::arg_combox&)
     {
         size_t option = m_paperSizeCombox.option();
         auto printer = m_settings.get_printers().get_printers()[m_printer];
@@ -428,7 +428,7 @@ namespace nanaprint
         }
     }
 
-    void PageSetup::paper_source_selected(const nana::arg_combox &ar_cbx)
+    void PageSetup::paper_source_selected(const nana::arg_combox&)
     {
         size_t option = m_paperSourceCombox.option();
         auto source = m_paperSourceCombox.text(option);

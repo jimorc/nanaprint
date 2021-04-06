@@ -33,7 +33,7 @@ namespace nanaprint
             void set_printer(int printer);
             int get_printer() const { return m_printer; }
             void set_borderless(bool borderless);
-            const bool get_borderless() const { return m_borderless; }
+            bool get_borderless() const { return m_borderless; }
             void set_media_size(const std::optional<media_size>& mediaSize);
             const std::optional<media_size>& get_media_size() const { return m_mediaSize; }
             void set_finishings(const finishings finishings);

@@ -20,8 +20,8 @@ using namespace nanaprint;
 namespace nanaprint
 {
     print_settings::print_settings()
-        : m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), m_mediaSource("None"),
-            m_mediaType("None"), m_borderless(false)
+        : m_borderless(false),  m_mediaSize({"None", 0, 0, 0, 0, 0, 0}), 
+            m_mediaSource("None"), m_mediaType("None")
     {
         m_printer = m_printers.get_default_printer_number();
         set_default_settings(m_printer);
@@ -37,7 +37,7 @@ namespace nanaprint
     // get the index of the default printer, or return 0 if there is no default
     int print_settings::get_default_printer_number() const
     {
-        int printerNum = 0;
+        size_t printerNum = 0;
         auto printers = m_printers.get_printers();
         for (printerNum = 0; printerNum < printers.size(); ++printerNum)
         {

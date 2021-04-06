@@ -136,7 +136,7 @@ namespace nanaprint
             m_printerCombox.push_back(printer->get_name());
         }
 
-        m_printerCombox.events().selected( [this](const arg_combox& ar_cbx) {
+        m_printerCombox.events().selected( [this](const arg_combox&) {
             printer_selected(m_printerCombox.option());
         });
    }
@@ -321,7 +321,7 @@ namespace nanaprint
         size_t optionNumber = 0;
         if (hasMediaTypes)
         {
-            for (auto mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
+            for (size_t mediaNum = 0; mediaNum < mediaTypes.size(); ++mediaNum)
             {
                 auto mediaType = mediaTypes[mediaNum];
                 m_mediaTypeCombox.push_back(mediaType.get_value());
@@ -345,7 +345,7 @@ namespace nanaprint
         if (hasPrintQualities)
         {
             size_t optionNumber = 0;
-            for (auto qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
+            for (size_t qualityNum = 0; qualityNum < qualities.size(); ++qualityNum)
             {
                 auto quality = qualities[qualityNum].get_value();
                 m_printQualityCombox.push_back(quality);
@@ -382,7 +382,7 @@ namespace nanaprint
             {
                 auto translatedSelectedPaperSizeName = 
                     selectedPaperSize.value().get_translated_name();
-                for (auto sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
+                for (size_t sizeNum = 0; sizeNum < paperSizes.size(); ++sizeNum)
                 {
                     auto size = paperSizes[sizeNum];
                     if(size == translatedSelectedPaperSizeName)
@@ -670,7 +670,7 @@ namespace nanaprint
         stringstream ss;
         ss << "Value must be between " << MINIMUMCOPIES << " and " << MAXIMUMCOPIES;
         m_copiesSpinbox.tooltip(ss.str());
-        m_copiesSpinbox.events().key_release( [&](const arg_keyboard& arg) {
+        m_copiesSpinbox.events().key_release( [&](const arg_keyboard&) {
             validate_copies(); });
         m_copiesSpinbox.events().mouse_enter( [&]() {
             stringstream ss;

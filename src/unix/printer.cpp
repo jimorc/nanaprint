@@ -135,7 +135,6 @@ namespace nanaprint
                     response = cupsDoRequest(http, request, "/ipp/print");
 
                     ipp_attribute_t *attr;
-                    const char *name;
                     char val[2048];
                     map<string, string> optMap;
 
@@ -517,7 +516,7 @@ namespace nanaprint
                     cups_size_t size;
                     for (int i = 0; i < mSizeCount; ++i)
                     {
-                        int result = cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_handle, m_info, i, 0, &size);
+                        cupsGetDestMediaByIndex(CUPS_HTTP_DEFAULT, m_handle, m_info, i, 0, &size);
                         m_mediaSizes.push_back((media_size(
                             size.media, size.width, size.length, size.bottom, size.left,
                             size.right, size.top)));

@@ -38,8 +38,8 @@ namespace nanaprint
             PrintDialogSettings m_dialogSettings;
 
             nana::place m_layout;
-            nana::tabbar<std::string> m_tabbar;
             basic_panel m_basic;
+            nana::tabbar<std::string> m_tabbar;
     };
 }
 
