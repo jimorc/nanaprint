@@ -15,10 +15,20 @@ target_link_libraries(printerproperties
 
 if (MSVC)
     # warning level 4 and all warnings as errors
-    add_compile_options(/Wall /WX)
+    target_compile_options(printerproperties
+        PRIVATE
+        /Wall 
+        /WX
+    )
 else()
     # lots of warnings and all warnings as errors
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+    target_compile_options(printerproperties
+        PRIVATE
+        -Wall 
+        -Wextra 
+        -pedantic 
+        -Werror
+    )
 endif()
 
 

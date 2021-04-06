@@ -30,11 +30,11 @@ int main()
 
     mainMenu.push_back("&File");
     auto& fileMenu = mainMenu.at(0);
-    fileMenu.append("Page Setup...", [&](menu::item_proxy& ip) {
-        DialogStatus status = printOper.run_page_setup();
+    fileMenu.append("Page Setup...", [&](menu::item_proxy&) {
+        printOper.run_page_setup();
     });
 
-    fileMenu.append("Print...", [&](menu::item_proxy& ip) {
+    fileMenu.append("Print...", [&](menu::item_proxy&) {
         printOper.run_print();
     });
 
