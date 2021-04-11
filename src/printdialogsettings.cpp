@@ -31,7 +31,7 @@ namespace nanaprint
 
     }
 
-    void PrintDialogSettings::set_printer(int printer)
+    void PrintDialogSettings::set_printer(size_t printer)
     {
         if(printer == m_printer)
             return;
@@ -39,7 +39,7 @@ namespace nanaprint
     }
 
     // fill the print settings with the printer's defaults
-    void PrintDialogSettings::set_default_settings(int printerNum)
+    void PrintDialogSettings::set_default_settings(size_t printerNum)
     {
         m_printer = printerNum;
         auto printer = m_settings.get_printers().get_printers()[m_printer];

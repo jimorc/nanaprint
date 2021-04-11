@@ -5,28 +5,6 @@ add_executable(print
     print.cpp
 )
 
-include(FetchContent)
-
-if(MSVC)
-  FetchContent_Declare(
-    nana
-    GIT_REPOSITORY https://github.com/cnjinhao/nana.git
-    GIT_TAG        develop-1.8
-  )
-else()
-  FetchContent_Declare(
-    nana
-    GIT_REPOSITORY https://github.com/cnjinhao/nana.git
-    GIT_TAG        develop-1.8
-  )
-endif()
-
-FetchContent_GetProperties(nana)
-if(NOT nana_POPULATED)
-  FetchContent_Populate(nana)
-  add_subdirectory(${nana_SOURCE_DIR} ${nana_BINARY_DIR})
-endif()
-
 include_directories(
     ../../include
 )
@@ -35,8 +13,9 @@ if (MSVC)
     # warning level 4 and all warnings as errors
     target_compile_options(print
         PRIVATE
-        /Wall 
-        /WX
+        /MT$<$<CONFIG:Debug>:d>
+#        /Wall 
+#        /WX
     )
 else()
     # lots of warnings and all warnings as errors

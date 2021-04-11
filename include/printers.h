@@ -17,7 +17,6 @@
 
 #include <vector>
 #include <memory>
-#include <cups/cups.h>
 #include "printer.h"
 
 
@@ -30,6 +29,8 @@ namespace nanaprint
             printers(const printers&) = delete;
             printers(printers&&) = delete;
             virtual ~printers();
+            printers& operator=(const printers&) = delete;
+            printers& operator=(printers&&) = delete;
             std::vector<std::shared_ptr<printer>> get_printers() const;
             size_t get_default_printer_number() const;
             size_t get_printer_number(const std::string& printerName) const;

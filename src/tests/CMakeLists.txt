@@ -107,7 +107,10 @@ package_add_test_with_libraries(SideTests
 
 if (MSVC)
     # warning level 4 and all warnings as errors
-    add_compile_options(/Wall /WX)
+    add_compile_options(
+#        /Wall 
+#         /WX
+    )
 else()
     # lots of warnings and all warnings as errors
     target_compile_options(IterTests

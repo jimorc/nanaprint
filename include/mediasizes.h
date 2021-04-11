@@ -18,7 +18,6 @@
 #include <vector>
 #include <string>
 #include <optional>
-#include <cups/cups.h>
 #include "mediasize.h"
 #include "values.h"
 

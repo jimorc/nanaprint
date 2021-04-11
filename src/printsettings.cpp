@@ -27,7 +27,7 @@ namespace nanaprint
         set_default_settings(m_printer);
     }
 
-    void print_settings::set_printer(int printer)
+    void print_settings::set_printer(size_t printer)
     {
         if(printer == m_printer)
             return;
@@ -35,7 +35,7 @@ namespace nanaprint
     }
 
     // get the index of the default printer, or return 0 if there is no default
-    int print_settings::get_default_printer_number() const
+    size_t print_settings::get_default_printer_number() const
     {
         size_t printerNum = 0;
         auto printers = m_printers.get_printers();
@@ -50,7 +50,7 @@ namespace nanaprint
     }
 
     // fill the print settings with the printer's defaults
-    void print_settings::set_default_settings(int printerNum)
+    void print_settings::set_default_settings(size_t printerNum)
     {
         m_printer = printerNum;
         auto printers = m_printers.get_printers();

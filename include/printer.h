@@ -14,12 +14,17 @@
  *
  */
 
+#ifdef WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#else
+    #include <cups/cups.h>
+#endif
 #include <iostream>
 #include <memory>
 #include <string>
 #include <map>
 #include <optional>
-#include <cups/cups.h>
 #include "mediasizes.h"
 #include "pageorientation.h"
 #include "printquality.h"
@@ -32,6 +37,7 @@
 namespace nanaprint
 {
 #ifdef WIN32
+    typedef HANDLE handle;
 #else       // WIN32
     typedef cups_dest_t* handle;
 #endif      // WIN32

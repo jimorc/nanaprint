@@ -11,6 +11,10 @@
  *	@file: apps/printmain/printmain.cpp
  */
 
+#ifdef WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
 #include <nana/gui.hpp>
 #include <nana/gui/widgets/menubar.hpp>
 #include <nana/gui/widgets/menu.hpp>

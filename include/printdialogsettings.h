@@ -30,8 +30,8 @@ namespace nanaprint
             // PrintSettings set up for default printer (or first printer if no default)
             PrintDialogSettings(print_settings& settings);
             virtual ~PrintDialogSettings() {}
-            void set_printer(int printer);
-            int get_printer() const { return m_printer; }
+            void set_printer(size_t printer);
+            size_t get_printer() const { return m_printer; }
             void set_borderless(bool borderless);
             bool get_borderless() const { return m_borderless; }
             void set_media_size(const std::optional<media_size>& mediaSize);
@@ -53,10 +53,10 @@ namespace nanaprint
             const std::optional<side>& get_side() const { return m_side; }
             bool can_print_multiple_copies() const { return m_canPrintMultipleCopies; }
         protected:
-            void set_default_settings(int printerNum);
+            void set_default_settings(size_t printerNum);
 
             print_settings& m_settings;
-            int m_printer;
+            size_t m_printer;
             bool m_borderless;
             std::optional<media_size> m_mediaSize;
             finishings m_finishings;

@@ -11,8 +11,13 @@
  *  @file unix/finishings.cpp
  */
 
+#ifdef WIN32
+    #define WIN_LEAN_AND_MEAN
+    #include <windows.h>
+#else
+    #include <cups/cups.h>
+#endif
 #include <iostream>
-#include <cups/cups.h>
 #include "finishings.h"
 
 using namespace std;
@@ -27,6 +32,7 @@ namespace nanaprint
 
     void finishings::set_finishing(const string& finish)
     {
+#ifndef WIN32
         if (finish == CUPS_FINISHINGS_NONE) set_none();
         else if (finish == CUPS_FINISHINGS_BIND) set_bind();
         else if (finish == CUPS_FINISHINGS_COVER) set_print_cover();
@@ -34,6 +40,7 @@ namespace nanaprint
         else if (finish == CUPS_FINISHINGS_PUNCH) set_punch();
         else if (finish == CUPS_FINISHINGS_STAPLE) set_staple();
         else if (finish == CUPS_FINISHINGS_TRIM) set_trim();
+#endif
     }
 
     void finishings::set_none()

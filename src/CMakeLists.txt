@@ -19,13 +19,15 @@ endif()
 
 if (WIN32)
     set(PRINT_LIBRARIES "")
+    set(OS_DIR win32)
 else ()
     set(PRINT_LIBRARIES ${CUPS_LIBRARIES})
+    set(OS_DIR unix)
 endif ()
 
 add_library(nana_print
-    unix/printers.cpp
-    unix/printer.cpp
+    ${OS_DIR}/printers.cpp
+    ${OS_DIR}/printer.cpp
     mediasizes.cpp
     mediasize.cpp
     mediasizestranslator.cpp
@@ -45,16 +47,14 @@ add_library(nana_print
 )
 
 link_directories(
-    if (WIN32)
-    else ()
+    if (NOT WIN32)
         ${CUPS_LIBRARY_DIRS}
     endif ()
 )
 
 
 include_directories(
-    if (WIN32)
-    else ()
+    if (NOT WIN32)
         ${CUPS_INCLUDE_DIRS}
     endif ()
     ../include
@@ -64,8 +64,10 @@ if (MSVC)
     # warning level 4 and all warnings as errors
     target_compile_options(nana_print
         PRIVATE
-        /Wall
-        /WX)
+        /Wv:18
+#        /Wall
+#        /WX
+    )
 else()
     # lots of warnings and all warnings as errors
     target_compile_options(nana_print
@@ -86,6 +88,6 @@ target_compile_features(nana_print
     cxx_std_17
 )
 
-if(PROJECT_NAME STREQUAL nanaprint)
+if(PROJECT_NAME STREQUAL nanaprint AND NOT WIN32)
     add_subdirectory(tests)
 endif() #PROJECT_NAME STREQUAL nanaprint

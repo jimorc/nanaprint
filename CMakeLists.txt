@@ -5,6 +5,11 @@ project(nanaprint
     VERSION 0.1
     LANGUAGES CXX
 )
-
+if (MSVC)
+    add_compile_options(
+        /MT$<$<CONFIG:Debug>:d>
+        /Wv:18
+    )
+endif ()
 add_subdirectory(apps)
 add_subdirectory(src)
