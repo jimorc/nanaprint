@@ -71,13 +71,16 @@ namespace nanaprint
 
     vector<string> media_sizes::get_media_size_translated_names_by_border(bool isBorderless) const
     {
-        vector<media_size> mSizes;
-        copy_if(cbegin(), cend(), back_inserter(mSizes), [this, isBorderless](media_size size) 
-            { return (size.is_borderless() == isBorderless); });
         vector<string> sizes;
-        for (auto& size : mSizes)
+        if (get_values().size() != 0)
         {
-            sizes.push_back(size.get_translated_name());
+            vector<media_size> mSizes;
+            copy_if(cbegin(), cend(), back_inserter(mSizes), [this, isBorderless](media_size size) 
+                { return (size.is_borderless() == isBorderless); });
+            for (auto& size : mSizes)
+            {
+                sizes.push_back(size.get_translated_name());
+            }
         }
         return sizes;
     }
