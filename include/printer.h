@@ -37,7 +37,7 @@
 namespace nanaprint
 {
 #ifdef WIN32
-    typedef HANDLE handle;
+    typedef const std::string handle;
 #else       // WIN32
     typedef cups_dest_t* handle;
 #endif      // WIN32

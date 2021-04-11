@@ -1,3 +1,7 @@
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <winspool.h>
+#include <vector>
 #include "printers.h"
 
 namespace nanaprint
@@ -5,7 +9,43 @@ namespace nanaprint
     class printers::impl
     {
         public:
-            impl() {}
+            impl()
+            {
+                DWORD sizeNeeded = 0;
+                DWORD numStructs = 0;
+                auto result = EnumPrinterDrivers(
+                    nullptr,
+                    "all",
+                    1,          // retrieve DRIVER_INFO_1 structs
+                    nullptr,
+                    0,
+                    &sizeNeeded,
+                    &numStructs
+                );
+
+                const size_t numInfos = sizeNeeded / sizeof(DRIVER_INFO_1);
+                std::vector<DRIVER_INFO_1> driverInfo(numInfos);
+
+                result = EnumPrinterDrivers(
+                    nullptr,
+                    "all",
+                    1,          // retrieve DRIVER_INFO_1 structs
+                    (LPBYTE)driverInfo.data(),
+                    sizeNeeded,
+                    &sizeNeeded,
+                    &numStructs
+                );
+
+                if (result)
+                {
+                    for (DWORD i = 0; i < numStructs; ++i)
+                    {
+                        auto printer = printer::create(std::string(driverInfo[i].pName));
+                        m_printers.push_back(printer);
+                    }
+                }
+            }
+
             std::vector<std::shared_ptr<printer>> get_printers() const
             {
                 return m_printers; 
@@ -35,7 +75,6 @@ namespace nanaprint
                 }
                 return printerNum;
             }
-
 
         private:
             std::vector<std::shared_ptr<printer>> m_printers;

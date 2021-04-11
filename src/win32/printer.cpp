@@ -7,6 +7,7 @@ namespace nanaprint
         public:
             impl(handle handle) : m_handle(handle) {}
             handle get_handle() const noexcept { return m_handle; }
+            const std::string& get_name() const noexcept { return m_handle; }
             const media_sizes& get_media_sizes() const noexcept { return m_mediaSizes; }
             const std::optional<media_size>& get_default_media_size() const noexcept
             {
@@ -72,7 +73,7 @@ namespace nanaprint
 
     const std::string printer::get_name() const
     {
-        return "printer";
+        return m_pImpl->get_name();
     }
     
     bool printer::is_default() const noexcept
@@ -192,6 +193,7 @@ namespace nanaprint
 
     std::ostream& operator<<(std::ostream& os, const printer& prtr)
     {
+        os << prtr.get_name() << '\n';
         return os;
     }
 }
