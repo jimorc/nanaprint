@@ -2,47 +2,95 @@
 #include <windows.h>
 #include <winspool.h>
 #include <vector>
+#include <memory>
+#include <stdexcept>
+#include <sstream>
 #include "printers.h"
 
 namespace nanaprint
 {
     class printers::impl
-    {
+    {           
+            // printer_info_1s class contains PRINTER_INFO_1 objects retrieved from
+            // calls to EnumPrinters. Because the number of PRINTER_INFO_1 structs
+            // needed is not known until the first call to EnumPrinters, the buffer to
+            // receive the structs can only be created after that first call. The buffer
+            // is created on the heap by calling new. The printer_info_1s struct
+            // destructor calls delete[] on the buffer to ensure that the buffer
+            // is deleted even if an exception is thrown.
+            class printer_info_1s
+        {
+            public:
+                printer_info_1s(size_t numBytes) : m_pInfo(nullptr)
+                {
+                    m_pInfo = new BYTE[numBytes];
+                }
+                ~printer_info_1s()
+                {
+                    if (m_pInfo)
+                    {
+                        delete[] m_pInfo;
+                        m_pInfo = nullptr;
+                    }
+                }
+                operator LPBYTE()
+                {
+                    return m_pInfo;
+                }
+                PRINTER_INFO_1& operator[](size_t index)
+                {
+                    PRINTER_INFO_1* pi1 = reinterpret_cast<PRINTER_INFO_1*>(m_pInfo);
+                    return pi1[index];
+                }
+            private:
+                BYTE* m_pInfo;
+        };
         public:
             impl()
             {
                 DWORD sizeNeeded = 0;
                 DWORD numStructs = 0;
-                auto result = EnumPrinterDrivers(
+                auto result = EnumPrinters(
+                    PRINTER_ENUM_LOCAL,
                     nullptr,
-                    "all",
-                    1,          // retrieve DRIVER_INFO_1 structs
+                    1,          // retrieve PRINTER_INFO_1 structs
                     nullptr,
                     0,
                     &sizeNeeded,
                     &numStructs
                 );
 
-                const size_t numInfos = sizeNeeded / sizeof(DRIVER_INFO_1);
-                std::vector<DRIVER_INFO_1> driverInfo(numInfos);
+                printer_info_1s pi1s(sizeNeeded);
 
-                result = EnumPrinterDrivers(
+
+                SetLastError(0);
+
+                result = EnumPrinters(
+                    PRINTER_ENUM_LOCAL,
                     nullptr,
-                    "all",
-                    1,          // retrieve DRIVER_INFO_1 structs
-                    (LPBYTE)driverInfo.data(),
+                    1,          // retrieve PRINTER_INFO_1 structs
+                    pi1s,
                     sizeNeeded,
                     &sizeNeeded,
                     &numStructs
                 );
-
                 if (result)
                 {
                     for (DWORD i = 0; i < numStructs; ++i)
                     {
-                        auto printer = printer::create(std::string(driverInfo[i].pName));
-                        m_printers.push_back(printer);
+                        auto pPrinter = printer::create(pi1s[i].pName);
+                        m_printers.push_back(pPrinter);
                     }
+                }
+                else
+                {
+                    auto error = GetLastError();
+                    std::stringstream ss;
+                    ss << "Error in second call to EnumPrinters in printers constructor\n";
+                    ss << "Error code returned is: " << error << '\b';
+                    ss << "See https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes\n";
+                    ss << "for the meaning of the error\n";
+                    throw std::runtime_error(ss.str());
                 }
             }
 

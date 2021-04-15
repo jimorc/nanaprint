@@ -37,9 +37,9 @@
 namespace nanaprint
 {
 #ifdef WIN32
-    typedef const std::string handle;
+    typedef const std::string& descriptor;
 #else       // WIN32
-    typedef cups_dest_t* handle;
+    typedef cups_dest_t* descriptor;
 #endif      // WIN32
     class printer
     {
@@ -49,9 +49,8 @@ namespace nanaprint
             printer& operator=(const printer&) = delete;
             printer& operator=(printer&&) = delete;
             virtual ~printer();
-            static std::shared_ptr<printer> create(handle handle);
+            static std::shared_ptr<printer> create(descriptor desc);
 
-            handle get_handle() const noexcept;
             const std::string get_name() const;
             bool is_default() const noexcept;
             std::map<std::string, std::string> get_options() const;
@@ -79,7 +78,7 @@ namespace nanaprint
             const std::string get_printer_info() const;
 
         protected:
-            printer(handle dest);
+            printer(descriptor desc);
 
         private:
             class impl;     // forward declaration

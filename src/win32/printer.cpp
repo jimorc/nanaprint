@@ -1,3 +1,8 @@
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <winspool.h>
+#include <stdexcept>
+#include <sstream>
 #include "printer.h"
 
 namespace nanaprint
@@ -5,9 +10,28 @@ namespace nanaprint
     class printer::impl
     {
         public:
-            impl(handle handle) : m_handle(handle) {}
-            handle get_handle() const noexcept { return m_handle; }
-            const std::string& get_name() const noexcept { return m_handle; }
+            impl(descriptor desc) : m_name(desc), m_printerHandle(nullptr)
+            {
+                if (!OpenPrinter(m_name.data(), &m_printerHandle, nullptr))
+                {
+                    auto error = GetLastError();
+                    std::stringstream ss;
+                    ss << "Could not open " << m_name << ": error code is " << error << '\n';
+                    ss << "See https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes\n";
+                    ss << "for the meaning of the error\n";
+                    throw std::runtime_error(ss.str());
+                    SetLastError(0);
+                }
+            }
+            ~impl()
+            {
+                if (m_printerHandle)
+                {
+                    ClosePrinter(m_printerHandle);
+                    m_printerHandle = nullptr;
+                }
+            }
+            const std::string& get_name() const noexcept { return m_name; }
             const media_sizes& get_media_sizes() const noexcept { return m_mediaSizes; }
             const std::optional<media_size>& get_default_media_size() const noexcept
             {
@@ -37,7 +61,8 @@ namespace nanaprint
             const sides& get_sides() const noexcept { return m_sides; }
             const std::optional<side>& get_default_side() const noexcept { return m_defaultSide; }
         private:
-            handle m_handle;
+            std::string m_name;
+            HANDLE m_printerHandle;
             media_sizes m_mediaSizes;
             media_sources m_mediaSources;
             media_types m_mediaTypes;
@@ -57,20 +82,15 @@ namespace nanaprint
             finishings m_defaultFinishings;
     };
 
-    printer::printer(handle handle) : m_pImpl(std::make_unique<impl>(handle)) {}
+    printer::printer(descriptor desc) : m_pImpl(std::make_unique<impl>(desc)) {}
 
     printer::~printer() {}
 
-    std::shared_ptr<printer> printer::create(handle handle)
+    std::shared_ptr<printer> printer::create(descriptor desc)
     {
-        return std::make_shared<printer>(printer(handle));
+        return std::make_shared<printer>(printer(desc));
     }
     
-    handle printer::get_handle() const noexcept
-    {
-        return m_pImpl->get_handle();
-    }
-
     const std::string printer::get_name() const
     {
         return m_pImpl->get_name();
