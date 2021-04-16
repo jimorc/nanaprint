@@ -32,6 +32,15 @@ namespace nanaprint
                 }
             }
             const std::string& get_name() const noexcept { return m_name; }
+            bool is_default()
+            {
+                // max size of printer name is 64 chars.
+                char defPrinter[65];
+                DWORD defPrinterSize = 65;
+                GetDefaultPrinter(defPrinter, &defPrinterSize);
+                auto isDefault =  m_name.compare(defPrinter);
+                return isDefault == 0;
+            }
             const media_sizes& get_media_sizes() const noexcept { return m_mediaSizes; }
             const std::optional<media_size>& get_default_media_size() const noexcept
             {
@@ -98,7 +107,7 @@ namespace nanaprint
     
     bool printer::is_default() const noexcept
     {
-        return false;
+        return m_pImpl->is_default();
     }
 
     std::map<std::string, std::string> printer::get_options() const
@@ -214,6 +223,8 @@ namespace nanaprint
     std::ostream& operator<<(std::ostream& os, const printer& prtr)
     {
         os << prtr.get_name() << '\n';
+        bool isDefault = prtr.is_default();
+        os << "Is " << (prtr.is_default() ? "" : "not ") << "default printer\n";
         return os;
     }
 }
