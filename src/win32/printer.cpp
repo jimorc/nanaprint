@@ -35,10 +35,11 @@ namespace nanaprint
             bool is_default()
             {
                 // max size of printer name is 64 chars.
-                char defPrinter[65];
-                DWORD defPrinterSize = 65;
+                constexpr DWORD maxDefPrinterChars = 65;
+                DWORD defPrinterSize = maxDefPrinterChars;
+                char defPrinter[maxDefPrinterChars];
                 GetDefaultPrinter(defPrinter, &defPrinterSize);
-                auto isDefault =  m_name.compare(defPrinter);
+                auto isDefault = m_name.compare(defPrinter);
                 return isDefault == 0;
             }
             const media_sizes& get_media_sizes() const noexcept { return m_mediaSizes; }
