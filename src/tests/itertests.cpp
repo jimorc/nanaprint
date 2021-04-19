@@ -21,6 +21,14 @@ class Vals : public nanaprint_values<Val>
         virtual ~Vals() {}
 };
 
+TEST(IterTests, testNoValues)
+{
+    std::vector<std::string> vals;
+    auto end = vals.end();
+    auto begin = vals.begin();
+    ASSERT_EQ(begin, end);
+}
+
 TEST(IterTests, testIterator)
 {
     Vals values;
