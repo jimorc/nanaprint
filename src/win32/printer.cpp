@@ -59,7 +59,53 @@ namespace nanaprint
                     char* m_pOutput;
                     std::vector<std::string> m_capabilities;
                     int m_result;
-
+            };
+            class print_form
+            {
+                public:
+                    print_form(HANDLE printerHandle, std::string& paperName)
+                        : m_info(nullptr)
+                    {
+                        DWORD needed = 0;
+                        GetForm(printerHandle,
+                            paperName.data(),
+                            1,
+                            nullptr,
+                            0,
+                            &needed);
+                        m_info = new char[needed];
+                        
+                        if (needed >= sizeof(FORM_INFO_1))
+                        {
+                            if (GetForm(printerHandle,
+                                paperName.data(),
+                                1,
+                                (LPBYTE)m_info,
+                                needed,
+                                &needed ))
+                            {
+                                FORM_INFO_1* form1 = reinterpret_cast<FORM_INFO_1*>(m_info);
+                                m_mediaSize = media_size(paperName,
+                                    form1->Size.cx / 10, form1->Size.cy / 10,
+                                    form1->ImageableArea.bottom / 10, form1->ImageableArea.left / 10,
+                                    form1->ImageableArea.right / 10, form1->ImageableArea.top / 10);
+                            }
+                        }
+                    }
+                    ~print_form() noexcept{
+                        if (m_info)
+                        {
+                            delete[] m_info;
+                            m_info = nullptr;
+                        }
+                    }
+                    const std::optional<media_size>& get_media_size()
+                    {
+                        return m_mediaSize;
+                    }
+                private:
+                    char* m_info;
+                    std::optional<media_size> m_mediaSize;
             };
             impl(descriptor desc) : m_name(desc), m_printerHandle(nullptr)
             {
@@ -132,37 +178,11 @@ namespace nanaprint
                 auto paperNames = capabilities.get_capabilities();
                 for (auto paperName: paperNames)
                 {
-                    DWORD needed = 0;
-                    GetForm(m_printerHandle,
-                        paperName.data(),
-                        1,
-                        nullptr,
-                        0,
-                        &needed);
-                    char* info = new char[needed];
-                    
-                    if (needed >= sizeof(FORM_INFO_1))
+                    print_form form(m_printerHandle, paperName);
+                    auto mediaSize = form.get_media_size();
+                    if(mediaSize)
                     {
-                        if (GetForm(m_printerHandle,
-                            paperName.data(),
-                            1,
-                            (LPBYTE)info,
-                            needed,
-                            &needed ))
-                        {
-                            FORM_INFO_1* form1 = reinterpret_cast<FORM_INFO_1*>(info);
-                            m_mediaSizes.push_back(media_size(paperName,
-                                form1->Size.cx / 10, form1->Size.cy / 10,
-                                form1->ImageableArea.bottom / 10, form1->ImageableArea.left / 10,
-                                form1->ImageableArea.right / 10, form1->ImageableArea.top / 10));
-                        }
-                        else
-                        {
-                            std::cout << sizeof(info) << ":" << needed << std::endl;
-                            auto error = GetLastError();
-                            std::cout << error << std::endl;
-                        }
-                        delete[] info;
+                        m_mediaSizes.push_back(*mediaSize);
                     }
                 }
             }
