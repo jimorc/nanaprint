@@ -12,7 +12,11 @@ namespace nanaprint
         public:
             impl(descriptor desc) : m_name(desc), m_printerHandle(nullptr)
             {
-                if (!OpenPrinter(m_name.data(), &m_printerHandle, nullptr))
+                if (OpenPrinter(m_name.data(), &m_printerHandle, nullptr))
+                {
+                    populate_media_sizes();
+                }
+                else
                 {
                     auto error = GetLastError();
                     std::stringstream ss;
@@ -71,6 +75,63 @@ namespace nanaprint
             const sides& get_sides() const noexcept { return m_sides; }
             const std::optional<side>& get_default_side() const noexcept { return m_defaultSide; }
         private:
+            void populate_media_sizes()
+            {
+                int numForms = DeviceCapabilities(
+                    m_name.c_str(),
+                    nullptr,
+                    DC_PAPERNAMES,
+                    nullptr,
+                    nullptr
+                );
+                char* paperNames = new char[64*numForms];
+                numForms = DeviceCapabilities(
+                    m_name.c_str(),
+                    nullptr,
+                    DC_PAPERNAMES,
+                    paperNames,
+                    nullptr
+                );
+                
+                for (int i = 0; i < numForms; ++i)
+                {
+                    std::string paperName(&paperNames[i*64]);
+                    paperName = paperName.substr(0, 64);
+                    DWORD needed = 0;
+                    GetForm(m_printerHandle,
+                        paperName.data(),
+                        1,
+                        nullptr,
+                        0,
+                        &needed);
+                    char* info = new char[needed];
+                    
+                    if (needed >= sizeof(FORM_INFO_1))
+                    {
+                        if (GetForm(m_printerHandle,
+                            paperName.data(),
+                            1,
+                            (LPBYTE)info,
+                            needed,
+                            &needed ))
+                        {
+                            FORM_INFO_1* form1 = reinterpret_cast<FORM_INFO_1*>(info);
+                            m_mediaSizes.push_back(media_size(paperName,
+                                form1->Size.cx / 10, form1->Size.cy / 10,
+                                form1->ImageableArea.bottom / 10, form1->ImageableArea.left / 10,
+                                form1->ImageableArea.right / 10, form1->ImageableArea.top / 10));
+                        }
+                        else
+                        {
+                            std::cout << sizeof(info) << ":" << needed << std::endl;
+                            auto error = GetLastError();
+                            std::cout << error << std::endl;
+                        }
+                        delete[] info;
+                    }
+                }
+                delete[] paperNames;
+            }
             std::string m_name;
             HANDLE m_printerHandle;
             media_sizes m_mediaSizes;
@@ -226,6 +287,12 @@ namespace nanaprint
         os << prtr.get_name() << '\n';
         bool isDefault = prtr.is_default();
         os << "Is " << (prtr.is_default() ? "" : "not ") << "default printer\n";
+        os << "Paper Sizes\n";
+        media_sizes mSizes = prtr.get_media_sizes();
+        for (auto mSize : mSizes)
+        {
+            os << mSize;
+        }
         return os;
     }
 }
