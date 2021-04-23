@@ -10,6 +10,57 @@ namespace nanaprint
     class printer::impl
     {
         public:
+            class string_device_capabilities
+            {
+                public:
+                    string_device_capabilities(std::string& printerName, WORD capability)
+                        : m_pOutput(nullptr), m_result(0)
+                    {
+                        int result = DeviceCapabilities(
+                            printerName.c_str(),
+                            nullptr,
+                            capability,
+                            nullptr,
+                            nullptr
+                        );
+                        m_pOutput = new char[capabilitySize[capability]*result];
+                        result = DeviceCapabilities(
+                            printerName.c_str(),
+                            nullptr,
+                            DC_PAPERNAMES,
+                            m_pOutput,
+                            nullptr
+                        );
+                        m_result = result;
+                        for (int i = 0; i < result; ++i)
+                        {
+                            std::string cap(&m_pOutput[i*capabilitySize[capability]]);
+                            cap = cap.substr(0, capabilitySize[capability]);
+                            m_capabilities.push_back(cap);
+                        }
+                    }
+                    ~string_device_capabilities() noexcept
+                    {
+                        if (m_pOutput)
+                        {
+                            delete[] m_pOutput;
+                            m_pOutput = nullptr;
+                        }
+                    }
+                    std::vector<std::string>& get_capabilities()
+                    {
+                        return m_capabilities;
+                    }
+                private:
+                    std::map<DWORD, int> capabilitySize
+                    {
+                        {DC_PAPERNAMES, 64}
+                    };
+                    char* m_pOutput;
+                    std::vector<std::string> m_capabilities;
+                    int m_result;
+
+            };
             impl(descriptor desc) : m_name(desc), m_printerHandle(nullptr)
             {
                 if (OpenPrinter(m_name.data(), &m_printerHandle, nullptr))
@@ -77,26 +128,10 @@ namespace nanaprint
         private:
             void populate_media_sizes()
             {
-                int numForms = DeviceCapabilities(
-                    m_name.c_str(),
-                    nullptr,
-                    DC_PAPERNAMES,
-                    nullptr,
-                    nullptr
-                );
-                char* paperNames = new char[64*numForms];
-                numForms = DeviceCapabilities(
-                    m_name.c_str(),
-                    nullptr,
-                    DC_PAPERNAMES,
-                    paperNames,
-                    nullptr
-                );
-                
-                for (int i = 0; i < numForms; ++i)
+                string_device_capabilities capabilities(m_name, DC_PAPERNAMES);
+                auto paperNames = capabilities.get_capabilities();
+                for (auto paperName: paperNames)
                 {
-                    std::string paperName(&paperNames[i*64]);
-                    paperName = paperName.substr(0, 64);
                     DWORD needed = 0;
                     GetForm(m_printerHandle,
                         paperName.data(),
@@ -130,7 +165,6 @@ namespace nanaprint
                         delete[] info;
                     }
                 }
-                delete[] paperNames;
             }
             std::string m_name;
             HANDLE m_printerHandle;
