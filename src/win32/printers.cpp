@@ -162,7 +162,7 @@ namespace nanaprint
         {
             for(auto prntr : prntrs)
             {
-                os << *prntr;
+                os << *prntr << '\n';
             }
         }
         return os;
