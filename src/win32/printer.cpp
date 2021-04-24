@@ -10,16 +10,21 @@ namespace nanaprint
     class printer::impl
     {
         public:
+            enum class string_capability_names
+            {
+                e_paperName = DC_PAPERNAMES
+            };
             class string_device_capabilities
             {
                 public:
-                    string_device_capabilities(std::string& printerName, WORD capability)
+                    string_device_capabilities(std::string& printerName, 
+                        string_capability_names capability)
                         : m_pOutput(nullptr), m_result(0)
                     {
                         int result = DeviceCapabilities(
                             printerName.c_str(),
                             nullptr,
-                            capability,
+                            (WORD)capability,
                             nullptr,
                             nullptr
                         );
@@ -27,7 +32,7 @@ namespace nanaprint
                         result = DeviceCapabilities(
                             printerName.c_str(),
                             nullptr,
-                            DC_PAPERNAMES,
+                            (WORD)capability,
                             m_pOutput,
                             nullptr
                         );
@@ -52,9 +57,9 @@ namespace nanaprint
                         return m_capabilities;
                     }
                 private:
-                    std::map<DWORD, int> capabilitySize
+                    std::map<string_capability_names, int> capabilitySize
                     {
-                        {DC_PAPERNAMES, 64}
+                        {string_capability_names::e_paperName, 64}
                     };
                     char* m_pOutput;
                     std::vector<std::string> m_capabilities;
@@ -174,15 +179,16 @@ namespace nanaprint
         private:
             void populate_media_sizes()
             {
-                string_device_capabilities capabilities(m_name, DC_PAPERNAMES);
+                string_device_capabilities capabilities(m_name, 
+                    string_capability_names::e_paperName);
                 auto paperNames = capabilities.get_capabilities();
                 for (auto paperName: paperNames)
                 {
                     print_form form(m_printerHandle, paperName);
                     auto mediaSize = form.get_media_size();
-                    if(mediaSize)
+                    if(mediaSize.has_value())
                     {
-                        m_mediaSizes.push_back(*mediaSize);
+                        m_mediaSizes.push_back(mediaSize.value());
                     }
                 }
             }
